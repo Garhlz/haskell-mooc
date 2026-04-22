@@ -1,5 +1,4 @@
 # Haskell MOOC
-
 <p align="center"><img alt="Course logo" src="img/haskell-mooc-logo.svg" width="400" align="center"></p>
 
 University of Helsinki
@@ -11,6 +10,16 @@ University of Helsinki
 This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
 _New!_ Exercise repository updated to use GHC 9.2.8! You'll need to rerun `stack build`.
+
+## 中文翻译
+
+中文翻译按章节整理在 [`translation-cn/`](./translation-cn/) 目录中，可以从
+[`01-and-so-it-begins.md`](./translation-cn/01-and-so-it-begins.md) 开始顺序阅读。
+翻译过程和术语约定记录在 [`other/translation-guidance.md`](./other/translation-guidance.md)。
+
+中文翻译基于 Joel Kaasinen 和 John Lång 的 Haskell MOOC 原始材料整理，属于对原材料的翻译与改编。
+原材料及本翻译内容均遵循 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)。
+本翻译并非官方版本，如有理解偏差请以原文为准。
 
 ## About the course
 
