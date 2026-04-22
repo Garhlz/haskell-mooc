@@ -22,13 +22,13 @@
 
 ## 15.1 Applicative 简介
 
-`Applicative` 类型类是 `Functor`（你不能用它做那么多事情）和 `Monad`（它几乎允许你编写任意程序）之间的中间立场。使用 `Applicative` 而不是 `Monad` 的原因包括：
+`Applicative` 是 `Functor`（能做的事较少）和 `Monad`（能做任意程序）之间的中间立场。选择 `Applicative` 而不是 `Monad` 的原因包括：
 
-- 性能：由于`Applicative`允许的操作较少，因此可以比`Monad`更好地优化。
-- 简单性：`Applicative` 接口更容易推理。
-- 必要性：无法为你的类型定义 `Monad` 实例，但有一个 `Applicative` 实例。这是很少见的。
+- 性能：因为 `Applicative` 允许的操作较少，可以比 `Monad` 优化得更好。
+- 简单性：`Applicative` 接口更容易理解。
+- 必要性：有时无法定义 `Monad` 实例，但能定义 `Applicative` 实例。
 
-那么什么是`Applicative`？我们来看一个定义。
+那么什么是 `Applicative` 呢？我们看一个定义。
 
 ``` haskell
 class Functor f => Applicative f where
@@ -37,11 +37,11 @@ class Functor f => Applicative f where
   -- other operations omitted for now
 ```
 
-因此，`Applicative` 是 `Functor`，它允许我们通过 `pure` 构建单例值，并使用 `liftA2` 将两个值合并为一个值。与裸 Functor 相比，这增加了很多函数。使用 Functor 的计算必然是线性的：`fmap :: (a -> b) -> f a -> f b` 接受一个 Functor 值，并输出另一个 Functor 值。相比之下，`pure` 不接收任何 Functor 值并输出 1 个，而 `liftA2` 接收 2 个并返回 1 个。
+所以 `Applicative` 是 `Functor`，允许我们通过 `pure` 构建单值，并用 `liftA2` 将两个值合并为一个。相比普通 Functor，这增加了很多功能。Functor 的计算必然是线性的：`fmap :: (a -> b) -> f a -> f b` 接收一个 Functor 值，输出另一个。相比之下，`pure` 不接收 Functor 值而输出 1 个，`liftA2` 接收 2 个并返回 1 个。
 
-附注：Applicative 这个术语来自术语 [Applicative Functor](https://en.wikipedia.org/wiki/Applicative_functor)，听起来像是来自范畴论，但实际上是在一篇编程论文中引入的。
+附注：Applicative 术语来自 [Applicative Functor](https://en.wikipedia.org/wiki/Applicative_functor)，听起来像范畴论，但实际上来自编程论文。
 
-现在抽象的胡言乱语已经够多了。让我们看看我们可以使用Applicative 运算（和 `fmap`）来表达什么样的计算。我们将从 `Maybe` Applicative 开始。这是一个简化的定义：
+现在理论已经够多了。让我们看看用 `Applicative` 运算（和 `fmap`）能表达什么样的计算。我们从 `Maybe` Applicative 开始。这是简化的定义：
 
 ``` haskell
 instance Applicative Maybe where
@@ -50,7 +50,7 @@ instance Applicative Maybe where
   liftA2 f _        _        = Nothing
 ```
 
-你将看到该定义使用与 `Monad Maybe` 实例相同类型的故障传播。让我们在解析货币值时使用它：
+你会看到这个定义用与 `Monad Maybe` 实例相同的失败传播。让我们在解析货币值时使用它：
 
 ``` haskell
 data Currency = EUR | USD
@@ -177,7 +177,7 @@ negate <$> [1,2,3]  ==> [-1,-2,-3]
 (<*>) :: Applicative f => f (a -> b) -> f a -> f b
 ```
 
-该类型告诉你 `<*>` 的作用：它的函数Applicative“提升”为Applicative。以下是一些独立的示例：
+该类型告诉你 `<*>` 的作用：它的函数Applicative“提升”为Applicative。以下是一些独立的例子：
 
 ``` haskell
 Just not <*> Just True    ==> Just False
@@ -308,7 +308,7 @@ liftA2 (+) (Errors ["oh no"]) (Errors ["boom"])
 
 请注意，与 `Maybe` Applicative相比，我们有许多不同类型的故障。
 
-这是一个有效的示例，介绍了一些助手，然后使用它们来祝贺某人的生日：
+这是一个有效的例子，介绍了一些助手，然后使用它们来祝贺某人的生日：
 
 ``` haskell
 invalid :: String -> Validation a
@@ -350,7 +350,7 @@ instance Applicative Validation where
   liftA2 f (Errors e1) (Errors e2) = Errors (e1++e2)
 ```
 
-`Validation` 的 `liftA2` 的定义表明错误是从左到右收集在一起的。这可以在上面的示例中看到，其中表达式 `liftA2 congratulate checkedName checkedAge` 首先输出来自 `checkedName` 的错误 (`"Name too long"`)，最后输出来自 `checkedAge` 的错误 (`"Too old"`)。
+`Validation` 的 `liftA2` 的定义表明错误是从左到右收集在一起的。这可以在上面的例子中看到，其中表达式 `liftA2 congratulate checkedName checkedAge` 首先输出来自 `checkedName` 的错误 (`"Name too long"`)，最后输出来自 `checkedAge` 的错误 (`"Too old"`)。
 
 
 <a id="validating-lists-traverse"></a>
@@ -429,14 +429,14 @@ allPositive [1,-2,3,-4]
 
 请注意 `Validation` 的 `traverse` 如何按照原始列表中出现的顺序将所有错误收集在一起。
 
-P.S. 事实上，`Validation` 是 `Applicative` 不可能是 `Monad` 的少数示例之一。你能弄清楚为什么吗？
+P.S. 事实上，`Validation` 是 `Applicative` 不可能是 `Monad` 的少数例子之一。你能弄清楚为什么吗？
 
 
 <a id="sidenote-traversable"></a>
 
 ## 15.6 附注：`Traversable`
 
-那么`Traversable`是什么东西呢？很多熟悉的结构。以下是一些示例：
+那么`Traversable`是什么东西呢？很多熟悉的结构。以下是一些例子：
 
 ``` haskell
 decrease :: Int -> Maybe Int
@@ -487,7 +487,7 @@ traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 
 ## 15.7 处理失败：`Alternative`
 
-如果你稍微尝试一下Applicative，你就会开始注意到它们的函数有一些限制。例如，当像我们在 `parseMoney` 示例中那样编写解析器时，如果能够尝试几个不同的解析器并获取任何非失败结果，那就太好了。对于像 `Maybe` 这样的具体Applicative来说，这很容易编写，如下所示。
+如果你稍微尝试一下Applicative，你就会开始注意到它们的函数有一些限制。例如，当像我们在 `parseMoney` 例子中那样编写解析器时，如果能够尝试几个不同的解析器并获取任何非失败结果，那就太好了。对于像 `Maybe` 这样的具体Applicative来说，这很容易编写，如下所示。
 
 ``` haskell
 data Answer = Yes | No
@@ -591,7 +591,7 @@ instance Alternative Validation where
   Errors e1 <|> Errors e2 = Errors (e1++e2)
 ```
 
-这是最后一个示例：验证联系信息，可以是电话数字或电子邮件地址。
+这是最后一个例子：验证联系信息，可以是电话数字或电子邮件地址。
 
 ``` haskell
 data ContactInfo = Email String | Phone String
@@ -629,7 +629,7 @@ validateContactInfo "x"
               "Not a phone number: should be all numbers"]
 ```
 
-请注意，与前面的示例一样，错误是从左到右收集的：来自 `validateEmail` 的错误出现在来自 `validatePhone` 的错误之前。来自 `checkDigits` 的错误先于来自 `checkLength` 的错误。
+请注意，与前面的例子一样，错误是从左到右收集的：来自 `validateEmail` 的错误出现在来自 `validatePhone` 的错误之前。来自 `checkDigits` 的错误先于来自 `checkLength` 的错误。
 
 
 <a id="sidenote-applicatives-in-context"></a>
@@ -648,7 +648,7 @@ validateContactInfo "x"
 
 ### 15.8.2 野外应用
 
-尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicatives，但仍有大量 Haskell 库使用 Applicatives 来完成重要任务。以下是一些示例。
+尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicatives，但仍有大量 Haskell 库使用 Applicatives 来完成重要任务。以下是一些例子。
 
 与我们的 `Validation` Applicative相同的想法已在[验证](https://hackage.haskell.org/package/validation) 和[任一](https://hackage.haskell.org/package/either) 库中实现。
 

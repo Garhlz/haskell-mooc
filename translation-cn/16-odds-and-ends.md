@@ -13,16 +13,16 @@
 
 # 16 第 16 讲：零碎内容
 
-最后一讲将讨论一些其他地方不适合的小主题。你已经完成了课程的所有困难部分。现在是时候坐下来，放松一下，享受一些很酷的 Haskell 了！
+最后一讲讨论一些其他地方不适合的小主题。你已经学完了课程的所有难点部分。现在可以坐下来，放松一下，享受一些很酷的 Haskell！
 
 
 <a id="testing-with-quickcheck"></a>
 
 ## 16.1 使用 QuickCheck 测试
 
-纯性的好处之一是纯函数易于测试：你不需要设置任何全局状态，你只需传入参数并检查结果是否正常即可。在本节中，我们将快速浏览*基于属性的测试*库 QuickCheck，该库也用于检查你对本课程的练习答案是否正确！
+纯函数的好处之一是容易测试：不需要设置全局状态，只需传入参数检查结果即可。本节快速浏览*基于属性的测试*库 QuickCheck，它也用于检查你对本课程练习的答案。
 
-让我们看一下测试 `reverse` 的（错误）实现。你可以在文件 [`exercises/Examples/QuickCheck.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/QuickCheck.hs) 中找到此示例和以下示例。
+让我们看一个 `reverse` 的（错误）实现的测试。你可以在文件 [`exercises/Examples/QuickCheck.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/QuickCheck.hs) 中找到此例子和以下例子。
 
 ``` haskell
 rev :: [a] -> [a]
@@ -30,7 +30,7 @@ rev [] = []
 rev (x:xs) = xs ++ [x]
 ```
 
-我们可以使用 QuickCheck 中的 `===` 运算符编写单独的测试用例：
+我们可以用 QuickCheck 中的 `===` 运算符编写单个测试用例：
 
 ``` haskell
 (===) :: (Eq a, Show a) => a -> a -> Property
@@ -41,21 +41,21 @@ propRevSmall :: Property
 propRevSmall = rev [1,2] === [2,1]
 ```
 
-我们可以要求 QuickCheck 在 GHCi 中运行它们：
+我们可以在 GHCi 中让 QuickCheck 运行这些测试：
 
 ``` haskell
 *Examples.QuickCheck> quickCheck propRevSmall
 +++ OK, passed 1 test.
 ```
 
-到目前为止，一切都很好。然而，这并不是 QuickCheck 的真正用途。 QuickCheck 专为“基于属性的测试”而设计，你可以在其中声明代码应具有的属性，QuickCheck 使用随机输入运行代码，每次都会检查该属性。 `reverse` 的正确实现具有什么简单属性？将列表反转两次肯定会返回相同的列表。我们把它写出来：
+到目前为止没问题。但这不是 QuickCheck 的真正用途。 QuickCheck 专为“基于属性的测试”而设计，你可以在其中声明代码应具有的属性，QuickCheck 使用随机输入运行代码，每次都会检查该属性。 `reverse` 有什么简单属性？反转列表两次肯定返回相同列表。我们写出来：
 
 ``` haskell
 propRevTwice :: [Int] -> Property
 propRevTwice xs = rev (rev xs) === xs
 ```
 
-我们的 `Property` 有一个参数，这意味着 QuickCheck 将生成随机值并运行测试。我们可以使用 `verboseCheck` 函数来查看运行了哪些值。如果我们想检查特定值，我们也可以自己给测试提供一个参数。
+`Property` 有一个参数，意味着 QuickCheck 将生成随机值并运行测试。我们可以用 `verboseCheck` 函数查看运行了哪些值。如果想检查特定值，也可以自己给测试提供参数。
 
 ``` haskell
 *Examples.QuickCheck> quickCheck propRevTwice
@@ -181,7 +181,7 @@ propLastFixed (NonEmpty xs) = last xs === head (reverse xs)
 +++ OK, passed 100 tests.
 ```
 
-还有像这样的[其他修饰符](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:16)，例如 `Positive` 表示正数，`NonNegative` 表示非负数，或 `SortedList` 表示排序列表。这是一个更复杂测试的示例。我们检查 `cycle xs` 的第 n 个元素是否正确。这两个修饰符都是必需的，因为 `!!` 不适用于负输入，并且 `cycle []` 是一个错误。
+还有像这样的[其他修饰符](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:16)，例如 `Positive` 表示正数，`NonNegative` 表示非负数，或 `SortedList` 表示排序列表。这是一个更复杂测试的例子。我们检查 `cycle xs` 的第 n 个元素是否正确。这两个修饰符都是必需的，因为 `!!` 不适用于负输入，并且 `cycle []` 是一个错误。
 
 ``` haskell
 propCycle :: NonEmptyList Int -> NonNegative Int -> Property
@@ -275,7 +275,7 @@ propSort (NonEmpty xs) =
 counterexample :: Testable prop => String -> prop -> Property
 ```
 
-作为示例，我们将 `rev` 的输入日志记录添加到 `propRevTwo`：
+作为例子，我们将 `rev` 的输入日志记录添加到 `propRevTwo`：
 
 ``` haskell
 propRevTwo' :: [Int] -> [Int] -> Property
@@ -477,7 +477,7 @@ Money 0.819672131147541
 Money 1.22
 ```
 
-笔记！前面示例中的单词 `currency`、`from`、`to` 等“只是类型变量”。他们没有什么特别的事情发生。我们也可以给 `invert` 像 `Rate a b -> Rate b a` 这样的类型，而不需要对类型安全进行任何更改。
+笔记！前面例子中的单词 `currency`、`from`、`to` 等“只是类型变量”。他们没有什么特别的事情发生。我们也可以给 `invert` 像 `Rate a b -> Rate b a` 这样的类型，而不需要对类型安全进行任何更改。
 
 这种使用幻像类型的方法有明显的好处：为我们提供无效代码的类型错误。此外，与定义大量具体类型（如 `data MoneyEur = MoneyEur Double`）相比，使用幻像类型，我们只需实现 `scaleMoney` 和 `addMoney` 等函数一次。此外，我们还能够定义多态和可重用的概念，例如 `Rate`。你可以将此方法与第 7 讲的拳击部分进行对比。
 
@@ -541,13 +541,13 @@ Prelude Control.Parallel.Strategies> withStrategy (parList rseq) (map fib [29,29
 (4.80 secs, 488,531,384 bytes)
 ```
 
-在运行本示例的 2 核机器上，速度几乎是原来的 2 倍。相当不错。这里最酷的事情是我们能够完全独立于*评估策略*（`parList rseq`）来定义*计算*（`map fib ...`），将*计算什么*与*如何计算*分开。
+在运行本例子的 2 核机器上，速度几乎是原来的 2 倍。相当不错。这里最酷的事情是我们能够完全独立于*评估策略*（`parList rseq`）来定义*计算*（`map fib ...`），将*计算什么*与*如何计算*分开。
 
 ### 16.3.2 并发
 
 计算机科学区分了并行和“并发”计算。并行计算是那些仅并行运行单独的独立计算的计算（换句话说，并行性是“纯的”）。并发计算是指存在多个交互计算线程的计算。并发通常涉及线程、锁、消息和死锁。
 
-除了出色的并行工具之外，Haskell 还通过“线程”提供了出色的并发工具。由于并发性与副作用有关，因此并发计算发生在 `IO` Monad 中。线程的经典示例是两个线程，一个打印 As 流，另一个打印 Bs 流。这是 Haskell 中的：
+除了出色的并行工具之外，Haskell 还通过“线程”提供了出色的并发工具。由于并发性与副作用有关，因此并发计算发生在 `IO` Monad 中。线程的经典例子是两个线程，一个打印 As 流，另一个打印 Bs 流。这是 Haskell 中的：
 
 ``` haskell
 printA :: IO ()
@@ -570,7 +570,7 @@ concurrency = do
 
 如果我们想在线程之间添加实际通信，我们可以使用 [`MVar`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Concurrent-MVar.html) （可变线程安全变量）或 [`Chan`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Concurrent-Chan.html) （队列）等抽象。
 
-这是一个简单的示例，其中一个线程向 `MVar` 写入一个值，另一个线程等待它们并打印它们。 `MVar` 的工作方式类似于邮箱：它要么是空的，要么是满的。在空盒子上调用 `takeMVar` 等待盒子被填充（使用 `putMVar`）。对称地，尝试将 `putMVar` 放入已满的盒子中会等到盒子为空。
+这是一个简单的例子，其中一个线程向 `MVar` 写入一个值，另一个线程等待它们并打印它们。 `MVar` 的工作方式类似于邮箱：它要么是空的，要么是满的。在空盒子上调用 `takeMVar` 等待盒子被填充（使用 `putMVar`）。对称地，尝试将 `putMVar` 放入已满的盒子中会等到盒子为空。
 
 ``` haskell
 takeMVar :: MVar a -> IO a
@@ -619,7 +619,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 
 ## 16.5 接下来去哪里？
 
-恭喜！你已经完成了关于 Haskell 函数式编程的两部分课程的结尾。接下来怎么办？你绝对了解足够的 Haskell 来继续自学。 Haskell 在线社区非常友好，有大量博客文章和其他内容解释高级技术和函数。你可以通过以下示例找到很多有趣的东西：
+恭喜！你已经完成了关于 Haskell 函数式编程的两部分课程的结尾。接下来怎么办？你绝对了解足够的 Haskell 来继续自学。 Haskell 在线社区非常友好，有大量博客文章和其他内容解释高级技术和函数。你可以通过以下例子找到很多有趣的东西：
 
 - Reddit 上的 [/r/haskell](https://www.reddit.com/r/haskell/)
 - [libera.chat](https://libera.chat) 上的 `#haskell`
