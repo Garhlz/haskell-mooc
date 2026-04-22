@@ -1,0 +1,1951 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+      
+      
+        <meta name="author" content="Haskell MOOC 中文翻译项目">
+      
+      
+      
+        <link rel="prev" href="../15-youre-valid-even-without-monads/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>第 16 讲：杂项内容 - Haskell 慕课（中文翻译）</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#16" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+      
+  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Haskell 慕课（中文翻译）
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 16 讲：杂项内容
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="teal"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="teal"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/moocfi/haskell-mooc" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    moocfi/haskell-mooc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../01-and-so-it-begins/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  第 1 部分
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../09-recap-of-part-1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  第 2 部分
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+      
+  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+
+    </a>
+    Haskell 慕课（中文翻译）
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/moocfi/haskell-mooc" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    moocfi/haskell-mooc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 部分
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第 1 部分
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-and-so-it-begins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 1 讲：……就这样开始
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-either-you-die-a-hero/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 讲：要么成为英雄，要么……
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-catamorphic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 3 讲：折叠与高阶函数
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-real-classy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 4 讲：类型类进阶
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-you-need-string-for-a-knot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 5 讲：用类型打结
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-working-class-hero/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 6 讲：类型类英雄
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-new-constellations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 7 讲：新的星座
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-the-aftertaste/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 8 讲：余韵
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 2 部分
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    第 2 部分
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-recap-of-part-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 9 讲：第 1 部分回顾
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-reductionism/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 10 讲：还原主义
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-realworld-to-a-realworld/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 11 讲：`RealWorld -> (a,RealWorld)`
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-fmap-fmap-fmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 12 讲：fmap fmap fmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-a-monoid-in-the-category-of-problems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 13 讲：问题范畴中的幺半群
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-lets-use-some-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 14 讲：使用一些库
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-youre-valid-even-without-monads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 15 讲：没有 Monad 也能做验证
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 16 讲：杂项内容
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    第 16 讲：杂项内容
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#161-quickcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 使用 QuickCheck 测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.1 使用 QuickCheck 测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1611" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1.1 修饰符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1612-forall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1.2 生成器与 forAll
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1613-quickcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1.3 进一步使用 QuickCheck
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 幻影类型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 并行与并发
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.3 并行与并发">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1631" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3.1 并行性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1632" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3.2 并发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 练习
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#165" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.5 接下来学什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#166" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.6 致谢
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#161-quickcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1 使用 QuickCheck 测试
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.1 使用 QuickCheck 测试">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1611" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1.1 修饰符
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1612-forall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1.2 生成器与 forAll
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1613-quickcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.1.3 进一步使用 QuickCheck
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.2 幻影类型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3 并行与并发
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16.3 并行与并发">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1631" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3.1 并行性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1632" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.3.2 并发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.4 练习
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#165" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.5 接下来学什么？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#166" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16.6 致谢
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../09-recap-of-part-1/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    第 2 部分
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="16">第 16 讲：杂项内容<a class="headerlink" href="#16" title="Permanent link">&para;</a></h1>
+<p>最后一讲讨论一些其他地方不适合的小主题。你已经学完了课程的所有难点部分。现在可以坐下来，放松一下，享受一些很酷的 Haskell！</p>
+<h2 id="161-quickcheck">16.1 使用 QuickCheck 测试<a class="headerlink" href="#161-quickcheck" title="Permanent link">&para;</a></h2>
+<p>纯函数的好处之一是容易测试：不需要设置全局状态，只需传入参数检查结果即可。本节快速浏览<em>基于属性的测试</em>库 QuickCheck，它也用于检查你对本课程练习的答案。</p>
+<p>让我们看一个 <code>reverse</code> 的（错误）实现的测试。你可以在文件 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/QuickCheck.hs"><code>exercises/Examples/QuickCheck.hs</code></a> 中找到此例子和以下例子。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">rev</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nf">rev</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">[]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nf">rev</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+</code></pre></div>
+<p>我们可以用 QuickCheck 中的 <code>===</code> 运算符编写单个测试用例：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">(</span><span class="o">===</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">Show</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nf">propRevSmall</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nf">propRevSmall</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<p>我们可以在 GHCi 中让 QuickCheck 运行这些测试：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propRevSmall</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="o">.</span>
+</code></pre></div>
+<p>到目前为止没问题。但这不是 QuickCheck 的真正用途。 QuickCheck 专为“基于属性的测试”而设计，你可以在其中声明代码应具有的属性，QuickCheck 使用随机输入运行代码，每次都会检查该属性。 <code>reverse</code> 有什么简单属性？反转列表两次肯定返回相同列表。我们写出来：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nf">propRevTwice</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nf">propRevTwice</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="p">(</span><span class="n">rev</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">xs</span>
+</code></pre></div>
+<p><code>Property</code> 有一个参数，意味着 QuickCheck 将生成随机值并运行测试。我们可以用 <code>verboseCheck</code> 函数查看运行了哪些值。如果想检查特定值，也可以自己给测试提供参数。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propRevTwice</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">tests</span><span class="o">.</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">verboseCheck</span><span class="w"> </span><span class="n">propRevTwice</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kt">Passed:</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="kt">[]</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kt">[]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">[]</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kt">Passed:</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="kt">Passed:</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1">-- lots of output</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">tests</span><span class="o">.</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="p">(</span><span class="n">propRevTwice</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="o">.</span>
+</code></pre></div>
+<p>即使这个属性在我们的实现中也没有发现错误。让我们尝试另一个。这是关于 <code>rev (xs ++ ys)</code> 行为方式的属性。你可能需要花点时间说服自己，它应该适用于正确的 <code>rev</code> 函数。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nf">propRevTwo</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nf">propRevTwo</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="n">ys</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="p">(</span><span class="n">xs</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">ys</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="n">ys</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="n">xs</span>
+</code></pre></div>
+<p>让我们看看它是否适用于我们的实现：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propRevTwo</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="o">***</span><span class="w"> </span><span class="kt">Failed</span><span class="o">!</span><span class="w"> </span><span class="kt">Falsified</span><span class="w"> </span><span class="p">(</span><span class="n">after</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">shrinks</span><span class="p">)</span><span class="kt">:</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>最后还是失败了！这里有一些需要解压的内容。首先，QuickCheck 告诉我们属性失败的参数：它们是 <code>[0,0]</code> 和 <code>[1]</code>。我们可以自己检查一下：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="p">(</span><span class="n">propRevTwo</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="o">***</span><span class="w"> </span><span class="kt">Failed</span><span class="o">!</span><span class="w"> </span><span class="kt">Falsified</span><span class="w"> </span><span class="p">(</span><span class="n">after</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="p">)</span><span class="kt">:</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>接下来，“经过5次测试和3次收缩”是什么意思？ QuickCheck 的一个很酷的函数是，当它发现故障时，它会尝试一些相关值，以便找到更好、更小的故障。我们可以通过 <code>verboseShrinking</code> 看到这一点，它打印出 QuickCheck 经历的所有失败：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="p">(</span><span class="n">verboseShrinking</span><span class="w"> </span><span class="n">propRevTwo</span><span class="p">)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="kt">Failed:</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>QuickCheck 从 <code>[4,1,-1,4,4]</code> 的反例一直下降到 <code>[1,0,0]</code>。相当甜蜜！</p>
+<h3 id="1611">16.1.1 修饰符<a class="headerlink" href="#1611" title="Permanent link">&para;</a></h3>
+<p>有时你需要限制 QuickCheck 生成的值。例如，你的函数可能不适用于所有输入？让我们尝试为 <code>last</code> 编写一个测试。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nf">propLast</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">propLast</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="n">reverse</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propLast</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="o">***</span><span class="w"> </span><span class="kt">Failed</span><span class="o">!</span><span class="w"> </span><span class="kt">Exception:</span><span class="w"> </span><span class="kt">&#39;Prelude</span><span class="o">.</span><span class="n">last</span><span class="kt">:</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">list&#39;</span><span class="w"> </span><span class="p">(</span><span class="n">after</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="p">)</span><span class="kt">:</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kt">[]</span>
+</code></pre></div>
+<p>在这种情况下，我们只需切换到另一种输入类型即可修复测试。 QuickCheck 定义了 <code>NonEmptyList</code> 类型（不要与 <code>Data.List.NonEmpty</code> 混淆！），它只是普通列表的包装。但是，当生成 <code>NonEmptyList</code> 的值时，QuickCheck 不会生成空列表。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">newtype</span><span class="w"> </span><span class="kt">NonEmptyList</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">NonEmpty</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nf">propLastFixed</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">NonEmptyList</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nf">propLastFixed</span><span class="w"> </span><span class="p">(</span><span class="kt">NonEmpty</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="n">reverse</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propLastFixed</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">tests</span><span class="o">.</span>
+</code></pre></div>
+<p>还有像这样的<a href="https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:16">其他修饰符</a>，例如 <code>Positive</code> 表示正数，<code>NonNegative</code> 表示非负数，或 <code>SortedList</code> 表示排序列表。这是一个更复杂测试的例子。我们检查 <code>cycle xs</code> 的第 n 个元素是否正确。这两个修饰符都是必需的，因为 <code>!!</code> 不适用于负输入，并且 <code>cycle []</code> 是一个错误。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nf">propCycle</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">NonEmptyList</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">NonNegative</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nf">propCycle</span><span class="w"> </span><span class="p">(</span><span class="kt">NonEmpty</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">NonNegative</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="n">cycle</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">!!</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">!!</span><span class="w"> </span><span class="p">(</span><span class="n">mod</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="1612-forall">16.1.2 生成器与 <code>forAll</code><a class="headerlink" href="#1612-forall" title="Permanent link">&para;</a></h3>
+<p>有时我们需要进一步限制测试的输入范围。作为一个简单的例子，下面是一个 <code>Data.Char.toUpper</code> 更改传递给它的字符的测试：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nf">propToUpperChanges</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Char</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nf">propToUpperChanges</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">toUpper</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=/=</span><span class="w"> </span><span class="n">c</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nf">quickCheck</span><span class="w"> </span><span class="n">propToUpperChanges</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="o">***</span><span class="w"> </span><span class="kt">Failed</span><span class="o">!</span><span class="w"> </span><span class="kt">Falsified</span><span class="w"> </span><span class="p">(</span><span class="n">after</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">shrink</span><span class="p">)</span><span class="kt">:</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="sc">&#39;A&#39;</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="sc">&#39;A&#39;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;A&#39;</span>
+</code></pre></div>
+<p>当然，它只是改变<em>小写字母</em>。我们如何为此编写测试？没有可用的 <code>Lowercase</code> 修饰符可以像 <code>Positive</code> 或 <code>NonEmptyList</code> 一样工作。我们需要使用 <code>forAll</code> 显式生成值：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nf">propToUpperChangesLetter</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nf">propToUpperChangesLetter</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">forAll</span><span class="w"> </span><span class="p">(</span><span class="n">elements</span><span class="w"> </span><span class="p">[</span><span class="sc">&#39;a&#39;</span><span class="o">..</span><span class="sc">&#39;z&#39;</span><span class="p">])</span><span class="w"> </span><span class="n">propToUpperChanges</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">verboseCheck</span><span class="w"> </span><span class="n">propToUpperChangesLetter</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kt">Passed:</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="sc">&#39;s&#39;</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="sc">&#39;S&#39;</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="sc">&#39;s&#39;</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="kt">Passed:</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="sc">&#39;z&#39;</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="sc">&#39;Z&#39;</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="sc">&#39;z&#39;</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1">-- lots of output omitted</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">tests</span><span class="o">.</span>
+</code></pre></div>
+<p>完美的！让我们看看这些类型，看看这里发生了什么。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nf">elements</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Gen</span><span class="w"> </span><span class="n">a</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nf">elements</span><span class="w"> </span><span class="p">[</span><span class="sc">&#39;a&#39;</span><span class="o">..</span><span class="sc">&#39;z&#39;</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Gen</span><span class="w"> </span><span class="kt">Char</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nf">forAll</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">Testable</span><span class="w"> </span><span class="n">prop</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Gen</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">prop</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="nf">forAll</span><span class="w"> </span><span class="p">(</span><span class="n">elements</span><span class="w"> </span><span class="p">[</span><span class="sc">&#39;a&#39;</span><span class="o">..</span><span class="sc">&#39;z&#39;</span><span class="p">])</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Testable</span><span class="w"> </span><span class="n">prop</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="kt">Char</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">prop</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+</code></pre></div>
+<p>这里有一些新类型。 <code>Gen a</code> 类型的值是 <code>a</code> 类型值的生成器。我们将在下一节中详细讨论 <code>Gen</code>，但在本节中，你将看到几个返回 <code>Gen</code> 的函数，以便我们可以将它们与 <code>forAll</code> 一起使用。正如你可能已经猜到的那样，<code>elements</code> 函数是一个生成器，它随机返回给定列表的元素之一。</p>
+<p><code>Testable</code> 类型类与 <code>quickCheck</code> 函数使用的类型类相同。它的存在使得 <code>quickCheck</code> 除了简单的 <code>Property</code> 值之外还可以测试 <code>[Int] -&gt; Bool -&gt; Property</code> 等类型。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nf">quickCheck</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Testable</span><span class="w"> </span><span class="n">prop</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">prop</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+</code></pre></div>
+<p>此外，一些简单类型（例如 <code>Bool</code>）具有 <code>Testable</code> 实例，因此你可以使用普通 Haskell 谓词而不是 <code>===</code> 编写测试：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nf">listHasZero</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nf">listHasZero</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">xs</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="p">(</span><span class="n">listHasZero</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="o">.</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">listHasZero</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="o">***</span><span class="w"> </span><span class="kt">Failed</span><span class="o">!</span><span class="w"> </span><span class="kt">Falsified</span><span class="w"> </span><span class="p">(</span><span class="n">after</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">test</span><span class="p">)</span><span class="kt">:</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="kt">[]</span>
+</code></pre></div>
+<p>回到<code>forAll</code>，我们可以使用<code>forAll</code>来编写更复杂的测试。这是一个测试，检查 <code>sort xs</code> 是否具有与 <code>xs</code> 相同的元素。请注意我们如何使用 <code>NonEmptyList</code> 来保证 <code>forAll</code> 有一些元素可供选择。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nf">propSort</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">NonEmptyList</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nf">propSort</span><span class="w"> </span><span class="p">(</span><span class="kt">NonEmpty</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="n">forAll</span><span class="w"> </span><span class="p">(</span><span class="n">elements</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="n">sort</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="1613-quickcheck">16.1.3 进一步使用 QuickCheck<a class="headerlink" href="#1613-quickcheck" title="Permanent link">&para;</a></h3>
+<p>我们仅仅触及了 QuickCheck 的皮毛。当你开始编写较大的 QuickCheck 测试时，以下是一些你会发现有用的内容的提示。</p>
+<p>有时 QuickCheck 的输出不够详细。你可以使用 <code>counterexample</code> 组合器将自己的行添加到输出：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nf">counterexample</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Testable</span><span class="w"> </span><span class="n">prop</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">prop</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+</code></pre></div>
+<p>作为例子，我们将 <code>rev</code> 的输入日志记录添加到 <code>propRevTwo</code>：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nf">propRevTwo&#39;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="nf">propRevTwo&#39;</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="n">ys</span><span class="w"> </span><span class="ow">=</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span><span class="kr">let</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">ys</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">  </span><span class="kr">in</span><span class="w"> </span><span class="n">counterexample</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Input: &quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="n">input</span><span class="p">)</span><span class="w"> </span><span class="o">$</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">     </span><span class="n">rev</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="n">ys</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">rev</span><span class="w"> </span><span class="n">xs</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propRevTwo&#39;</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="o">***</span><span class="w"> </span><span class="kt">Failed</span><span class="o">!</span><span class="w"> </span><span class="kt">Falsified</span><span class="w"> </span><span class="p">(</span><span class="n">after</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="n">shrinks</span><span class="p">)</span><span class="kt">:</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="kt">Input:</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+<p>你可能已经猜到，<code>Gen</code> 是 <code>Monad</code>。你可以通过组合 QuickCheck 定义的生成器来编写自己的生成器。你可以使用 <code>sample</code> 检查生成器的输出。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nf">someLetters</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Gen</span><span class="w"> </span><span class="kt">String</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nf">someLetters</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span><span class="n">c</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="s">&quot;xyzw&quot;</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">choose</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">replicate</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="n">someLetters</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="s">&quot;yyyyyyyy&quot;</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="s">&quot;zzzzzzzzz&quot;</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="s">&quot;xxxxxxxxx&quot;</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="s">&quot;yyyyyyy&quot;</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="s">&quot;yyy&quot;</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="s">&quot;ww&quot;</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="s">&quot;xxxxxx&quot;</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="s">&quot;yyy&quot;</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="s">&quot;yyyyyyy&quot;</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="s">&quot;xxxxxxxxxx&quot;</span>
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="s">&quot;y&quot;</span>
+</code></pre></div>
+<p>与生成器密切相关的是 <code>Arbitrary</code> 类型类。 <code>Arbitrary</code> 是 QuickCheck 自动生成所有这些输入的方式。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Arbitrary</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="n">arbitrary</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Gen</span><span class="w"> </span><span class="n">a</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span><span class="n">shrink</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</code></pre></div>
+<p>如果你正在为自定义类型编写测试，则需要使用 <code>forAll</code> 或实现 <code>Arbitrary</code> 实例。如果你缺少实例，会发生以下情况：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Switch</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">On</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Off</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span><span class="w"> </span><span class="kt">Eq</span><span class="p">)</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="nf">toggle</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Switch</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Switch</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="nf">toggle</span><span class="w"> </span><span class="kt">On</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Off</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="nf">toggle</span><span class="w"> </span><span class="kt">Off</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">On</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="nf">propToggleTwice</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Switch</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Property</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="nf">propToggleTwice</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="n">toggle</span><span class="w"> </span><span class="p">(</span><span class="n">toggle</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propToggleTwice</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="ne">error</span><span class="kt">:</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">No</span><span class="w"> </span><span class="kr">instance</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="p">(</span><span class="kt">Arbitrary</span><span class="w"> </span><span class="kt">Switch</span><span class="p">)</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">        </span><span class="n">arising</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="err">‘</span><span class="n">quickCheck</span><span class="err">’</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">expression</span><span class="kt">:</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="n">propToggleTwice</span>
+</code></pre></div>
+<p>以下是修复它的两种方法：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">QuickCheck</span><span class="o">&gt;</span><span class="w"> </span><span class="n">quickCheck</span><span class="w"> </span><span class="p">(</span><span class="n">forAll</span><span class="w"> </span><span class="p">(</span><span class="n">elements</span><span class="w"> </span><span class="p">[</span><span class="kt">On</span><span class="p">,</span><span class="kt">Off</span><span class="p">])</span><span class="w"> </span><span class="n">propToggleTwice</span><span class="p">)</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="o">+++</span><span class="w"> </span><span class="kt">OK</span><span class="p">,</span><span class="w"> </span><span class="n">passed</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">tests</span><span class="o">.</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Arbitrary</span><span class="w"> </span><span class="kt">Switch</span><span class="w"> </span><span class="kr">where</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="w">  </span><span class="n">arbitrary</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="p">[</span><span class="kt">On</span><span class="p">,</span><span class="kt">Off</span><span class="p">]</span>
+</code></pre></div>
+<h2 id="162">16.2 幻影类型<a class="headerlink" href="#162" title="Permanent link">&para;</a></h2>
+<p>嘘！类型系统里有鬼！让我们看看“幻影类型”可以为你做什么。</p>
+<p>幻影类型是不带任何值的类型。它们与新类型（参见第 10 讲）相关，因为两者都是添加额外类型检查而不影响程序评估的一种方法。</p>
+<p>让我们使用幻影类型来跟踪一笔钱所用的货币。我们定义幻影类型 <code>EUR</code> 和 <code>USD</code> （注意它们没有任何构造函数！），以及不使用类型参数 <code>a</code> 的参数化类型 <code>Money a</code> 。然后我们可以定义两个常量，一个以欧元为单位，另一个以美元为单位。你可以在文件 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phantom.hs"><code>exercises/Examples/Phantom.hs</code></a> 中找到本节的所有代码。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">EUR</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">USD</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">Double</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="nf">dollar</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">USD</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="nf">dollar</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="nf">twoEuros</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">EUR</span>
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="nf">twoEuros</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="mi">2</span>
+</code></pre></div>
+<p>请注意 <code>dollar</code> 和 <code>twoEuros</code> 的类型签名如何完成此处的所有工作。如果我们不将 <code>Money 1</code> 这样的表达式限制为更具体的类型，则它具有多态类型 <code>Money currency</code>。我们明确地给出了 <code>dollar</code> 和 <code>twoEuros</code> 更有限的类型。这类似于定义 <code>one :: Int; one = 1</code> 之类的东西，因为常量 <code>1</code> 具有多态类型 <code>Num p =&gt; p</code>，但我们给它一个更受限制的类型。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="kt">Money</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="kt">Money</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="kt">Money</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span>
+</code></pre></div>
+<p>现在我们有了一些常量，我们可以编写对它们进行操作的函数。让我们从一个将金额乘以数字的函数 <code>scaleMoney</code> 开始。货币保持不变。在这里，类型签名也起作用：没有类型签名，Haskell 会推断出 <code>Double -&gt; Money a -&gt; Money b</code> 的类型。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nf">scaleMoney</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nf">scaleMoney</span><span class="w"> </span><span class="n">factor</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="p">(</span><span class="n">factor</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">scaleMoney</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">twoEuros</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="nf">scaleMoney</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">EUR</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">scaleMoney</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="nf">scaleMoney</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">dollar</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">USD</span>
+</code></pre></div>
+<p>下一步：添加两个相同货币的金额。如果我们尝试添加两种不同货币的值，我们会遇到一个很好的类型错误。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nf">addMoney</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">currency</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nf">addMoney</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">addMoney</span><span class="w"> </span><span class="n">dollar</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nf">addMoney</span><span class="w"> </span><span class="n">dollar</span><span class="w"> </span><span class="n">dollar</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">USD</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">addMoney</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="n">twoEuros</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="nf">addMoney</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">EUR</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">addMoney</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="ne">error</span><span class="kt">:</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">Couldn&#39;t</span><span class="w"> </span><span class="n">match</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="err">‘</span><span class="kt">USD</span><span class="err">’</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="err">‘</span><span class="kt">EUR</span><span class="err">’</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="w">      </span><span class="kt">Expected</span><span class="w"> </span><span class="kr">type</span><span class="kt">:</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">EUR</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="w">        </span><span class="kt">Actual</span><span class="w"> </span><span class="kr">type</span><span class="kt">:</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">USD</span>
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="err">‘</span><span class="n">addMoney</span><span class="err">’</span><span class="p">,</span><span class="w"> </span><span class="n">namely</span><span class="w"> </span><span class="err">‘</span><span class="n">dollar</span><span class="err">’</span>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="w">      </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">expression</span><span class="kt">:</span><span class="w"> </span><span class="n">addMoney</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="n">dollar</span>
+</code></pre></div>
+<p>和以前一样，类型签名至关重要。这是具有不受限制类型的相同实现。现在我们可以将任何东西添加到任何东西！</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nf">addMoneyUnsafe</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">z</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="nf">addMoneyUnsafe</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="n">addMoneyUnsafe</span><span class="w"> </span><span class="n">twoEuros</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="kt">Money</span><span class="w"> </span><span class="mf">3.0</span>
+</code></pre></div>
+<p>我们可以继续采用这种方法，并定义货币换算。我们定义了类型 <code>Rate</code>，它使用幻影类型来跟踪其之间转换的货币。 <code>convert</code> 和 <code>invert</code> 的类型被限制为具有我们想要的属性。还有一个无限制版本的转换函数可让你比较类型。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="kt">Double</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="nf">eurToUsd</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="kt">EUR</span><span class="w"> </span><span class="kt">USD</span>
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="nf">eurToUsd</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="mf">1.22</span>
+<a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>
+<a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="nf">convert</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">to</span>
+<a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="nf">convert</span><span class="w"> </span><span class="p">(</span><span class="kt">Rate</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+<a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>
+<a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a><span class="nf">invert</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">from</span>
+<a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a><span class="nf">invert</span><span class="w"> </span><span class="p">(</span><span class="kt">Rate</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">r</span><span class="p">)</span>
+<a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a>
+<a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a><span class="nf">convertUnsafe</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Rate</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="n">y</span>
+<a id="__codelineno-43-14" name="__codelineno-43-14" href="#__codelineno-43-14"></a><span class="nf">convertUnsafe</span><span class="w"> </span><span class="p">(</span><span class="kt">Rate</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Money</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="n">convert</span><span class="w"> </span><span class="n">eurToUsd</span><span class="w"> </span><span class="n">twoEuros</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="kt">Money</span><span class="w"> </span><span class="mf">2.44</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="n">convert</span><span class="w"> </span><span class="n">eurToUsd</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="ne">error</span><span class="kt">:</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">Couldn&#39;t</span><span class="w"> </span><span class="n">match</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="err">‘</span><span class="kt">USD</span><span class="err">’</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="err">‘</span><span class="kt">EUR</span><span class="err">’</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="w">      </span><span class="kt">Expected</span><span class="w"> </span><span class="kr">type</span><span class="kt">:</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">EUR</span>
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="w">        </span><span class="kt">Actual</span><span class="w"> </span><span class="kr">type</span><span class="kt">:</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">USD</span>
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="err">‘</span><span class="n">convert</span><span class="err">’</span><span class="p">,</span><span class="w"> </span><span class="n">namely</span><span class="w"> </span><span class="err">‘</span><span class="n">dollar</span><span class="err">’</span>
+<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="w">      </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">expression</span><span class="kt">:</span><span class="w"> </span><span class="n">convert</span><span class="w"> </span><span class="n">eurToUsd</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a><span class="w">      </span><span class="kt">In</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">equation</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="err">‘</span><span class="n">it</span><span class="err">’</span><span class="kt">:</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">convert</span><span class="w"> </span><span class="n">eurToUsd</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="n">convert</span><span class="w"> </span><span class="p">(</span><span class="n">invert</span><span class="w"> </span><span class="n">eurToUsd</span><span class="p">)</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="kt">Money</span><span class="w"> </span><span class="mf">0.819672131147541</span>
+<a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="o">*</span><span class="kt">Examples</span><span class="o">.</span><span class="kt">Phantom</span><span class="o">&gt;</span><span class="w"> </span><span class="n">convertUnsafe</span><span class="w"> </span><span class="n">eurToUsd</span><span class="w"> </span><span class="n">dollar</span>
+<a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a><span class="kt">Money</span><span class="w"> </span><span class="mf">1.22</span>
+</code></pre></div>
+<p>注意！前面例子中的单词 <code>currency</code>、<code>from</code>、<code>to</code> 等“只是类型变量”。它们没有什么特别的事情发生。我们也可以给 <code>invert</code> 像 <code>Rate a b -&gt; Rate b a</code> 这样的类型，而不需要对类型安全进行任何更改。</p>
+<p>这种使用幻影类型的方法有明显的好处：为我们提供无效代码的类型错误。此外，与定义大量具体类型（如 <code>data MoneyEur = MoneyEur Double</code>）相比，使用幻影类型，我们只需实现 <code>scaleMoney</code> 和 <code>addMoney</code> 等函数一次。此外，我们还能够定义多态和可重用的概念，例如 <code>Rate</code>。你可以将此方法与第 7 讲的拳击部分进行对比。</p>
+<p>然而，幻影类型也有缺点。如果没有高级技巧，我们就无法真正处理在运行时定义的货币（例如：从用户那里读取金额）。你也很容易开始需要语言扩展，例如 <a href="https://wiki.haskell.org/GADTs_for_dummies"><em>广义代数数据类型</em></a>、<a href="https://wiki.haskell.org/GHC/Type_families"><em>类型族</em></a> 和其他<a href="https://aphyr.com/posts/342-typing-the-technical-interview"><em>类型级编程</em></a> 构造。最终你就进入了<a href="https://mitpress.mit.edu/books/little-typer"><em>依赖打字</em></a>的世界。</p>
+<p>那么幻影类型有哪些好的应用呢？当你需要跟踪一些简单但重要的信息时，这些信息在编译时就已知。比货币更好的一个例子是跟踪用户的输入是否经过清理，以防止 <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL 注入</a> 或 <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">跨站点脚本</a> 等攻击。</p>
+<p>我们可以使用类型 <code>Input Safe</code> 和 <code>Input Unsafe</code> 来跟踪字符串是否可以安全地传递到数据库中。如果我们的模块仅导出 <code>makeInput</code> 函数，而不导出 <code>Input</code> 构造函数，则类型系统确保任何输入在进入 <code>addForumComment</code> 等数据库函数之前必须在某个时刻通过 <code>escapeInput</code> 函数。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Safe</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Unsafe</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="kt">String</span>
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="c1">-- Public constructor function for Input, only allows constructing</span>
+<a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="c1">-- Unsafe Inputs from Strings.</span>
+<a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="nf">makeInput</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="kt">Unsafe</span>
+<a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="nf">makeInput</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="n">xs</span>
+<a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>
+<a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="c1">-- Adds comment to the database.</span>
+<a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="nf">addForumComment</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="kt">Safe</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Result</span>
+<a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="nf">addForumComment</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span>
+<a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>
+<a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a><span class="c1">-- We can combine inputs, but that won&#39;t change their safety</span>
+<a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a><span class="nf">concatInputs</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="n">a</span>
+<a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a><span class="nf">concatInputs</span><span class="w"> </span><span class="p">(</span><span class="kt">Input</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Input</span><span class="w"> </span><span class="n">ys</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="p">(</span><span class="n">xs</span><span class="o">++</span><span class="n">ys</span><span class="p">)</span>
+<a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a>
+<a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a><span class="c1">-- Strip bad characters to turn an unsafe input safe</span>
+<a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a><span class="nf">escapeInput</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="kt">Unsafe</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="kt">Safe</span>
+<a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a><span class="nf">escapeInput</span><span class="w"> </span><span class="p">(</span><span class="kt">Input</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Input</span><span class="w"> </span><span class="p">(</span><span class="n">filter</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">c</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">isAlpha</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">isSpace</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="163">16.3 并行与并发<a class="headerlink" href="#163" title="Permanent link">&para;</a></h2>
+<h3 id="1631">16.3.1 并行性<a class="headerlink" href="#1631" title="Permanent link">&para;</a></h3>
+<p>纯性的一大好处是它使“并行性”（同时计算许多东西）变得非常容易。让我们看看如何在 Haskell 中做到这一点。首先，我们需要启动一个启用并行执行的新 GHCi。最简单的方法是：</p>
+<div class="language-text highlight"><pre><span></span><code>$ stack ghci --ghci-options &quot;+RTS -N&quot;
+</code></pre></div>
+<p>接下来，让我们定义一个非常简单的斐波那契函数版本（还记得第一讲吗？），使用 <code>:set +s</code> 启用性能统计，并看看计算该函数的五个值需要多长时间：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">set</span><span class="w"> </span><span class="o">+</span><span class="n">s</span>
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="p">[</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">]</span>
+<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="p">[</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">]</span>
+<a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="p">(</span><span class="mf">7.54</span><span class="w"> </span><span class="n">secs</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="mi">860</span><span class="p">,</span><span class="mi">632</span><span class="w"> </span><span class="n">bytes</span><span class="p">)</span>
+</code></pre></div>
+<p>现在让我们引入模块 <a href="https://hackage.haskell.org/package/parallel-3.2.2.0/docs/Control-Parallel-Strategies.html">Control.Parallel.Strategies</a>，它定义了并行计算值的方法。我们将使用 <code>parList rseq</code> 策略<em>并行</em>将列表中的所有元素评估为 WHNF。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="nn">Control.Parallel.Strategies</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Control</span><span class="o">.</span><span class="kt">Parallel</span><span class="o">.</span><span class="kt">Strategies</span><span class="o">&gt;</span><span class="w"> </span><span class="n">withStrategy</span><span class="w"> </span><span class="p">(</span><span class="n">parList</span><span class="w"> </span><span class="n">rseq</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="p">[</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">,</span><span class="mi">29</span><span class="p">])</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="p">[</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">,</span><span class="mi">832040</span><span class="p">]</span>
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="p">(</span><span class="mf">4.80</span><span class="w"> </span><span class="n">secs</span><span class="p">,</span><span class="w"> </span><span class="mi">488</span><span class="p">,</span><span class="mi">531</span><span class="p">,</span><span class="mi">384</span><span class="w"> </span><span class="n">bytes</span><span class="p">)</span>
+</code></pre></div>
+<p>在运行本例子的 2 核机器上，速度几乎是原来的 2 倍。相当不错。这里最酷的事情是我们能够完全独立于<em>评估策略</em>（<code>parList rseq</code>）来定义<em>计算</em>（<code>map fib ...</code>），将<em>计算什么</em>与<em>如何计算</em>分开。</p>
+<h3 id="1632">16.3.2 并发<a class="headerlink" href="#1632" title="Permanent link">&para;</a></h3>
+<p>计算机科学区分了并行和“并发”计算。并行计算是那些仅并行运行单独的独立计算的计算（换句话说，并行性是“纯的”）。并发计算是指存在多个交互计算线程的计算。并发通常涉及线程、锁、消息和死锁。</p>
+<p>除了出色的并行工具之外，Haskell 还通过“线程”提供了出色的并发工具。由于并发性与副作用有关，因此并发计算发生在 <code>IO</code> Monad 中。线程的经典例子是两个线程，一个打印 As 流，另一个打印 Bs 流。这是 Haskell 中的：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nf">printA</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nf">printA</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">(</span><span class="n">replicate</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="p">)</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="nf">printB</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="nf">printB</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">(</span><span class="n">replicate</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="sc">&#39;B&#39;</span><span class="p">)</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="nf">concurrency</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="nf">concurrency</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
+<a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="w">  </span><span class="n">forkIO</span><span class="w"> </span><span class="n">printA</span>
+<a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="w">  </span><span class="n">forkIO</span><span class="w"> </span><span class="n">printB</span>
+<a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="nb">()</span>
+</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>Prelude Control.Concurrent&gt; concurrency
+AABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABB
+</code></pre></div>
+<p>操作 <code>forkIO :: IO () -&gt; IO ThreadId</code> 接受 IO 操作并开始在后台运行它。它产生 <code>ThreadId</code>，可用于例如 终止线程。</p>
+<p>如果我们想在线程之间添加实际通信，我们可以使用 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Concurrent-MVar.html"><code>MVar</code></a> （可变线程安全变量）或 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Concurrent-Chan.html"><code>Chan</code></a> （队列）等抽象。</p>
+<p>这是一个简单的例子，其中一个线程向 <code>MVar</code> 写入一个值，另一个线程等待它们并打印它们。 <code>MVar</code> 的工作方式类似于邮箱：它要么是空的，要么是满的。在空盒子上调用 <code>takeMVar</code> 等待盒子被填充（使用 <code>putMVar</code>）。对称地，尝试将 <code>putMVar</code> 放入已满的盒子中会等到盒子为空。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nf">takeMVar</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">MVar</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="nf">putMVar</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">MVar</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="nf">newEmptyMVar</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">(</span><span class="kt">MVar</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nf">send</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">MVar</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nf">send</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mapM_</span><span class="w"> </span><span class="p">(</span><span class="n">putMVar</span><span class="w"> </span><span class="n">var</span><span class="p">)</span><span class="w"> </span><span class="n">values</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="nf">receive</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">MVar</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="nf">receive</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">takeMVar</span><span class="w"> </span><span class="n">var</span>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="w">                 </span><span class="n">print</span><span class="w"> </span><span class="n">val</span>
+<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a><span class="w">                 </span><span class="c1">-- loop unless at last value</span>
+<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a><span class="w">                 </span><span class="n">when</span><span class="w"> </span><span class="p">(</span><span class="n">val</span><span class="o">/=</span><span class="s">&quot;end&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">receive</span><span class="w"> </span><span class="n">var</span><span class="p">)</span>
+<a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>
+<a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a><span class="nf">concurrency2</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
+<a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a><span class="nf">concurrency2</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
+<a id="__codelineno-50-12" name="__codelineno-50-12" href="#__codelineno-50-12"></a><span class="w">  </span><span class="n">var</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">newEmptyMVar</span>
+<a id="__codelineno-50-13" name="__codelineno-50-13" href="#__codelineno-50-13"></a><span class="w">  </span><span class="n">forkIO</span><span class="w"> </span><span class="p">(</span><span class="n">send</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="s">&quot;world&quot;</span><span class="p">,</span><span class="s">&quot;and&quot;</span><span class="p">,</span><span class="s">&quot;goodbye&quot;</span><span class="p">,</span><span class="s">&quot;end&quot;</span><span class="p">]</span><span class="w"> </span><span class="n">var</span><span class="p">)</span>
+<a id="__codelineno-50-14" name="__codelineno-50-14" href="#__codelineno-50-14"></a><span class="w">  </span><span class="n">forkIO</span><span class="w"> </span><span class="p">(</span><span class="n">receive</span><span class="w"> </span><span class="n">var</span><span class="p">)</span>
+<a id="__codelineno-50-15" name="__codelineno-50-15" href="#__codelineno-50-15"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="nb">()</span>
+</code></pre></div>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Control</span><span class="o">.</span><span class="kt">Concurrent</span><span class="w"> </span><span class="kt">Control</span><span class="o">.</span><span class="kt">Monad</span><span class="o">&gt;</span><span class="w"> </span><span class="n">concurrency2</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="s">&quot;hello&quot;</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="s">&quot;world&quot;</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="s">&quot;and&quot;</span>
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="s">&quot;goodbye&quot;</span>
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="s">&quot;end&quot;</span>
+</code></pre></div>
+<h2 id="164">16.4 练习<a class="headerlink" href="#164" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16a.hs">Set16a</a>：快速检查</li>
+<li><a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16b.hs">Set16b</a>: 幻影类型</li>
+<li>没有并行或并发 Haskell 练习，抱歉！</li>
+</ul>
+<h2 id="165">16.5 接下来学什么？<a class="headerlink" href="#165" title="Permanent link">&para;</a></h2>
+<p>恭喜！你已经完成了关于 Haskell 函数式编程的两部分课程的结尾。接下来怎么办？你绝对了解足够的 Haskell 来继续自学。 Haskell 在线社区非常友好，有大量博客文章和其他内容解释高级技术和函数。你可以通过以下例子找到很多有趣的东西：</p>
+<ul>
+<li>Reddit 上的 <a href="https://www.reddit.com/r/haskell/">/r/haskell</a></li>
+<li><a href="https://libera.chat">libera.chat</a> 上的 <code>#haskell</code></li>
+<li><a href="https://haskellweekly.news/">Haskell周刊</a></li>
+<li>堆栈溢出</li>
+</ul>
+<p>只要继续写Haskell，当你遇到东西（比如库和工具）时就研究它们，慢慢积累经验。你通过 Haskell 学到的很多东西都可以转移到其他语言，例如 <a href="https://www.typescriptlang.org/">TypeScript</a>、<a href="https://elm-lang.org/">Elm</a>、<a href="https://www.rust-lang.org/">Rust</a> 或 <a href="https://fsharp.org/">F#</a>。</p>
+<p>最后，这里列出了本课程中未提及但值得研究的内容的不完整列表：</p>
+<ul>
+<li>语言特征</li>
+<li><a href="https://en.wikibooks.org/wiki/Haskell/Modules">模块</a></li>
+<li>惰性模式（<code>~</code> 模式）和 <code>@</code> 模式。参见例如 <a href="https://www.haskell.org/tutorial/patterns.html">Haskell 简介</a>。</li>
+<li>语言扩展，如 <code>MultiParamTypeClasses</code>、<code>ViewPatterns</code> 等。 <a href="https://limperg.de/ghc-extensions/">这是一本很好的指南</a></li>
+<li><code>fix</code>函数</li>
+<li>用于从 Haskell 调用 C 代码的外部函数接口</li>
+<li>抽象</li>
+<li>Monad 变换器：<a href="https://book.realworldhaskell.org/read/monad-transformers.html">RWH</a>、<a href="https://en.wikibooks.org/wiki/Haskell/Monad_transformers">Wikibook</a></li>
+<li>免费 monad（高级主题）：<a href="https://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html">博客</a></li>
+<li>镜头（高级主题）：<a href="https://hackage.haskell.org/package/lens-tutorial-1.0.4/docs/Control-Lens-Tutorial.html">教程</a> <a href="https://oleg.fi/gists/posts/2017-04-18-glassery.html">玻璃</a></li>
+<li><a href="https://bartoszmilewski.com/">Bartosz Milewski</a> 在他的博客上涵盖了许多中级和高级主题</li>
+<li>工装</li>
+<li>使用<a href="https://www.haskell.org/cabal/">Cabal</a>和<a href="https://www.haskellstack.org">Stack</a>构建自己的项目</li>
+<li>分析：<a href="https://book.realworldhaskell.org/read/profiling-and-optimization.html">RWH</a>、<a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html">GHC</a></li>
+<li><a href="https://github.com/ndmitchell/hlint#readme">Hlint</a></li>
+<li>库</li>
+<li>秒差距（解析）：<a href="https://book.realworldhaskell.org/read/using-parsec.html">RWH</a></li>
+<li>Scotty（简单的网络框架），Aeson（json）：[博客]（https://seanhess.github.io/2015/08/19/practical-haskell-json-api.html）</li>
+<li><a href="https://haskell-servant.github.io/">Servant</a>（带有幻影类型的精美网络框架）</li>
+<li>范畴论</li>
+<li>许多 Haskell 抽象都是基于范畴论</li>
+<li>范畴论可以成为编程新思想的宝贵来源</li>
+<li>范畴论可能会让人感到害怕，所以很高兴知道没有它你也能过得很好</li>
+<li>Bartosz Milewski 有很多好资料，例如<a href="https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/">程序员的范畴论</a></li>
+<li><a href="https://wiki.haskell.org/Category_theory">Haskell Wiki</a> 和 <a href="https://en.wikibooks.org/wiki/Haskell/Category_theory">Wikibook</a> 有范畴论部分</li>
+</ul>
+<h2 id="166">16.6 致谢<a class="headerlink" href="#166" title="Permanent link">&para;</a></h2>
+<p>本课程是由 <a href="https://nitor.com/en">Nitor</a> 完成的，他为这个项目捐赠了 Joel 的大量工作时间。谢谢你！</p>
+<p>感谢整个 Haskell Mooc 团队，特别是</p>
+<ul>
+<li>John Lång 在材料上提供了帮助</li>
+<li>Antti Laaksonen 负责搭建课程并协助各项安排</li>
+<li>Topi Talvitie 构建了练习评测基础设施</li>
+</ul>
+<p>感谢所有耐心等待第二部分并报告材料和练习错误的学生！</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../15-youre-valid-even-without-monads/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 15 讲：没有 Monad 也能做验证">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第 15 讲：没有 Monad 也能做验证
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/moocfi/haskell-mooc" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.footer", "navigation.tracking", "navigation.path", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.select", "content.tooltips", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

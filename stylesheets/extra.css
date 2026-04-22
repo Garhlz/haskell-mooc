@@ -1,0 +1,85 @@
+:root {
+  --md-text-font: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  --md-code-font: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.md-typeset {
+  font-size: 0.78rem;
+  line-height: 1.75;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.md-typeset h1 {
+  margin-bottom: 1.25rem;
+}
+
+.md-typeset code {
+  border-radius: 0.2rem;
+}
+
+.md-typeset pre > code {
+  line-height: 1.55;
+}
+
+.md-typeset img {
+  display: block;
+  max-width: min(100%, 46rem);
+  height: auto;
+  margin: 1rem auto;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  width: 100%;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.35rem;
+}
+
+.md-typeset .course-hero {
+  margin: 0 0 1.6rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 0.25rem solid var(--md-accent-fg-color);
+  border-radius: 0.35rem;
+  background: var(--md-code-bg-color);
+}
+
+.md-typeset .course-hero h1 {
+  margin: 0 0 0.45rem;
+}
+
+.md-typeset .course-hero p {
+  margin-bottom: 0;
+}
+
+.md-typeset ol.quiz {
+  padding: 0.75rem 1rem 0.75rem 2rem;
+  border-radius: 0.35rem;
+  background: var(--md-code-bg-color);
+}
+
+.md-typeset ol.quiz li {
+  padding: 0.25rem 0.4rem;
+}
+
+.md-typeset ol.quiz li:hover {
+  background: var(--md-accent-fg-color--transparent);
+}
+
+@media screen and (max-width: 44.984375em) {
+  .md-typeset {
+    font-size: 0.74rem;
+  }
+
+  .md-typeset .course-hero {
+    padding: 1rem;
+  }
+}
