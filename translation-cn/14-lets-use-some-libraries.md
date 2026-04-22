@@ -12,7 +12,7 @@
 
 # 14 第 14 讲：来用一些库！
 
-现在你了解了 monad，你几乎了解了 Haskell 的所有内容，可以开始编写使用库来做有用事情的实际程序。本讲座将介绍此类实际程序中常用的一些库的示例。使用这些库也是练习使用 monad、阅读文档和理解类型错误的好方法。
+现在你了解了 Monad，你几乎了解了 Haskell 的所有核心内容，可以开始编写使用库的实际程序。本讲座将介绍此类实际程序中常用的一些库的例子。使用这些库也是练习 Monad、阅读文档和理解类型错误的好机会。
 
 **注意！** 在阅读库的文档时，请记住注意库的版本。你可以在[`tests.cabal` 文件](https://github.com/moocfi/haskell-mooc/blob/master/exercises/tests.cabal) 中查看课程中使用的版本。课程材料中的链接始终将你带到正确的版本，`stack haddock --open <package>` 命令也是如此。另请参阅[阅读第 1 部分中的文档](https://haskell.mooc.fi/part1#reading-docs)。
 
@@ -21,22 +21,22 @@
 
 ## 14.1 `Text` 和 `ByteString`
 
-到目前为止，我们一直在使用 Haskell `String` 类型来处理字符串。然而，`String` 只是 `[Char]`，一个字符链表。无论是在记忆方面还是在时间方面，这都是极其低效的。一旦我们超越处理短字符串并开始处理整个文件或网络请求，就必须使用更省时的字符串类型。
+到目前为止，我们一直用 Haskell `String` 类型处理字符串。然而，`String` 只是 `[Char]`，一个字符列表。在内存和时间方面，这都是极其低效的。一旦开始处理整个文件或网络请求，就必须使用更高效的字符串类型。
 
-有两种类型可用作 `String` 的替代品，语义略有不同：
+`String` 有两种更高效的替代品，语义略有不同：
 
-- `Data.Text` 表示 *[Unicode 字符](https://en.wikipedia.org/wiki/Unicode)* 序列，就像 `String` 一样，只是效率更高。处理文本时使用。
-- `Data.ByteString` 表示*字节序列*。在处理二进制数据时使用。
+- `Data.Text` 表示 *[Unicode 字符](https://en.wikipedia.org/wiki/Unicode)* 序列，效率更高。处理文本时使用。
+- `Data.ByteString` 表示*字节序列*。处理二进制数据时使用。
 
-此外，这两种类型都有*惰性*和*严格*变体。 [`Data.Text` 的文档](https://hackage.haskell.org/package/text-1.2.5.0/docs/Data-Text.html) 很好地总结了差异：
+这两种类型都有*惰性*和*严格*变体。 [`Data.Text` 的文档](https://hackage.haskell.org/package/text-1.2.5.0/docs/Data-Text.html) 很好地总结了差异：
 
 > 严格 `Text` 类型要求整个字符串立即装入内存。惰性 `Text` 类型能够使用较小的内存占用来流式传输大于内存的字符串...每个模块都提供几乎相同的 API...
 
-所有这些类型（`Text` 和 `ByteString`，严格和惰性）都提供 `pack` 和 `unpack` 函数，用于从普通 `String` 进行转换。这些类型还附带了熟悉的列表函数的专门版本，如 `reverse`、`take`、`map` 等。
+这些类型都提供 `pack` 和 `unpack` 函数，用于与普通 `String` 相互转换。它们还附带了熟悉的列表函数的特殊版本，如 `reverse`、`take`、`map` 等。
 
-### 14.1.1 `Text` 示例
+### 14.1.1 `Text` 例子
 
-让我们通过一个简短的 GHCi 会话来演示 `Data.Text` 的使用。正如[文档](https://hackage.haskell.org/package/text-1.2.5.0/docs/Data-Text.html)所述，`Data.Text` 模块设计为导入*合格*。我们可以使用函数 `T.pack` 将 `String` 转换为 `Text`。请注意 `Text` 类型的值如何像 `String` 一样打印。
+让我们通过一个简短的 GHCi 会话来演示 `Data.Text` 的用法。按照[文档](https://hackage.haskell.org/package/text-1.2.5.0/docs/Data-Text.html)，`Data.Text` 模块应该以*限定*方式导入。我们可以用函数 `T.pack` 将 `String` 转换为 `Text`。注意 `Text` 值打印时和 `String` 一样。
 
 ``` haskell
 Prelude> import qualified Data.Text as T
@@ -49,7 +49,7 @@ Prelude T> phrase
 "brevity is the soul of wit"
 ```
 
-我们可以使用 `Data.Text` 中的函数来对 `Text` 的值进行操作。其中许多的命名类似于 `String` 的对应项或 `Prelude` 的列表。
+我们可以用 `Data.Text` 中的函数操作 `Text` 值。其中许多的名称类似于 `String` 函数或 `Prelude` 列表函数。
 
 ``` haskell
 Prelude T> :t T.length
@@ -70,7 +70,7 @@ Prelude T> T.map (\c -> if c=='o' then '0' else c) phrase
 "brevity is the s0ul 0f wit"
 ```
 
-一个有用的细节是 `Text` 有一个 `Monoid` 实例，它将 `Text` 值粘合在一起。你还可以使用函数 `T.append` 和 `T.concat`。
+一个有用的细节是 `Text` 有一个 `Monoid` 实例，可以将 `Text` 值组合在一起。你还可以使用函数 `T.append` 和 `T.concat`。
 
 ``` haskell
 Prelude T> phrase <> phrase
@@ -135,7 +135,7 @@ Prelude T TL> TL.toStrict lazyPhrase == phrase
 True
 ```
 
-### 14.1.2 `ByteString` 示例
+### 14.1.2 `ByteString` 例子
 
 我们可以使用 `ByteString` 而不是 `Text` 来完成几乎相同的 GHCi 会话。但是，请注意 `ByteString` 是如何从 `Word8` 值而不是 `Char` 值构建的。 `Char` 可以表示任意 unicode 代码点，就像 `'Å'` 这样的字符一样，但 `Word8` 表示一个字节：从 0 到 255 的数字。不幸的是，有点令人困惑，`ByteString` 值的打印方式与 `String` 类似。
 
@@ -208,7 +208,7 @@ False
 
 顺便说一句，在处理原始二进制数据时，使用十六进制数字系统通常很方便，它使用单个符号 `0`、`1`、...、`9`、`A`、`B`、...、`F` 来表示四位的所有 16 种可能的组合。在本课程中我们不需要十六进制，但如果你有兴趣了解有关十六进制的更多信息，你可以查看[维基百科](https://en.wikipedia.org/wiki/Hexadecimal)。
 
-我们可以使用代码探索相同的示例。函数 `Data.Text.Encoding.encodeUtf8 :: Text -> ByteString` 使用 UTF-8 将 Text 中的字符编码为 ByteString 中的字节。
+我们可以使用代码探索相同的例子。函数 `Data.Text.Encoding.encodeUtf8 :: Text -> ByteString` 使用 UTF-8 将 Text 中的字符编码为 ByteString 中的字节。
 
 ``` haskell
 Prelude> import qualified Data.Text as T
@@ -275,7 +275,7 @@ foo y = do
 
 ## 14.3 编写 HTTP 服务器：WAI 和 Warp
 
-有时感觉世界上的一切都发生在 [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) 和 [Web Apis](https://en.wikipedia.org/wiki/Web_API) 上。你的网络浏览器、你的智能手机Applicative、[你的银行](https://developer.nordeaopenbanking.com/)、[你的咖啡壶](https://tools.ietf.org/html/rfc2324)、[甚至你的门铃](https://support.ring.com/hc/en-us/articles/205385394-The-Protocols-and-Ports-Used-by-Ring-Devices)，都使用 HTTP 协议与服务器通信。
+有时感觉世界上的一切都发生在 [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) 和 [Web Apis](https://en.wikipedia.org/wiki/Web_API) 上。你的网络浏览器、你的智能手机应用程序、[你的银行](https://developer.nordeaopenbanking.com/)、[你的咖啡壶](https://tools.ietf.org/html/rfc2324)、[甚至你的门铃](https://support.ring.com/hc/en-us/articles/205385394-The-Protocols-and-Ports-Used-by-Ring-Devices)，都使用 HTTP 协议与服务器通信。
 
 让我们看看如何在 Haskell 中设置一个简单的 HTTP 服务器。为此的标准低级组件称为 [WAI](https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html) 和 [Warp](https://hackage.haskell.org/package/warp-3.3.23)。 WAI（Web 应用接口）为我们提供了一种定义如何处理 HTTP 请求的方法。 Warp 是一个简单的 HTTP 服务器，它运行我们使用 WAI 定义的逻辑。现在听起来可能有点抽象，但一个简单的例子会有所帮助。
 
@@ -308,7 +308,7 @@ run :: Port -> Application -> IO ()
 type Application = Request -> (Response -> IO ResponseReceived) -> IO ResponseReceived
 ```
 
-我们很快就会讨论 `Request` 和 `Response` 是什么，但从这个类型中我们可以看到 `Application` 是一个 IO 操作，它以 `Request` 类型的请求和一个 IO 操作 `respond :: Response -> IO ResponseReceived` 作为参数。像 `respond` 这样的参数在许多上下文中被称为“回调”。它们允许我们回拨调用该Applicative的库。 `Application` 操作必须生成与 `respond` 相同的特殊 `ResponseReceived` 类型。你可以将此类型视为证明 `respond` 被 `Application` 调用的令牌。
+我们很快就会讨论 `Request` 和 `Response` 是什么，但从这个类型中我们可以看到 `Application` 是一个 IO 操作，它以 `Request` 类型的请求和一个 IO 操作 `respond :: Response -> IO ResponseReceived` 作为参数。像 `respond` 这样的参数在许多上下文中被称为“回调”。它们允许我们回调调用了我们 `Application` 的库。 `Application` 操作必须生成与 `respond` 相同的特殊 `ResponseReceived` 类型。你可以将此类型视为证明 `respond` 被 `Application` 调用的令牌。
 
 这可能听起来很吓人：但看看代码，事情相对简单：我们的 `server` 是一个 `Application` 并采用两个参数：`request` 和 `respond`。
 
@@ -332,7 +332,7 @@ pathInfo :: Request -> [Text]
 
 文件 [`exercises/Examples/PathServer.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/PathServer.hs) 实现了一个具有三个不同页面的 Web 服务器：
 
-- <http://localhost:3421/source> 是Applicative本身的源，从文件系统读取
+- <http://localhost:3421/source> 是应用程序自身的源码，从文件系统读取
 - <http://localhost:3421/secret/file> 是一个秘密字符串
 - <http://localhost:3421/anything/else> - 对于所有其他路径，显示“未找到：任何内容/其他”文本
 
@@ -343,7 +343,7 @@ pathInfo :: Request -> [Text]
 
 ## 14.4 使用数据库：sqlite-simple
 
-实现 HTTP 服务器后，我们可以参与Applicative相互通信的全局图，即互联网。但如果我们不记得了，说话还有什么用呢？真正的Applicative即使在重新启动时也需要能够“保留数据”。实现此目的的常见方法是使用数据库。
+实现 HTTP 服务器之后，我们便能加入那张由应用程序相互通信织就的全球网络——也就是互联网。但如果程序记不住任何东西，通信又有什么意义呢？真正的应用程序即使在重启后也需要能够*持久化数据*。实现这一目的的常见方式是使用数据库。
 
 数据库有很多种，但可以说使用最广泛的简单数据库是[SQLite](https://www.sqlite.org/index.html)。 SQLite 是一个库，可让你将数据存储在文件中并使用 [SQL，结构化查询语言]() 对其进行处理。使用 SQLite，无需像 [PostgreSQL](https://www.postgresql.org/) 或 [MySQL](https://www.mysql.com/) 那样运行单独的数据库服务器。
 
@@ -376,7 +376,7 @@ Prelude Database.SQLite.Simple T> res
 [[1]]
 ```
 
-顺便说一句，所有这些初始示例都使用仅返回常量数据的简单 `SELECT x, y, z;` 查询。稍后我们将担心数据库中的实际表。
+顺便说一句，所有这些初始例子都使用仅返回常量数据的简单 `SELECT x, y, z;` 查询。稍后我们将担心数据库中的实际表。
 
 如果没有类型签名，我们会从 GHCi 收到错误，它无法决定我们要从数据库中读取哪种类型：
 
@@ -402,7 +402,7 @@ instance (FromField a, FromField b) => FromRow (a,b)
 instance (FromField a, FromField b, FromField c) => FromRow (a,b,c)
 ```
 
-本质上，基本的 Haskell 数据类型满足 `FromField` 类，各种 Haskell 集合满足 `FromRow` 类。我们之前的示例是使用 `FromRow [a]` 和 `FromField Int` 实例从 `query_` 中获取 `[[Int]]`。这是一个使用其他一些数据类型的简单查询：
+本质上，基本的 Haskell 数据类型满足 `FromField` 类，各种 Haskell 集合满足 `FromRow` 类。我们之前的例子是使用 `FromRow [a]` 和 `FromField Int` 实例从 `query_` 中获取 `[[Int]]`。这是一个使用其他一些数据类型的简单查询：
 
 ``` haskell
 Prelude Database.SQLite.Simple T> q = Query (T.pack "SELECT 1, true, 'string';")
@@ -438,7 +438,7 @@ instance (ToField a, ToField b, ToField c) => ToRow (a, b, c)
 instance ToField a => ToRow (Only a)
 ```
 
-参数化查询使用 `?` 字符来表示可以传入参数的槽。下面是一个简单的示例：
+参数化查询使用 `?` 字符来表示可以传入参数的槽。下面是一个简单的例子：
 
 ``` haskell
 Prelude Database.SQLite.Simple T> input = (1,"hello") :: (Int,String)
@@ -464,7 +464,7 @@ execute_ :: Connection -> Query -> IO ()
 execute :: ToRow q => Connection -> Query -> q -> IO ()
 ```
 
-你将在 [`exercises/Examples/Phonebook.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phonebook.hs) 下找到一个使用 sqlite-simple 维护电话簿的示例程序。该程序将电话簿保存在名为 `phonebook.db` 的文件中，其工作方式如下（从课程仓库中的 `exercises/Examples` 目录运行）：
+你将在 [`exercises/Examples/Phonebook.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phonebook.hs) 下找到一个使用 sqlite-simple 维护电话簿的例子程序。该程序将电话簿保存在名为 `phonebook.db` 的文件中，其工作方式如下（从课程仓库中的 `exercises/Examples` 目录运行）：
 
     $ stack runhaskell Phonebook.hs
     (a)dd or (q)uery?

@@ -113,7 +113,7 @@ example = do x <- parseMoney "123" "€"
 
 ## 15.2 列表 Applicative
 
-让我们看看我们见过的另一个`Functor`的应用实例。列表Functor的 `Applicative` 实例会遍历所有可能的值组合（就像列表 monad 一样）。这是例子：
+让我们看看我们见过的另一个 `Functor` 的应用实例。列表 Functor 的 `Applicative` 实例会遍历所有可能的值组合（就像列表 monad 一样）。这是例子：
 
 ``` haskell
 instance Applicative [] where
@@ -478,7 +478,7 @@ class (Functor t, Foldable t) => Traversable t where
 traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 ```
 
-这里我们有两个Functor：`t` 和 `f`。 `t` Functor也是 `Foldable` 和 `Traversable`，`f` Functor也是 `Applicative`。 `traverse` 函数允许我们在 `t` 容器内运行 `f` 操作。
+这里我们有两个 Functor：`t` 和 `f`。 `t` Functor 也是 `Foldable` 和 `Traversable`，`f` Functor 也是 `Applicative`。 `traverse` 函数允许我们在 `t` 容器内运行 `f` 操作。
 
 如果这感觉很抽象，请不要担心。实际上，你几乎总是在列表上使用 `traverse`。
 
@@ -636,27 +636,27 @@ validateContactInfo "x"
 
 ## 15.8 附注：语境中的 Applicative
 
-### 15.8.1 为什么是Applicative？
+### 15.8.1 为什么是 Applicative？
 
-学习 Applicatives 的原因有多种，即使它们不提供任何比 Monad 更强大的函数。首先，正如第 13 讲中所讨论的，GHC 标准库现在强制所有 Monad 的应用实例。因此，一个工作中的 Haskell 程序员一定会看到很多 Applicative 实例。
+学习 Applicative 的原因有多种，即使它们不提供任何比 Monad 更强大的功能。首先，正如第 13 讲中所讨论的，GHC 标准库现在要求所有 Monad 必须有 Applicative 实例。因此，一个 Haskell 程序员必然会看到很多 Applicative 实例。
 
-其次，即使在 Monadic 代码中，你也会经常遇到Applicative 运算符。像 `f <$> x <*> y <*> z` 这样的表达式在许多 Monadic 上下文中都很有用。此外，由于 `Traversable` 类型类是根据 `Applicative` 构建的，因此你经常会对其使用应用操作。
+其次，即使在 Monadic 代码中，你也会经常遇到 Applicative 运算符。像 `f <$> x <*> y <*> z` 这样的表达式在许多 Monadic 上下文中都很有用。此外，由于 `Traversable` 类型类是根据 `Applicative` 构建的，因此你经常会对其使用应用操作。
 
-第三，Applicative是理解函数设计模式的绝佳练习。它们将 Functor 模式与 Monoid 模式结合起来，而 Alternative 则带来了另一个类似 Monoid 的维度。能够有效地使用 Applicatives 将使使用 *monad 转换器* 或 *lenses* 等进一步的抽象变得更容易。
+第三，Applicative 是理解函数设计模式的绝佳练习。它们将 Functor 模式与幺半群模式相结合，而 Alternative 则带来了另一个类似幺半群的维度。能够有效地使用 Applicative 将使使用 *monad 变换器* 或 *lenses* 等进一步的抽象变得更容易。
 
-最后，有几种类型是 Applicatives 但不是 Monads。 `Validation` 就是一个例子，而且是一个非常实用的例子。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是[`ZipList`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList)。
+最后，有几种类型是 Applicative 但不是 Monad。 `Validation` 就是一个例子，而且是一个非常实用的例子。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是[`ZipList`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList)。
 
 ### 15.8.2 野外应用
 
-尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicatives，但仍有大量 Haskell 库使用 Applicatives 来完成重要任务。以下是一些例子。
+尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicative，但仍有大量 Haskell 库使用 Applicative 来完成重要任务。以下是一些例子。
 
-与我们的 `Validation` Applicative相同的想法已在[验证](https://hackage.haskell.org/package/validation) 和[任一](https://hackage.haskell.org/package/either) 库中实现。
+与我们的 `Validation` Applicative 相同的想法已在[验证](https://hackage.haskell.org/package/validation) 和[任一](https://hackage.haskell.org/package/either) 库中实现。
 
-有多个使用 Applicatives 的解析器库。例如，[regex-applicative](https://hackage.haskell.org/package/regex-applicative)、[optparse-applicative](https://hackage.haskell.org/package/optparse-applicative)、[yamlparse-applicative](https://cs-syd.eu/posts/2020-06-28-yamlparse-applicative)、[json-stream](https://hackage.haskell.org/package/json-stream) 等。
+有多个使用 Applicative 的解析器库。例如，[regex-applicative](https://hackage.haskell.org/package/regex-applicative)、[optparse-applicative](https://hackage.haskell.org/package/optparse-applicative)、[yamlparse-applicative](https://cs-syd.eu/posts/2020-06-28-yamlparse-applicative)、[json-stream](https://hackage.haskell.org/package/json-stream) 等。
 
-### 15.8.3 Monad 和Applicative
+### 15.8.3 Monad 和 Applicative
 
-那么 Monad 和 Applicative 之间有什么关系呢？如果Applicative也是 Monad，则以下定律成立：
+那么 Monad 和 Applicative 之间有什么关系呢？如果 Applicative 也是 Monad，则以下定律成立：
 
 ``` haskell
 pure             === return

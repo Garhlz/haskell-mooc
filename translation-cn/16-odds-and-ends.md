@@ -3,7 +3,7 @@
 - [16 第 16 讲：零碎内容](#lecture-16-odds-and-ends)
   - [16.1 使用 QuickCheck 测试](#testing-with-quickcheck)
   - [16.2 幻影类型](#phantom-types)
-  - [16.3 同时性](#simultaneity)
+  - [16.3 并行与并发](#simultaneity)
   - [16.4 练习](#exercises-7)
   - [16.5 接下来去哪里？](#where-to-go-from-here)
   - [16.6 致谢](#acknowledgements)
@@ -189,7 +189,7 @@ propCycle (NonEmpty xs) (NonNegative n) =
   cycle xs !! n === xs !! (mod n (length xs))
 ```
 
-### 16.1.2 发电机和 `forAll`
+### 16.1.2 生成器与 `forAll`
 
 有时我们需要进一步限制测试的输入范围。作为一个简单的例子，下面是一个 `Data.Char.toUpper` 更改传递给它的字符的测试：
 
@@ -294,7 +294,7 @@ Input: [0,0,1]
 [0,1,0] /= [1,0,0]
 ```
 
-你可能已经猜到，`Gen` 是 `Monad`。你可以通过组合 QuickCheck 定义的生成器来编写自己的生成器。你可以使用 `sample` 检查发电机的输出。
+你可能已经猜到，`Gen` 是 `Monad`。你可以通过组合 QuickCheck 定义的生成器来编写自己的生成器。你可以使用 `sample` 检查生成器的输出。
 
 ``` haskell
 someLetters :: Gen String
@@ -366,11 +366,11 @@ instance Arbitrary Switch where
 
 ## 16.2 幻影类型
 
-嘘！类型系统里有鬼！让我们看看“幻像类型”可以为你做什么。
+嘘！类型系统里有鬼！让我们看看“幻影类型”可以为你做什么。
 
-幻像类型是不带任何值的类型。它们与新类型（参见第 10 讲）相关，因为两者都是添加额外类型检查而不影响程序评估的一种方法。
+幻影类型是不带任何值的类型。它们与新类型（参见第 10 讲）相关，因为两者都是添加额外类型检查而不影响程序评估的一种方法。
 
-让我们使用幻像类型来跟踪一笔钱所用的货币。我们定义幻像类型 `EUR` 和 `USD` （注意它们没有任何构造函数！），以及不使用类型参数 `a` 的参数化类型 `Money a` 。然后我们可以定义两个常量，一个以欧元为单位，另一个以美元为单位。你可以在文件 [`exercises/Examples/Phantom.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phantom.hs) 中找到本节的所有代码。
+让我们使用幻影类型来跟踪一笔钱所用的货币。我们定义幻影类型 `EUR` 和 `USD` （注意它们没有任何构造函数！），以及不使用类型参数 `a` 的参数化类型 `Money a` 。然后我们可以定义两个常量，一个以欧元为单位，另一个以美元为单位。你可以在文件 [`exercises/Examples/Phantom.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phantom.hs) 中找到本节的所有代码。
 
 ``` haskell
 data EUR
@@ -441,7 +441,7 @@ addMoneyUnsafe (Money a) (Money b) = Money (a+b)
 Money 3.0
 ```
 
-我们可以继续采用这种方法，并定义货币换算。我们定义了类型 `Rate`，它使用幻像类型来跟踪其之间转换的货币。 `convert` 和 `invert` 的类型被限制为具有我们想要的属性。还有一个无限制版本的转换函数可让你比较类型。
+我们可以继续采用这种方法，并定义货币换算。我们定义了类型 `Rate`，它使用幻影类型来跟踪其之间转换的货币。 `convert` 和 `invert` 的类型被限制为具有我们想要的属性。还有一个无限制版本的转换函数可让你比较类型。
 
 ``` haskell
 data Rate from to = Rate Double
@@ -477,13 +477,13 @@ Money 0.819672131147541
 Money 1.22
 ```
 
-笔记！前面例子中的单词 `currency`、`from`、`to` 等“只是类型变量”。他们没有什么特别的事情发生。我们也可以给 `invert` 像 `Rate a b -> Rate b a` 这样的类型，而不需要对类型安全进行任何更改。
+注意！前面例子中的单词 `currency`、`from`、`to` 等“只是类型变量”。它们没有什么特别的事情发生。我们也可以给 `invert` 像 `Rate a b -> Rate b a` 这样的类型，而不需要对类型安全进行任何更改。
 
-这种使用幻像类型的方法有明显的好处：为我们提供无效代码的类型错误。此外，与定义大量具体类型（如 `data MoneyEur = MoneyEur Double`）相比，使用幻像类型，我们只需实现 `scaleMoney` 和 `addMoney` 等函数一次。此外，我们还能够定义多态和可重用的概念，例如 `Rate`。你可以将此方法与第 7 讲的拳击部分进行对比。
+这种使用幻影类型的方法有明显的好处：为我们提供无效代码的类型错误。此外，与定义大量具体类型（如 `data MoneyEur = MoneyEur Double`）相比，使用幻影类型，我们只需实现 `scaleMoney` 和 `addMoney` 等函数一次。此外，我们还能够定义多态和可重用的概念，例如 `Rate`。你可以将此方法与第 7 讲的拳击部分进行对比。
 
-然而，幻像类型也有缺点。如果没有高级技巧，我们就无法真正处理在运行时定义的货币（例如：从用户那里读取金额）。你也很容易开始需要语言扩展，例如 [*广义代数数据类型*](https://wiki.haskell.org/GADTs_for_dummies)、[*类型族*](https://wiki.haskell.org/GHC/Type_families) 和其他[*类型级编程*](https://aphyr.com/posts/342-typing-the-technical-interview) 构造。最终你就进入了[*依赖打字*](https://mitpress.mit.edu/books/little-typer)的世界。
+然而，幻影类型也有缺点。如果没有高级技巧，我们就无法真正处理在运行时定义的货币（例如：从用户那里读取金额）。你也很容易开始需要语言扩展，例如 [*广义代数数据类型*](https://wiki.haskell.org/GADTs_for_dummies)、[*类型族*](https://wiki.haskell.org/GHC/Type_families) 和其他[*类型级编程*](https://aphyr.com/posts/342-typing-the-technical-interview) 构造。最终你就进入了[*依赖打字*](https://mitpress.mit.edu/books/little-typer)的世界。
 
-那么幻像类型有哪些好的应用呢？当你需要跟踪一些简单但重要的信息时，这些信息在编译时就已知。比货币更好的一个例子是跟踪用户的输入是否经过清理，以防止 [SQL 注入](https://en.wikipedia.org/wiki/SQL_injection) 或 [跨站点脚本](https://en.wikipedia.org/wiki/Cross-site_scripting) 等攻击。
+那么幻影类型有哪些好的应用呢？当你需要跟踪一些简单但重要的信息时，这些信息在编译时就已知。比货币更好的一个例子是跟踪用户的输入是否经过清理，以防止 [SQL 注入](https://en.wikipedia.org/wiki/SQL_injection) 或 [跨站点脚本](https://en.wikipedia.org/wiki/Cross-site_scripting) 等攻击。
 
 我们可以使用类型 `Input Safe` 和 `Input Unsafe` 来跟踪字符串是否可以安全地传递到数据库中。如果我们的模块仅导出 `makeInput` 函数，而不导出 `Input` 构造函数，则类型系统确保任何输入在进入 `addForumComment` 等数据库函数之前必须在某个时刻通过 `escapeInput` 函数。
 
@@ -514,7 +514,7 @@ escapeInput (Input xs) = Input (filter (\c -> isAlpha c || isSpace c) xs)
 
 <a id="simultaneity"></a>
 
-## 16.3 同时性
+## 16.3 并行与并发
 
 ### 16.3.1 并行性
 
@@ -611,7 +611,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 ## 16.4 练习
 
 - [Set16a](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16a.hs)：快速检查
-- [Set16b](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16b.hs): 幻像类型
+- [Set16b](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16b.hs): 幻影类型
 - 没有并行或并发 Haskell 练习，抱歉！
 
 
@@ -637,7 +637,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
   - `fix`函数
   - 用于从 Haskell 调用 C 代码的外部函数接口
 - 抽象
-  - Monad 变压器：[RWH](https://book.realworldhaskell.org/read/monad-transformers.html)、[Wikibook](https://en.wikibooks.org/wiki/Haskell/Monad_transformers)
+  - Monad 变换器：[RWH](https://book.realworldhaskell.org/read/monad-transformers.html)、[Wikibook](https://en.wikibooks.org/wiki/Haskell/Monad_transformers)
   - 免费 monad（高级主题）：[博客](https://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html)
   - 镜头（高级主题）：[教程](https://hackage.haskell.org/package/lens-tutorial-1.0.4/docs/Control-Lens-Tutorial.html) [玻璃](https://oleg.fi/gists/posts/2017-04-18-glassery.html)
   - [Bartosz Milewski](https://bartoszmilewski.com/) 在他的博客上涵盖了许多中级和高级主题
@@ -648,7 +648,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 - 库
   - 秒差距（解析）：[RWH](https://book.realworldhaskell.org/read/using-parsec.html)
   - Scotty（简单的网络框架），Aeson（json）：[博客]（https://seanhess.github.io/2015/08/19/practical-haskell-json-api.html）
-  - [Servant](https://haskell-servant.github.io/)（带有幻像类型的精美网络框架）
+  - [Servant](https://haskell-servant.github.io/)（带有幻影类型的精美网络框架）
 - 范畴论
   - 许多 Haskell 抽象都是基于范畴论
   - 范畴论可以成为编程新思想的宝贵来源
@@ -665,8 +665,8 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 
 感谢整个 Haskell Mooc 团队，特别是
 
-- John Lång 寻求有关材料的帮助
-- Antti Laaksonen 设置课程并帮助安排
-- Topi Talvitie 用于演习检查基础设施
+- John Lång 在材料上提供了帮助
+- Antti Laaksonen 负责搭建课程并协助各项安排
+- Topi Talvitie 构建了练习评测基础设施
 
 感谢所有耐心等待第二部分并报告材料和练习错误的学生！
