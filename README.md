@@ -1,68 +1,73 @@
-# Haskell MOOC
-<p align="center"><img alt="Course logo" src="img/haskell-mooc-logo.svg" width="400" align="center"></p>
+# Haskell MOOC 中文翻译
 
-University of Helsinki
+<p align="center">
+  <img alt="Haskell MOOC course logo" src="img/haskell-mooc-logo.svg" width="360">
+</p>
 
-[Course page](https://haskell.mooc.fi)
+本仓库整理了 University of Helsinki 的 [Haskell MOOC](https://haskell.mooc.fi) 课程材料，并提供中文翻译版本。课程面向想用 Haskell 学习函数式编程的读者，内容从基础语法、递归、高阶函数和类型类开始，逐步进入 IO、Monad、库、测试、并行与并发。
 
-[![License: CC BY-SA 4.0](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
+中文译文位于 [`docs/`](./docs/) 目录，可从 [`docs/index.md`](./docs/index.md) 或 [`docs/01-and-so-it-begins.md`](./docs/01-and-so-it-begins.md) 开始阅读。翻译过程、术语选择和一些约定记录在 [`other/translation-guidance.md`](./other/translation-guidance.md)。
 
-This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+## 在线站点
 
-_New!_ Exercise repository updated to use GHC 9.2.8! You'll need to rerun `stack build`.
+本仓库已配置 MkDocs + Material 主题，可构建为中文课程网站：
 
-## 中文翻译
-
-中文翻译按章节整理在 [`translation-cn/`](./translation-cn/) 目录中，可以从
-[`01-and-so-it-begins.md`](./translation-cn/01-and-so-it-begins.md) 开始顺序阅读。
-翻译过程和术语约定记录在 [`other/translation-guidance.md`](./other/translation-guidance.md)。
-
-中文翻译基于 Joel Kaasinen 和 John Lång 的 Haskell MOOC 原始材料整理，属于对原材料的翻译与改编。
-原材料及本翻译内容均遵循 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)。
-本翻译并非官方版本，如有理解偏差请以原文为准。
-
-## About the course
-
-This is an online course on Functional Programming that uses the
-Haskell programming language. You can study at your own pace. All the
-material and exercises are openly available.
-
-The course is intended to be followed through the [Course
-page](https://haskell.mooc.fi), but in case the course page is down or
-you want an offline backup, the course material is also available in
-this repository ([part1.html](part1.html), [part2.html](part2.html)).
-
-## Exercises
-
-Exercises can be found under `exercises/` directory. All required dependencies
-can be downloaded and built with:
-
+```sh
+mkdocs serve
 ```
+
+构建静态站点：
+
+```sh
+mkdocs build
+```
+
+构建结果会输出到 `site/` 目录。
+
+## 课程结构
+
+- 第 1 部分：Haskell 基础、递归、高阶函数、列表、代数数据类型、类型类和纯函数式编程。
+- 第 2 部分：IO、Monad、惰性求值、Functor/Foldable、常用库、测试以及并发相关内容。
+
+建议按章节顺序学习，并在每讲结束后完成对应练习。后续章节会默认你已经熟悉前面的语法和抽象。
+
+## 练习
+
+练习文件在 [`exercises/`](./exercises/) 目录下。首次运行前先安装依赖：
+
+```sh
+cd exercises
 stack build
 ```
 
-Exercises are Haskell source code files named `Set1.hs`, `Set2.hs` and so on.
-You complete the exercises by editing the file according to the instructions in
-the file. You can check your answers by running
+练习文件通常命名为 `Set1.hs`、`Set2a.hs`、`Set14b.hs` 等。按文件内说明补全代码后，可运行对应测试：
 
-```
+```sh
 stack runhaskell SetXTest.hs
 ```
 
-in the `exercises/` directory. Remember to replace `X` with the number
-of the set you are working on.
+请把 `SetXTest.hs` 替换成当前练习对应的测试文件名，例如 `Set3aTest.hs`。
 
-See [the material](part1.html#working-on-the-exercises) for more info.
+## 原始课程
 
-## Troubleshooting
+本翻译基于 Joel Kaasinen 和 John Lång 编写的 Haskell MOOC 原始材料整理。官方资源如下：
 
-Here are some fixes for common problems with `stack build`:
+- [课程网站](https://haskell.mooc.fi)
+- [官方 GitHub 仓库](https://github.com/moocfi/haskell-mooc)
+- [课程 Telegram 频道](https://t.me/haskell_mooc_fi)
 
-- If you get an error like `While building package zlib-0.6.2.3`, you need to install the zlib library headers. The right command for Ubuntu is `sudo apt install zlib1g-dev`.
-- If you get an error like `Downloading lts-18.18 build plan ... RedownloadInvalidResponse`, your version of stack is too old. Run `stack upgrade` to get a newer one.
+仓库根目录中的 [`part1.html`](./part1.html) 和 [`part2.html`](./part2.html) 是原课程 HTML 材料的离线版本。
 
-## Reporting errors
+## 常见问题
 
-If you notice an error in these materials, you can report it via
-- an issue or pull request in this repository (see [CONTRIBUTING.md](CONTRIBUTING.md))
-- the course [channel on Telegram](https://t.me/haskell_mooc_fi)
+- 如果 `stack build` 在构建 `zlib` 时失败，通常需要安装 zlib 头文件。Ubuntu 可运行 `sudo apt install zlib1g-dev`。
+- 如果出现 `Downloading lts-18.18 build plan ... RedownloadInvalidResponse`，通常是 Stack 版本过旧。可运行 `stack upgrade` 后重试。
+- 本翻译不是官方中文版。如中文表述与原文含义不一致，请以原课程材料为准。
+
+## 授权
+
+原课程材料与本中文翻译均遵循 [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/)。
+
+[![License: CC BY-SA 4.0](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
+
+如果你发现翻译、代码或排版问题，欢迎通过 issue 或 pull request 反馈。贡献前可先阅读 [`CONTRIBUTING.md`](./CONTRIBUTING.md)。

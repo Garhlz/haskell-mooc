@@ -1,0 +1,105 @@
+site_name: Haskell 慕课（中文翻译）
+site_url: https://garhlz.github.io/haskell-mooc/
+site_description: 一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本
+repo_url: https://github.com/moocfi/haskell-mooc
+repo_name: moocfi/haskell-mooc
+site_author: Haskell MOOC 中文翻译项目
+theme:
+  name: material
+  language: zh
+  logo: img/haskell-mooc-logo.svg
+  favicon: img/haskell-mooc-logo.svg
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: 切换到深色模式
+    - scheme: slate
+      primary: deep purple
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: 切换到浅色模式
+  font: false
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.footer
+    - navigation.tracking
+    - navigation.path
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.select
+    - content.tooltips
+    - toc.follow
+
+plugins:
+  - search:
+      lang: 
+        - zh
+        - en
+
+markdown_extensions:
+  - abbr
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.highlight:
+      use_pygments: true
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.arithmatex
+  - pymdownx.emoji
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tilde
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - tables
+  - admonition
+  - pymdownx.details
+  - footnotes
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - 首页: index.md
+  - 第 1 部分:
+    - '第 1 讲：……就这样开始': '01-and-so-it-begins.md'
+    - '第 2 讲：要么成为英雄，要么……': '02-either-you-die-a-hero.md'
+    - '第 3 讲：折叠与高阶函数': '03-catamorphic.md'
+    - '第 4 讲：类型类进阶': '04-real-classy.md'
+    - '第 5 讲：用类型打结': '05-you-need-string-for-a-knot.md'
+    - '第 6 讲：类型类英雄': '06-working-class-hero.md'
+    - '第 7 讲：新的星座': '07-new-constellations.md'
+    - '第 8 讲：余韵': '08-the-aftertaste.md'
+  - 第 2 部分:
+    - '第 9 讲：第 1 部分回顾': '09-recap-of-part-1.md'
+    - '第 10 讲：还原主义': '10-reductionism.md'
+    - '第 11 讲：`RealWorld -> (a,RealWorld)`': '11-realworld-to-a-realworld.md'
+    - '第 12 讲：fmap fmap fmap': '12-fmap-fmap-fmap.md'
+    - '第 13 讲：问题范畴中的幺半群': '13-a-monoid-in-the-category-of-problems.md'
+    - '第 14 讲：使用一些库': '14-lets-use-some-libraries.md'
+    - '第 15 讲：没有 Monad 也能做验证': '15-youre-valid-even-without-monads.md'
+    - '第 16 讲：杂项内容': '16-odds-and-ends.md'
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/moocfi/haskell-mooc
+
+copyright: Copyright &copy; 2024 - Haskell MOOC 中文翻译

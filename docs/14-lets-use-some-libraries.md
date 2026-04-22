@@ -1,23 +1,9 @@
-# Haskell 慕课，第 2 部分
-
-- [14 第 14 讲：来用一些库！](#lecture-14-lets-use-some-libraries)
-  - [14.1 `Text` 和 `ByteString`](#text-and-bytestring)
-  - [14.2 Monad：回顾](#monads-recap)
-  - [14.3 编写 HTTP 服务器：WAI 和 Warp](#writing-a-http-server-wai-and-warp)
-  - [14.4 使用数据库：sqlite-simple](#working-with-a-database-sqlite-simple)
-  - [14.5 练习](#exercises-5)
-
-
-<a id="lecture-14-lets-use-some-libraries"></a>
-
-# 14 第 14 讲：来用一些库！
+# 第 14 讲：使用一些库
 
 现在你了解了 Monad，你几乎了解了 Haskell 的所有核心内容，可以开始编写使用库的实际程序。本讲座将介绍此类实际程序中常用的一些库的例子。使用这些库也是练习 Monad、阅读文档和理解类型错误的好机会。
 
 **注意！** 在阅读库的文档时，请记住注意库的版本。你可以在[`tests.cabal` 文件](https://github.com/moocfi/haskell-mooc/blob/master/exercises/tests.cabal) 中查看课程中使用的版本。课程材料中的链接始终将你带到正确的版本，`stack haddock --open <package>` 命令也是如此。另请参阅[阅读第 1 部分中的文档](https://haskell.mooc.fi/part1#reading-docs)。
 
-
-<a id="text-and-bytestring"></a>
 
 ## 14.1 `Text` 和 `ByteString`
 
@@ -34,11 +20,11 @@
 
 这些类型都提供 `pack` 和 `unpack` 函数，用于与普通 `String` 相互转换。它们还附带了熟悉的列表函数的特殊版本，如 `reverse`、`take`、`map` 等。
 
-### 14.1.1 `Text` 例子
+### 14.1.1 `Text` 示例
 
 让我们通过一个简短的 GHCi 会话来演示 `Data.Text` 的用法。按照[文档](https://hackage.haskell.org/package/text-1.2.5.0/docs/Data-Text.html)，`Data.Text` 模块应该以*限定*方式导入。我们可以用函数 `T.pack` 将 `String` 转换为 `Text`。注意 `Text` 值打印时和 `String` 一样。
 
-``` haskell
+```haskell
 Prelude> import qualified Data.Text as T
 Prelude T> :t T.pack
 T.pack :: String -> T.Text
@@ -51,7 +37,7 @@ Prelude T> phrase
 
 我们可以用 `Data.Text` 中的函数操作 `Text` 值。其中许多的名称类似于 `String` 函数或 `Prelude` 列表函数。
 
-``` haskell
+```haskell
 Prelude T> :t T.length
 T.length :: T.Text -> Int
 Prelude T> T.length phrase
@@ -72,7 +58,7 @@ Prelude T> T.map (\c -> if c=='o' then '0' else c) phrase
 
 一个有用的细节是 `Text` 有一个 `Monoid` 实例，可以将 `Text` 值组合在一起。你还可以使用函数 `T.append` 和 `T.concat`。
 
-``` haskell
+```haskell
 Prelude T> phrase <> phrase
 "brevity is the soul of witbrevity is the soul of wit"
 Prelude T> T.append phrase phrase
@@ -83,7 +69,7 @@ Prelude T> T.concat [phrase,phrase,phrase]
 
 如果你想编写一个在 `Text` 上进行模式匹配的递归函数，就像在 `String` 上一样，你可以使用函数 `T.uncons :: T.Text -> Maybe (Char, T.Text)` 将 `Text` 拆分为头部和尾部。这是一个简单的例子：
 
-``` haskell
+```haskell
 countLetter :: Char -> T.Text -> Int
 countLetter c t =
   case T.uncons t of
@@ -91,7 +77,7 @@ countLetter c t =
     Just (x,rest) -> (if x == c then 1 else 0) + countLetter c rest
 ```
 
-``` haskell
+```haskell
 Prelude T> countLetter 't' phrase
 3
 ```
@@ -100,7 +86,7 @@ Prelude T> countLetter 't' phrase
 
 请注意，`Data.Text` 实现严格 `Text` 类型。你需要使用 `Data.Text.Lazy` 作为惰性版本。如前所述，这两种类型之间的一个区别是严格类型不适用于无限字符串：
 
-``` haskell
+```haskell
 Prelude T> T.head (T.pack (repeat 'x'))
 -- never returns
 Prelude T> import qualified Data.Text.Lazy as TL
@@ -110,7 +96,7 @@ Prelude T TL> TL.head (TL.pack (repeat 'x'))
 
 另一个实际问题是，在使用库时，你可能会遇到严格 `Text` 和惰性 `Text` 之间的不匹配。你通常可以根据需要使用 `toStrict` 或 `fromStrict` 来修复此问题。
 
-``` haskell
+```haskell
 Prelude T TL> lazyPhrase = TL.pack "brevity is the soul of wit"
 Prelude T TL> :t lazyPhrase
 lazyPhrase :: TL.Text
@@ -135,11 +121,11 @@ Prelude T TL> TL.toStrict lazyPhrase == phrase
 True
 ```
 
-### 14.1.2 `ByteString` 例子
+### 14.1.2 `ByteString` 示例
 
 我们可以使用 `ByteString` 而不是 `Text` 来完成几乎相同的 GHCi 会话。但是，请注意 `ByteString` 是如何从 `Word8` 值而不是 `Char` 值构建的。 `Char` 可以表示任意 unicode 代码点，就像 `'Å'` 这样的字符一样，但 `Word8` 表示一个字节：从 0 到 255 的数字。不幸的是，有点令人困惑，`ByteString` 值的打印方式与 `String` 类似。
 
-``` haskell
+```haskell
 Prelude> import Data.Word
 Prelude Data.Word> import qualified Data.ByteString as B
 Prelude Data.Word B> binary = B.pack [99,111,102,102,101,101]
@@ -167,7 +153,7 @@ Prelude Data.Word B> B.map (+1) binary
 
 与 `Text` 相同的警告适用于严格 `ByteString` 和惰性 `ByteString` 之间的差异：
 
-``` haskell
+```haskell
 Prelude B Data.Char> B.head (B.pack (repeat 99))
 -- never returns
 Prelude Data.Word B> import qualified Data.ByteString.Lazy as BL
@@ -210,7 +196,7 @@ False
 
 我们可以使用代码探索相同的例子。函数 `Data.Text.Encoding.encodeUtf8 :: Text -> ByteString` 使用 UTF-8 将 Text 中的字符编码为 ByteString 中的字节。
 
-``` haskell
+```haskell
 Prelude> import qualified Data.Text as T
 Prelude T> import qualified Data.ByteString as B
 Prelude T B> T.length (T.pack "haskell")
@@ -230,7 +216,7 @@ Prelude T B Data.Text.Encoding> B.length (encodeUtf8 (T.pack "Ha∫keλ!"))
 
 如果我们处理的是[ASCII文本](https://en.wikipedia.org/wiki/ASCII)，即可以用单字节表示的字符，我们可以互换使用`Text`和`ByteString`。命名空间 `Data.ByteString.Char8` 和 `Data.ByteString.Lazy.Char8` 提供使用 `Char` 值（而不是 `Word8`）在 `ByteString` 上运行的函数。然而，必须小心确保所有字符确实都是纯 ASCII 字符，否则会发生令人惊讶的事情。
 
-``` haskell
+```haskell
 Prelude T B> import qualified Data.ByteString.Char8 as B8
 Prelude T B B8> B8.pack "abc"
 "abc"
@@ -247,8 +233,6 @@ Prelude T B B8> putStrLn (T.unpack (T.pack "€λ훈"))
 ```
 
 
-<a id="monads-recap"></a>
-
 ## 14.2 Monad：回顾
 
 接下来我们将研究 IO monad 内部的库。这是我们在上一课中学到的关于 monad 的简短回顾。
@@ -261,7 +245,7 @@ Prelude T B B8> putStrLn (T.unpack (T.pack "€λ훈"))
 - 与其他语言不同，`return` 不是关键字，不会导致操作停止执行。相反，`return x` *是始终生成 x 且不执行任何其他操作的操作*。
 - 这就是 `do` 表示法的样子：
 
-``` haskell
+```haskell
 foo y = do
   operation1         -- run an operation
   val <- operation2  -- run an operation and keep the produced value
@@ -271,8 +255,6 @@ foo y = do
 ```
 
 
-<a id="writing-a-http-server-wai-and-warp"></a>
-
 ## 14.3 编写 HTTP 服务器：WAI 和 Warp
 
 有时感觉世界上的一切都发生在 [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) 和 [Web Apis](https://en.wikipedia.org/wiki/Web_API) 上。你的网络浏览器、你的智能手机应用程序、[你的银行](https://developer.nordeaopenbanking.com/)、[你的咖啡壶](https://tools.ietf.org/html/rfc2324)、[甚至你的门铃](https://support.ring.com/hc/en-us/articles/205385394-The-Protocols-and-Ports-Used-by-Ring-Devices)，都使用 HTTP 协议与服务器通信。
@@ -281,7 +263,7 @@ foo y = do
 
 文件 [`exercises/Examples/HelloServer.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/HelloServer.hs) 实现了一个始终以“Hello World!”响应的 HTTP 服务器。你可以通过转到 `exercises/Examples` 目录并使用 `stack runhaskell HelloServer.hs` 运行来尝试一下。之后你可以在浏览器中访问<http://localhost:3421>来查看服务器的响应。
 
-``` haskell
+```haskell
 module Examples.HelloServer where
 
 import qualified Data.ByteString.Lazy.Char8 as BL
@@ -303,7 +285,7 @@ application request respond =
 
 让我们看看这个例子中的类型。这里发生了很多事情。首先，`Application` 是实现 Web 服务器逻辑的事物的“类型别名”。 [Warp 中的 `run` 函数](https://hackage.haskell.org/package/warp-3.3.23/docs/Network-Wai-Handler-Warp.html#v:run) 可以运行 `Application`：
 
-``` haskell
+```haskell
 run :: Port -> Application -> IO ()
 type Application = Request -> (Response -> IO ResponseReceived) -> IO ResponseReceived
 ```
@@ -314,7 +296,7 @@ type Application = Request -> (Response -> IO ResponseReceived) -> IO ResponseRe
 
 WAI 使用许多类型（例如 `Port`、`Request`、`Response`、`Status`）来表示 HTTP 概念。当你遇到它们时，在文档中查找它们会很有用。例如 [`Port` 只是 `Int`](https://hackage.haskell.org/package/warp-3.3.23/docs/Network-Wai-Handler-Warp.html#t:Port) 的别名。作为另一个例子，我们可以看到 [`responseLBS` 函数](https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html#v:responseLBS) 的类型
 
-``` haskell
+```haskell
 responseLBS :: Status -> ResponseHeaders -> ByteString -> Response
 ```
 
@@ -324,7 +306,7 @@ responseLBS :: Status -> ResponseHeaders -> ByteString -> Response
 
 总是以相同文本响应的Web 服务器并不是那么有趣。接下来我们看看如何针对不同的请求给出不同的响应。 HTTP 请求中有很多部分，但在本次讲座中，我们将重点关注*路径*。在 `http://example.com/abcd/ef/file` 这样的 URL 中，`/abcd/ef/file` 部分是路径。 WAI有函数
 
-``` haskell
+```haskell
 pathInfo :: Request -> [Text]
 ```
 
@@ -339,8 +321,6 @@ pathInfo :: Request -> [Text]
 和以前一样，你可以通过进入 `exercises/Examples` 目录并运行 `stack runhaskell PathServer.hs` 来运行服务器。
 
 
-<a id="working-with-a-database-sqlite-simple"></a>
-
 ## 14.4 使用数据库：sqlite-simple
 
 实现 HTTP 服务器之后，我们便能加入那张由应用程序相互通信织就的全球网络——也就是互联网。但如果程序记不住任何东西，通信又有什么意义呢？真正的应用程序即使在重启后也需要能够*持久化数据*。实现这一目的的常见方式是使用数据库。
@@ -353,7 +333,7 @@ Haskell 有许多用于使用 SQLite 的库，但我们在这里看一个名为 
 
 所有函数都位于 `Database.SQLite.Simple` 内部。你可以通过为 `open` 指定文件名来打开数据库，这是一个生成 `Connection` 的 IO 操作。
 
-``` haskell
+```haskell
 Prelude> import Database.SQLite.Simple
 Prelude Database.SQLite.Simple> :t open
 open :: String -> IO Connection
@@ -362,7 +342,7 @@ Prelude Database.SQLite.Simple> db <- open "example.sqlite"
 
 要运行 SQL 查询，你可以使用 IO 操作 `query_`，该操作采用 `Connection` 和 `Query`，并生成结果列表。 `Query`类型只是围绕`Text`的简单`newtype`。 `query_`的结果类型是多态的：可以从数据库中读取任何满足`FromRow`类型类的类型。如果这让人感到困惑，请将其与 `read` 的类型进行比较：`Read a => String -> a`。 `FromRow` 类类似于此数据库的 `Read`：它表示可以从数据库中读取的类型。无论如何，让我们从数据库中读取数字 `1`：
 
-``` haskell
+```haskell
 Prelude Database.SQLite.Simple> :t query_
 query_ :: FromRow r => Connection -> Query -> IO [r]
 Prelude Database.SQLite.Simple> :info Query
@@ -380,7 +360,7 @@ Prelude Database.SQLite.Simple T> res
 
 如果没有类型签名，我们会从 GHCi 收到错误，它无法决定我们要从数据库中读取哪种类型：
 
-``` haskell
+```haskell
 Prelude Database.SQLite.Simple T> res <- query_ db q
 
 <interactive>:17:8: error:
@@ -392,7 +372,7 @@ Prelude Database.SQLite.Simple T> res <- query_ db q
 
 在继续之前，让我们仔细看看 `FromRow`。如果你以前接触过 SQL，你就会知道 SQL 查询返回许多*行*，每行由许多*值*（也称为*列*）组成。为了能够将 SQL 查询的结果解释为 Haskell 数据，我们需要一种方法来解释这些值和行。因此 sqlite-simple 定义了两个类，`FromField` 和 `FromRow`，以及一堆如下所示的实例。 （你可以从[文档](https://hackage.haskell.org/package/sqlite-simple-0.4.18.2/docs/Database-SQLite-Simple.html#t:FromRow) 或通过使用 `:info FromRow` 等询问 GHCi 来找到这些实例。）
 
-``` haskell
+```haskell
 instance FromField Int
 instance FromField Bool
 instance FromField String
@@ -404,7 +384,7 @@ instance (FromField a, FromField b, FromField c) => FromRow (a,b,c)
 
 本质上，基本的 Haskell 数据类型满足 `FromField` 类，各种 Haskell 集合满足 `FromRow` 类。我们之前的例子是使用 `FromRow [a]` 和 `FromField Int` 实例从 `query_` 中获取 `[[Int]]`。这是一个使用其他一些数据类型的简单查询：
 
-``` haskell
+```haskell
 Prelude Database.SQLite.Simple T> q = Query (T.pack "SELECT 1, true, 'string';")
 Prelude Database.SQLite.Simple T> query_ db q :: IO [(Int,Bool,String)]
 [(1,True,"string")]
@@ -412,20 +392,20 @@ Prelude Database.SQLite.Simple T> query_ db q :: IO [(Int,Bool,String)]
 
 如果 SQL 和 Haskell 类型不匹配会发生什么？好吧，你会遇到运行时错误，就像你尝试调用 `read "True" :: Int` 一样。
 
-``` haskell
+```haskell
 Prelude Database.SQLite.Simple T> query_ db q :: IO [(Int,Int,Int)]
 *** Exception: ConversionFailed {errSQLType = "TEXT", errHaskellType = "Int", errMessage = "need an int"}
 ```
 
 为了镜像 `FromRow` 和 `FromField` 类，sqlite-simple 还定义了 `ToRow` 和 `ToField` 类用于写入数据库。这是 `query` 函数的类型，它允许我们使用*参数化查询*。
 
-``` haskell
+```haskell
 query :: (ToRow q, FromRow r) => Connection -> Query -> q -> IO [r]
 ```
 
 以下是 `ToRow` 和 `ToField` 的一些实例：
 
-``` haskell
+```haskell
 instance ToField Int
 instance ToField Bool
 instance ToField String
@@ -440,7 +420,7 @@ instance ToField a => ToRow (Only a)
 
 参数化查询使用 `?` 字符来表示可以传入参数的槽。下面是一个简单的例子：
 
-``` haskell
+```haskell
 Prelude Database.SQLite.Simple T> input = (1,"hello") :: (Int,String)
 Prelude Database.SQLite.Simple T> parameterized = Query (T.pack "SELECT ?+1, true, ?;")
 Prelude Database.SQLite.Simple T> query db parameterized input :: IO [(Int,Bool,String)]
@@ -449,7 +429,7 @@ Prelude Database.SQLite.Simple T> query db parameterized input :: IO [(Int,Bool,
 
 **注意！** 当仅使用一个参数执行查询时，你可以使用两个 `ToRow` 实例：`ToField a => ToRow [a]` 和 `ToField a => Only a`。 `Only` 数据类型在 `Data.Tuple.Only` 中定义，是 Haskell 没有单元素元组这一事实的一种解决方法。或者，大小为 1 的列表也可以。这同样适用于仅返回只有一列的行的查询：你可以使用 `[[X]]` 或 `[Only X]` 作为返回类型。这是一个例子：
 
-``` haskell
+```haskell
 Prelude Database.SQLite.Simple T> q = Query (T.pack "SELECT lower(?);")
 Prelude Database.SQLite.Simple T> query db q (Only "HELLO") :: IO [Only String]
 [Only {fromOnly = "hello"}]
@@ -459,7 +439,7 @@ Prelude Database.SQLite.Simple T> query db q ["HELLO"] :: IO [[String]]
 
 这几乎就是你需要了解的有关 sqlite-simple 的全部信息：`open`、`query_`、`query`、`FromRow`、`ToRow`。哦，对了，还有一件事。如果不需要查询结果，可以使用`execute`和`execute_`函数。例如，它们对于将内容插入数据库很有用。
 
-``` haskell
+```haskell
 execute_ :: Connection -> Query -> IO ()
 execute :: ToRow q => Connection -> Query -> q -> IO ()
 ```
@@ -498,8 +478,6 @@ execute :: ToRow q => Connection -> Query -> q -> IO ()
 
 P.S. 如果你因缺乏 SQL 查询的编译时类型检查而感到沮丧，你可以看看 Haskell 的一些更高级的 SQL 库，例如 [Beam](https://haskell-beam.github.io/beam/) 或 [Opaleye](https://hackage.haskell.org/package/opaleye)。本课程使用 sqlite-simple 是为了简单起见，并避免过多地关注 SQL 的细节。
 
-
-<a id="exercises-5"></a>
 
 ## 14.5 练习
 

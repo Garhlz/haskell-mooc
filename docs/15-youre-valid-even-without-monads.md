@@ -1,24 +1,5 @@
-# Haskell 慕课，第 2 部分
+# 第 15 讲：没有 Monad 也能做验证
 
-- [15 第 15 讲：没有 Monad 也能验证](#lecture-15-youre-valid-even-without-monads)
-  - [15.1 Applicative 简介](#introduction-to-applicatives)
-  - [15.2 列表 Applicative](#the-list-applicative)
-  - [15.3 新运算符](#new-operators)
-  - [15.4 Validation Applicative](#the-validation-applicative)
-  - [15.5 验证列表：`traverse`](#validating-lists-traverse)
-  - [15.6 附注：`Traversable`](#sidenote-traversable)
-  - [15.7 处理失败：`Alternative`](#dealing-with-failure-alternative)
-  - [15.8 附注：语境中的 Applicative](#sidenote-applicatives-in-context)
-  - [15.9 测验](#quiz-5)
-  - [15.10 练习](#exercises-6)
-
-
-<a id="lecture-15-youre-valid-even-without-monads"></a>
-
-# 15 第 15 讲：没有 Monad 也能验证
-
-
-<a id="introduction-to-applicatives"></a>
 
 ## 15.1 Applicative 简介
 
@@ -30,7 +11,7 @@
 
 那么什么是 `Applicative` 呢？我们看一个定义。
 
-``` haskell
+```haskell
 class Functor f => Applicative f where
   pure :: a -> f a
   liftA2 :: (a -> b -> c) -> f a -> f b -> f c
@@ -43,7 +24,7 @@ class Functor f => Applicative f where
 
 现在理论已经够多了。让我们看看用 `Applicative` 运算（和 `fmap`）能表达什么样的计算。我们从 `Maybe` Applicative 开始。这是简化的定义：
 
-``` haskell
+```haskell
 instance Applicative Maybe where
   pure x = Just x
   liftA2 f (Just x) (Just y) = Just (f x y)
@@ -52,7 +33,7 @@ instance Applicative Maybe where
 
 你会看到这个定义用与 `Monad Maybe` 实例相同的失败传播。让我们在解析货币值时使用它：
 
-``` haskell
+```haskell
 data Currency = EUR | USD
   deriving (Show, Eq)
 data Money = Money Int Currency
@@ -72,7 +53,7 @@ parseMoney amountString currencyString =
   liftA2 Money (parseAmount amountString) (parseCurrency currencyString)
 ```
 
-``` haskell
+```haskell
 parseMoney "123" "€"  ==> Just (Money 123 EUR)
 parseMoney "45" "$"   ==> Just (Money 45 USD)
 parseMoney "4x" "€"   ==> Nothing
@@ -81,7 +62,7 @@ parseMoney "45" "£"   ==> Nothing
 
 效果很好。然而，如果我们尝试对此进行扩展，我们很快就会遇到 `Applicative` 的限制。例如，考虑这个 `sumMoney` 函数，该函数对 `Money` 值求和，但如果它们不是相同的货币，则会失败：
 
-``` haskell
+```haskell
 sumMoney :: Money -> Money -> Maybe Money
 sumMoney (Money a c) (Money b c')
     | c == c'   = Just (Money (a+b) c)
@@ -90,7 +71,7 @@ sumMoney (Money a c) (Money b c')
 
 我们无法使用 `Applicative` 操作将其应用于两个 `Maybe Money` 值。为此，我们需要 `Maybe` monad：
 
-``` haskell
+```haskell
 example :: Maybe Money
 example = do x <- parseMoney "123" "€"
              y <- parseMoney "45" "$"
@@ -109,13 +90,11 @@ example = do x <- parseMoney "123" "€"
 附注：`liftA2` 这个名字听起来有点麻烦，但它与 monad 的 `liftM`、`liftM2` 等函数进行类比。回想一下，`liftM` 只是 `fmap`，所以也许 `liftA2` 应该被称为 `fmap2`。
 
 
-<a id="the-list-applicative"></a>
-
 ## 15.2 列表 Applicative
 
 让我们看看我们见过的另一个 `Functor` 的应用实例。列表 Functor 的 `Applicative` 实例会遍历所有可能的值组合（就像列表 monad 一样）。这是例子：
 
-``` haskell
+```haskell
 instance Applicative [] where
   pure x = [x]
   liftA2 f xs ys = [f x y | x <- xs, y <- ys]
@@ -123,7 +102,7 @@ instance Applicative [] where
 
 这是一个例子：生成一些短语。
 
-``` haskell
+```haskell
 things :: [String]
 things = ["tangerine","bandit","diamond"]
 
@@ -138,7 +117,7 @@ bunches = liftA2 copy [1,2,3] fruits
   where copy n f = unwords (replicate n f)
 ```
 
-``` haskell
+```haskell
 phrases ==> ["a tangerine the size of a apple",
              "a tangerine the size of a tangerine",
              "a bandit the size of a apple",
@@ -152,20 +131,18 @@ bunches ==> ["apple","tangerine",
 ```
 
 
-<a id="new-operators"></a>
-
 ## 15.3 新运算符
 
 有一些非常方便的Applicative 运算符。它们是 `<$>`、`<*>`、`<*` 和 `*>`。
 
 让我们从 `<$>` 开始，它只是 `fmap` 的中缀版本：
 
-``` haskell
+```haskell
 (<$>) :: Functor f => (a -> b) -> f a -> f b
 f <$> x = fmap f x
 ```
 
-``` haskell
+```haskell
 not <$> Just True   ==> Just False
 not <$> Nothing     ==> Nothing
 negate <$> [1,2,3]  ==> [-1,-2,-3]
@@ -173,13 +150,13 @@ negate <$> [1,2,3]  ==> [-1,-2,-3]
 
 这本身就很好，但是当与这个 Applicative 运算符结合使用时，它真的会大放异彩：
 
-``` haskell
+```haskell
 (<*>) :: Applicative f => f (a -> b) -> f a -> f b
 ```
 
 该类型告诉你 `<*>` 的作用：它的函数Applicative“提升”为Applicative。以下是一些独立的例子：
 
-``` haskell
+```haskell
 Just not <*> Just True    ==> Just False
 Nothing  <*> Just True    ==> Nothing
 Just not <*> Nothing      ==> Nothing
@@ -188,12 +165,12 @@ Just not <*> Nothing      ==> Nothing
 
 当我们将 `<$>` 和 `<*>` 结合起来时，真正的魔力发生了：然后我们可以将任意多个参数的函数提升为 Applicative！
 
-``` haskell
+```haskell
 say :: String -> Int -> String -> String
 say x i y = x ++ " has " ++ show i ++ " " ++ y
 ```
 
-``` haskell
+```haskell
 say <$> Just "haskell" <*> Just 99 <*> Just "operators"
   ==> Just "haskell has 99 operators"
 say <$> Nothing <*> Just 99 <*> Just "operators"
@@ -211,7 +188,7 @@ say <$> ["bob","jake"] <*> [2,3] <*> ["bananas","cars"]
 
 这是怎么回事？让我们逐步进行评估。关键是每个 `<*>` 部分地向函数应用一个以上的参数。
 
-``` haskell
+```haskell
     say <$> Just "haskell" <*> Just 99 <*> Just "operators"
 === ((say <$> Just "haskell") <*> Just 99) <*> Just "operators"
 === (fmap say (Just "haskell") <*> Just 99) <*> Just "operators"
@@ -223,7 +200,7 @@ say <$> ["bob","jake"] <*> [2,3] <*> ["bananas","cars"]
 
 也许查看类型会更清楚：
 
-``` haskell
+```haskell
 say <$> Just "haskell"                                  :: Maybe (Int -> String -> String)
 say <$> Just "haskell" <*> Just 99                      :: Maybe (       String -> String)
 say <$> Just "haskell" <*> Just 99 <*> Just "operators" :: Maybe (                 String)
@@ -231,7 +208,7 @@ say <$> Just "haskell" <*> Just 99 <*> Just "operators" :: Maybe (              
 
 接下来的两个运算符稍微简单一些：
 
-``` haskell
+```haskell
 (*>) :: Applicative f => f a -> f b -> f b
 x *> y = liftA2 (\a b -> b) x y
 
@@ -241,13 +218,13 @@ x <* y = liftA2 (\a b -> a) x y
 
 你可以将这些类型与更熟悉的运算符进行比较：
 
-``` haskell
+```haskell
 (>>) :: Monad m => m a -> m b -> m b
 ```
 
 运算符 `<*` 和 `*>` 的含义是：运行这两个操作，但只保留一个结果。箭头指向保留的结果：
 
-``` haskell
+```haskell
 Just 1 *> Just 2  ==> Just 2
 Just 1 <* Just 2  ==> Just 1
 Just 1 <* Nothing ==> Nothing
@@ -256,7 +233,7 @@ Nothing <* Just 2 ==> Nothing
 
 这些运算符可能看起来微不足道，但它们在组合检查时非常有用。例如：
 
-``` haskell
+```haskell
 decrease :: Int -> Maybe Int
 decrease i = if i>0 then Just (i-1) else Nothing
 
@@ -268,7 +245,7 @@ decreaseSmall :: Int -> Maybe Int
 decreaseSmall i = decrease i <* small i
 ```
 
-``` haskell
+```haskell
 decreaseSmall 4   ==> Just 3
 decreaseSmall 0   ==> Nothing
 decreaseSmall 11  ==> Nothing
@@ -276,7 +253,7 @@ decreaseSmall 11  ==> Nothing
 
 现在我们已经了解了所有这些运算符，我们可以理解 `Applicative` 的完整定义。所有运算符都有 `liftA2` 的定义，因此在实现 `Applicative` 实例时定义 `liftA2` 和 `pure` 就足够了。
 
-``` haskell
+```haskell
 class Functor f => Applicative f where
   pure :: a -> f a
   liftA2 :: (a -> b -> c) -> f a -> f b -> f c
@@ -286,20 +263,18 @@ class Functor f => Applicative f where
 ```
 
 
-<a id="the-validation-applicative"></a>
-
 ## 15.4 Validation Applicative
 
 让我们看一个比 Maybe 或列表更有趣的 Applicative。在编程中，我们通常需要“验证”用户的一些输入。在这些情况下，将输入可能存在的所有错误收集在一起很有用。文件 [`exercises/Examples/Validation.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Validation.hs) 实现 `Validation` 数据类型：
 
-``` haskell
+```haskell
 data Validation a = Ok a | Errors [String]
   deriving (Show,Eq)
 ```
 
 `Validation` 的 `Applicative` 实例的工作方式如下：
 
-``` haskell
+```haskell
 liftA2 (+) (Ok 1) (Ok 2)
   ==> Ok 3
 liftA2 (+) (Errors ["oh no"]) (Errors ["boom"])
@@ -310,7 +285,7 @@ liftA2 (+) (Errors ["oh no"]) (Errors ["boom"])
 
 这是一个有效的例子，介绍了一些助手，然后使用它们来祝贺某人的生日：
 
-``` haskell
+```haskell
 invalid :: String -> Validation a
 invalid err = Errors [err]
 
@@ -326,7 +301,7 @@ birthday name age = liftA2 congratulate checkedName checkedAge
         congratulate n a = "Happy "++show a++"th birthday "++n++"!"
 ```
 
-``` haskell
+```haskell
 birthday "Guy" 31
   ==> Ok "Happy 31th birthday Guy!"
 birthday "Guybrush Threepwood" 31
@@ -337,7 +312,7 @@ birthday "Yog-sothoth" 10000
 
 哦，对了，这是 `Validation` 的 `Functor` 和 `Applicative` 实例：
 
-``` haskell
+```haskell
 instance Functor Validation where
   fmap f (Ok x) = Ok (f x)
   fmap _ (Errors e) = Errors e
@@ -353,15 +328,13 @@ instance Applicative Validation where
 `Validation` 的 `liftA2` 的定义表明错误是从左到右收集在一起的。这可以在上面的例子中看到，其中表达式 `liftA2 congratulate checkedName checkedAge` 首先输出来自 `checkedName` 的错误 (`"Name too long"`)，最后输出来自 `checkedAge` 的错误 (`"Too old"`)。
 
 
-<a id="validating-lists-traverse"></a>
-
 ## 15.5 验证列表：`traverse`
 
 到目前为止，我们已经处理了固定大小的事物和Applicative：我们已经将两个或三个参数的函数应用于某些事物。如果我们有任意数量的输入怎么办？如果我们需要验证列表怎么办？
 
 让我们看一下实现这样的函数的一些方法：
 
-``` haskell
+```haskell
 allPositive [1,2,3]
   ==> Ok [1,2,3]
 allPositive [1,2,3,-4]
@@ -372,7 +345,7 @@ allPositive [1,-2,3,-4]
 
 与往常一样，在使用列表时，模式匹配和递归通常是最佳选择。这是一个递归解决方案：
 
-``` haskell
+```haskell
 allPositive :: [Int] -> Validation [Int]
 allPositive [] = Ok []
 allPositive (x:xs) = liftA2 (:) checkThis checkRest
@@ -382,7 +355,7 @@ allPositive (x:xs) = liftA2 (:) checkThis checkRest
 
 总是拼写出这样的递归有点麻烦。如果我们在 `Monad` 中工作，我们可以使用像 `mapM` 这样的助手：
 
-``` haskell
+```haskell
 mapM (\x -> if x>=0 then Just x else Nothing) [1,2,3]
   ==> Just [1,2,3]
 mapM (\x -> if x>=0 then Just x else Nothing) [1,2,3,-4]
@@ -391,19 +364,19 @@ mapM (\x -> if x>=0 then Just x else Nothing) [1,2,3,-4]
 
 `Applicative` 的 `mapM` 等效项称为 `traverse`。它是类型类 `Traversable` 的成员：
 
-``` haskell
+```haskell
 traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 ```
 
 这是一个很糟糕的类型签名，所以让我们稍微简化一下。列表是 `Traversable`，所以我们可以将这种类型专门化为：
 
-``` haskell
+```haskell
 traverse :: Applicative f => (a -> f b) -> [a] -> f [b]
 ```
 
 这看起来正是我们所需要的！对于同样是 Monad 的 Applicatives，`traverse` 只是 `mapM` 的另一个名称：
 
-``` haskell
+```haskell
 traverse (\x -> if x>=0 then Just x else Nothing) [1,2,3]
   ==> Just [1,2,3]
 traverse (\x -> if x>=0 then Just x else Nothing) [1,2,3,-4]
@@ -412,13 +385,13 @@ traverse (\x -> if x>=0 then Just x else Nothing) [1,2,3,-4]
 
 但对于我们的 `Validation`（不是 `Monad`）来说，`traverse` 正是我们想要的：
 
-``` haskell
+```haskell
 allPositive :: [Int] -> Validation [Int]
 allPositive xs = traverse checkNumber xs
   where checkNumber x = check (x>=0) ("Not positive: "++show x) x
 ```
 
-``` haskell
+```haskell
 allPositive [1,2,3]
   ==> Ok [1,2,3]
 allPositive [1,2,3,-4]
@@ -432,18 +405,16 @@ allPositive [1,-2,3,-4]
 P.S. 事实上，`Validation` 是 `Applicative` 不可能是 `Monad` 的少数例子之一。你能弄清楚为什么吗？
 
 
-<a id="sidenote-traversable"></a>
-
 ## 15.6 附注：`Traversable`
 
 那么`Traversable`是什么东西呢？很多熟悉的结构。以下是一些例子：
 
-``` haskell
+```haskell
 decrease :: Int -> Maybe Int
 decrease i = if i>0 then Just (i-1) else Nothing
 ```
 
-``` haskell
+```haskell
 -- Lists are Traversable
 traverse decrease [1,2,3] ==> Just [0,1,2]
 traverse decrease [1,0,3] ==> Nothing
@@ -466,7 +437,7 @@ traverse decrease (Right 0)    ==> Nothing
 
 所以 `Traversable` 是各种容器的类型类，有点像 `Foldable`。确实，如果你看一下定义，`Traversable` 是 `Foldable` 的子类。事实证明，`traverse` 和 `mapM` 是该类的方法！
 
-``` haskell
+```haskell
 class (Functor t, Foldable t) => Traversable t where
   traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
   mapM :: Monad m => (a -> m b) -> t a -> m (t b)
@@ -474,7 +445,7 @@ class (Functor t, Foldable t) => Traversable t where
 
 在这里很难保持类型的正确性。我们回到`traverse`的类型：
 
-``` haskell
+```haskell
 traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 ```
 
@@ -483,13 +454,11 @@ traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 如果这感觉很抽象，请不要担心。实际上，你几乎总是在列表上使用 `traverse`。
 
 
-<a id="dealing-with-failure-alternative"></a>
-
 ## 15.7 处理失败：`Alternative`
 
 如果你稍微尝试一下Applicative，你就会开始注意到它们的函数有一些限制。例如，当像我们在 `parseMoney` 例子中那样编写解析器时，如果能够尝试几个不同的解析器并获取任何非失败结果，那就太好了。对于像 `Maybe` 这样的具体Applicative来说，这很容易编写，如下所示。
 
-``` haskell
+```haskell
 data Answer = Yes | No
   deriving (Show, Eq)
 
@@ -514,7 +483,7 @@ parseAnswer :: String -> Maybe Answer
 parseAnswer s = eitherOf (parseYes s) (parseNo s)
 ```
 
-``` haskell
+```haskell
 parseAnswer "yes"    ==> Just Yes
 parseAnswer "y"      ==> Just Yes
 parseAnswer "n"      ==> Just No
@@ -526,7 +495,7 @@ parseAnswer "x"      ==> Nothing
 
 事实证明我们需要一个新的类型类：`Alternative`。 Alternative 在 Applicative 中添加了两个操作：`empty` 表示没有结果，`<|>` 表示合并结果。
 
-``` haskell
+```haskell
 class Applicative f => Alternative f where
   empty :: f a
   (<|>) :: f a -> f a -> f a
@@ -535,7 +504,7 @@ class Applicative f => Alternative f where
 
 现在我们可以使用通用操作重写我们的解析代码：
 
-``` haskell
+```haskell
 data Answer = Yes | No
   deriving (Show, Eq)
 
@@ -557,7 +526,7 @@ parseAnswer s = parseYes s <|> parseNo s
 
 我们还可以选择在哪个 `Alternative` 中运行解析器以获得不同的行为。 `Maybe` 只给我们一个结果，而 `[]` 给我们所有可能的结果。
 
-``` haskell
+```haskell
 > parseAnswer "yes" :: Maybe Answer
 Just Yes
 > parseAnswer "maybe" :: Maybe Answer
@@ -570,7 +539,7 @@ Just Yes
 
 `[]` 和 `Maybe` 的 `Alternative` 实例并不令人意外：
 
-``` haskell
+```haskell
 instance Alternative [] where
   empty = []
   (<|>) = (++)
@@ -583,7 +552,7 @@ instance Alternative Maybe where
 
 `Validation` 类型也是 `Alternative`。该实例将所有错误消息收集在一起，就像 `Applicative` 实例一样。
 
-``` haskell
+```haskell
 instance Alternative Validation where
   empty = Errors []
   Ok x <|> _ = Ok x
@@ -593,7 +562,7 @@ instance Alternative Validation where
 
 这是最后一个例子：验证联系信息，可以是电话数字或电子邮件地址。
 
-``` haskell
+```haskell
 data ContactInfo = Email String | Phone String
   deriving Show
 
@@ -613,7 +582,7 @@ validateContactInfo :: String -> Validation ContactInfo
 validateContactInfo s = validateEmail s <|> validatePhone s
 ```
 
-``` haskell
+```haskell
 validateContactInfo "user@example.com"
   ==> Ok (Email "user@example.com")
 validateContactInfo "01234"
@@ -632,9 +601,7 @@ validateContactInfo "x"
 请注意，与前面的例子一样，错误是从左到右收集的：来自 `validateEmail` 的错误出现在来自 `validatePhone` 的错误之前。来自 `checkDigits` 的错误先于来自 `checkLength` 的错误。
 
 
-<a id="sidenote-applicatives-in-context"></a>
-
-## 15.8 附注：语境中的 Applicative
+## 15.8 附注：上下文中的 Applicative
 
 ### 15.8.1 为什么是 Applicative？
 
@@ -646,7 +613,7 @@ validateContactInfo "x"
 
 最后，有几种类型是 Applicative 但不是 Monad。 `Validation` 就是一个例子，而且是一个非常实用的例子。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是[`ZipList`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList)。
 
-### 15.8.2 野外应用
+### 15.8.2 实际应用
 
 尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicative，但仍有大量 Haskell 库使用 Applicative 来完成重要任务。以下是一些例子。
 
@@ -658,7 +625,7 @@ validateContactInfo "x"
 
 那么 Monad 和 Applicative 之间有什么关系呢？如果 Applicative 也是 Monad，则以下定律成立：
 
-``` haskell
+```haskell
 pure             === return
 
 fmap             === liftM
@@ -681,7 +648,7 @@ op1 <*> op2      === do f <- op1
 
 在 `Monad` 中工作时，你可以将 `Applicative` 和 `Functor` 与 `Monad` 操作自由混合。作为一个例子，让我们重写 `mapM` 直到它只使用应用操作，从而得到 `traverse` 的实现。这是我们的出发点：
 
-``` haskell
+```haskell
 myMapM op [] = return []
 myMapM op (x:xs) = do y <- op x
                       ys <- myMapM op xs
@@ -690,27 +657,25 @@ myMapM op (x:xs) = do y <- op x
 
 GHCi 告诉我们它只适用于 Monad：
 
-``` haskell
+```haskell
 Prelude> :t myMapM
 myMapM :: Monad m => (a -> m b) -> [a] -> m [b]
 ```
 
 让我们应用上面的 `pure === return` 和 `liftA2` 定律：
 
-``` haskell
+```haskell
 myMapM op [] = pure []
 myMapM op (x:xs) = liftA2 (:) (op x) (myMapM op xs)
 ```
 
 哒哒！现在 `myMapM` 适用于任何 `Applicative`：
 
-``` haskell
+```haskell
 Prelude> :t myMapM
 myMapM :: Applicative f => (a -> f b) -> [a] -> f [b]
 ```
 
-
-<a id="quiz-5"></a>
 
 ## 15.9 测验
 
@@ -746,8 +711,6 @@ myMapM :: Applicative f => (a -> f b) -> [a] -> f [b]
 2.`[]`
 3.`Validation`
 
-
-<a id="exercises-6"></a>
 
 ## 15.10 练习
 

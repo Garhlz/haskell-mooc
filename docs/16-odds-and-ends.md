@@ -1,22 +1,7 @@
-# Haskell 慕课，第 2 部分
-
-- [16 第 16 讲：零碎内容](#lecture-16-odds-and-ends)
-  - [16.1 使用 QuickCheck 测试](#testing-with-quickcheck)
-  - [16.2 幻影类型](#phantom-types)
-  - [16.3 并行与并发](#simultaneity)
-  - [16.4 练习](#exercises-7)
-  - [16.5 接下来去哪里？](#where-to-go-from-here)
-  - [16.6 致谢](#acknowledgements)
-
-
-<a id="lecture-16-odds-and-ends"></a>
-
-# 16 第 16 讲：零碎内容
+# 第 16 讲：杂项内容
 
 最后一讲讨论一些其他地方不适合的小主题。你已经学完了课程的所有难点部分。现在可以坐下来，放松一下，享受一些很酷的 Haskell！
 
-
-<a id="testing-with-quickcheck"></a>
 
 ## 16.1 使用 QuickCheck 测试
 
@@ -24,7 +9,7 @@
 
 让我们看一个 `reverse` 的（错误）实现的测试。你可以在文件 [`exercises/Examples/QuickCheck.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/QuickCheck.hs) 中找到此例子和以下例子。
 
-``` haskell
+```haskell
 rev :: [a] -> [a]
 rev [] = []
 rev (x:xs) = xs ++ [x]
@@ -32,32 +17,32 @@ rev (x:xs) = xs ++ [x]
 
 我们可以用 QuickCheck 中的 `===` 运算符编写单个测试用例：
 
-``` haskell
+```haskell
 (===) :: (Eq a, Show a) => a -> a -> Property
 ```
 
-``` haskell
+```haskell
 propRevSmall :: Property
 propRevSmall = rev [1,2] === [2,1]
 ```
 
 我们可以在 GHCi 中让 QuickCheck 运行这些测试：
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propRevSmall
 +++ OK, passed 1 test.
 ```
 
 到目前为止没问题。但这不是 QuickCheck 的真正用途。 QuickCheck 专为“基于属性的测试”而设计，你可以在其中声明代码应具有的属性，QuickCheck 使用随机输入运行代码，每次都会检查该属性。 `reverse` 有什么简单属性？反转列表两次肯定返回相同列表。我们写出来：
 
-``` haskell
+```haskell
 propRevTwice :: [Int] -> Property
 propRevTwice xs = rev (rev xs) === xs
 ```
 
 `Property` 有一个参数，意味着 QuickCheck 将生成随机值并运行测试。我们可以用 `verboseCheck` 函数查看运行了哪些值。如果想检查特定值，也可以自己给测试提供参数。
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propRevTwice
 +++ OK, passed 100 tests.
 *Examples.QuickCheck> verboseCheck propRevTwice
@@ -80,14 +65,14 @@ Passed:
 
 即使这个属性在我们的实现中也没有发现错误。让我们尝试另一个。这是关于 `rev (xs ++ ys)` 行为方式的属性。你可能需要花点时间说服自己，它应该适用于正确的 `rev` 函数。
 
-``` haskell
+```haskell
 propRevTwo :: [Int] -> [Int] -> Property
 propRevTwo xs ys = rev (xs ++ ys) === rev ys ++ rev xs
 ```
 
 让我们看看它是否适用于我们的实现：
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propRevTwo
 *** Failed! Falsified (after 5 tests and 3 shrinks):
 [0,0]
@@ -97,7 +82,7 @@ propRevTwo xs ys = rev (xs ++ ys) === rev ys ++ rev xs
 
 最后还是失败了！这里有一些需要解压的内容。首先，QuickCheck 告诉我们属性失败的参数：它们是 `[0,0]` 和 `[1]`。我们可以自己检查一下：
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck (propRevTwo [0,0] [1])
 *** Failed! Falsified (after 1 test):
 [0,1,0] /= [1,0,0]
@@ -105,7 +90,7 @@ propRevTwo xs ys = rev (xs ++ ys) === rev ys ++ rev xs
 
 接下来，“经过5次测试和3次收缩”是什么意思？ QuickCheck 的一个很酷的函数是，当它发现故障时，它会尝试一些相关值，以便找到更好、更小的故障。我们可以通过 `verboseShrinking` 看到这一点，它打印出 QuickCheck 经历的所有失败：
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck (verboseShrinking propRevTwo)
 Failed:
 [4,-1,-4]
@@ -154,12 +139,12 @@ QuickCheck 从 `[4,1,-1,4,4]` 的反例一直下降到 `[1,0,0]`。相当甜蜜�
 
 有时你需要限制 QuickCheck 生成的值。例如，你的函数可能不适用于所有输入？让我们尝试为 `last` 编写一个测试。
 
-``` haskell
+```haskell
 propLast :: [Int] -> Property
 propLast xs = last xs === head (reverse xs)
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propLast
 *** Failed! Exception: 'Prelude.last: empty list' (after 1 test):
 []
@@ -167,23 +152,23 @@ propLast xs = last xs === head (reverse xs)
 
 在这种情况下，我们只需切换到另一种输入类型即可修复测试。 QuickCheck 定义了 `NonEmptyList` 类型（不要与 `Data.List.NonEmpty` 混淆！），它只是普通列表的包装。但是，当生成 `NonEmptyList` 的值时，QuickCheck 不会生成空列表。
 
-``` haskell
+```haskell
 newtype NonEmptyList a = NonEmpty [a]
 ```
 
-``` haskell
+```haskell
 propLastFixed :: NonEmptyList Int -> Property
 propLastFixed (NonEmpty xs) = last xs === head (reverse xs)
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propLastFixed
 +++ OK, passed 100 tests.
 ```
 
 还有像这样的[其他修饰符](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:16)，例如 `Positive` 表示正数，`NonNegative` 表示非负数，或 `SortedList` 表示排序列表。这是一个更复杂测试的例子。我们检查 `cycle xs` 的第 n 个元素是否正确。这两个修饰符都是必需的，因为 `!!` 不适用于负输入，并且 `cycle []` 是一个错误。
 
-``` haskell
+```haskell
 propCycle :: NonEmptyList Int -> NonNegative Int -> Property
 propCycle (NonEmpty xs) (NonNegative n) =
   cycle xs !! n === xs !! (mod n (length xs))
@@ -193,12 +178,12 @@ propCycle (NonEmpty xs) (NonNegative n) =
 
 有时我们需要进一步限制测试的输入范围。作为一个简单的例子，下面是一个 `Data.Char.toUpper` 更改传递给它的字符的测试：
 
-``` haskell
+```haskell
 propToUpperChanges :: Char -> Property
 propToUpperChanges c = toUpper c =/= c
 ```
 
-``` haskell
+```haskell
 quickCheck propToUpperChanges
 *** Failed! Falsified (after 1 test and 1 shrink):
 'A'
@@ -207,12 +192,12 @@ quickCheck propToUpperChanges
 
 当然，它只是改变*小写字母*。我们如何为此编写测试？没有可用的 `Lowercase` 修饰符可以像 `Positive` 或 `NonEmptyList` 一样工作。我们需要使用 `forAll` 显式生成值：
 
-``` haskell
+```haskell
 propToUpperChangesLetter :: Property
 propToUpperChangesLetter = forAll (elements ['a'..'z']) propToUpperChanges
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> verboseCheck propToUpperChangesLetter
 Passed:
 's'
@@ -227,7 +212,7 @@ Passed:
 
 完美的！让我们看看这些类型，看看这里发生了什么。
 
-``` haskell
+```haskell
 elements :: [a] -> Gen a
 elements ['a'..'z'] :: Gen Char
 forAll :: (Show a, Testable prop) => Gen a -> (a -> prop) -> Property
@@ -238,18 +223,18 @@ forAll (elements ['a'..'z']) :: Testable prop => (Char -> prop) -> Property
 
 `Testable` 类型类与 `quickCheck` 函数使用的类型类相同。它的存在使得 `quickCheck` 除了简单的 `Property` 值之外还可以测试 `[Int] -> Bool -> Property` 等类型。
 
-``` haskell
+```haskell
 quickCheck :: Testable prop => prop -> IO ()
 ```
 
 此外，一些简单类型（例如 `Bool`）具有 `Testable` 实例，因此你可以使用普通 Haskell 谓词而不是 `===` 编写测试：
 
-``` haskell
+```haskell
 listHasZero :: [Int] -> Bool
 listHasZero xs = elem 0 xs
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck (listHasZero [1,0,2])
 +++ OK, passed 1 test.
 *Examples.QuickCheck> quickCheck listHasZero
@@ -259,7 +244,7 @@ listHasZero xs = elem 0 xs
 
 回到`forAll`，我们可以使用`forAll`来编写更复杂的测试。这是一个测试，检查 `sort xs` 是否具有与 `xs` 相同的元素。请注意我们如何使用 `NonEmptyList` 来保证 `forAll` 有一些元素可供选择。
 
-``` haskell
+```haskell
 propSort :: NonEmptyList Int -> Property
 propSort (NonEmpty xs) =
   forAll (elements xs) (\x -> elem x (sort xs))
@@ -271,13 +256,13 @@ propSort (NonEmpty xs) =
 
 有时 QuickCheck 的输出不够详细。你可以使用 `counterexample` 组合器将自己的行添加到输出：
 
-``` haskell
+```haskell
 counterexample :: Testable prop => String -> prop -> Property
 ```
 
 作为例子，我们将 `rev` 的输入日志记录添加到 `propRevTwo`：
 
-``` haskell
+```haskell
 propRevTwo' :: [Int] -> [Int] -> Property
 propRevTwo' xs ys =
   let input = xs ++ ys
@@ -285,7 +270,7 @@ propRevTwo' xs ys =
      rev input === rev ys ++ rev xs
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propRevTwo'
 *** Failed! Falsified (after 4 tests and 5 shrinks):
 [0]
@@ -296,7 +281,7 @@ Input: [0,0,1]
 
 你可能已经猜到，`Gen` 是 `Monad`。你可以通过组合 QuickCheck 定义的生成器来编写自己的生成器。你可以使用 `sample` 检查生成器的输出。
 
-``` haskell
+```haskell
 someLetters :: Gen String
 someLetters = do
   c <- elements "xyzw"
@@ -304,7 +289,7 @@ someLetters = do
   return (replicate n c)
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> sample someLetters
 "yyyyyyyy"
 "zzzzzzzzz"
@@ -321,7 +306,7 @@ someLetters = do
 
 与生成器密切相关的是 `Arbitrary` 类型类。 `Arbitrary` 是 QuickCheck 自动生成所有这些输入的方式。
 
-``` haskell
+```haskell
 class Arbitrary a where
   arbitrary :: Gen a
   shrink :: a -> [a]
@@ -329,7 +314,7 @@ class Arbitrary a where
 
 如果你正在为自定义类型编写测试，则需要使用 `forAll` 或实现 `Arbitrary` 实例。如果你缺少实例，会发生以下情况：
 
-``` haskell
+```haskell
 data Switch = On | Off
   deriving (Show, Eq)
 
@@ -341,7 +326,7 @@ propToggleTwice :: Switch -> Property
 propToggleTwice s = s === toggle (toggle s)
 ```
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck propToggleTwice
 error:
     • No instance for (Arbitrary Switch)
@@ -351,18 +336,16 @@ error:
 
 以下是修复它的两种方法：
 
-``` haskell
+```haskell
 *Examples.QuickCheck> quickCheck (forAll (elements [On,Off]) propToggleTwice)
 +++ OK, passed 100 tests.
 ```
 
-``` haskell
+```haskell
 instance Arbitrary Switch where
   arbitrary = elements [On,Off]
 ```
 
-
-<a id="phantom-types"></a>
 
 ## 16.2 幻影类型
 
@@ -372,7 +355,7 @@ instance Arbitrary Switch where
 
 让我们使用幻影类型来跟踪一笔钱所用的货币。我们定义幻影类型 `EUR` 和 `USD` （注意它们没有任何构造函数！），以及不使用类型参数 `a` 的参数化类型 `Money a` 。然后我们可以定义两个常量，一个以欧元为单位，另一个以美元为单位。你可以在文件 [`exercises/Examples/Phantom.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phantom.hs) 中找到本节的所有代码。
 
-``` haskell
+```haskell
 data EUR
 data USD
 data Money currency = Money Double
@@ -387,7 +370,7 @@ twoEuros = Money 2
 
 请注意 `dollar` 和 `twoEuros` 的类型签名如何完成此处的所有工作。如果我们不将 `Money 1` 这样的表达式限制为更具体的类型，则它具有多态类型 `Money currency`。我们明确地给出了 `dollar` 和 `twoEuros` 更有限的类型。这类似于定义 `one :: Int; one = 1` 之类的东西，因为常量 `1` 具有多态类型 `Num p => p`，但我们给它一个更受限制的类型。
 
-``` haskell
+```haskell
 *Examples.Phantom> :t Money
 Money :: Double -> Money currency
 *Examples.Phantom> :t Money 1
@@ -396,12 +379,12 @@ Money 1 :: Money currency
 
 现在我们有了一些常量，我们可以编写对它们进行操作的函数。让我们从一个将金额乘以数字的函数 `scaleMoney` 开始。货币保持不变。在这里，类型签名也起作用：没有类型签名，Haskell 会推断出 `Double -> Money a -> Money b` 的类型。
 
-``` haskell
+```haskell
 scaleMoney :: Double -> Money currency -> Money currency
 scaleMoney factor (Money a) = Money (factor * a)
 ```
 
-``` haskell
+```haskell
 *Examples.Phantom> :t scaleMoney 3 twoEuros
 scaleMoney 3 twoEuros :: Money EUR
 *Examples.Phantom> :t scaleMoney 3 dollar
@@ -410,12 +393,12 @@ scaleMoney 3 dollar :: Money USD
 
 下一步：添加两个相同货币的金额。如果我们尝试添加两种不同货币的值，我们会遇到一个很好的类型错误。
 
-``` haskell
+```haskell
 addMoney :: Money currency -> Money currency -> Money currency
 addMoney (Money a) (Money b) = Money (a+b)
 ```
 
-``` haskell
+```haskell
 *Examples.Phantom> :t addMoney dollar dollar
 addMoney dollar dollar :: Money USD
 *Examples.Phantom> :t addMoney twoEuros twoEuros
@@ -431,19 +414,19 @@ error:
 
 和以前一样，类型签名至关重要。这是具有不受限制类型的相同实现。现在我们可以将任何东西添加到任何东西！
 
-``` haskell
+```haskell
 addMoneyUnsafe :: Money x -> Money y -> Money z
 addMoneyUnsafe (Money a) (Money b) = Money (a+b)
 ```
 
-``` haskell
+```haskell
 *Examples.Phantom> addMoneyUnsafe twoEuros dollar
 Money 3.0
 ```
 
 我们可以继续采用这种方法，并定义货币换算。我们定义了类型 `Rate`，它使用幻影类型来跟踪其之间转换的货币。 `convert` 和 `invert` 的类型被限制为具有我们想要的属性。还有一个无限制版本的转换函数可让你比较类型。
 
-``` haskell
+```haskell
 data Rate from to = Rate Double
   deriving Show
 
@@ -460,7 +443,7 @@ convertUnsafe :: Rate from to -> Money x -> Money y
 convertUnsafe (Rate r) (Money a) = Money (r*a)
 ```
 
-``` haskell
+```haskell
 *Examples.Phantom> convert eurToUsd twoEuros
 Money 2.44
 *Examples.Phantom> convert eurToUsd dollar
@@ -487,7 +470,7 @@ Money 1.22
 
 我们可以使用类型 `Input Safe` 和 `Input Unsafe` 来跟踪字符串是否可以安全地传递到数据库中。如果我们的模块仅导出 `makeInput` 函数，而不导出 `Input` 构造函数，则类型系统确保任何输入在进入 `addForumComment` 等数据库函数之前必须在某个时刻通过 `escapeInput` 函数。
 
-``` haskell
+```haskell
 data Safe
 data Unsafe
 
@@ -512,8 +495,6 @@ escapeInput (Input xs) = Input (filter (\c -> isAlpha c || isSpace c) xs)
 ```
 
 
-<a id="simultaneity"></a>
-
 ## 16.3 并行与并发
 
 ### 16.3.1 并行性
@@ -524,7 +505,7 @@ escapeInput (Input xs) = Input (filter (\c -> isAlpha c || isSpace c) xs)
 
 接下来，让我们定义一个非常简单的斐波那契函数版本（还记得第一讲吗？），使用 `:set +s` 启用性能统计，并看看计算该函数的五个值需要多长时间：
 
-``` haskell
+```haskell
 Prelude> fib 0 = 1; fib 1 = 1; fib n = fib (n-1) + fib (n-2)
 Prelude> :set +s
 Prelude> map fib [29,29,29,29,29]
@@ -534,7 +515,7 @@ Prelude> map fib [29,29,29,29,29]
 
 现在让我们引入模块 [Control.Parallel.Strategies](https://hackage.haskell.org/package/parallel-3.2.2.0/docs/Control-Parallel-Strategies.html)，它定义了并行计算值的方法。我们将使用 `parList rseq` 策略*并行*将列表中的所有元素评估为 WHNF。
 
-``` haskell
+```haskell
 Prelude> import Control.Parallel.Strategies
 Prelude Control.Parallel.Strategies> withStrategy (parList rseq) (map fib [29,29,29,29,29])
 [832040,832040,832040,832040,832040]
@@ -549,7 +530,7 @@ Prelude Control.Parallel.Strategies> withStrategy (parList rseq) (map fib [29,29
 
 除了出色的并行工具之外，Haskell 还通过“线程”提供了出色的并发工具。由于并发性与副作用有关，因此并发计算发生在 `IO` Monad 中。线程的经典例子是两个线程，一个打印 As 流，另一个打印 Bs 流。这是 Haskell 中的：
 
-``` haskell
+```haskell
 printA :: IO ()
 printA = putStrLn (replicate 40 'A')
 
@@ -572,13 +553,13 @@ concurrency = do
 
 这是一个简单的例子，其中一个线程向 `MVar` 写入一个值，另一个线程等待它们并打印它们。 `MVar` 的工作方式类似于邮箱：它要么是空的，要么是满的。在空盒子上调用 `takeMVar` 等待盒子被填充（使用 `putMVar`）。对称地，尝试将 `putMVar` 放入已满的盒子中会等到盒子为空。
 
-``` haskell
+```haskell
 takeMVar :: MVar a -> IO a
 putMVar :: MVar a -> a -> IO ()
 newEmptyMVar :: IO (MVar a)
 ```
 
-``` haskell
+```haskell
 send :: [String] -> MVar String -> IO ()
 send values var = mapM_ (putMVar var) values
 
@@ -596,7 +577,7 @@ concurrency2 = do
   return ()
 ```
 
-``` haskell
+```haskell
 Prelude Control.Concurrent Control.Monad> concurrency2
 "hello"
 "world"
@@ -606,8 +587,6 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 ```
 
 
-<a id="exercises-7"></a>
-
 ## 16.4 练习
 
 - [Set16a](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16a.hs)：快速检查
@@ -615,9 +594,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 - 没有并行或并发 Haskell 练习，抱歉！
 
 
-<a id="where-to-go-from-here"></a>
-
-## 16.5 接下来去哪里？
+## 16.5 接下来学什么？
 
 恭喜！你已经完成了关于 Haskell 函数式编程的两部分课程的结尾。接下来怎么办？你绝对了解足够的 Haskell 来继续自学。 Haskell 在线社区非常友好，有大量博客文章和其他内容解释高级技术和函数。你可以通过以下例子找到很多有趣的东西：
 
@@ -656,8 +633,6 @@ Prelude Control.Concurrent Control.Monad> concurrency2
   - Bartosz Milewski 有很多好资料，例如[程序员的范畴论](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
   - [Haskell Wiki](https://wiki.haskell.org/Category_theory) 和 [Wikibook](https://en.wikibooks.org/wiki/Haskell/Category_theory) 有范畴论部分
 
-
-<a id="acknowledgements"></a>
 
 ## 16.6 致谢
 
