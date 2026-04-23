@@ -3,7 +3,7 @@
 
 ## 15.1 Applicative 简介
 
-`Applicative` 是 `Functor`（能做的事较少）和 `Monad`（能做任意程序）之间的中间立场。选择 `Applicative` 而不是 `Monad` 的原因包括：
+`Applicative` 位于 `Functor`（能做的事较少）和 `Monad`（能表达依赖前一步结果的程序）之间。选择 `Applicative` 而不是 `Monad` 的原因包括：
 
 - 性能：因为 `Applicative` 允许的操作较少，可以比 `Monad` 优化得更好。
 - 简单性：`Applicative` 接口更容易理解。
@@ -15,10 +15,10 @@
 class Functor f => Applicative f where
   pure :: a -> f a
   liftA2 :: (a -> b -> c) -> f a -> f b -> f c
-  -- other operations omitted for now
+  -- 暂时省略其他操作
 ```
 
-所以 `Applicative` 是 `Functor`，允许我们通过 `pure` 构建单值，并用 `liftA2` 将两个值合并为一个。相比普通 Functor，这增加了很多功能。Functor 的计算必然是线性的：`fmap :: (a -> b) -> f a -> f b` 接收一个 Functor 值，输出另一个。相比之下，`pure` 不接收 Functor 值而输出 1 个，`liftA2` 接收 2 个并返回 1 个。
+所以 `Applicative` 是一种 `Functor`，它允许我们用 `pure` 构造只包含一个值的上下文，并用 `liftA2` 将两个带上下文的值合并成一个。相比普通 Functor，这增加了不少能力。Functor 的计算必然是线性的：`fmap :: (a -> b) -> f a -> f b` 接收一个 Functor 值，输出另一个。相比之下，`pure` 不接收 Functor 值而输出 1 个，`liftA2` 接收 2 个并返回 1 个。
 
 附注：Applicative 术语来自 [Applicative Functor](https://en.wikipedia.org/wiki/Applicative_functor)，听起来像范畴论，但实际上来自编程论文。
 
@@ -78,7 +78,7 @@ example = do x <- parseMoney "123" "€"
              sumMoney x y
 ```
 
-如果我们尝试使用 `liftA2`，我们就会陷入 `Maybe (Maybe Money)` 类型。此外，我们现在可以获得两种不同类型的故障：`Nothing` 和 `Just Nothing`，具体取决于错误发生的级别。这是切换到 `Monad` 实例的明显情况。
+如果尝试使用 `liftA2`，就会得到 `Maybe (Maybe Money)` 类型。此外，根据错误发生的层级不同，现在会出现两种不同形式的失败：`Nothing` 和 `Just Nothing`。这就是明显应该切换到 `Monad` 实例的情况。
 
     liftA2 sumMoney (parseMoney "123" "e") (parseMoney "45" "€")
       ==> Just (Just (Money 168 EUR))
@@ -92,7 +92,7 @@ example = do x <- parseMoney "123" "€"
 
 ## 15.2 列表 Applicative
 
-让我们看看我们见过的另一个 `Functor` 的应用实例。列表 Functor 的 `Applicative` 实例会遍历所有可能的值组合（就像列表 monad 一样）。这是例子：
+让我们看看已经见过的另一个 `Functor` 的 Applicative 实例。列表 Functor 的 `Applicative` 实例会遍历所有可能的值组合（就像列表 monad 一样）。示例如下：
 
 ```haskell
 instance Applicative [] where
@@ -100,7 +100,7 @@ instance Applicative [] where
   liftA2 f xs ys = [f x y | x <- xs, y <- ys]
 ```
 
-这是一个例子：生成一些短语。
+这是一个示例：生成一些短语。
 
 ```haskell
 things :: [String]
@@ -133,7 +133,7 @@ bunches ==> ["apple","tangerine",
 
 ## 15.3 新运算符
 
-有一些非常方便的Applicative 运算符。它们是 `<$>`、`<*>`、`<*` 和 `*>`。
+有一些非常方便的 Applicative 运算符：`<$>`、`<*>`、`<*` 和 `*>`。
 
 让我们从 `<$>` 开始，它只是 `fmap` 的中缀版本：
 
@@ -154,7 +154,7 @@ negate <$> [1,2,3]  ==> [-1,-2,-3]
 (<*>) :: Applicative f => f (a -> b) -> f a -> f b
 ```
 
-该类型告诉你 `<*>` 的作用：它的函数Applicative“提升”为Applicative。以下是一些独立的例子：
+这个类型告诉你 `<*>` 的作用：它把 Applicative 里的函数应用到 Applicative 里的值上。下面是一些单独使用 `<*>` 的示例：
 
 ```haskell
 Just not <*> Just True    ==> Just False
@@ -163,7 +163,7 @@ Just not <*> Nothing      ==> Nothing
 [(+1),(*2)] <*> [10,100]  ==> [11,101,20,200]
 ```
 
-当我们将 `<$>` 和 `<*>` 结合起来时，真正的魔力发生了：然后我们可以将任意多个参数的函数提升为 Applicative！
+当我们将 `<$>` 和 `<*>` 结合起来时，真正关键的地方就出现了：我们可以把任意多参数的函数提升到 Applicative 中使用！
 
 ```haskell
 say :: String -> Int -> String -> String
@@ -186,7 +186,7 @@ say <$> ["bob","jake"] <*> [2,3] <*> ["bananas","cars"]
        "jake has 3 cars"]
 ```
 
-这是怎么回事？让我们逐步进行评估。关键是每个 `<*>` 部分地向函数应用一个以上的参数。
+这是怎么回事？让我们逐步求值。关键是每个 `<*>` 都会给函数部分应用一个参数。
 
 ```haskell
     say <$> Just "haskell" <*> Just 99 <*> Just "operators"
@@ -241,7 +241,7 @@ small :: Int -> Maybe Int
 small i = if i<10 then Just i else Nothing
 
 decreaseSmall :: Int -> Maybe Int
--- do what decrease does, but fail if small fails
+-- 执行 decrease 的行为，但如果 small 失败则失败
 decreaseSmall i = decrease i <* small i
 ```
 
@@ -263,7 +263,7 @@ class Functor f => Applicative f where
 ```
 
 
-## 15.4 Validation Applicative
+## 15.4 `Validation` Applicative
 
 让我们看一个比 Maybe 或列表更有趣的 Applicative。在编程中，我们通常需要“验证”用户的一些输入。在这些情况下，将输入可能存在的所有错误收集在一起很有用。文件 [`exercises/Examples/Validation.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Validation.hs) 实现 `Validation` 数据类型：
 
@@ -281,9 +281,9 @@ liftA2 (+) (Errors ["oh no"]) (Errors ["boom"])
   ==> Errors ["oh no","boom"]
 ```
 
-请注意，与 `Maybe` Applicative相比，我们有许多不同类型的故障。
+请注意，和 `Maybe` Applicative 相比，这里可以保留许多不同的失败信息。
 
-这是一个有效的例子，介绍了一些助手，然后使用它们来祝贺某人的生日：
+下面是一个完整示例：先介绍几个辅助函数，然后用它们来祝贺某人的生日：
 
 ```haskell
 invalid :: String -> Validation a
@@ -325,12 +325,12 @@ instance Applicative Validation where
   liftA2 f (Errors e1) (Errors e2) = Errors (e1++e2)
 ```
 
-`Validation` 的 `liftA2` 的定义表明错误是从左到右收集在一起的。这可以在上面的例子中看到，其中表达式 `liftA2 congratulate checkedName checkedAge` 首先输出来自 `checkedName` 的错误 (`"Name too long"`)，最后输出来自 `checkedAge` 的错误 (`"Too old"`)。
+`Validation` 的 `liftA2` 定义表明，错误会从左到右收集起来。上面的示例也能看出这一点：表达式 `liftA2 congratulate checkedName checkedAge` 会先输出来自 `checkedName` 的错误（`"Name too long"`），再输出来自 `checkedAge` 的错误（`"Too old"`）。
 
 
 ## 15.5 验证列表：`traverse`
 
-到目前为止，我们已经处理了固定大小的事物和Applicative：我们已经将两个或三个参数的函数应用于某些事物。如果我们有任意数量的输入怎么办？如果我们需要验证列表怎么办？
+到目前为止，我们已经处理了固定大小的事物和 Applicative：我们已经将两个或三个参数的函数应用于某些事物。如果我们有任意数量的输入怎么办？如果我们需要验证列表怎么办？
 
 让我们看一下实现这样的函数的一些方法：
 
@@ -353,7 +353,7 @@ allPositive (x:xs) = liftA2 (:) checkThis checkRest
         checkRest = allPositive xs
 ```
 
-总是拼写出这样的递归有点麻烦。如果我们在 `Monad` 中工作，我们可以使用像 `mapM` 这样的助手：
+每次都手写这样的递归有点麻烦。如果我们在 `Monad` 中工作，可以使用 `mapM` 这样的辅助函数：
 
 ```haskell
 mapM (\x -> if x>=0 then Just x else Nothing) [1,2,3]
@@ -368,7 +368,7 @@ mapM (\x -> if x>=0 then Just x else Nothing) [1,2,3,-4]
 traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 ```
 
-这是一个很糟糕的类型签名，所以让我们稍微简化一下。列表是 `Traversable`，所以我们可以将这种类型专门化为：
+这个类型签名看起来很吓人，所以让我们稍微简化一下。列表是 `Traversable`，所以可以把这个类型具体化为：
 
 ```haskell
 traverse :: Applicative f => (a -> f b) -> [a] -> f [b]
@@ -402,12 +402,12 @@ allPositive [1,-2,3,-4]
 
 请注意 `Validation` 的 `traverse` 如何按照原始列表中出现的顺序将所有错误收集在一起。
 
-P.S. 事实上，`Validation` 是 `Applicative` 不可能是 `Monad` 的少数例子之一。你能弄清楚为什么吗？
+P.S. 事实上，`Validation` 是 `Applicative` 不可能是 `Monad` 的少数示例之一。你能弄清楚为什么吗？
 
 
 ## 15.6 附注：`Traversable`
 
-那么`Traversable`是什么东西呢？很多熟悉的结构。以下是一些例子：
+那么 `Traversable` 到底是什么？很多熟悉的结构都是 `Traversable`。下面是一些示例：
 
 ```haskell
 decrease :: Int -> Maybe Int
@@ -415,21 +415,21 @@ decrease i = if i>0 then Just (i-1) else Nothing
 ```
 
 ```haskell
--- Lists are Traversable
+-- 列表是 Traversable
 traverse decrease [1,2,3] ==> Just [0,1,2]
 traverse decrease [1,0,3] ==> Nothing
 
--- Arrays are Traversable
+-- 数组是 Traversable
 traverse decrease (array (1,3) [(1,10),(2,11),(3,12)])
          ==> Just (array (1,3) [(1,9),(2,10),(3,11)])
 
--- Maps are Traversable
+-- Map 是 Traversable
 traverse decrease (M.fromList [("a",1),("b",2)])
          ==> Just (M.fromList [("a",0),("b",1)])
 traverse decrease (M.fromList [("a",1),("b",0)])
          ==> Nothing
 
--- Either is Traversable
+-- Either 是 Traversable
 traverse decrease (Left "abc") ==> Just (Left "abc")
 traverse decrease (Right 3)    ==> Just (Right 2)
 traverse decrease (Right 0)    ==> Nothing
@@ -443,7 +443,7 @@ class (Functor t, Foldable t) => Traversable t where
   mapM :: Monad m => (a -> m b) -> t a -> m (t b)
 ```
 
-在这里很难保持类型的正确性。我们回到`traverse`的类型：
+这里很容易被类型绕晕。我们回到 `traverse` 的类型：
 
 ```haskell
 traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
@@ -456,7 +456,7 @@ traverse :: (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
 
 ## 15.7 处理失败：`Alternative`
 
-如果你稍微尝试一下Applicative，你就会开始注意到它们的函数有一些限制。例如，当像我们在 `parseMoney` 例子中那样编写解析器时，如果能够尝试几个不同的解析器并获取任何非失败结果，那就太好了。对于像 `Maybe` 这样的具体Applicative来说，这很容易编写，如下所示。
+如果你稍微尝试一下 Applicative，就会开始注意到它们的能力有一些限制。例如，当我们像 `parseMoney` 示例那样编写解析器时，如果能够尝试几个不同的解析器，并获得任意一个成功结果，那就太好了。对于像 `Maybe` 这样的具体 Applicative 来说，这很容易手写，如下所示。
 
 ```haskell
 data Answer = Yes | No
@@ -479,7 +479,7 @@ eitherOf (Just x) _  = Just x
 eitherOf Nothing  mx = mx
 
 parseAnswer :: String -> Maybe Answer
--- prefer positive answers!
+-- 优先选择肯定回答！
 parseAnswer s = eitherOf (parseYes s) (parseNo s)
 ```
 
@@ -493,13 +493,13 @@ parseAnswer "x"      ==> Nothing
 
 我们如何概括 `eitherOf`？我们不能给它类型 `Applicative f => f x -> f x -> f x`，因为这样实现就需要有效地类似于 `eitherOf a b = liftA2 something a b`，但是 `eitherOf Nothing (Just x)` 将是 `Nothing`（因为这就是 Applicative 实例的工作方式）！
 
-事实证明我们需要一个新的类型类：`Alternative`。 Alternative 在 Applicative 中添加了两个操作：`empty` 表示没有结果，`<|>` 表示合并结果。
+事实证明，我们需要一个新的类型类：`Alternative`。`Alternative` 在 Applicative 的基础上增加了两个操作：`empty` 表示没有结果，`<|>` 表示合并结果。
 
 ```haskell
 class Applicative f => Alternative f where
   empty :: f a
   (<|>) :: f a -> f a -> f a
-  -- some other operations omitted
+  -- 省略一些其他操作
 ```
 
 现在我们可以使用通用操作重写我们的解析代码：
@@ -560,7 +560,7 @@ instance Alternative Validation where
   Errors e1 <|> Errors e2 = Errors (e1++e2)
 ```
 
-这是最后一个例子：验证联系信息，可以是电话数字或电子邮件地址。
+这是最后一个示例：验证联系信息，可以是电话数字或电子邮件地址。
 
 ```haskell
 data ContactInfo = Email String | Phone String
@@ -598,28 +598,28 @@ validateContactInfo "x"
               "Not a phone number: should be all numbers"]
 ```
 
-请注意，与前面的例子一样，错误是从左到右收集的：来自 `validateEmail` 的错误出现在来自 `validatePhone` 的错误之前。来自 `checkDigits` 的错误先于来自 `checkLength` 的错误。
+请注意，与前面的示例一样，错误是从左到右收集的：来自 `validateEmail` 的错误出现在来自 `validatePhone` 的错误之前。来自 `checkDigits` 的错误先于来自 `checkLength` 的错误。
 
 
 ## 15.8 附注：上下文中的 Applicative
 
 ### 15.8.1 为什么是 Applicative？
 
-学习 Applicative 的原因有多种，即使它们不提供任何比 Monad 更强大的功能。首先，正如第 13 讲中所讨论的，GHC 标准库现在要求所有 Monad 必须有 Applicative 实例。因此，一个 Haskell 程序员必然会看到很多 Applicative 实例。
+学习 Applicative 有多种原因，即使它并不提供比 Monad 更强大的能力。首先，正如第 13 讲中所讨论的，GHC 标准库现在要求所有 Monad 必须有 Applicative 实例。因此，Haskell 程序员必然会看到很多 Applicative 实例。
 
-其次，即使在 Monadic 代码中，你也会经常遇到 Applicative 运算符。像 `f <$> x <*> y <*> z` 这样的表达式在许多 Monadic 上下文中都很有用。此外，由于 `Traversable` 类型类是根据 `Applicative` 构建的，因此你经常会对其使用应用操作。
+其次，即使在 monadic 代码中，你也会经常遇到 Applicative 运算符。像 `f <$> x <*> y <*> z` 这样的表达式在许多 monadic 上下文中都很有用。此外，由于 `Traversable` 类型类建立在 `Applicative` 之上，你也会经常通过它使用 Applicative 操作。
 
-第三，Applicative 是理解函数设计模式的绝佳练习。它们将 Functor 模式与幺半群模式相结合，而 Alternative 则带来了另一个类似幺半群的维度。能够有效地使用 Applicative 将使使用 *monad 变换器* 或 *lenses* 等进一步的抽象变得更容易。
+第三，Applicative 是理解函数式设计模式的绝佳练习。它把 Functor 模式和幺半群模式结合在一起，而 Alternative 又带来了另一个类似幺半群的维度。能够有效使用 Applicative，会让你更容易理解 *monad 变换器* 或 *lenses* 等更进一步的抽象。
 
-最后，有几种类型是 Applicative 但不是 Monad。 `Validation` 就是一个例子，而且是一个非常实用的例子。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是[`ZipList`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList)。
+最后，有几种类型是 Applicative 但不是 Monad。 `Validation` 就是一个示例，而且是一个非常实用的示例。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是[`ZipList`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList)。
 
 ### 15.8.2 实际应用
 
-尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicative，但仍有大量 Haskell 库使用 Applicative 来完成重要任务。以下是一些例子。
+尽管本讲只介绍了一些非常简单且具体的 Applicative，但仍有大量 Haskell 库使用 Applicative 来完成重要任务。下面是一些示例。
 
-与我们的 `Validation` Applicative 相同的想法已在[验证](https://hackage.haskell.org/package/validation) 和[任一](https://hackage.haskell.org/package/either) 库中实现。
+和我们的 `Validation` Applicative 相同的想法，已经在 [validation](https://hackage.haskell.org/package/validation) 和 [either](https://hackage.haskell.org/package/either) 库中实现。
 
-有多个使用 Applicative 的解析器库。例如，[regex-applicative](https://hackage.haskell.org/package/regex-applicative)、[optparse-applicative](https://hackage.haskell.org/package/optparse-applicative)、[yamlparse-applicative](https://cs-syd.eu/posts/2020-06-28-yamlparse-applicative)、[json-stream](https://hackage.haskell.org/package/json-stream) 等。
+有多个使用 Applicative 的解析器库。例如，[regex-applicative](https://hackage.haskell.org/package/regex-applicative)、[optparse-applicative](https://hackage.haskell.org/package/optparse-applicative)、[yamlparse-applicative](https://cs-syd.eu/posts/2020-06-28-yamlparse-applicative)、[JSON-stream](https://hackage.haskell.org/package/JSON-stream) 等。
 
 ### 15.8.3 Monad 和 Applicative
 
@@ -646,7 +646,7 @@ op1 <*> op2      === do f <- op1
                         return (f x)
 ```
 
-在 `Monad` 中工作时，你可以将 `Applicative` 和 `Functor` 与 `Monad` 操作自由混合。作为一个例子，让我们重写 `mapM` 直到它只使用应用操作，从而得到 `traverse` 的实现。这是我们的出发点：
+在 `Monad` 中工作时，你可以将 `Applicative` 和 `Functor` 与 `Monad` 操作自由混合。作为一个示例，让我们重写 `mapM` 直到它只使用Applicative 操作，从而得到 `traverse` 的实现。这是我们的出发点：
 
 ```haskell
 myMapM op [] = return []

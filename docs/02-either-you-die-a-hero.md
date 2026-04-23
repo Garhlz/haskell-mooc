@@ -1,4 +1,4 @@
-# 第 2 讲：要么作为英雄而死……
+# 第 2 讲：要么成为英雄，要么……
 
 - 有关递归的更多信息
 - 守卫
@@ -96,7 +96,7 @@ def fibonacci(n):
 Haskell：
 
 ```haskell
--- fibonacci numbers, fast version
+-- 斐波那契数列，快速版本
 fibonacci :: Integer -> Integer
 fibonacci n = fibonacci' 0 1 n
 
@@ -109,7 +109,7 @@ fibonacci' a b n = fibonacci' b (a+b) (n-1)
 
 附注：Haskell 程序经常使用撇号来命名辅助函数和函数的替代版本。因此，上面的辅助函数名为 `fibonacci'`。像 `foo'` 这样的名字通常读作 *foo prime*（就像数学中一样）。
 
-我之前说过这个版本的斐波那契更有效。你能明白为什么吗？答案是递归调用更少。表达式 `fibonacci' _ _ n` 调用 `fibonacci' _ _ (n-1)` 一次，这表示我们可以在 `n` 步中计算 `fibonacci' _ _ n`。
+我之前说过这个版本的斐波那契更有效。你能明白为什么吗？答案是递归调用更少。表达式 `fibonacci' _ _ n` 调用 `fibonacci' _ _ (n-1)` 一次，这意味着我们可以在 `n` 步中计算 `fibonacci' _ _ n`。
 
 这种函数直接使用不同参数调用自身的递归类型称为“尾递归”。正如你在上面看到的，尾递归对应于循环。这就是尾递归通常很快的原因：编译器在看到尾递归时可以在机器代码中生成循环。
 
@@ -117,7 +117,7 @@ fibonacci' a b n = fibonacci' b (a+b) (n-1)
 
 在我们继续讨论新类型之前，让我们再回顾一下 Haskell 语法。
 
-`if then else` 通常有点麻烦，尤其是当你有多种情况时。一个更简单的替代方案是 Haskell 的“条件定义”或“守卫”。这有点像模式匹配，因为你有多个方程，但你可以使用任意代码来决定使用哪个方程。带守卫的定义如下所示：
+`if then else` 通常有点笨重，尤其是当你需要处理多种情况时。一个更简洁的替代方案是 Haskell 的“条件定义”或“守卫”。它有点像模式匹配，因为你仍然写多个方程，但可以用任意代码来决定选择哪个方程。带守卫的定义如下所示：
 
 ```haskell
 f x y z
@@ -130,7 +130,7 @@ f x y z
 
 ### 2.2.1 示例
 
-以下是使用守卫的一些示例。首先，我们有一个描述给定数字的函数。请注意， `"Two"` 案例位于 `"Even"` 案例之前是多么重要。
+以下是使用守卫的一些示例。首先是一个描述给定数字的函数。请注意，`"Two"` 分支必须放在 `"Even"` 分支之前。
 
 ```haskell
 describe :: Int -> String
@@ -181,7 +181,7 @@ Prelude> guessAge "Hansel" 10
 
 ## 2.3 列表
 
-到目前为止，我们一直使用数字或布尔值等单一值。字符串包含多个字符，但在某种意义上字符串仍然只是一条信息。为了能够进行实际编程，我们需要处理可变数量的项目。为此，我们需要*数据结构*。
+到目前为止，我们一直使用数字或布尔值等单一值。字符串包含多个字符，但在某种意义上字符串仍然只是一条信息。要写出实际可用的程序，我们需要处理数量可变的元素。为此，我们需要*数据结构*。
 
 Haskell 中的基本数据结构是列表。列表用于存储相同类型的多个值（换句话说，Haskell 列表是同质的）。这是列表文字的样子：
 
@@ -195,8 +195,8 @@ Haskell 中的基本数据结构是列表。列表用于存储相同类型的多
 [True,True,False] :: [Bool]
 ["Moi","Hei"] :: [String]
 [] :: [a]                   -- more about this later
-[[1,2],[3,4]] :: [[Int]]    -- a list of lists
-[1..7] :: [Int]             -- range syntax, value [1,2,3,4,5,6,7]
+[[1,2],[3,4]] :: [[Int]]    -- 列表的列表
+[1..7] :: [Int]             -- 区间语法，值为 [1,2,3,4,5,6,7]
 ```
 
 Haskell 列表被实现为单链表。我们稍后再讨论这一点。
@@ -206,17 +206,17 @@ Haskell 列表被实现为单链表。我们稍后再讨论这一点。
 Haskell 标准库附带了许多对列表进行操作的函数。以下是一些最重要的及其类型。我们稍后会回到 `[a]` 的实际含义，但现在你可以想象它的意思是“任何列表”。
 
 ```haskell
-head :: [a] -> a            -- returns the first element
-last :: [a] -> a            -- returns the last element
-tail :: [a] -> [a]          -- returns everything except the first element
-init :: [a] -> [a]          -- returns everything except the last element
-take :: Int -> [a] -> [a]   -- returns the n first elements
-drop :: Int -> [a] -> [a]   -- returns everything except the n first elements
-(++) :: [a] -> [a] -> [a]   -- lists are catenated with the ++ operator
-(!!) :: [a] -> Int -> a     -- lists are indexed with the !! operator
-reverse :: [a] -> [a]       -- reverse a list
-null :: [a] -> Bool         -- is this list empty?
-length :: [a] -> Int        -- the length of a list
+head :: [a] -> a            -- 返回第一个元素
+last :: [a] -> a            -- 返回最后一个元素
+tail :: [a] -> [a]          -- 返回除第一个元素外的所有元素
+init :: [a] -> [a]          -- 返回除最后一个元素外的所有元素
+take :: Int -> [a] -> [a]   -- 返回前 n 个元素
+drop :: Int -> [a] -> [a]   -- 返回除前 n 个元素外的所有元素
+(++) :: [a] -> [a] -> [a]   -- 列表使用 ++ 运算符连接
+(!!) :: [a] -> Int -> a     -- 列表使用 !! 运算符索引
+reverse :: [a] -> [a]       -- 反转列表
+null :: [a] -> Bool         -- 这个列表是否为空？
+length :: [a] -> Int        -- 列表长度
 ```
 
 附注：最后两个操作（`null` 和 `length`）实际上有更通用的类型，但这里先把它们当作只能用于列表的函数。
@@ -230,7 +230,7 @@ Prelude> :t "asdf"
 "asdf" :: [Char]
 ```
 
-这表示 `String` 只是 `[Char]` 的别名，也就是说字符串是字符列表。因此，你可以对字符串使用所有列表操作！
+这意味着 `String` 只是 `[Char]` 的别名，也就是说字符串是字符列表。因此，你可以对字符串使用所有列表操作！
 
 一些列表操作来自模块 `Data.List`。你可以使用 `import Data.List` 语法在代码或 GHCi 中导入模块。一个例子是 `sort` 函数，它对列表进行排序：
 
@@ -283,7 +283,7 @@ reverse [1..4] ==> [4,3,2,1]
 
 ## 2.4 关于不变性
 
-因为 Haskell 是纯的，这也意味着函数不能*修改*（改变）它们的输入。变更是一种副作用，Haskell 函数只允许通过其返回值进行输出。这表示 Haskell 列表函数总是返回一个新列表。在实践中：
+因为 Haskell 是纯的，这也意味着函数不能*修改*（改变）它们的输入。修改是一种副作用，Haskell 函数只允许通过其返回值进行输出。这意味着 Haskell 列表函数总是返回一个新列表。在实践中：
 
 ```haskell
 Prelude> list = [1,2,3,4]
@@ -301,11 +301,11 @@ Prelude> list
 
 ## 2.5 关于类型推断和多态性
 
-那么像 `head :: [a] -> a` 这样的类型是什么意思呢？这表示给定一个包含任何类型 `a` 元素的列表，返回值将具有相同类型 `a`。
+那么像 `head :: [a] -> a` 这样的类型是什么意思呢？这意味着给定一个包含任何类型 `a` 元素的列表，返回值将具有相同类型 `a`。
 
-在这种类型中， `a` 是一个*类型变量*。类型变量是以小写字母开头的类型，例如 `a`、`b`、`thisIsATypeVariable`。类型变量意味着未知的类型，或者换句话说，可以是任何类型的类型。类型变量可以通过*类型推断*（也称为*统一*）过程变成*具体类型*（例如 `Bool`）。
+在这种类型中，`a` 是一个*类型变量*。类型变量以小写字母开头，例如 `a`、`b`、`thisIsATypeVariable`。类型变量表示一个尚未确定的类型，换句话说，它可以是任意类型。类型变量可以通过*类型推断*（也称为*统一*）过程变成*具体类型*（例如 `Bool`）。
 
-让我们看一些例子。如果我们将 `head` 应用于布尔值列表，类型推断会将头部参数的类型 `[a]` 与实际参数的类型 `[Bool]` 进行比较，并推断出 `a` 必须是 `Bool`。这表示在这种情况下 `head` 的返回类型也将是 `Bool`。
+让我们看一些示例。如果我们将 `head` 应用于布尔值列表，类型推断会将头部参数的类型 `[a]` 与实际参数的类型 `[Bool]` 进行比较，并推断出 `a` 必须是 `Bool`。这意味着在这种情况下 `head` 的返回类型也将是 `Bool`。
 
 ```haskell
 head :: [a] -> a
@@ -339,14 +339,14 @@ f xs ys = [head xs, head ys]
 g zs = f "Moi" zs
 ```
 
-我们可以向 GHCi 询问它们的类型，我们将看到类型推断已经发现 `f` 的两个参数必须具有相同的类型，因为它们的头被放入同一个列表中。
+我们可以向 GHCi 询问它们的类型。你会看到，类型推断已经发现 `f` 的两个参数必须具有相同的类型，因为它们的头部元素被放进了同一个列表。
 
 ```haskell
 Prelude> :t f
 f :: [a] -> [a] -> [a]
 ```
 
-函数 `g` 将 `f` 的参数之一固定为字符串（即 `[Char]`），该函数获得更窄的类型。类型推断决定 `g` 的参数 `zs` 也必须具有类型 `[Char]`，否则 `f` 的类型将与对 `f` 的调用不匹配。
+函数 `g` 将 `f` 的参数之一固定为字符串（即 `[Char]`），该函数获得更具体的类型。类型推断决定 `g` 的参数 `zs` 也必须具有类型 `[Char]`，否则 `f` 的类型将与对 `f` 的调用不匹配。
 
 ```haskell
 Prelude> :t g
@@ -365,7 +365,7 @@ g :: [Char] -> [Char]
 
 1.  它们充当文档
 2.  它们充当编译器检查的断言：帮助你发现错误
-3.  你可以使用类型标注为函数提供比 Haskell 推断更窄的类型
+3.  你可以使用类型标注为函数提供比 Haskell 推断更具体的类型
 
 一个好的经验法则是给出顶级定义类型标注。
 
@@ -375,7 +375,7 @@ g :: [Char] -> [Char]
 
 有时，操作没有有效的返回值（例如除以零）。在这种情况下，我们有几个选择：可以使用错误值，比如 `-1`，但这不太优雅，而且不总是可行；也可以抛出异常，但这不是纯函数；有些语言会返回一个几乎存在于所有类型中的特殊空值。然而，Haskell 没有 null。
 
-Haskell 为我们提供的解决方案是将返回类型更改为 `Maybe` 类型。这是纯净、安全、整洁的。类型 `Maybe a` 有两个*构造函数*：`Nothing` 和 `Just`。`Nothing` 只是一个常量，但 `Just` 带有一个参数。更具体地说：
+Haskell 为我们提供的解决方案是将返回类型更改为 `Maybe` 类型。这是纯粹、安全而清晰的。类型 `Maybe a` 有两个*构造函数*：`Nothing` 和 `Just`。`Nothing` 只是一个常量，但 `Just` 带有一个参数。更具体地说：
 
 | 类型 | 值 |
 |:--------------|:-----------------------------------------|
@@ -393,7 +393,7 @@ Nothing :: Maybe a
 Prelude> Just "a camel"
 Just "a camel"
 Prelude> :t Just "a camel"
-Just "a camel" :: Maybe [Char]   -- the same as Maybe String
+Just "a camel" :: Maybe [Char]   -- 等同于 Maybe String
 Prelude> Just True
 Just True
 Prelude> :t Just True
@@ -401,20 +401,20 @@ Just True :: Maybe Bool
 ```
 
 ```haskell
--- given a password, return (Just username) if login succeeds, Nothing otherwise
+-- 给定密码，登录成功时返回 (Just username)，否则返回 Nothing
 login :: String -> Maybe String
 login "f4bulous!" = Just "unicorn73"
 login "swordfish" = Just "megahacker"
 login _           = Nothing
 ```
 
-你可以通过模式匹配来使用 `Maybe` 值。通常需要为 `Nothing` 和 `Just something` 两种情况定义模式。下面是一些例子：
+你可以通过模式匹配来使用 `Maybe` 值。通常需要为 `Nothing` 和 `Just something` 两种情况定义模式。下面是一些示例：
 
 ```haskell
--- Multiply an Int with a Maybe Int. Nothing is treated as no multiplication at all.
+-- 将 Int 与 Maybe Int 相乘。Nothing 被视为不进行任何乘法。
 perhapsMultiply :: Int -> Maybe Int -> Int
 perhapsMultiply i Nothing = i
-perhapsMultiply i (Just j) = i*j   -- Note how j denotes the value inside the Just
+perhapsMultiply i (Just j) = i*j   -- 注意 j 表示 Just 内部的值
 ```
 
 ```haskell
@@ -456,7 +456,7 @@ Just :: a -> Maybe a
 
 ## 2.8 `Either` 类型
 
-有时，如果能给 `Nothing` 附加错误消息或其他信息，会更有帮助。这就是 `Either` 类型存在的原因。`Either` 类型有两个类型参数。类型 `Either a b` 有两个构造函数：`Left` 和 `Right`。两者都带有一个参数，`Left` 包含类型 `a` 的值，`Right` 包含类型 `b` 的值。
+有时，如果能给 `Nothing` 附加错误消息或其他信息，会更有用。这就是 `Either` 类型存在的原因。`Either` 类型有两个类型参数。类型 `Either a b` 有两个构造函数：`Left` 和 `Right`。两者都带有一个参数，`Left` 包含类型 `a` 的值，`Right` 包含类型 `b` 的值。
 
 | 类型 | 值 |
 |:---|:---|
@@ -483,7 +483,7 @@ iWantAString (Right str)   = str
 iWantAString (Left number) = show number
 ```
 
-你还记得，Haskell 列表只能包含相同类型的元素。你不能拥有像 `[1,"foo",2]` 这样的值。但是，你可以使用 `Either` 之类的类型来表示可以包含两种不同类型值的列表。例如，我们可以跟踪讲座的人数，如果缺少值，则可以添加解释：
+你还记得，Haskell 列表只能包含相同类型的元素。你不能拥有像 `[1,"foo",2]` 这样的值。但是，你可以使用 `Either` 之类的类型来表示可以包含两种不同类型值的列表。例如，我们可以跟踪讲座参与人数，如果缺少值，则可以添加解释：
 
 ```haskell
 lectureParticipants :: [Either String Int]
@@ -520,7 +520,7 @@ describe n = case n of 0 -> "zero"
 一个更有趣的例子是，当我们进行模式匹配的值不是函数参数时。例如：
 
 ```haskell
--- parse country code into country name, returns Nothing if code not recognized
+-- 将国家代码解析为国家名称，无法识别代码时返回 Nothing
 parseCountry :: String -> Maybe String
 parseCountry "FI" = Just "Finland"
 parseCountry "SE" = Just "Sweden"
@@ -547,10 +547,10 @@ flyTo countryCode = handleResult (parseCountry countryCode)
         handleResult Nothing        = "You're not flying anywhere"
 ```
 
-事实上，case-of 表达式总是可以用辅助函数替换。这是另外一个例子，用两种方式编写：
+事实上，case-of 表达式总是可以用辅助函数替换。这是另一个示例，用两种方式编写：
 
 ```haskell
--- given a sentence, decide whether it is a statement, question or exclamation
+-- 给定一个句子，判断它是陈述句、疑问句还是感叹句
 sentenceType :: String -> String
 sentenceType sentence = case last sentence of '.' -> "statement"
                                               '?' -> "question"
@@ -559,7 +559,7 @@ sentenceType sentence = case last sentence of '.' -> "statement"
 ```
 
 ```haskell
--- same function, helper function instead of case-of
+-- 同一个函数，但用辅助函数替代 case-of
 sentenceType sentence = classify (last sentence)
   where classify '.' = "statement"
         classify '?' = "question"
@@ -625,7 +625,7 @@ area "circle" x = pi * square x
   where square x = x * x
 ```
 
-这不会编译，因为 `where` 子句仅附加到 `"circle"` 情况，因此 `square` 辅助函数在 `"square"` 情况下不可用。另一方面，我们可以写
+这不会编译，因为 `where` 子句只附着在 `"circle"` 分支上，所以 `square` 辅助函数在 `"square"` 分支中不可用。另一方面，我们可以写成：
 
 ```haskell
 area :: String -> Double -> Double
@@ -648,7 +648,7 @@ distanceToSunday "Saturday"  = 1
 distanceToSunday "Sunday"    = 0
 ```
 
-使用 `case` 表达式可以实现更简洁的实现：
+使用 `case` 表达式可以写出更简洁的实现：
 
 ```haskell
 distanceToSunday :: String -> Int
@@ -662,9 +662,9 @@ distanceToSunday d = case d of
   "Sunday"    -> 0
 ```
 
-这三个优点使 `case` 表达式成为 Haskell 程序员工具箱中的多功能工具。记住 `case` 的工作原理很值得。
+这三个优点使 `case` 表达式成为 Haskell 程序员工具箱中的多用途工具。记住 `case` 的工作原理很值得。
 
-（用字符串表示工作日可能可行，但不是完美的解决方案。如果我们把 `motivate` 应用于 `"monday"`（全小写）或 `"keskiviikko"` 会怎么样？在第 5 讲中，我们将学习一种更好的方法来表示工作日这类数据。）
+（用字符串表示工作日可能可行，但不是完美的解决方案。如果我们把 `motivate` 应用于 `"monday"`（全小写）或 `"keskiviikko"` 会怎么样？在第 5 讲中，我们将学习一种更好的方法来表示星期几这类数据。）
 
 ## 2.10 回顾：模式匹配
 
@@ -703,7 +703,7 @@ case number of 0 -> "zero"
 你真正“需要”模式匹配的唯一事情是在 `Just`、`Left` 或 `Right` 构造函数中“获取值”。这里还有两个例子：
 
 ```haskell
--- getElement (Just i) gets the ith element (counting from zero) of a list, getElement Nothing gets the last element
+-- getElement (Just i) 获取列表的第 i 个元素（从 0 开始计数），getElement Nothing 获取最后一个元素
 getElement :: Maybe Int -> [a] -> a
 getElement (Just i) xs = xs !! i
 getElement Nothing xs = last xs

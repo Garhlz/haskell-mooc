@@ -5,7 +5,7 @@
 
 ## 9.1 类型
 
-还记得 Haskell 的原始类型吗？它们如下：
+还记得 Haskell 的基本类型吗？它们如下：
 
 |值 |类型 |意义|
 |:---|:---|:---|
@@ -16,7 +16,7 @@
 | `0.0`、`-3.2`、`12.3`、… | `Double` |浮点数 |
 | `()` | `()` |所谓只有一个值的单位类型 |
 
-这些原始类型可以组合形成更复杂的类型。函数类型、元组类型和列表类型是组合其他类型的类型的例子。
+这些基本类型可以组合成更复杂的类型。函数类型、元组类型和列表类型，都是由其他类型组合而成的类型。
 
 |值 |类型 |意义|
 |:---|:---|:---|
@@ -25,29 +25,29 @@
 | `[]`、`[1,2,3,4]`、…… | `[a]` | `a` 类型的值列表 |
 | `not`、`reverse`、`\x -> 1`、`\x -> x`、… | `a -> b` |`a` 类型到 `b` 类型的函数|
 
-有一种更强大的机制可以创建更多类型：*代数数据类型* (ADT)。一些例子包括：
+有一种更强大的机制可以创建更多类型：*代数数据类型* (ADT)。一些示例包括：
 
 ```haskell
--- Enumeration types
+-- 枚举类型
 data Bool = True | False
 data Color = Red | Green | Blue
 
--- Record types that contain fields
+-- 包含字段的记录类型
 data Vector2d = MakeVector Double Double
 data Person = Person Int String
 
--- Parameterized types. Note the type parameter `a`
+-- 参数化类型。注意类型参数 `a`
 data PairOf a = TwoValues a a
 
--- Recursive types
+-- 递归类型
 data IntList = Empty | Node Int IntList
 
--- Complex types which combine many of these features
+-- 组合了许多这些特性的复杂类型
 data Maybe a = Nothing | Just a
 data Either a b = Left a | Right b
-data List a = Nil | Cons a (List a)             -- This is equivalent to the built-in [a] type
+data List a = Nil | Cons a (List a)             -- 这等同于内置的 [a] 类型
 data Tree a = Leaf a | Node a (Tree a) (Tree a)
-data MultiTree a = MultiTree a [MultiTree a]     -- Note the list
+data MultiTree a = MultiTree a [MultiTree a]     -- 注意这里的列表
 ```
 
 这些类型的值包括：
@@ -67,19 +67,19 @@ data MultiTree a = MultiTree a [MultiTree a]     -- Note the list
 | `Leaf 7`、`Node 1 (Leaf 0) (Leaf 2)`、…… | `Tree Int` |
 | `MultiTree 'a' [MultiTree 'b' [], MultiTree 'c' []]]`，… | `MultiTree Char` |
 
-你可以以复杂的方式组合参数化类型，例如使用 `Either [String->String] (Maybe String, Int)` 之类的东西。
+你可以用复杂的方式组合参数化类型，例如 `Either [String->String] (Maybe String, Int)` 这样的类型。
 
-具体类型的名称以大写字母开头。小写字母用于*类型变量*，表示*参数多态性*：可以具有多种类型的函数和值。以下是多态函数类型的一些例子：
+具体类型的名称以大写字母开头。小写字母用于*类型变量*，表示*参数多态性*：可以具有多种类型的函数和值。以下是多态函数类型的一些示例：
 
 ```haskell
-[a] -> [a]    -- function from list of any type, to list of the same type
-[a] -> a      -- function from list of any type, to the element type
-(a,b) -> [a]  -- function from tuple to list
+[a] -> [a]    -- 从任意类型列表到同类型列表的函数
+[a] -> a      -- 从任意类型列表到元素类型的函数
+(a,b) -> [a]  -- 从元组到列表的函数
 ```
 
 ### 9.1.1 关于列表的更多内容
 
-列表文字可以使用熟悉的 `[x,y,z]` 语法编写。然而，该表示法只是一种简写，因为列表实际上是由列表构造函数 `[]` 和 `(:)` 构建的。当模式匹配列表时也会使用这些构造函数。以下是一些列表例子：
+列表字面量可以使用熟悉的 `[x,y,z]` 语法编写。不过，这种写法只是一种简写，因为列表实际上是由列表构造函数 `[]` 和 `(:)` 构建的。对列表做模式匹配时，也会用到这些构造函数。以下是一些列表示例：
 
 |缩写 |完整列表 |类型 |
 |:----------------|:--------------------------|:---------------------------------|
@@ -110,7 +110,7 @@ data MultiTree a = MultiTree a [MultiTree a]     -- Note the list
 
 一般来说，`[f x | x <- xs, p x]` 与 `map f (filter p xs)` 相同。另外，`[y | x <- xs, let y = f x]` 与 `[f x | x <- xs]` 相同。 `<-`、`let` 和 `[f x | ...]` 的任意组合都是可能的。
 
-关于语法还有一点注释。回想一下，`(:)` 与右侧关联，例如 `True:False:[]` 与 `True:(False:[])` 相同。 （事实上​​，`(True:False):[]`甚至不是一个列表，因为`True:False`试图在`False`前面添加`True`，而`False`不是一个列表。）
+关于语法还有一点补充。回想一下，`(:)` 是右结合的，例如 `True:False:[]` 与 `True:(False:[])` 相同。（事实上，`(True:False):[]` 甚至不是一个列表，因为 `True:False` 试图把 `True` 加到 `False` 前面，而 `False` 不是列表。）
 
 
 ## 9.2 函数
@@ -136,7 +136,7 @@ surroundString :: String -> String -> String
 surroundString around s = around ++ s ++ around
 ```
 
-函数可以是多态的，可以接受多个参数，甚至可以将函数作为参数。以下是更多例子：
+函数可以是多态的，可以接受多个参数，甚至可以将函数作为参数。以下是更多示例：
 
 ```haskell
 id :: a -> a
@@ -184,7 +184,7 @@ buy "Banana" money
 buy product  _    = "No such product: " ++ product
 ```
 
-*大小写表达式*让我们在函数内部进行模式匹配。当一个函数的结果依赖于另一个函数的结果并且我们想要匹配另一个函数的输出上的模式时，它们非常有用：
+*`case` 表达式*让我们可以在函数内部进行模式匹配。当一个函数的结果依赖于另一个函数的结果，并且我们想对另一个函数的输出做模式匹配时，它非常有用：
 
 ```haskell
 divDefault :: Double -> Double -> Double -> Double
@@ -193,7 +193,7 @@ divDefault x y def = case safeDiv x y of
   Just w  -> w
 ```
 
-Let 表达式启用*局部定义*。 Where 子句的工作方式与 `let` 类似。例如：
+`let` 表达式用于创建*局部定义*。`where` 子句的作用与 `let` 类似。例如：
 
 ```haskell
 circleArea :: Double -> Double
@@ -207,7 +207,7 @@ circleArea' r = pi * square r
           square x = x * x
 ```
 
-*Lambda 表达式* 是另一种偶尔有用的定义函数的语法。 Lambda 表达式表示匿名（未命名）函数。它们可用于定义通常仅使用一次的局部函数。
+*Lambda 表达式*是另一种偶尔有用的函数定义语法。Lambda 表达式表示匿名（未命名）函数，可用于定义通常只使用一次的局部函数。
 
 ```haskell
 incrementAll :: [Int] -> [Int]
@@ -216,7 +216,7 @@ incrementAll xs = map (\x -> x + 1) xs
 
 请注意，`f x = y` 与 `f = \x -> y` 相同。
 
-最后，二元运算符有*部分*。节是部分应用的运算符。运算符的部分是通过将运算符及其参数之一写在括号中来获得的。例如，`(*2)` 将其参数从右侧乘以 `2`，例如 `(*2) 5 ==> 5 * 2`。小数（例如 `Double`）可以与部分 `(1/)` 反转，例如 `(1/) 2 ==> 0.5`。
+最后，二元运算符也可以写成 *section*，也就是偏应用后的运算符。写法是把运算符和其中一个参数放在括号中。例如，`(*2)` 会把参数乘以 `2`，所以 `(*2) 5 ==> 5 * 2`。小数（例如 `Double`）可以用 section `(1/)` 取倒数，例如 `(1/) 2 ==> 0.5`。
 
 ```haskell
 incrementAll' :: [Int] -> [Int]
@@ -228,15 +228,15 @@ incrementAll' xs = map (+1) xs
 
 Haskell 是一种函数式编程语言，这意味着函数可以作为参数传入并从函数返回。作为一种编程范式，函数式编程旨在通过将简单的函数组合在一起形成越来越大的函数来构建程序。
 
-最常见的函数式编程例子是使用“高阶函数”（将函数作为参数的函数）进行函数列表操作，例如 `map` 和 `filter`。以下是第 1 部分中的一个例子：
+最常见的函数式编程示例是使用“高阶函数”（将函数作为参数的函数）进行函数列表操作，例如 `map` 和 `filter`。以下是第 1 部分中的一个示例：
 
 ```haskell
--- a predicate that checks if a string is a palindrome
+-- 检查字符串是否为回文的谓词
 palindrome :: String -> Bool
 palindrome str = str == reverse str
 
--- palindromes n takes all numbers from 1 to n, converts them to
--- strings using show, and keeps only palindromes
+-- palindromes n 取 1 到 n 的所有数字，使用 show 转换为字符串，
+-- 并只保留回文
 palindromes :: Int -> [String]
 palindromes n = filter palindrome (map show [1..n])
 ```
@@ -275,7 +275,7 @@ foldr (++) "" ["abc","de","f"] ==> "abcdef"
 
 ## 9.4 递归
 
-要在 Haskell 中实现使用重复的函数，你需要递归。 Haskell 没有像其他编程语言那样的循环。以下是 Haskell 中的一些简单的递归函数：
+要在 Haskell 中实现使用重复的函数，你需要递归。Haskell 没有像其他编程语言那样的循环。以下是 Haskell 中的一些简单的递归函数：
 
 ```haskell
 repeatString :: Int -> String -> String
@@ -293,7 +293,7 @@ safeLast [x]    = Just x
 safeLast (x:xs) = safeLast xs
 ```
 
-要使用或生成列表，你通常需要递归。以下是 `map` 和 `filter` 的实现作为递归列表处理的例子：
+要使用或生成列表，你通常需要递归。以下是 `map` 和 `filter` 的实现作为递归列表处理的示例：
 
 ```haskell
 map :: (a -> b) -> [a] -> [b]
@@ -316,10 +316,10 @@ sumNumbers xs = go 0 xs
         go sum (x:xs) = go (sum+x) xs
 ```
 
-这是使用守卫、模式匹配、辅助函数和递归的最后一个例子：
+这是使用守卫、模式匹配、辅助函数和递归的最后一个示例：
 
 ```haskell
--- split a string into pieces at the given character
+-- 按给定字符将字符串切成片段
 mySplit :: Char -> String -> [String]
 mySplit c xs = helper [] xs
   where helper piece [] = [piece]
@@ -350,9 +350,9 @@ fst (x,y) = x
 
 无论我们使用什么类型，参数多态函数始终以相同的方式工作。这意味着我们不能只为 `Int` 类型定义 `id` 的特殊实现，也不能为 `(Bool, String)` 类型定义 `fst` 的特殊实现。
 
-相比之下，“临时多态性”允许不同类型对同一函数有不同的实现。 Haskell 中的临时多态性可以通过定义一个“类型类”，然后为各种类型声明该类型类的“实例”来实现。临时多态性是表达一组通用操作的便捷方法，即使操作的实现取决于它们所作用的类型。
+相比之下，“特设多态”允许不同类型为同一个函数提供不同实现。Haskell 中的特设多态可以通过定义一个“类型类”，然后为各种类型声明该类型类的“实例”来实现。即使操作的具体实现取决于目标类型，特设多态也能方便地表达一组通用操作。
 
-使用临时多态性的函数在其类型中具有“类约束”。以下是一些例子：
+使用特设多态的函数在其类型中具有“类约束”。以下是一些示例：
 
 ```haskell
 negate :: Num a => a -> a
@@ -360,7 +360,7 @@ negate :: Num a => a -> a
 sort :: Ord a => [a] -> [a]
 ```
 
-像 `Num a => a -> a` 这样的类型意味着：对于属于 `Num` 类成员的任何类型 `X`，该函数的类型为 `X -> X`。换句话说，我们可以在任何数字类型上调用 `negate`，但不能在其他类型上调用：
+像 `Num a => a -> a` 这样的类型意味着：对于属于 `Num` 类型类的任何类型 `X`，该函数的类型为 `X -> X`。换句话说，我们可以在任何数字类型上调用 `negate`，但不能在其他类型上调用：
 
 ```haskell
 Prelude> negate 1
@@ -393,11 +393,11 @@ sumTwoSmallest xs = let (a:b:_) = sort xs
                     in a+b
 ```
 
-现在我们已经了解了一些类和类型，让​​我们看看声明类和实例的语法。下面是两个类的定义：
+现在我们已经了解了一些类型类和类型，来看声明类型类和实例的语法。下面是两个类型类的定义：
 
 ```haskell
 class Sized a where
-  empty :: a        -- a thing with size 0
+  empty :: a        -- 大小为 0 的东西
   size :: a -> Int
 
 class Eq a where
@@ -432,7 +432,7 @@ instance Sized (Tree a) where
   size (Node _ left right) = 1 + size left + size right
 ```
 
-我们还可以轻松地为 `Numbers` 和 `IntList` 声明 `Eq` 实例：
+我们还可以轻松地为 `Numbers` 和 `IntList` 定义 `Eq` 实例：
 
 ```haskell
 instance Eq Numbers where
@@ -447,7 +447,7 @@ instance Eq IntList where
   _               == _                 = False
 ```
 
-但是，由于 `Tree` 数据类型是通过元素类型 `a` 进行参数化的，因此我们需要一个 `Eq a` 实例才能拥有 `Eq (Tree a)` 实例。这是通过向实例声明添加类约束来实现的。这称为“实例层次结构”。
+但是，由于 `Tree` 数据类型是通过元素类型 `a` 进行参数化的，因此我们需要一个 `Eq a` 实例才能拥有 `Eq (Tree a)` 实例。这是通过向实例声明添加类型类约束来实现的。这称为“实例层次结构”。
 
 ```haskell
 instance Eq a => Eq (Tree a) where
@@ -458,7 +458,7 @@ instance Eq a => Eq (Tree a) where
 
 ### 9.5.1 推导
 
-一些标准类型类，尤其是 `Show`、`Read`、`Eq` 和 `Ord` 可以“推导”，也就是说，你可以要求编译器为你自动生成实例。例如，我们可以为之前的 `Numbers` 例子推导出所有这些实例。
+一些标准类型类，尤其是 `Show`、`Read`、`Eq` 和 `Ord` 可以“推导”，也就是说，你可以要求编译器为你自动生成实例。例如，我们可以为之前的 `Numbers` 示例推导出所有这些实例。
 
 ```haskell
 data Numbers = None | One Int | Two Int Int

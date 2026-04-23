@@ -3,17 +3,17 @@
 
 ## 8.1 IO 初体验
 
-本章以纯函数式编程为中心。我们已经做了很多算术、反转列表、使用二叉树，但到目前为止我们还无法影响 GHCi 之外的世界。
+本课程到目前为止一直围绕纯函数式编程展开。我们已经做了很多算术、反转列表、使用二叉树，但还无法影响 GHCi 之外的世界。
 
-读取输入、写入文件或通过网络通信之类的事情都是“副作用”。副作用无法用纯函数式代码表示。像这样的函数
+读取输入、写入文件或通过网络通信之类的事情都是“副作用”。副作用无法直接用纯函数式代码表示。像这样的函数
 
 ```haskell
 readInputFromTheUser :: String -> String
 ```
 
-不可能是纯的，因为如果是纯的，`readInputFromUser "What is your name?"` 将始终返回相同的结果。然而，用纯语言表示副作用和非纯性是可能的。有很多方法可以做到这一点，Haskell 方法是使用 *Monad*。
+不可能是纯的，因为如果它是纯函数，`readInputFromUser "What is your name?"` 就必须始终返回相同结果。然而，在纯语言中表示副作用和非纯性是可能的。实现方式有很多种，Haskell 的方式是使用 *Monad*。
 
-据说单子（Monad）很难理解，可能是因为太抽象了。最好先从具体的例子入手。这里先让你体验一下 `IO` Monad，你可以用它来处理 Haskell 中的各种副作用。
+Monad 常被说成很难理解，可能是因为它太抽象。最好先从具体示例入手。这里先让你体验一下 `IO` Monad，它可以用来处理 Haskell 中的各种副作用。
 
 让我们开始吧！
 
@@ -40,7 +40,7 @@ Prelude> reverse line
 
 收到 `line` 后，它是一个纯的 `String` 值，可以正常使用。
 
-一些 IO 操作带有参数。例如，`putStrLn :: String -> IO ()` 采用 `String` 并返回打印该字符串的 `IO` 操作。 `()` 类型是一种特殊类型，只有一个值 `()`。在这种情况下， `IO ()` 意味着该 IO 始终产生相同的空值 `()`。可以通过以下方式运行 IO 操作
+有些 IO 操作带有参数。例如，`putStrLn :: String -> IO ()` 接受一个 `String`，并返回一个打印该字符串的 `IO` 操作。`()` 类型是一种特殊类型，只有一个值 `()`。在这种情况下，`IO ()` 意味着这个 IO 操作始终产生同一个空值 `()`。可以通过以下方式运行 IO 操作：
 
 ```haskell
 Prelude> :t putStrLn
@@ -60,7 +60,7 @@ Prelude> putStrLn "hello"
 hello
 ```
 
-你可以通过将其他操作与 *do-notation* 相结合来构建自己的 IO 操作。 `do` 块列出了按顺序执行的 IO 操作。
+你可以通过把多个操作放进 *do-notation* 来构建自己的 IO 操作。`do` 块会列出按顺序执行的 IO 操作。
 
 ```haskell
 printTwoThings :: IO ()
@@ -87,7 +87,7 @@ Hello, Seraphim
 
 ### 8.1.1 纯性如何处理？
 
-感觉好像我们可以通过这些 IO 操作在任何我们想要的地方产生副作用。然而，重要的是要记住“定义”IO 操作和“执行”它之间的区别。
+看起来好像我们可以通过这些 IO 操作在任何地方产生副作用。然而，重要的是要记住“定义”IO 操作和“执行”IO 操作之间的区别。
 
 让我们尝试在映射列表时进行打印
 
@@ -118,7 +118,7 @@ Prelude> :t length (map putStrLn ["string1","string2"])
 length (map putStrLn ["string1","string2"]) :: Int
 ```
 
-我们生成了 IO 操作列表并计算了列表的长度。定义 IO 操作是纯的，“运行”它们会导致副作用。由于我们的表达式的类型是 `Int`，因此任何 `IO` 操作都无法登陆 GHCi 并被执行。
+我们生成了一个 IO 操作列表，然后计算了这个列表的长度。定义 IO 操作是纯的，“运行”它们才会导致副作用。由于这个表达式的类型是 `Int`，没有任何 `IO` 操作会交给 GHCi 执行。
 
 如果我们返回一个 IO 操作，它就会运行：
 
@@ -129,18 +129,18 @@ Prelude> head (map putStrLn ["string1","string2"])
 string1
 ```
 
-这里，生成操作 `putStrLn "string1"` 的代码也是纯的，只有在 GHCi 执行 IO 操作之后我们才能看到打印的字符串。正如你所看到的，另一个 IO 操作 `putStrLn "string2"` 从未运行。
+这里，生成操作 `putStrLn "string1"` 的代码也是纯的。只有当 GHCi 执行这个 IO 操作后，我们才会看到打印出来的字符串。正如你所看到的，另一个 IO 操作 `putStrLn "string2"` 从未运行。
 
 如果这感觉很复杂，请不要担心。我们将在课程的第二部分中再次讨论这一点。
 
 ### 8.1.2 Haskell 程序如何运行？
 
-我们知道 GHCi 可以运行 IO 操作。实际的 Haskell 程序怎么样？ Haskell 程序的工作方式是在程序运行时执行名为 `main` 的 IO 操作。回想一下第 1 讲中的例子程序。
+我们知道 GHCi 可以运行 IO 操作。实际的 Haskell 程序又是怎样运行的？Haskell 程序的运行方式是：程序启动时执行名为 `main` 的 IO 操作。回想一下第 1 讲中的示例程序。
 
 ```haskell
 module Gold where
 
--- The golden ratio
+-- 黄金比例
 phi :: Double
 phi = (sqrt 5 + 1) / 2
 
@@ -154,7 +154,7 @@ main = do
   print (f phi)
 ```
 
-这里我们看到一些纯代码和一个 `main` IO 操作，它打印两件事（ `print` 只是 `putStrLn` 与 `show` 的组合）。
+这里可以看到一些纯代码，以及一个会打印两项内容的 `main` IO 操作（`print` 只是 `putStrLn` 与 `show` 的组合）。
 
 我们可以将此代码放在名为 `Gold.hs` 的文件中，将其编译为可执行文件，然后运行它：
 
@@ -179,7 +179,7 @@ $ ./Gold
 
 ## 8.3 接下来做什么？
 
-[课程第 2 部分](https://haskell.mooc.fi/part2) 现已推出！第 2 部分将涵盖 Monad、IO 以及 Haskell 幕后工作原理等主题。我们还将使用网络和数据库进行一些现实世界的编程。哦，还涵盖了 Haskell 中的测试。
+[课程第 2 部分](https://haskell.mooc.fi/part2) 现已推出！第 2 部分将涵盖 Monad、IO 以及 Haskell 的底层工作原理等主题。我们还会使用网络和数据库进行一些更贴近实际场景的编程。对了，还会介绍 Haskell 中的测试。
 
 如果你现在不想跳入第 2 部分，那么你现在应该可以关注以下一些其他 Haskell 资源：
 
@@ -207,7 +207,7 @@ $ ./Gold
 
 ## 8.5 致谢
 
-这门课程是由 [Nitor](https://nitor.com/en) 完成的，他为这个项目捐赠了 Joel 的大量工作时间。谢谢你！如果你有兴趣在重视持续学习的地方工作，请查看我们的 [open positions](https://www.nitor.com/en/jobs)。
+这门课程由 [Nitor](https://nitor.com/en) 支持完成，Nitor 为这个项目投入了 Joel 的大量工作时间。谢谢你！如果你有兴趣在重视持续学习的地方工作，请查看我们的 [open positions](https://www.nitor.com/en/jobs)。
 
 感谢整个 Haskell Mooc 团队，特别是
 

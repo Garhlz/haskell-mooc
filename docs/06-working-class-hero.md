@@ -1,8 +1,8 @@
 # 第 6 讲：类型类英雄
 
-我们已经在类型中看到了像 `Eq a =>` 这样的类约束。我们知道如何将现有类与现有类型一起使用。但我们如何将现有的类与我们自己的类型一起使用呢？我们如何定义自己的类？
+我们已经在类型中见过像 `Eq a =>` 这样的类型类约束。我们知道如何把现有类型类用于现有类型。但如何把现有类型类用于我们自己的类型？又如何定义自己的类型类？
 
-下面是如何使你自己的类型成为 `Eq` 类的成员：
+下面展示如何让你自己的类型成为 `Eq` 类型类的实例：
 
 ```haskell
 data Color = Black | White
@@ -13,19 +13,19 @@ instance Eq Color where
   _     == _      = False
 ```
 
-类实例是一个 `instance` 块，其中包含该类中函数的定义。这里我们定义了 `==` 如何在 `Color` 上工作。
+类型类实例是一个 `instance` 块，其中包含该类型类中函数的定义。这里我们定义了 `==` 在 `Color` 上如何工作。
 
 
 ## 6.1 类和实例的语法
 
-类型类使用 `class` 语法定义。类中的函数被赋予了相应的类型签名。这是一个包含一个函数 `size` 的类 `Size`：
+类型类使用 `class` 语法定义。类型类中的函数会给出相应的类型签名。下面是一个包含函数 `size` 的类型类 `Size`：
 
 ```haskell
 class Size a where
   size :: a -> Int
 ```
 
-类的实例是用我们刚刚看到的 `instance` 语法定义的。下面是我们如何使 `Int` 和 `[a]` 成为 `Size` 类的成员：
+类型类的实例使用刚才看到的 `instance` 语法定义。下面展示如何让 `Int` 和 `[a]` 成为 `Size` 类型类的实例：
 
 ```haskell
 instance Size Int where
@@ -35,7 +35,7 @@ instance Size [a] where
   size xs = length xs
 ```
 
-我们的类 `Size` 的行为就像现有的类型类一样。我们可以在任何可以使用函数的地方使用 `size`，并且 Haskell 可以为我们推断具有 `Size` 约束的类型：
+我们的类型类 `Size` 的行为就像现有的类型类一样。我们可以在任何可以使用函数的地方使用 `size`，并且 Haskell 可以为我们推断具有 `Size` 约束的类型：
 
 ```haskell
 Prelude> :t size
@@ -47,7 +47,7 @@ Prelude> :t sizeBoth
 sizeBoth :: (Size a1, Size a2) => a1 -> a2 -> [Int]
 ```
 
-一个类可以包含多个函数，甚至常量。这里我们定义了新版本的 `Size` 类，内容更多。
+一个类型类可以包含多个函数，甚至可以包含常量。这里我们定义一个内容更多的新版 `Size` 类型类。
 
 ```haskell
 class Size a where
@@ -72,13 +72,13 @@ instance Size [a] where
 
 ## 6.2 默认实现
 
-你是否注意到在前面的例子中我们如何在两个实例中为 `sameSize` 提供相同的定义？这是很常见的情况，这就是 Haskell 类可以有*默认实现*的原因。作为第一个例子，这里有一个 `Example` 类型类，用于给出类型的示例值。
+你是否注意到，在前面的示例中，我们在两个实例里为 `sameSize` 提供了相同的定义？这很常见，因此 Haskell 类型类可以有*默认实现*。先看一个 `Example` 类型类，它用于给出某个类型的示例值。
 
 ```haskell
 class Example a where
-  example :: a           -- the main example for the type `a`
-  examples :: [a]        -- a short list of examples
-  examples = [example]   -- ...defaulting to just the main example
+  example :: a           -- 类型 `a` 的主要示例
+  examples :: [a]        -- 一个简短的示例列表
+  examples = [example]   -- ... 默认只包含主要示例
 
 instance Example Int where
   example = 1
@@ -101,7 +101,7 @@ Prelude> examples :: [Int]
 [0,1,2]
 ```
 
-标准类型类使用大量默认实现来简化类的实现。下面是 `Eq` 的标准定义（为了便于阅读而格式化）。
+标准类型类大量使用默认实现来简化实例定义。下面是 `Eq` 的标准定义（为了便于阅读而格式化）。
 
 ```haskell
 class Eq a where
@@ -112,11 +112,11 @@ class Eq a where
   x /= y  = not (x == y)
 ```
 
-请注意这两个操作如何具有彼此的默认实现。这意味着我们可以定义一个完全没有内容的 `Eq` 实例，但生成的函数将永远递归。在实践中，我们希望至少定义 `==` 和 `/=` 之一。
+请注意这两个操作如何互相作为默认实现。这意味着我们可以定义一个完全没有内容的 `Eq` 实例，但生成的函数将永远递归。在实践中，我们希望至少定义 `==` 和 `/=` 之一。
 
-当有很多默认实现时，可能很难知道你需要自己实现哪些函数。因此，类文档通常会提到“最小完整定义”。对于 `Eq`，[文档说](https://hackage.haskell.org/package/base-4.16.4.0/docs/Prelude.html#t:Eq) “最小完整定义：== 或 /=。”
+当有很多默认实现时，可能很难知道你需要自己实现哪些函数。因此，类型类文档通常会提到“最小完整定义”。对于 `Eq`，[文档说](https://hackage.haskell.org/package/base-4.16.4.0/docs/Prelude.html#t:Eq) “最小完整定义：== 或 /=。”
 
-接下来我们看 `Ord`。  `Ord` 有 7 个操作，彼此之间都有默认实现。顺便说一下，请注意一次定义多个类型签名的奇怪方式。没关系，这是 Haskell 的一个特性，这就是 `Ord` 在 [标准中](https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1270006.3) 中的定义。 （我们很快就会回到 `(Eq a) =>` 部分的含义。）
+接下来看看 `Ord`。`Ord` 有 7 个操作，它们彼此之间都有默认实现。顺便说一下，请注意这种一次性定义多个类型签名的写法。没关系，这是 Haskell 的一个特性，`Ord` 在[标准](https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1270006.3)中就是这样定义的。（我们很快就会回到 `(Eq a) =>` 这部分的含义。）
 
 ```haskell
 class  (Eq a) => Ord a  where
@@ -160,7 +160,7 @@ combine3 :: Combine a => a -> a -> a -> a
 combine3 x y z = combine x (combine y z)
 ```
 
-作为例子，下面是简单对类型的 `Eq` 和 `Ord` 实例。请注意该定义如何通过仅定义 `==` 和 `<=` 来使用最小完整定义规则。
+作为示例，下面是简单 pair 类型的 `Eq` 和 `Ord` 实例。请注意该定义如何通过仅定义 `==` 和 `<=` 来使用最小完整定义规则。
 
 ```haskell
 data IntPair = IntPair Int Int
@@ -192,9 +192,9 @@ LT
 
 ### 6.3.1 推导
 
-正如我们已经多次看到的，`deriving` 是一种获取自动生成的类实例的方法。 `Read` 和 `Show` 类几乎总是应该推导以获得标准行为。 `Eq` 的推导实例通常就是你想要的。它需要构造函数和字段匹配。
+正如我们已经多次看到的，`deriving` 是一种获得自动生成类型类实例的方法。`Read` 和 `Show` 类型类几乎总是值得推导，以获得标准行为。`Eq` 的推导实例通常也正是你想要的：它要求构造函数和字段都匹配。
 
-推导的 `Ord` 实例可能不是你想要的。它从左到右对构造函数进行排序，然后从左到右比较构造函数内的字段。一个例子：
+推导的 `Ord` 实例可能不是你想要的。它从左到右对构造函数进行排序，然后从左到右比较构造函数内的字段。一个示例：
 
 ```haskell
 data Person = Dead | Alive String Int
@@ -206,13 +206,13 @@ Prelude> Dead < Alive "Bob" 35                   -- constructors are ordered lef
 True
 Prelude> Alive "Barbara" 35 < Alive "Clive" 17   -- names are compared before ages
 True
-Prelude> Alive "Clive" 17 < Alive "Clive" 30     -- finally, ages are compared if names match
+Prelude> Alive "Clive" 17 < Alive "Clive" 30     -- 最后，如果姓名相同，则比较年龄
 True
 ```
 
-### 6.3.2 向 GHCi 询问类的信息
+### 6.3.2 向 GHCi 询问类型类的信息
 
-你可以在 GHCi 中使用 `:info` 命令来获取类的内容和实例。如今，该信息甚至包括最小完整定义（请参阅 MINIMAL pragma）。例如：
+你可以在 GHCi 中使用 `:info` 命令来获取类型类的内容和实例。如今，该信息甚至包括最小完整定义（请参阅 MINIMAL pragma）。例如：
 
 ```haskell
 Prelude> :info Num
@@ -225,12 +225,12 @@ class Num a where
   signum :: a -> a
   fromInteger :: Integer -> a
   {-# MINIMAL (+), (*), abs, signum, fromInteger, (negate | (-)) #-}
-    -- Defined in ‘GHC.Num’
-instance Num Word -- Defined in ‘GHC.Num’
-instance Num Integer -- Defined in ‘GHC.Num’
-instance Num Int -- Defined in ‘GHC.Num’
-instance Num Float -- Defined in ‘GHC.Float’
-instance Num Double -- Defined in ‘GHC.Float’
+    -- 定义于 ‘GHC.Num’
+instance Num Word -- 定义于 ‘GHC.Num’
+instance Num Integer -- 定义于 ‘GHC.Num’
+instance Num Int -- 定义于 ‘GHC.Num’
+instance Num Float -- 定义于 ‘GHC.Float’
+instance Num Double -- 定义于 ‘GHC.Float’
 ```
 
 
@@ -267,7 +267,7 @@ instance Eq a => Eq (Pair a) where
   (MakePair x y) == (MakePair a b)   =   x==a && y==b
 ```
 
-现在我们可以比较对，只要元素类型是可比较的。但是，我们无法比较函数对，因为函数没有 Eq 实例。
+现在，只要元素类型可比较，我们就可以比较 pair。不过，我们无法比较函数 pair，因为函数没有 `Eq` 实例。
 
 ```haskell
 Prelude> MakePair 1 1 == MakePair 1 1
@@ -283,7 +283,7 @@ Prelude> MakePair reverse reverse == MakePair reverse reverse
           it = MakePair reverse reverse == MakePair reverse reverse
 ```
 
-我们继续看另一个例子。这是一个简单的类型类和一个实例：
+我们继续看另一个示例。这是一个简单的类型类和一个实例：
 
 ```haskell
 class Check a where
@@ -350,7 +350,7 @@ class Size a => SizeBoth a where
   sizeBoth x y = size x + size y
 ```
 
-在这种情况下，我们说 `SizeBoth` 是 `Size` 的*子类*。注意，这里同样容易与面向对象编程中的概念混淆。标准库中的子类例子包括：
+在这种情况下，我们说 `SizeBoth` 是 `Size` 的*子类*。注意，这里同样容易与面向对象编程中的概念混淆。标准库中的子类示例包括：
 
 ```haskell
 class Eq a => Ord a where

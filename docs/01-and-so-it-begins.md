@@ -1,11 +1,11 @@
-# 第 1 讲：……就这样开始
+# 第 1 讲：故事就这样开始
 
 
 ## 1.1 课程简介
 
 这是一门使用 Haskell 编程语言学习函数式编程的在线课程。你可以按照自己的进度学习。所有材料和练习都是公开可用的。
 
-本课程面向希望学习函数式编程的初学者，也面向具有函数式编程经验、特别想学习 Haskell 的人。本课程不需要任何基础知识，但提前了解至少一种编程语言将使学习变得更容易。
+本课程面向想学习函数式编程的初学者，也面向已经有函数式编程经验、但特别想学习 Haskell 的人。本课程不要求任何预备知识，不过如果你已经了解至少一种编程语言，学习会更轻松。
 
 练习包括了解如何使用命令行以及 Git 版本控制系统的基本用法。
 
@@ -35,13 +35,13 @@ Haskell 是：
 
 **函数式** – 程序的基本构建块是函数。函数可以返回函数，也可以接受函数作为参数。此外，Haskell 中唯一的循环方式是递归。
 
-**纯** - Haskell 函数是纯的，也就是说，它们没有副作用。副作用是指读取文件、打印文本或更改全局变量等。函数的所有输入都必须位于其参数中，函数的所有输出都必须位于其返回值中。这听起来有限制，但使程序的推理变得更容易，并允许编译器进行更多优化。
+**纯** - Haskell 函数是纯的，也就是说，它们没有副作用。副作用包括读取文件、打印文本或修改全局变量等。函数的所有输入都必须来自参数，所有输出都必须体现在返回值中。这听起来有限制，但会让程序更容易推理，也让编译器能做更多优化。
 
 **惰性** - 值只有在需要时才会被求值。这使得使用无限数据结构成为可能，并且也使纯程序更加高效。
 
 **强类型** - 每个 Haskell 值和表达式都有一个类型。编译器在编译时检查类型，并保证运行时不会发生类型错误。这意味着不会出现 AttributeErrors（类似于 Python）、ClassCastExceptions（类似于 Java）或分段错误（类似于 C）。Haskell 类型系统非常强大，可以帮助你设计更好的程序。
 
-**类型推断** - 除了检查类型之外，编译器还可以推断大多数程序的类型。这使得使用强类型语言变得更加容易。事实上，大多数 Haskell 函数都可以完全不用类型来编写。然而，程序员仍然可以为函数和值提供类型标注，以便更轻松地发现类型错误。类型标注还使阅读程序变得更加容易。
+**类型推断** - 除了检查类型之外，编译器还可以推断大多数程序的类型。这让强类型语言用起来更轻松。事实上，大多数 Haskell 函数即使不写类型也能通过编译。不过，程序员仍然可以为函数和值提供类型标注，以便更早发现类型错误。类型标注也会让程序更易读。
 
 **垃圾收集** - 与当今大多数高级语言一样，Haskell 通过垃圾收集进行自动内存管理。这意味着程序员不需要担心分配或释放内存，语言运行时会自动处理这些事情。
 
@@ -53,7 +53,7 @@ Haskell 是：
 
 ### 1.3.1 特点
 
-下面展示了 Haskell 的一些很酷的功能：
+下面展示了 Haskell 的一些很有代表性的特性：
 
 **高阶函数** – 函数可以接受函数作为参数：
 
@@ -63,7 +63,7 @@ map length ["abc","abcdef"]
 
 结果是 `[3,6]`。
 
-**匿名函数又名 lambda** – 你可以定义一次性帮助函数而无需给它们命名
+**匿名函数，又称 lambda** – 你可以定义临时辅助函数，而不用给它们命名
 
 ```haskell
 filter (\x -> length x > 1) ["abc","d","ef"]
@@ -71,7 +71,7 @@ filter (\x -> length x > 1) ["abc","d","ef"]
 
 结果是 `["abc","ef"]`。
 
-**偏应用** – 你可以通过仅向另一个函数提供它需要的一些参数来定义新函数。例如，把列表中的所有元素乘以 3：
+**偏应用** – 你可以只给一个函数提供部分参数，从而得到一个新函数。例如，把列表中的所有元素乘以 3：
 
 ```haskell
 map (*3) [1,2,3]
@@ -114,9 +114,9 @@ primes = [ n | n <- [2..] , all (\k -> n `mod` k /= 0) [2..n `div` 2] ]
 take 10 primes
 ```
 
-其求值结果为 `[2,3,5,7,11,13,17,19,23,29]`。
+它的求值结果为 `[2,3,5,7,11,13,17,19,23,29]`。
 
-**参数化类型** – 你可以定义由其他类型参数化的类型。例如，`[Int]` 是 `Int` 的列表，而 `[Bool]` 是布尔值的列表。你可以定义适用于各种列表的带类型函数，例如 `reverse` 的类型为 `[a] -> [a]`，这表示它接受包含任意类型 `a` 的列表，并返回相同类型的列表。
+**参数化类型** – 你可以定义由其他类型参数化的类型。例如，`[Int]` 是 `Int` 的列表，而 `[Bool]` 是布尔值的列表。你可以定义适用于各种列表的带类型函数，例如 `reverse` 的类型为 `[a] -> [a]`，这意味着它接受包含任意类型 `a` 的列表，并返回相同类型的列表。
 
 **类型类** – 另一种形式的多态：你可以根据参数类型为同一个函数提供不同实现。例如，`Show` 类型类定义了函数 `show`，它可以把各种类型的值转换成字符串。`Num` 类型类定义了像 `+` 这样的算术运算符，它们适用于所有数字类型（`Int`、`Double`、`Complex` 等）。
 
@@ -166,7 +166,7 @@ Haskell 的简要时间表：
 
 ## 1.5 开始吧！
 
-GHCi 是交互式 Haskell 解释器。这是一个示例会话：
+GHCi 是交互式 Haskell 解释器。下面是一个示例会话：
 
 ```haskell
 $ stack ghci
@@ -316,7 +316,7 @@ Prelude> :t 1+1
 1+1 :: Num a => a
 ```
 
-现在，你可以暂时将约束类型 `Num a => a` 理解为“任意数字类型”。在 Haskell 中，数字文字是“重载”的，这表示它们可以被解释为任何数字类型（例如 `Int` 或 `Double`）。当我们稍后讨论“类型类”时，我们将回到 `Num a` 的实际含义。
+现在，你可以暂时将约束类型 `Num a => a` 理解为“任意数字类型”。在 Haskell 中，数字文字是“重载”的，这意味着它们可以被解释为任何数字类型（例如 `Int` 或 `Double`）。当我们稍后讨论“类型类”时，我们将回到 `Num a` 的实际含义。
 
 ```haskell
 Prelude> :t "asdf"
@@ -333,7 +333,7 @@ Prelude> :t "asdf"
 ```haskell
 module Gold where
 
--- The golden ratio
+-- 黄金比例
 phi :: Double
 phi = (sqrt 5 + 1) / 2
 
@@ -363,7 +363,7 @@ module Gold where
 每个源文件有一个 Haskell *模块*。模块由*定义*组成。
 
 ```haskell
--- The golden ratio
+-- 黄金比例
 ```
 
 这是一条评论。注释不是实际程序的一部分，而是供程序读者使用的文本。
@@ -408,9 +408,9 @@ polynomial :: Double -> Double
 polynomial x = x^2 - x - 1
 ```
 
-你通常应该尝试一下它。首先运行它。有几种方法可以做到这一点。
+通常你应该亲自试一下这样的定义。先把它运行起来，有几种方法可以做到这一点。
 
-如果定义适合一行，你可以在 GHCi 中定义它：
+如果定义能写在一行里，你可以在 GHCi 中定义它：
 
 ```haskell
 Prelude> polynomial x = x^2 - x - 1
@@ -429,16 +429,16 @@ Prelude> polynomial 3.0
 5.0
 ```
 
-最后，你可以将代码粘贴到新的或现有的 `.hs` 文件中，然后将 `:load` 粘贴到 GHCi 中。如果文件已经加载，你也可以使用 `:reload`。
+最后，你可以把代码粘贴到新的或已有的 `.hs` 文件中，然后在 GHCi 中使用 `:load` 加载它。如果文件已经加载，你也可以使用 `:reload`。
 
 ```haskell
--- first copy and paste the definition into Example.hs, then run GHCi
+-- 先把定义复制粘贴到 Example.hs，然后运行 GHCi
 Prelude> :load Example.hs
 [1 of 1] Compiling Main             ( Example.hs, interpreted )
 Ok, one module loaded.
 *Main> polynomial 3.0
 5.0
--- now you can edit the definition
+-- 现在可以编辑这个定义
 *Main> :reload
 [1 of 1] Compiling Main             ( Example.hs, interpreted )
 Ok, one module loaded.
@@ -549,14 +549,14 @@ error:
 在 Haskell 中， `if` 是一个*表达式*。它有一个值。它在其他两个表达式之间进行选择。它对应于C或Java中的 `?:` 运算符。
 
 ```java
-// Java
+// Java 代码
 int price = product.equals("milk") ? 1 : 2;
 ```
 
 Python 的条件表达式与 Haskell 的 `if` 非常接近：
 
 ```python
-# Python
+# Python 代码
 price = 1 if product == "milk" else 2
 ```
 
@@ -651,7 +651,7 @@ circleArea r = let pi = 3.1415926
 
 ### 1.9.3 关于不变性的一句话
 
-尽管像上面的 `pi` 这样的东西通常被称为“变量”，但我在这里选择将它们称为“定义”。这是因为与 Python 或 Java 中的变量不同，这些定义的值无法更改。 Haskell 变量不是可以放入新值的盒子，Haskell 变量命名一个值（或者更确切地说，一个表达式），仅此而已。
+尽管像上面的 `pi` 这样的名称通常被称为“变量”，但我在这里选择称它们为“定义”。这是因为与 Python 或 Java 中的变量不同，这些定义的值无法更改。Haskell 变量不是可以放入新值的盒子；Haskell 变量只是给一个值（或者更准确地说，一个表达式）起名，仅此而已。
 
 我们将在本课程稍后再次讨论不变性，但现在只要知道这样的事情行不通就足够了。
 
@@ -660,7 +660,7 @@ increment x = let x = x+1
               in x
 ```
 
-这只是一个无限循环，因为它尝试使用属性 `x = x+1` 定义一个新变量 `x`。因此，在计算 `x` 时，Haskell 只是无限期地继续计算 `1+1+1+1+...`。
+这只是一个无限循环，因为它尝试使用等式 `x = x+1` 定义一个新变量 `x`。因此，在计算 `x` 时，Haskell 只是无限期地继续计算 `1+1+1+1+...`。
 
 ```haskell
 compute x = let a = x+1
@@ -677,7 +677,7 @@ error:
 
 当我们尝试“更新”`a` 的值时，我们会得到一个简单的错误。
 
-需要注意的是，局部定义可以“隐藏”其他地方定义的变量名称。名称遮蔽（shadowing）不是副作用。相反，遮蔽会在更受限制的范围内创建一个新变量，该变量使用与外部范围中的某些变量相同的名称。例如，下面的所有函数 `f`、`g` 和 `h` 都是合法的：
+需要注意的是，局部定义可以“隐藏”其他地方定义的变量名。名称遮蔽（shadowing）不是副作用。遮蔽只是在更小的作用域里创建了一个新变量，而这个变量刚好和外层作用域中的某个变量同名。例如，下面的函数 `f`、`g` 和 `h` 都是合法的：
 
 ```haskell
 x :: Int
@@ -758,7 +758,7 @@ Prelude> brokenGreet "Sweden" "Ole"
 "Hello, Ole"
 ```
 
-GHC 甚至会向你发出有关此代码的警告：
+GHC 甚至会针对这段代码给出警告：
 
 ```text
 <interactive>:1:1: warning: [-Woverlapping-patterns]
@@ -766,7 +766,7 @@ GHC 甚至会向你发出有关此代码的警告：
     In an equation for ‘brokenGreet’: brokenGreet "Finland" name = ...
 ```
 
-下面是一些更多的例子。但首先让我们介绍一下标准库函数 `show`，它可以将（几乎！）任何东西转换为字符串：
+下面是更多示例。但首先介绍一下标准库函数 `show`，它可以把几乎任何值转换为字符串：
 
 ```haskell
 Prelude> show True
@@ -775,7 +775,7 @@ Prelude> show 3
 "3"
 ```
 
-因此，这是一个具有模式匹配的函数示例和实际使用该值的默认情况（而不是仅仅使用 `_` 忽略它）：
+于是，我们可以写出一个带模式匹配的函数，并在默认分支中实际使用传入的值，而不是只用 `_` 忽略它：
 
 ```haskell
 describe :: Integer -> String
@@ -807,7 +807,7 @@ login _           _           = "unknown user"
 
 ### 1.9.5 递归
 
-在 Haskell 中，各种循环都是通过递归实现的。函数调用非常高效，因此你无需担心性能。 （我们稍后会讨论性能）。
+在 Haskell 中，各种循环都是通过递归实现的。函数调用非常高效，因此这里不用先担心性能。（我们稍后会讨论性能。）
 
 学习如何在 Haskell 中使用递归做简单的事情将有助于你以后在更复杂的问题上使用递归。递归通常也是思考解决更困难问题的有用方法。
 
@@ -815,7 +815,7 @@ login _           _           = "unknown user"
 
 > *n！ = n \* (n-1) \* … \* 1*
 
-例如，*4！ = 4\*3\*2\*1 = 24*。无论如何，这是阶乘的 Haskell 实现：
+例如，*4！ = 4\*3\*2\*1 = 24*。下面是阶乘的 Haskell 实现：
 
 ```haskell
 factorial :: Int -> Int
@@ -839,7 +839,7 @@ factorial 3
 这是另一个例子：
 
 ```haskell
--- compute the sum 1^2+2^2+3^2+...+n^2
+-- 计算总和 1^2+2^2+3^2+...+n^2
 squareSum 0 = 0
 squareSum n = n^2 + squareSum (n-1)
 ```
@@ -851,13 +851,13 @@ squareSum n = n^2 + squareSum (n-1)
 斐波那契数列的第一个元素是 1、1、2、3、5、8、13 等。这是一个函数 `fibonacci`，它计算斐波那契序列中的第 `n` 元素。请注意它如何反映数学定义。
 
 ```haskell
--- Fibonacci numbers, slow version
+-- 斐波那契数列，慢速版本
 fibonacci 1 = 1
 fibonacci 2 = 1
 fibonacci n = fibonacci (n-2) + fibonacci (n-1)
 ```
 
-`fibonacci 5` 的求值方式如下：
+`fibonacci 5` 的求值过程如下：
 
 ```haskell
 fibonacci 5
@@ -870,7 +870,7 @@ fibonacci 5
   ==> 5
 ```
 
-请注意 `fibonacci 3` 如何求值两次， `fibonacci 2` 如何求值三次。这不是 `fibonacci` 函数最有效的实现。我们将在下一讲中再讨论这个问题。考虑斐波那契函数求值的另一种方法是将其可视化为一棵树（我们将 `fibonacci` 缩写为 `fib`）：
+请注意 `fibonacci 3` 如何被求值两次， `fibonacci 2` 如何被求值三次。这不是 `fibonacci` 函数最有效的实现。我们将在下一讲中再讨论这个问题。考虑斐波那契函数求值的另一种方法是将其可视化为一棵树（我们将 `fibonacci` 缩写为 `fib`）：
 
 ![Fibonacci 步骤 1](img/Fibonacci-step1.svg)
 
@@ -907,28 +907,28 @@ Collatz 序列的定义是，以任意数字为起始值，然后重复执行以
 ```haskell
 module Collatz where
 
--- one step of the Collatz sequence
+-- Collatz 序列的一步
 step :: Integer -> Integer
 step x = if even x then down else up
   where down = div x 2
         up = 3*x+1
 
--- collatz x computes how many steps it takes for the Collatz sequence
--- to reach 1 when starting from x
+-- collatz x 计算从 x 开始的 Collatz 序列
+-- 需要多少步到达 1
 collatz :: Integer -> Integer
 collatz 1 = 0
 collatz x = 1 + collatz (step x)
 
--- longest finds the number with the longest Collatz sequence for initial values
--- between 0 and upperBound
+-- longest 在 0 到 upperBound 之间的初始值中
+-- 找到 Collatz 序列最长的数
 longest :: Integer -> Integer
 longest upperBound = longest' 0 0 upperBound
 
--- helper function for longest
+-- longest 的辅助函数
 longest' :: Integer -> Integer -> Integer -> Integer
--- end of recursion, return longest length found
+-- 递归结束，返回目前找到的最长长度
 longest' number _ 0 = number
--- recursion step: check if n has a longer Collatz sequence than the current known longest
+-- 递归步骤：检查 n 的 Collatz 序列是否比当前已知最长序列更长
 longest' number maxlength n =
   if len > maxlength
   then longest' n len (n-1)
@@ -986,26 +986,26 @@ Ok, one module loaded.
 
 ## 1.11 关于缩进
 
-前面的例子已经被巧妙地缩进了。在 Haskell 中缩进很重要，有点像在 Python 中。完整的缩进规则很难描述，但你应该能够很好地遵循这些经验规则：
+前面的例子已经按照规范缩进。在 Haskell 中缩进很重要，有点像在 Python 中。完整的缩进规则很难描述，但你应该能够很好地遵循这些经验规则：
 
 1.  分组在一起的事物从同一列开始
 2.  如果必须将表达式（或方程）拆分为多行，请增加缩进
 
 虽然你可以不使用制表符，但强烈建议在所有缩进中使用空格。
 
-一些例子是有序的。
+下面给出一些示例。
 
 这些都可以：
 
 ```haskell
 i x = let y = x+x+x+x+x+x in div y 5
 
--- let and in are grouped together, an expression is split
+-- let 和 in 归为一组，表达式被拆成多行
 j x = let y = x+x+x
               +x+x+x
       in div y 5
 
--- the definitions of a and b are grouped together
+-- a 和 b 的定义归为一组
 k = a + b
   where a = 1
         b = 1
@@ -1019,27 +1019,27 @@ l = a + b
 这些都不行：
 
 ```haskell
--- indentation not increased even though expression split on many lines
+-- 即使表达式拆成多行，缩进也没有增加
 i x = let y = x+x+x+x+x+x
 in div y 5
 
--- indentation not increased even though expression is split
+-- 即使表达式被拆开，缩进也没有增加
 j x = let y = x+x+x
       +x+x+x
       in div y 5
 
--- grouped things are not aligned
+-- 同组内容没有对齐
 k = a + b
   where a = 1
       b = 1
 
--- grouped things are not aligned
+-- 同组内容没有对齐
 l = a + b
   where
     a = 1
      b = 1
 
--- where is part of the equation, so indentation needs to increase
+-- where 是等式的一部分，所以缩进需要增加
 l = a + b
 where
   a = 1

@@ -18,7 +18,7 @@ map _ []     = []
 map g (x:xs) = g x : map g xs
 ```
 
-它将函数 `g :: a -> b` 应用到 `[a]` 类型列表的每个元素，返回 `[b]` 类型的列表。`map` 的类型也可以写成 `(a -> b) -> ([a] -> [b])`。这和之前的类型是一样的，因为 `->` 是右结合的。括号强调了 `map` 将函数 `g :: a -> b` 转换成函数 `map g :: [a] -> [b]` 的事实。这意味着`map`是一个将函数转换为函数的“高阶函数”。
+它将函数 `g :: a -> b` 应用到 `[a]` 类型列表的每个元素，返回 `[b]` 类型的列表。`map` 的类型也可以写成 `(a -> b) -> ([a] -> [b])`。这和之前的类型是一样的，因为 `->` 是右结合的。括号强调了这样一个事实：`map` 会把函数 `g :: a -> b` 转换成函数 `map g :: [a] -> [b]`。这意味着 `map` 是一个把函数转换成函数的“高阶函数”。
 
 因为 `map` 是参数多态的，所以它的定义不依赖于列表中存储的值的类型。因此每个 `a -> b` 类型的函数都用完全相同的逻辑转换为 `[a] -> [b]` 类型的函数。使用上面的定义，我们可以看到：
 
@@ -50,9 +50,9 @@ mapMaybe f Nothing = Nothing
 mapMaybe f (Just x) = Just (f x)
 ```
 
-这里值的结构也被保留。`Nothing` 变为 `Nothing`，`Just` 变为 `Just`。在这里，我们也可以将类型视为 `(a -> b) -> (Maybe a -> Maybe b)`，将普通函数转换（或“提升”）为可在 Maybes 上运行的函数。
+这里值的结构也被保留。`Nothing` 仍然是 `Nothing`，`Just` 仍然是 `Just`。我们也可以把这个类型看成 `(a -> b) -> (Maybe a -> Maybe b)`：它把普通函数转换（或“提升”）成可以在 `Maybe` 上运行的函数。
 
-还有一个例子：考虑二叉树。
+还有一个示例：考虑二叉树。
 
 ```haskell
 data Tree a = Leaf | Node a (Tree a) (Tree a)
@@ -95,7 +95,7 @@ instance Mappable (Maybe c) where
   mapThing = ...
 ```
 
-幸运的是，Haskell 类型类有一个我们以前没有介绍过的函数。除了类型之外，你还可以为“类型构造函数”编写类。这意味着什么？让我们看一下标准类型类 `Functor`，它执行我们尝试对 `Mappable` 执行的操作。
+幸运的是，Haskell 类型类还有一个我们以前没有介绍过的能力。除了普通类型之外，你还可以为“类型构造函数”编写类型类。这是什么意思？来看标准类型类 `Functor`，它正好表达了我们试图用 `Mappable` 表达的东西。
 
 ```haskell
 class Functor f where
@@ -106,22 +106,22 @@ class Functor f where
 
 ```haskell
 instance Functor Maybe where
-  -- In this instance, the type of fmap is:
+  -- 在这个实例中，fmap 的类型是：
   -- fmap :: (a -> b) -> Maybe a -> Maybe b
   fmap f Nothing = Nothing
   fmap f (Just x) = Just (f x)
 ```
 
-现在 `fmap` 有了正确的类型，我们可以像 `mapMaybe` 一样实现它！请注意我们如何声明 `instance Functor Maybe` 而不是 `instance Functor (Maybe a)`。类型 `Maybe a` 不是Functor，类型构造函数 `Maybe` 才是。
+现在 `fmap` 有了正确的类型，我们可以像 `mapMaybe` 一样实现它！请注意，我们声明的是 `instance Functor Maybe`，而不是 `instance Functor (Maybe a)`。类型 `Maybe a` 不是 Functor，类型构造函数 `Maybe` 才是。
 
-列表的类型构造函数写作`[]`。它是特殊的语法，就像其他列表语法一样。但是，如果类型 `[a]` 写为 `List a`，则类型构造函数 `[]` 将表示 `List`。
+列表的类型构造函数写作 `[]`。它是特殊语法，就像其他列表语法一样。不过，如果类型 `[a]` 写成 `List a`，那么类型构造函数 `[]` 就相当于 `List`。
 
 ```haskell
 instance Functor [] where
   fmap = map
 ```
 
-这是我们的最后一个例子，作为 `Functor` 实例。
+这是我们的最后一个示例，作为 `Functor` 实例。
 
 ```haskell
 data Tree a = Leaf | Node a (Tree a) (Tree a)
@@ -131,11 +131,11 @@ instance Functor Tree where
   fmap f (Node val left right) = Node (f val) (fmap f left) (fmap f right)
 ```
 
-附注：Functor 一词最初来自数学的一个分支，称为[范畴论](https://en.wikipedia.org/wiki/Category_theory)。然而，要使用 Haskell，你不需要了解任何范畴论。随着你学习 Haskell 的进展，你可能会对范畴论感兴趣，它可能是编程新思想的宝贵来源。范畴论可能会让人感到害怕，所以很高兴知道没有它你也能过得很好。现在，当你看到Functor时，你可以只想“我可以映射的东西”，或者也许是“一个容器”。
+附注：Functor 一词最初来自数学的一个分支，称为[范畴论](https://en.wikipedia.org/wiki/Category_theory)。不过，要使用 Haskell，你不需要了解任何范畴论。随着你继续学习 Haskell，你可能会对范畴论感兴趣，它也可能成为编程新思想的宝贵来源。范畴论可能让人望而生畏，所以知道没有它也能写好 Haskell 是件好事。现在，当你看到 Functor 时，可以先把它理解成“可以映射的东西”，或者“一个容器”。
 
-让我们缩小一点。当我们有一个实例 `Functor MyFun` 时，我们知道我们可以将类型 `X` 映射到新类型 `MyFun X` （因为 `MyFun` 是类型构造函数），而且我们可以将采用 `X` 参数的函数 `f` 提升到采用 `MyFun X` 参数的函数 `fmap f` ！所以你可以说我们在类型级别和值级别上进行映射。
+换个角度看。当我们有一个实例 `Functor MyFun` 时，我们知道可以把类型 `X` 映射到新类型 `MyFun X`（因为 `MyFun` 是类型构造函数），也可以把接受 `X` 参数的函数 `f` 提升为接受 `MyFun X` 参数的函数 `fmap f`。所以可以说，我们既在类型层面做映射，也在值层面做映射。
 
-哦，对了，还有一件事。一旦掌握了 `fmap` 的窍门，你可能会发现自己经常使用它。对于大量使用 `fmap` 的代码，最好使用其中缀别名 `<$>`。考虑这些例子中 `$` 和 `<$>` 之间的对称性：
+哦，对了，还有一件事。一旦掌握了 `fmap` 的窍门，你可能会发现自己经常使用它。对于大量使用 `fmap` 的代码，最好使用其中缀别名 `<$>`。考虑这些示例中 `$` 和 `<$>` 之间的对称性：
 
 ```haskell
 (+1) <$> [1,2,3]    ==>  [2,3,4]
@@ -143,7 +143,7 @@ not <$> Just False  ==>  Just True
 
 reverse . tail  $       "hello"       ==>  "olle"
 reverse . tail <$> Just "hello"       ==>  Just "olle"
--- which is the same as
+-- 这等同于
 fmap (reverse . tail) (Just "hello")  ==>  Just "olle"
 ```
 
@@ -176,7 +176,7 @@ id [1,2,3] ==> [1,2,3]
 
 因此，`fmap id [1,2,3]` 的结果与 `id [1,2,3]` 的结果相同，因此第一条 Functor 定律在这种情况下成立。不难证明第一条 Functor 定律适用于任何列表。
 
-如果你仔细想想，第一条 Functor 定律确实是一个非常简单的命题。它只是说，如果我们将 `fmap` 应用于不改变任何内容的函数 (`id`)，则结果函数 (`fmap id`) 再次不改变任何内容。因此，应用 `fmap` 的行为本身保留了Functor的结构。
+如果你仔细想想，第一条 Functor 定律确实是一个非常简单的命题。它只是说，如果我们将 `fmap` 应用于不改变任何内容的函数 (`id`)，则结果函数 (`fmap id`) 再次不改变任何内容。因此，应用 `fmap` 的行为本身保留了Functor 的结构。
 
 第二条 Functor 定律怎么样？对于列表，考虑如果我们 `fmap` 函数 `negate.(*2)` （记住，`negate` 将 `x` 映射到 `-x` 并且 `(*2)` 将其参数乘以 `2`）会发生什么：
 
@@ -205,7 +205,7 @@ fmap (negate.(*2)) [1,2,3] ==> map (negate.(*2)) [1,2,3]
 
 一般来说，第二条 Functor 定律表示，首先组合两个函数然后应用 `fmap` 必须产生与对这些函数执行 `fmap` 然后组合结果函数相同的结果。换句话说，应用 `fmap` 和组合的顺序并不重要。 （这两个操作被称为“通勤”。）
 
-还有一些高阶函数无法满足Functor定律。考虑函数 `badMap`：
+还有一些高阶函数无法满足 Functor 定律。考虑函数 `badMap`：
 
 ```haskell
 badMap :: (a -> b) -> [a] -> [b]
@@ -228,10 +228,10 @@ badMap id [1,2,3] ==> badMap id (1:2:[3])
 
 将 `badMap id` 应用于列表 `[1,2,3]` 会更改列表，因为元素 `2` 被删除。
 
-如前所述，Haskell 编译器无法检测Functor是否遵守其法则。 Haskell 编译器很乐意接受使用 `badMap` 而不是 `map` 作为 `fmap` 实现的实例 `Functor []`。这是 Haskell 类型系统的限制。有些技术（例如 LiquidHaskell）或依赖类型语言（例如 Agda、Idris、Coq 或 Lean）实际上可以强制执行Functor 法则，以便非法 Functor 实例无法编译。然而，这些技术超出了本课程的范围。
+如前所述，Haskell 编译器无法检测 Functor 是否遵守其法则。Haskell 编译器会接受使用 `badMap` 而不是 `map` 作为 `fmap` 实现的 `Functor []` 实例。这是 Haskell 类型系统的限制。有些技术（例如 LiquidHaskell）或依赖类型语言（例如 Agda、Idris、Coq 或 Lean）确实可以强制执行 Functor 法则，让非法 Functor 实例无法编译。然而，这些技术超出了本课程的范围。
 
 
-## 12.4 附注：Kind
+## 12.4 附注：种类（Kind）
 
 请记住，`Functor` 是类型构造函数的类。如果我们尝试为类型定义 `Functor` 的实例，我们会收到错误：
 
@@ -244,7 +244,7 @@ Prelude> instance Functor Int where
       In the instance declaration for ‘Functor Int’
 ```
 
-错误消息谈论*种类*。种类是*类型的类型*。像 `Int`、`Bool` 或 `Maybe Int` 这样可以包含值的类型具有 `*` 类型。类型构造函数具有看起来像函数的类型，例如，`Maybe` 具有 `* -> *` 类型。这意味着 `Maybe` 类型构造函数必须应用于 `*` 类型，才能获得 `*` 类型。
+错误消息谈到了*种类*。种类是*类型的类型*。像 `Int`、`Bool` 或 `Maybe Int` 这样可以包含值的类型，其种类是 `*`。类型构造函数的种类看起来像函数，例如 `Maybe` 的种类是 `* -> *`。这意味着必须把 `Maybe` 类型构造函数应用到一个种类为 `*` 的类型上，才能得到一个种类为 `*` 的类型。
 
 我们可以向 GHCi 询问类型的种类：
 
@@ -266,16 +266,16 @@ class Functor (f :: * -> *) where
 ...
 ```
 
-以下是一些更复杂类型的例子。
+以下是一些更复杂类型的示例。
 
 ```haskell
--- multiple type parameters
+-- 多个类型参数
 Prelude> :kind Either
 Either :: * -> * -> *
 Prelude> data Either3 a b c = Left a | Middle b | Right c
 Prelude> :kind Either3
 Either3 :: * -> * -> * -> *
--- a type parameter of kind *->*
+-- 种类为 *->* 的类型参数
 Prelude> data IntInside f = IntInside (f Int)
 Prelude> :kind IntInside
 IntInside :: (* -> *) -> *
@@ -295,32 +295,32 @@ minimum :: (Foldable t, Ord a) => t a -> a
 foldMap :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
 ```
 
-从这些类型签名中我们可以看到，`Foldable`，就像`Functor`一样，是一个类型构造函数的类（类似`* -> *`的东西）。 `Foldable` 的本质是成为一个“可以折叠的东西”的类。类的定义可以很简单
+从这些类型签名中可以看到，`Foldable` 和 `Functor` 一样，是类型构造函数的类型类（也就是类似 `* -> *` 的东西）。`Foldable` 的本质是“可以折叠的东西”的类型类。它的定义可以很简单：
 
 ```haskell
 class Foldable (t :: *->*) where
   foldr :: (a -> b -> b) -> b -> t a -> b
 ```
 
-然而，出于性能原因，该类包含许多方法（你可以通过在 GHCi 中检查 `:info Foldable` 来亲自查看它们！），但是当我们为 `Foldable` 定义实例时，仅定义 `foldr` 就足够了。
+不过，出于性能原因，真实的类型类包含许多方法（你可以在 GHCi 中用 `:info Foldable` 亲自查看！）。但当我们为 `Foldable` 定义实例时，只定义 `foldr` 就足够了。
 
-`Foldable` 类的另一种思考方式是*从左到右*处理元素，换句话说，如果 `Functor` 是容器的类，那么 `Foldable` 就是*有序容器*的类。
+理解 `Foldable` 的另一种方式是：它表示可以*从左到右*处理元素的结构。换句话说，如果 `Functor` 是容器的类型类，那么 `Foldable` 就是*有顺序的容器*的类型类。
 
-作为例子，让我们为我们自己的配对类型实现 `Functor` 和 `Foldable` 。
+作为示例，让我们为我们自己的配对类型实现 `Functor` 和 `Foldable` 。
 
 ```haskell
 data Pair a = Pair a a
   deriving Show
 
 instance Functor Pair where
-  -- fmap f applies f to all values
+  -- fmap f 将 f 应用于所有值
   fmap f (Pair x y) = Pair (f x) (f y)
 
 instance Foldable Pair where
-  -- just like applying foldr over a list of length 2
+  -- 就像对长度为 2 的列表应用 foldr
   foldr f initialValue (Pair x y) = f x (f y initialValue)
 
--- an example function that uses both instances
+-- 一个同时使用两个实例的示例函数
 doubleAndCount :: (Functor f, Foldable f) => f Int -> Int
 doubleAndCount = sum . fmap (*2)
 ```
@@ -349,12 +349,12 @@ doubleAndCount [3,6]       ==> 18
 
 ## 12.6 回顾
 
-因此，总而言之，Functor 是类型构造函数 `f` 和相应的 `Functor f` 实例，使得 `fmap` 满足两个Functor定律。这些定律断言 `fmap` 必须保留恒等函数并分布于函数组合上。更通俗地说，`fmap` 将基于值操作的函数 `g :: a -> b` 提升为基于容器操作的函数：`fmap g :: f a -> f b`。基本上 Haskell 中所有表现良好的数据结构都是Functor。
+因此，总而言之，Functor 是类型构造函数 `f` 和相应的 `Functor f` 实例，使得 `fmap` 满足两个 Functor 定律。这些定律断言 `fmap` 必须保留恒等函数并分布于函数组合上。更通俗地说，`fmap` 将基于值操作的函数 `g :: a -> b` 提升为基于容器操作的函数：`fmap g :: f a -> f b`。基本上 Haskell 中所有表现良好的数据结构都是 Functor。
 
 
 ## 12.7 测验
 
-`fmap`是什么类型的？
+`fmap` 是什么类型的？
 
 1.`a -> b -> f a -> f b`
 2.`(a -> b) -> f a -> f b`

@@ -6,20 +6,20 @@
 
 ## 5.1 代数数据类型
 
-Haskell 有一个称为“代数数据类型”的系统，用于定义新类型。这听起来很花哨，但相当简单。让我们深入研究一些熟悉类型的标准库定义：
+Haskell 使用“代数数据类型”来定义新类型。这个名字听起来很高级，但概念本身相当简单。先来看一些熟悉类型在标准库中的定义：
 
 ```haskell
 data Bool = True | False
 data Ordering = LT | EQ | GT
 ```
 
-使用此语法，你也可以定义类型：
+你也可以用这种语法定义自己的类型：
 
 ```haskell
--- definition of a type with three values
+-- 定义一个有三个值的类型
 data Color = Red | Green | Blue
 
--- a function that uses pattern matching on our new type
+-- 一个对新类型使用模式匹配的函数
 rgb :: Color -> [Double]
 rgb Red = [1,0,0]
 rgb Green = [0,1,0]
@@ -37,13 +37,13 @@ Prelude> rgb Red
 
 ### 5.1.1 字段
 
-像 `Bool`、`Ordering` 和 `Color` 这样只列出一堆常量的类型在 Haskell 和其他语言中被称为*枚举*。枚举很有用，但你还需要其他类型。这里我们定义一个包含 ID 号、标题和正文的报告类型：
+像 `Bool`、`Ordering` 和 `Color` 这样只列出一组常量的类型，在 Haskell 和其他语言中都称为*枚举*。枚举很有用，但我们还需要能携带数据的类型。这里定义一个报告类型，它包含 ID、标题和正文：
 
 ```haskell
 data Report = ConstructReport Int String String
 ```
 
-这是创建报告的方法：
+可以这样创建报告：
 
 ```haskell
 Prelude> :t ConstructReport 1 "Title" "This is the body."
@@ -61,9 +61,9 @@ setReportContents contents (ConstructReport id title _contents) = ConstructRepor
 
 ### 5.1.2 构造函数
 
-`data` 声明右侧的内容称为*构造函数*。`True`、`False`、`Red` 和 `ConstructReport` 都是构造函数的例子。一个类型可以有多个构造函数，一个构造函数可以有零个或多个字段。
+`data` 声明右侧的内容称为*构造函数*。`True`、`False`、`Red` 和 `ConstructReport` 都是构造函数的示例。一个类型可以有多个构造函数，一个构造函数可以有零个或多个字段。
 
-这是标准扑克牌的数据类型。它有 5 个构造函数，其中 `Joker` 有 0 个字段，其他有 1 个字段。
+下面是标准扑克牌的数据类型。它有 5 个构造函数，其中 `Joker` 有 0 个字段，其他构造函数各有 1 个字段。
 
 ```haskell
 data Card = Joker | Heart Int | Club Int | Spade Int | Diamond Int
@@ -99,7 +99,7 @@ Prelude> Joker
     In a stmt of a 'do' expression: print it
 ```
 
-问题是 Haskell 不知道如何打印我们定义的类型。正如错误所述，它们不属于 `Show` 类。简单的解决方案是在类型定义后添加 `deriving Show`：
+问题是 Haskell 不知道如何打印我们自己定义的类型。正如错误所说，这个类型还不是 `Show` 类型类的实例。简单的解决方案是在类型定义后添加 `deriving Show`：
 
 ```haskell
 data Card = Joker | Heart Int | Club Int | Spade Int | Diamond Int
@@ -111,7 +111,7 @@ Prelude> Joker
 Joker
 ```
 
-`deriving` 语法是一种自动让你的类型成为某些基本类型类的实例的方法，最值得注意的是 `Read`、`Show` 和 `Eq`。稍后我们将详细讨论这意味着什么。
+`deriving` 语法可以自动让你的类型成为某些基本类型类的实例，最值得注意的是 `Read`、`Show` 和 `Eq`。稍后我们将详细讨论这意味着什么。
 
 ### 5.1.4 代数？
 
@@ -121,7 +121,7 @@ Joker
 data Bool = True | False            -- corresponds to 1+1. Has 2 possible values.
 data TwoBools = TwoBools Bool Bool  -- corresponds to Bool*Bool, i.e. 2*2. Has 4 possible values.
 data Complex = Two Bool Bool | One Bool | None
-                                    -- corresponds to Bool*Bool+Bool+1 = 2*2+2+1 = 7. Has 7 possible values.
+                                    -- 对应 Bool*Bool+Bool+1 = 2*2+2+1 = 7。有 7 个可能的值。
 ```
 
 代数数据类型有丰富的理论。如果你有兴趣，可以在 [这里](https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types) 或 [这里](https://www.cis.upenn.edu/~sweirich/papers/yorgey-thesis.pdf) 找到更多信息。
@@ -191,7 +191,7 @@ Haskell 标识符的规则是：
 - 类型变量以及函数和值的名称以小写开头（例如 `a`、 `map`、 `xs`）
 - 类型名称和构造函数名称以大写开头（例如 `Maybe`、 `Just`、 `Card`、 `Heart`）
 
-请注意，类型及其构造函数可以具有相同的名称。对于只有一个构造函数的类型，这在 Haskell 代码中很常见。在本材料中，我们尽量避免使用它以避免混淆。下面是一些例子：
+请注意，类型及其构造函数可以具有相同的名称。对于只有一个构造函数的类型，这在 Haskell 代码中很常见。在本材料中，我们尽量避免使用它以避免混淆。下面是一些示例：
 
 ```haskell
 data Pair a = Pair a a
@@ -206,11 +206,11 @@ Pair :: a -> a -> Pair a
 注意不要混淆类型和构造函数。幸运的是，类型和构造函数永远不会出现在同一上下文中，因此你会得到很好的错误提示：
 
 ```haskell
-Prelude> Maybe                              -- trying to use a type name as a value
+Prelude> Maybe                              -- 试图把类型名当作值使用
 <interactive>:1:1: error:
     • Data constructor not in scope: Maybe
 
-Prelude> undefined :: Nothing               -- trying to use a constructor as a type
+Prelude> undefined :: Nothing               -- 试图把构造函数当作类型使用
 <interactive>:2:14: error:
     Not in scope: type constructor or class ‘Nothing’
 ```
@@ -226,9 +226,9 @@ data Either a b = Left a | Right b
 
 ## 5.3 递归类型
 
-到目前为止，我们定义的所有类型的大小都是固定的。我们可以代表一份报告或一种颜色，但我们如何才能代表一组事物呢？我们当然可以使用列表，但是我们可以自己定义列表类型吗？
+到目前为止，我们定义的所有类型大小都是固定的。我们可以表示一份报告或一种颜色，但如何表示一组事物呢？当然可以使用列表，不过我们能不能自己定义列表类型？
 
-就像 Haskell 函数一样，Haskell 数据类型可以是“递归”的。这并不比 Java 或 Python 中对象引用同一类的另一个对象更奇怪。这是定义整数列表的方法：
+就像 Haskell 函数一样，Haskell 数据类型也可以是“递归”的。这并不比 Java 或 Python 中一个对象引用同一类的另一个对象更奇怪。下面是整数列表的定义方式：
 
 ```haskell
 data IntList = Empty | Node Int IntList
@@ -426,7 +426,7 @@ data Person = MkPerson { name :: String, age :: Int, town :: String, state :: St
   deriving Show
 ```
 
-我们仍然可以正常定义 `Person` 的值，但 `Show` 实例会为我们打印字段名称：
+我们仍然可以正常定义 `Person` 的值，但 `Show` 实例会为我们打印字段名：
 
 ```haskell
 Prelude> MkPerson "Jane Doe" 21 "Houston" "Texas" "Engineer"
@@ -501,14 +501,14 @@ Cons1 :: a -> Type1 -> TypeName a
 data TypeName = Constructor { field1 :: Field1Type, field2 :: Field2Type }
 ```
 
-这为你免费提供了 `field1 :: TypeName -> Field1Type` 等访问器函数。
+这样会自动为你生成 `field1 :: TypeName -> Field1Type` 这样的访问器函数。
 
 
 ## 5.6 附注：定义类型的其他方式
 
 除了 `data` 关键字之外，Haskell 中还有两种定义类型的方法。
 
-`newtype` 关键字的工作方式类似于 `data`，但只能有一个带有单个字段的构造函数。有时出于性能原因使用 `newtype` 是明智的，但我们将在第 2 部分中回顾这些内容。
+`newtype` 关键字的工作方式类似于 `data`，但它只能有一个构造函数，并且这个构造函数只能有一个字段。有时出于性能原因使用 `newtype` 是合理的，不过我们会在第 2 部分再回到这些内容。
 
 `type` 关键字引入了*类型别名*。类型别名不会影响类型检查，它们只是提供编写类型的简写。例如，熟悉的 `String` 类型是 `[Char]` 的别名：
 
@@ -523,7 +523,7 @@ type String = [Char]
 
 还记得列表在内存中是如何表示为链表的吗？让我们更详细地了解代数数据类型在内存中的样子。
 
-Haskell 数据在内存中形成“有向图”。每个构造函数都是一个节点，每个字段都是一条边。 （变量的）名称是指向该图的指针。不同的名称可以*共享*部分结构。这是一个带有列表的示例。请注意 `x` 的最后两个元素如何与 `y` 和 `z` 共享。
+Haskell 数据在内存中形成“有向图”。每个构造函数都是一个节点，每个字段都是一条边。（变量的）名称是指向该图的指针。不同的名称可以*共享*部分结构。下面是一个列表示例。请注意，`x` 的最后两个元素如何与 `y` 和 `z` 共享。
 
 ```haskell
 let x = [1,2,3,4]

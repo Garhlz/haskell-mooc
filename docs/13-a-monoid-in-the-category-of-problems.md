@@ -2,34 +2,34 @@
 
 - Monad
 
-在本次讲座中，我们将使用许多例子来构建 *monad* 的概念。现在你应该熟悉理解 Monad 所需的所有 Haskell 函数。
+在本讲中，我们将使用许多示例来构建 *monad* 的概念。现在你应该熟悉理解 Monad 所需的所有 Haskell 函数。
 
 Monad 是编程中众所周知的难题，部分是因为术语陌生，部分是因为教程质量参差不齐，部分是因为在学习 Haskell 时过早理解 Monad。在课程后期引入 Monad 是为了让理解更容易。
 
-如果你觉得本讲很难，不要绝望，许多人也觉得这个话题很难。许多高效的 Haskell 程序员已经成功理解了 Monad，所以这不是不可能的。
+如果你觉得本讲很难，不要灰心，许多人也觉得这个话题很难。许多高效的 Haskell 程序员已经成功理解了 Monad，所以这不是不可能的。
 
 最后要注意的是：Monad 和 Functor 一样，是来自范畴论这个数学分支的概念。然而，*你不需要了解范畴论来理解 Haskell 编程中的 Monad*。 就像人们可以在不了解类型论的情况下使用 OOP 或函数式编程一样，可以在不了解范畴论的情况下使用 Monad。对于函数式程序员来说，范畴论可能很有益，但不是必需的。
 
 
 ## 13.1 示例 1：Maybe
 
-使用许多 `Maybe` 值时，代码往往会变得有点混乱。让我们看一些例子。首先，我们组合一些返回 `Maybe String` 的函数。注意 `stealSecret` 中需要的嵌套 `case`：写起来并不有趣。
+使用许多 `Maybe` 值时，代码往往会变得有点混乱。让我们看一些示例。首先，我们组合一些返回 `Maybe String` 的函数。注意 `stealSecret` 中需要的嵌套 `case`：写起来并不有趣。
 
 ```haskell
--- Try to login with a password.
--- `Just username` on success, `Nothing` otherwise.
+-- 尝试使用密码登录。
+-- 成功时返回 `Just username`，否则返回 `Nothing`。
 login :: String -> Maybe String
 login "f4bulous!" = Just "unicorn73"
 login "swordfish" = Just "megahacker"
 login _           = Nothing
 
--- Get a secret associated with a user.
--- Not all users have secrets.
+-- 获取与用户关联的秘密。
+-- 不是所有用户都有秘密。
 secret :: String -> Maybe String
 secret "megahacker" = Just "I like roses"
 secret _            = Nothing
 
--- Login and return the user's secret, if any
+-- 登录并返回用户的秘密（如果有的话）
 stealSecret :: String -> Maybe String
 stealSecret password =
   case login password of
@@ -45,16 +45,16 @@ stealSecret "f4bulous!"  ==>  Nothing
 stealSecret "wrong_password"  ==>  Nothing
 ```
 
-接下来，我们看一个列表的例子。我们使用 Prelude 中的 `Maybe` 返回函数 `lookup`。这里我们有一个 if 位于一个 case 中，而不是一个嵌套的 case。
+接下来，我们看一个列表相关的示例。这里会用到 Prelude 中返回 `Maybe` 的函数 `lookup`。这次不是嵌套的 `case`，而是在 `case` 里面放了一个 `if`。
 
 ```haskell
--- Get the value corresponding to a key from a key-value list.
+-- 从键值对列表中获取某个键对应的值。
 lookup :: (Eq a) => a -> [(a, b)] -> Maybe b
 ```
 
 ```haskell
--- Set the value of key to val in the given key-value list,
--- but only if val is larger than the current value!
+-- 在给定键值对列表中把 key 的值设为 val，
+-- 但只有当 val 大于当前值时才这样做！
 increase :: Eq a => a -> Int -> [(a,Int)] -> Maybe [(a,Int)]
 increase key val assocs =
   case lookup key assocs
@@ -64,17 +64,17 @@ increase key val assocs =
                 else Just ((key,val) : delete (key,x) assocs)
 ```
 
-这种类型的代码非常常见，并且通常重复相同的模式：如果任何中间结果是 `Nothing`，则整个结果是 `Nothing`。让我们尝试通过定义一个*链接运算符* `?>` 来更轻松地编写这样的代码。链接运算符获取结果和下一步计算，并且仅当结果是 `Just` 值时才运行下一步。
+这种代码非常常见，而且通常会重复同一种模式：只要任意一个中间结果是 `Nothing`，整个结果就是 `Nothing`。我们可以定义一个*链接运算符* `?>`，让这样的代码更容易写。这个运算符接受一个结果和下一步计算，并且只有当结果是 `Just` 值时才运行下一步。
 
 ```haskell
 (?>) :: Maybe a -> (a -> Maybe b) -> Maybe b
--- if we failed, don't even bother running the next step:
+-- 如果已经失败，就不必运行下一步：
 Nothing ?> _ = Nothing
--- otherwise run the next step:
+-- 否则运行下一步：
 Just x  ?> f = f x
 ```
 
-链接运算符很好地简化了我们的例子。请注意我们如何定义简单的辅助函数来处理计算的一步，而不是编写一个大表达式。
+链接运算符很好地简化了我们的示例。请注意我们如何定义简单的辅助函数来处理计算的一步，而不是编写一个大表达式。
 
 ```haskell
 stealSecret :: String -> Maybe String
@@ -97,7 +97,7 @@ increase key val assocs =
         buildResult x = Just ((key,val) : delete (key,x) assocs)
 ```
 
-这是另一个例子：从 `safeHead` 和 `safeTail` 构建的安全列表索引：
+这是另一个示例：从 `safeHead` 和 `safeTail` 构建的安全列表索引：
 
 ```haskell
 safeHead :: [a] -> Maybe a
@@ -132,14 +132,14 @@ P.S. 请注意，`?>` *关联到左侧*，这是 Haskell 中的默认值。这�
 附注：这个 `?>` 运算符表达了在其他语言中非常常见的 if-result 模式。以下是用 Python 和 Java 编写 `op val ?> f` 的方法。
 
 ```python
-# Python
+# Python 代码
 x = op(val)
 if x:
   f(x)
 ```
 
 ```java
-// Java
+// Java 代码
 Object x = op(val);
 if (x != null) {
   f(x);
@@ -151,10 +151,10 @@ if-result 模式和 `?>` 之间的区别在于，我们使用 `Nothing` 值来�
 
 ## 13.2 示例 2：日志
 
-让我们用另一个例子来探讨链接的概念：日志记录。类型 `Logger` 表示一个值加上一个日志消息列表（由生成该值的计算生成）。
+让我们用另一个示例来探讨链接的概念：日志记录。类型 `Logger` 表示一个值，以及生成这个值时产生的日志消息列表。
 
 ```haskell
--- Logger definition
+-- Logger 定义
 data Logger a = Logger [String] a  deriving Show
 
 getVal :: Logger a -> a
@@ -162,12 +162,12 @@ getVal (Logger _ a) = a
 getLog :: Logger a -> [String]
 getLog (Logger s _) = s
 
--- Primitive operations:
+-- 基本操作：
 nomsg :: a -> Logger a
-nomsg x = Logger [] x        -- a value, no message
+nomsg x = Logger [] x        -- 一个值，没有消息
 
 annotate :: String -> a -> Logger a
-annotate s x = Logger [s] x  -- a value and a message
+annotate s x = Logger [s] x  -- 一个值和一条消息
 
 msg :: String -> Logger ()
 msg s = Logger [s] ()        -- just a message
@@ -206,28 +206,28 @@ login "leto.atreides" "paul"
   ==> Logger ["Invalid user: leto.atreides"] False
 ```
 
-让我们尝试通过为 `Logger` 定义链接运算符来简化此代码。进行多个 `Logger` 操作时，重要的是保留所有日志。这是一个链接运算符 `#>`，以及如何使用它来记录一些算术计算的例子。
+让我们尝试通过为 `Logger` 定义链接运算符来简化此代码。进行多个 `Logger` 操作时，重要的是保留所有日志。这是一个链接运算符 `#>`，以及如何使用它来记录一些算术计算的示例。
 
 ```haskell
 (#>) :: Logger a -> (a -> Logger b) -> Logger b
-Logger la a #> f = let Logger lb b = f a  -- feed value to next step
-                   in Logger (la++lb) b   -- bundle result with all messages
+Logger la a #> f = let Logger lb b = f a  -- 将值传给下一步
+                   in Logger (la++lb) b   -- 将结果和所有消息打包在一起
 ```
 
 ```haskell
--- square a number and log a message about it
+-- 对数字求平方，并记录一条相关消息
 square :: Int -> Logger Int
 square val = annotate (show val ++ "^2") (val^2)
 
--- add 1 to a number and log a message about it
+-- 给数字加 1，并记录一条相关消息
 add :: Int -> Logger Int
 add val = annotate (show val ++ "+1") (val+1)
 
--- double a number and log a message about it
+-- 将数字翻倍，并记录一条相关消息
 double :: Int -> Logger Int
 double val = annotate (show val ++ "*2") (val*2)
 
--- compute the expression 2*(x^2+1) with logging
+-- 带日志地计算表达式 2*(x^2+1)
 compute :: Int -> Logger Int
 compute x =
     square x
@@ -254,7 +254,7 @@ login user password =
 为了进一步演练，让我们在递归列表处理函数中使用 `Logger`。这是 `filter` 的日志版本。请注意代码如何在递归调用之前链接日志消息，以保持日志条目的良好顺序。
 
 ```haskell
--- sometimes you don't need the previous value:
+-- 有时不需要前一个值：
 (##>) :: Logger a -> Logger b -> Logger b
 Logger la _ ##> Logger lb b = Logger (la++lb) b
 
@@ -273,7 +273,7 @@ filterLog (>0) [1,-2,3,-4,0]
 
 ## 13.3 示例 3：维护状态
 
-在前面的例子中，我们只是写入了一些状态（日志）。有时我们需要改变某种共享状态的计算。让我们看看一家小银行的账户。我们首先为银行状态定义一个数据类型：所有帐户的余额，作为从帐户名称到余额的映射。
+在前面的示例中，我们只是写入了一些状态（日志）。有时，计算还需要修改某个共享状态。让我们看看一个小型银行账户示例。我们首先为银行状态定义一个数据类型：所有账户的余额，也就是从账户名称到余额的映射。
 
 ```haskell
 import qualified Data.Map as Map
@@ -282,10 +282,10 @@ data Bank = Bank (Map.Map String Int)
   deriving Show
 ```
 
-以下是我们如何将钱存入帐户的方法。我们使用 `Data.Map` 中的函数 `adjust` 来修改地图。
+下面是如何向账户存钱。我们使用 `Data.Map` 中的函数 `adjust` 来修改映射。
 
 ```haskell
--- Apply a function to one value in a map
+-- 对 Map 中的一个值应用函数
 Map.adjust :: Ord k => (a -> a) -> k -> Map.Map k a -> Map.Map k a
 ```
 
@@ -295,20 +295,20 @@ deposit accountName amount (Bank accounts) =
   Bank (Map.adjust (\x -> x+amount) accountName accounts)
 ```
 
-提款有点复杂，因为我们要处理一些特殊情况，比如账户不存在，或者账户没有足够的钱。我们使用库函数 `findWithDefault` 来帮助我们。
+取款稍微复杂一些，因为要处理账户不存在、余额不足等特殊情况。我们用库函数 `findWithDefault` 来帮忙。
 
 ```haskell
--- Fetch the value corresponding to a key from a map,
--- or a default value in case the key does not exist
+-- 从 Map 中取得某个键对应的值，
+-- 如果键不存在则返回默认值
 Map.findWithDefault :: Ord k => a -> k -> Map.Map k a -> a
 ```
 
 ```haskell
 withdraw :: String -> Int -> Bank -> (Int,Bank)
 withdraw accountName amount (Bank accounts) =
-  let -- balance is 0 for a nonexistant account
+  let -- 不存在的账户余额为 0
       balance = Map.findWithDefault 0 accountName accounts
-      -- can't withdraw over balance
+      -- 取款不能超过余额
       withdrawal = min amount balance
       newAccounts = Map.adjust (\x -> x-withdrawal) accountName accounts
   in (withdrawal, Bank newAccounts)
@@ -321,7 +321,7 @@ share :: String -> String -> String -> Bank -> Bank
 share from to1 to2 bank =
   let (amount,bank1) = withdraw from 100 bank
       half = div amount 2
-      -- carefully preserve all money, even if amount was an odd number
+      -- 小心保留所有金额，即使 amount 是奇数
       rest = amount-half
       bank2 = deposit to1 half bank1
       bank3 = deposit to2 rest bank2
@@ -338,50 +338,49 @@ share "wotan" "siegfried" "brunhilde"
    ==> Bank (Map.fromList [("brunhilde",46),("siegfried",45),("wotan",0)])
 ```
 
-当你对一个值进行串行更新，同时还执行一些其他计算时，这样的代码经常出现在 Haskell 中。很容易犯错误，并且类型系统不会帮助你，例如， 重用 `bank1` 值。让我们重写 `share` ，这样我们就不需要引用银行本身了。我们可以再次使用相同的链接思想来完成此任务。
+当你需要按顺序更新一个值，同时还执行一些其他计算时，这样的代码经常会出现在 Haskell 中。它很容易写错，比如不小心重用了 `bank1`，而类型系统不会帮你发现这种错误。让我们重写 `share`，让代码不再直接引用银行状态本身。这里仍然可以使用同样的链接思想。
 
 ```haskell
--- `BankOp a` is an operation that transforms a Bank value,
--- while returning a value of type `a`
+-- `BankOp a` 是一个转换 Bank 值的操作，
+-- 同时返回一个 `a` 类型的值
 data BankOp a = BankOp (Bank -> (a,Bank))
 
--- running a BankOp on a Bank
+-- 在 Bank 上运行 BankOp
 runBankOp :: BankOp a -> Bank -> (a,Bank)
 runBankOp (BankOp f) bank = f bank
 
--- Running one BankOp after another
+-- 依次运行两个 BankOp
 (+>>) :: BankOp a -> BankOp b -> BankOp b
 op1 +>> op2 = BankOp combined
   where combined bank = let (_,bank1) = runBankOp op1 bank
                         in runBankOp op2 bank1
 
--- Running a parameterized BankOp, using the value returned
--- by a previous BankOp.  The implementation is a bit tricky
--- but it's enough to understand how +> is used for now.
+-- 使用前一个 BankOp 返回的值运行参数化的 BankOp。
+-- 实现有点绕，但现在只需要理解 +> 如何使用即可。
 (+>) :: BankOp a -> (a -> BankOp b) -> BankOp b
 op +> parameterized = BankOp combined
   where combined bank = let (a,bank1) = runBankOp op bank
                         in runBankOp (parameterized a) bank1
 
--- Make a BankOp out of deposit.
--- There is no return value so we use ().
+-- 根据 deposit 构造 BankOp。
+-- 没有返回值，所以使用 ()。
 depositOp :: String -> Int -> BankOp ()
 depositOp accountName amount = BankOp depositHelper
   where depositHelper bank = ((), deposit accountName amount bank)
 
--- Make a BankOp out of withdraw. Note how
+-- 根据 withdraw 构造 BankOp。注意
 --   withdraw accountName amount :: Bank -> (Int,Bank)
--- is almost a BankOp already!
+-- 几乎已经是一个 BankOp 了！
 withdrawOp :: String -> Int -> BankOp Int
 withdrawOp accountName amount = BankOp (withdraw accountName amount)
 ```
 
-让我们看看连锁如何与这些银行业务配合使用。
+让我们看看这些链接运算符如何配合银行操作使用。
 
 ```haskell
 Prelude> bank = Bank (Map.fromList [("edsger",10),("grace",50)])
 
--- Running a number of operations using +>>
+-- 使用 +>> 运行多个操作
 
 Prelude> runBankOp (depositOp "edsger" 1) bank
 ((),Bank (fromList [("edsger",11),("grace",50)]))
@@ -392,7 +391,7 @@ Prelude> runBankOp (depositOp "edsger" 1 +>> depositOp "grace" 1) bank
 Prelude> runBankOp (depositOp "edsger" 1 +>> depositOp "grace" 1 +>> withdrawOp "edsger" 11) bank
 (11,Bank (fromList [("edsger",0),("grace",51)]))
 
--- Using +> to implement a transfer from one account to the other:
+-- 使用 +> 实现从一个账户到另一个账户的转账：
 
 Prelude> runBankOp (withdrawOp "edsger" 5 +> depositOp "grace") bank
 ((),Bank (fromList [("edsger",5),("grace",55)]))
@@ -401,12 +400,12 @@ Prelude> runBankOp (withdrawOp "edsger" 100 +> depositOp "grace") bank
 ((),Bank (fromList [("edsger",0),("grace",60)]))
 ```
 
-请注意 `BankOp` 类型的值如何表示转换银行的过程。银行的初始状态必须使用 `runBankOp` 提供。这是有道理的，因为与 `Bank` 状态不同，`BankOp` 变换可以组合。必须使用 `runBankOp` 使得“定义”操作和“执行它们”之间的区别更加清晰。
+请注意，`BankOp` 类型的值表示一个转换银行状态的过程。银行的初始状态必须通过 `runBankOp` 提供。这是合理的，因为和具体的 `Bank` 状态不同，`BankOp` 这样的变换可以组合。必须显式使用 `runBankOp`，也让“定义操作”和“执行操作”之间的区别更加清楚。
 
-现在我们已经熟悉了 `BankOp` 值的操作，我们可以将 `share` 实现为 `BankOp`。我们实现了一个助手 `distributeOp` 以使代码更加整洁。
+现在我们已经熟悉了 `BankOp` 值的操作，我们可以将 `share` 实现为 `BankOp`。这里实现了一个辅助函数 `distributeOp`，让代码更整洁。
 
 ```haskell
--- distribute amount to two accounts
+-- 将金额分配到两个账户
 distributeOp :: String -> String -> Int -> BankOp ()
 distributeOp to1 to2 amount =
   depositOp to1 half
@@ -432,7 +431,7 @@ runBankOp (shareOp "wotan" "siegfried" "brunhilde")
   ==> ((),Bank (Map.fromList [("brunhilde",46),("siegfried",45),("wotan",0)]))
 ```
 
-那很干净不是吗？我们根本不需要提及银行，我们几乎可以像使用命令式语言一样进行编程，同时保持完全纯性。
+这样清爽多了，不是吗？我们根本不需要显式传递银行状态，几乎可以像命令式语言那样编程，同时仍然保持完全纯粹。
 
 你可以在课程仓库的 [`exercises/Examples/Bank.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Bank.hs) 下找到所有这些代码。
 
@@ -457,11 +456,11 @@ class Monad m where
 `Monad` 中还有一些额外的操作：
 
 ```haskell
-  -- lift a normal value into the monad
+  -- 将普通值提升到 monad 中
   return :: a -> m a
-  -- simpler chaining (like our ##>)
+  -- 更简单的链接（类似我们的 ##>）
   (>>) :: m a -> m b -> m b
-  a >> b  =  a >>= \_ -> b     -- remember: _ means ignored argument
+  a >> b  =  a >>= \_ -> b     -- 记住：_ 表示忽略的参数
 ```
 
 回想一下，`Functor` 类型类是关于通用 `map` 操作的。类似地，`Monad` 类型类只是一个通用的链接操作。
@@ -471,20 +470,20 @@ fmap :: Functor f => (a->b) -> f a -> f b
 (>>=) :: Monad m => m a -> (a -> m b) -> m b
 ```
 
-表达式 `operation >>= next` 采用一元运算 `operation :: m a`，并使用 `next :: a -> m b` 生成的值进行一些进一步的计算。如果这感觉太抽象，只需回想一下 `Maybe` 的链接是如何工作的：
+表达式 `operation >>= next` 接受一个 monad 操作 `operation :: m a`，并把它产生的值交给 `next :: a -> m b`，继续进行下一步计算。如果这感觉太抽象，只要回想一下 `Maybe` 的链接是如何工作的：
 
 ```haskell
 (>>=) :: Maybe a -> (a -> Maybe b) -> Maybe b
--- if we failed, don't even bother running the next step
+-- 如果已经失败，就不必运行下一步：
 Nothing >>= _ = Nothing
--- otherwise run the next step
+-- 否则运行下一步：
 Just x  >>= f = f x
 ```
 
 
 ## 13.5 Maybe 是 Monad！
 
-这是 `Maybe` 的完整 `Monad` 实例和一些例子。
+这是 `Maybe` 的完整 `Monad` 实例和一些示例。
 
 ```haskell
 instance  Monad Maybe  where
@@ -510,7 +509,7 @@ Just 2 >> Nothing
   ==> Nothing
 ```
 
-以下是用 monad 操作重写的 `stealSecret` 和 `increase` 例子。将 `?>` 改为 `>>=`，将 `Just` 改为 `return`。
+以下是用 monad 操作重写的 `stealSecret` 和 `increase` 示例。将 `?>` 改为 `>>=`，将 `Just` 改为 `return`。
 
 ```haskell
 stealSecret :: String -> Maybe String
@@ -522,8 +521,8 @@ stealSecret password =
 ```
 
 ```haskell
--- Set the value of key to val in the given key-value list,
--- but only if val is larger than the current value!
+-- 在给定键值对列表中把 key 的值设为 val，
+-- 但只有当 val 大于当前值时才这样做！
 increase :: Eq a => a -> Int -> [(a,Int)] -> Maybe [(a,Int)]
 increase key val assocs =
     lookup key assocs >>=
@@ -538,7 +537,7 @@ increase key val assocs =
 
 ## 13.6 再谈 `do`
 
-下面是一个复杂 monad 操作的例子。
+下面是一个复杂 monad 操作的示例。
 
 ```haskell
 f = op1 >>= continue
@@ -576,7 +575,7 @@ f = do x <- op1
        op5 x y
 ```
 
-澄清一下，`do` 表示法只是 monad 操作（`>>=` 和 `>>`）和 lambda 的更好语法。以下是 do 表示法如何转换为 monad 操作。注意！该转换定义是递归的。
+明确一下，`do` 语法只是 monad 操作（`>>=` 和 `>>`）以及 lambda 的一种更好写法。下面展示了 `do` 语法如何转换为 monad 操作。注意！这个转换定义是递归的。
 
 ```haskell
 do x <- op a       ~~~>       op a >>= \x -> do ...
@@ -597,7 +596,7 @@ do let x = expr    ~~~>       let x = expr in do ...
 do finalOp         ~~~>       finalOp
 ```
 
-这是使用 do 表示法的 `safeNth`：
+这是使用 do 语法的 `safeNth`：
 
 ```haskell
 safeHead :: [a] -> Maybe a
@@ -614,11 +613,11 @@ safeNth n xs = do t <- safeTail xs
                   safeNth (n-1) t
 ```
 
-这是 `increase` 最后一次，现在用 do 符号
+这是最后一次重写 `increase`，这次使用 `do` 语法：
 
 ```haskell
--- Set the value of key to val in the given key-value list,
--- but only if val is larger than the current value!
+-- 在给定键值对列表中把 key 的值设为 val，
+-- 但只有当 val 大于当前值时才这样做！
 increase :: Eq a => a -> Int -> [(a,Int)] -> Maybe [(a,Int)]
 increase key val assocs =
   do oldVal <- lookup key assocs
@@ -632,7 +631,7 @@ increase key val assocs =
 
 ## 13.7 Logger 是 Monad！
 
-我们应该能够通过将 `>>=` 设置为 `#>` 自己为 `Logger` 编写 `Monad` 实例。然而，由于[Haskell 语言的最新变化](https://wiki.haskell.org/Functor-Applicative-Monad_Proposal)，我们必须实现 `Functor` 和 `Applicative` 实例才能实现 `Monad` 实例。 `Functor` 我们已经见过了，但是`Applicative`是什么？我们稍后会介绍。让我们来实现实例：
+按理说，只要把 `>>=` 定义成 `#>`，我们就能自己为 `Logger` 编写 `Monad` 实例。不过由于 [Haskell 语言的较新变化](https://wiki.haskell.org/Functor-Applicative-Monad_Proposal)，在实现 `Monad` 实例之前，还必须先实现 `Functor` 和 `Applicative` 实例。`Functor` 我们已经见过了，但 `Applicative` 是什么？稍后会介绍。先来看实例实现：
 
 ```haskell
 import Control.Monad
@@ -642,18 +641,17 @@ data Logger a = Logger [String] a  deriving Show
 msg :: String -> Logger ()
 msg s = Logger [s] ()
 
--- The Functor instance just maps over the stored value
+-- Functor 实例只是映射存储的值
 instance Functor Logger where
   fmap f (Logger log x) = Logger log (f x)
 
--- This is an Applicative instance that works for any
--- monad, you can just ignore it for now. We'll get back
--- to Applicative later.
+-- 这是一个适用于任何 monad 的 Applicative 实例，
+-- 现在可以先忽略。稍后会回到 Applicative。
 instance Applicative Logger where
   pure = return
   (<*>) = ap
 
--- Finally, the Monad instance
+-- 最后是 Monad 实例
 instance Monad Logger where
   return x = Logger [] x
   Logger la a >>= f = Logger (la++lb) b
@@ -670,7 +668,7 @@ annotate :: String -> a -> Logger a
 annotate s x = msg s >> return x
 ```
 
-以下是使用 do 表示法重写的 `compute` 和 `filterLog` 例子。请注意 `filterLog` 与 do 表示法的配合有多好。
+以下是使用 do 语法重写的 `compute` 和 `filterLog` 示例。请注意 `filterLog` 与 do 语法的配合有多好。
 
 ```haskell
 compute x = do
@@ -696,7 +694,7 @@ filterLog (>0) [1,-2,3,-4,0]
 ```
 
 
-## 13.8 State Monad
+## 13.8 `State` Monad（状态 Monad）
 
 Haskell 的 `State` monad 是我们的 `BankOp` 类型的通用版本。 `State` 类型由两种类型参数化，第一个是状态类型，第二个是生成值的类型。 `State Bank a` 相当于我们的 `BankOp a`。你可以在[`transformers`包的模块`Control.Monad.Trans.State`](https://downloads.haskell.org/~ghc/latest/docs/html/libraries/transformers-0.5.6.2/Control-Monad-Trans-State.html)中找到`State` monad。这是 `State` 的简化实现。
 
@@ -705,19 +703,19 @@ data State s a = State (s -> (a,s))
 
 runState (State f) s = f s
 
--- operation that overwrites the state (and produces ())
+-- 覆盖状态的操作（并产生 ()）
 put :: s -> State s ()
 put state = State (\oldState -> ((),state))
 
--- operation that produces the current state
+-- 产生当前状态的操作
 get :: State s s
 get = State (\state -> (state,state))
 
--- operation that modifies the current state with a function (and produces ())
+-- 使用函数修改当前状态的操作（并产生 ()）
 modify :: (s -> s) -> State s ()
 modify f = State (\state -> ((), f state))
 
--- Functor and Applicative instances skipped
+-- 省略 Functor 和 Applicative 实例
 
 instance Monad (State s) where
   return x = State (\s -> (x,s))
@@ -728,7 +726,7 @@ instance Monad (State s) where
                      in runState op2 state1
 ```
 
-注意我们如何声明一个实例 `Monad (State s)`。我们使用“部分应用的类型构造函数”，因为 `Monad` 的实例只能为多采用一个类型参数的类型构造函数声明。如果你看看下面的 `>>=` 类型中 `m`、`Maybe` 和 `State` 是如何出现的，这可能会更清楚一些。
+注意我们如何声明实例 `Monad (State s)`。这里使用的是“部分应用的类型构造函数”，因为 `Monad` 的实例只能为还需要一个类型参数的类型构造函数声明。看看下面 `>>=` 类型里 `m`、`Maybe` 和 `State` 出现的位置，这一点可能会更清楚。
 
 ```haskell
 class Monad m where
@@ -741,10 +739,10 @@ instance Monad (State s) where
   (>>=) :: State s a -> (a -> State s b) -> State s b
 ```
 
-让我们看一下使用 `State` 的一些例子。首先，让我们考虑 `State Int a` 类型的计算，它代表使用简单的计数器。
+让我们看一下使用 `State` 的一些示例。首先，让我们考虑 `State Int a` 类型的计算，它代表使用简单的计数器。
 
 ```haskell
--- adds i to the value of the counter
+-- 将 i 加到计数器的值上
 add :: Int -> State Int ()
 add i = do old <- get
            put (old+i)
@@ -757,28 +755,28 @@ runState (add 1 >> add 3 >> add 5 >> add 6) 0
 
 ```haskell
 example :: State Int Int
-example = do add 3           -- increment state by 3
-             value <- get    -- value is current state, i.e. initial+3
-             add 1000        -- increment state by 1000
-             put (value + 1) -- overwrite state with value+1, i.e. initial+4
-             return value    -- produce value, i.e. intial+3
+example = do add 3           -- 将状态增加 3
+             value <- get    -- value 是当前状态，即 initial+3
+             add 1000        -- 将状态增加 1000
+             put (value + 1) -- 用 value+1 覆盖状态，即 initial+4
+             return value    -- 产生 value，即 initial+3
 ```
 
 ```haskell
 runState example 1
-  ==> (4,5)           -- initial is 1, state is initial+4=5, produces initial+3=4
+  ==> (4,5)           -- initial 为 1，状态为 initial+4=5，产生 initial+3=4
 ```
 
-请注意 `State s a` 类型的值如何表示转换状态的过程（就像 `BankOp` 一样）。必须使用 `runState` 提供初始状态。同样，必须使用 `runState` 使得“定义”操作和“执行它们”之间的区别更加清晰。
+请注意，`State s a` 类型的值表示一个转换状态的过程（就像 `BankOp` 一样）。必须使用 `runState` 提供初始状态。同样，显式使用 `runState` 会让“定义操作”和“执行操作”之间的区别更加清晰。
 
-处理列表时，状态可以替换累加器参数。下面是两个例子：查找列表中最大的元素，以及查找列表中紧接在 `0` 之后出现的值。
+处理列表时，状态可以替换累加器参数。下面是两个示例：查找列表中最大的元素，以及查找列表中紧接在 `0` 之后出现的值。
 
 ```haskell
 findLargest :: Ord a => [a] -> State a ()
 findLargest [] = return ()
 findLargest (x:xs) = do
-  modify (\y -> max x y)  -- update state with max of current value and previous largest value
-  findLargest xs          -- process rest of list
+  modify (\y -> max x y)  -- 用当前值和之前最大值中的较大者更新状态
+  findLargest xs          -- 处理列表剩余部分
 ```
 
 ```haskell
@@ -786,7 +784,7 @@ runState (findLargest [1,2,7,3]) 0  ==>  ((),7)
 ```
 
 ```haskell
--- store the given value in the state list
+-- 将给定值存入状态列表
 remember :: a -> State [a] ()
 remember x = modify (x:)
 
@@ -804,7 +802,7 @@ valuesAfterZero [0,1,2,3,0,4,0,5,0,0,6]
   ==> ((),[6,0,5,4,1])
 ```
 
-**注意！** 顺便说一句，`State` monad 的实际实现没有像我们的简化例子那样的 `State` 构造函数。如果你想将函数包装到 `State` 操作中，请改用此帮助程序：
+**注意！** 顺便说一句，`State` monad 的实际实现没有像我们的简化示例那样的 `State` 构造函数。如果你想将函数包装到 `State` 操作中，请改用此帮助程序：
 
     state :: (s -> (a, s)) -> State s a
 
@@ -814,14 +812,14 @@ valuesAfterZero [0,1,2,3,0,4,0,5,0,0,6]
 IO 讲座中的控制结构适用于*所有 monad*。这是它们的实际类型。
 
 ```haskell
-when :: Monad m => Bool -> m () -> m ()        -- conditional operation
-unless :: Monad m => Bool -> m () -> m ()      -- same, but condition is flipped
+when :: Monad m => Bool -> m () -> m ()        -- 条件操作
+unless :: Monad m => Bool -> m () -> m ()      -- 类似，但条件取反
 replicateM :: Monad m => Int -> m a -> m [a]   -- do something many times
-replicateM_ :: Monad m => Int -> m a -> m ()   -- same, but ignore the results
-mapM :: Monad m => (a -> m b) -> [a] -> m [b]  -- do something on a list's elements
-mapM_ :: Monad m => (a -> m b) -> [a] -> m ()  -- same, but ignore the results
+replicateM_ :: Monad m => Int -> m a -> m ()   -- 类似，但忽略结果
+mapM :: Monad m => (a -> m b) -> [a] -> m [b]  -- 对列表元素做某事
+mapM_ :: Monad m => (a -> m b) -> [a] -> m ()  -- 类似，但忽略结果
 forM  :: Monad m => [a] -> (a -> m b) -> m [b] -- mapM but arguments reversed
-forM_ :: Monad m => [a] -> (a -> m b) -> m ()  -- same, but ignore the results
+forM_ :: Monad m => [a] -> (a -> m b) -> m ()  -- 类似，但忽略结果
 ```
 
 正如我们在这里看到的，我们可以在迄今为止遇到的所有 monad 上使用 `mapM`：
@@ -837,7 +835,7 @@ runState (mapM (\x -> modify (x+) >> return (x+1)) [1,2,3]) 0
   ==> ([2,3,4],6)
 ```
 
-更多例子：
+更多示例：
 
 ```haskell
 safeHead :: [a] -> Maybe a
@@ -853,7 +851,7 @@ firsts [[1,2,3],[],[6]]    ==> Nothing
 ```
 
 ```haskell
--- an abbreviated version of an example from the last section
+-- 上一节某个示例的简化版本
 findLargest :: Ord a => [a] -> State a ()
 findLargest xs = mapM_ update xs
   where update x = modify (\y -> max x y)
@@ -887,7 +885,7 @@ sfilter even [1,2,3,4,5]
   ==> [2,4]
 ```
 
-我们可以编写自己的适用于所有 monad 的操作。正如我们之前所见，这是通过类型类实现的。如果你仅使用 `return` 和 do-notation 等 monad 操作，类型系统将为你的函数推断出通用类型。
+我们也可以编写适用于所有 monad 的操作。正如之前所见，这是通过类型类实现的。如果你只使用 `return` 和 `do` 语法等 monad 操作，类型系统就会为你的函数推断出通用类型。
 
 ```haskell
 mywhen b op = if b then op else return ()
@@ -904,7 +902,7 @@ mywhen :: (Monad m) => Bool -> m () -> m ()
 mymapM_ :: (Monad m) => (t -> m a) -> [t] -> m ()
 ```
 
-我们可以在每个例子 monad 中使用这些通用操作：
+我们可以在每个示例 monad 中使用这些通用操作：
 
 ```haskell
 perhapsDecrease :: Int -> Maybe Int
@@ -949,7 +947,7 @@ liftM f op = do x <- op
                 return (f x)
 ```
 
-`liftM` 操作让将纯函数代码与一元操作混合编写变得容易。
+`liftM` 操作让纯函数代码和 monad 操作更容易混合编写。
 
 ```haskell
 liftM negate (Just 3)
@@ -982,7 +980,7 @@ runState (fmap negate get) 3
 
 ## 13.11 又一个 Monad
 
-*列表 monad*（即 `[]` 的 `Monad` 实例）表示具有*多个返回值*的计算。它对于搜索替代方案很有用。这是第一个例子。对于每个 `x`，我们都生产 `x` 和 `-x`：
+*列表 monad*（即 `[]` 的 `Monad` 实例）表示具有*多个返回值*的计算。它对于搜索替代方案很有用。这是第一个示例。对于每个 `x`，我们都生成 `x` 和 `-x`：
 
 ```haskell
 [1,2,3] >>= \x -> [-x,x]
@@ -996,7 +994,7 @@ runState (fmap negate get) 3
   ==> [2,3]
 ```
 
-如果我们使用 do 表示法，列表 monad 开始看起来更像是一个循环结构：
+如果我们使用 do 语法，列表 monad 开始看起来更像是一个循环结构：
 
 ```haskell
 do word <- ["Blue", "Green"]
@@ -1005,7 +1003,7 @@ do word <- ["Blue", "Green"]
   ==> ["Blue1","Blue2","Blue3","Green1","Green2","Green3"]
 ```
 
-更有趣的例子：找到列表中总和为 `k` 的所有对。 （同一元素两次算作一对。）
+更有趣的示例：找到列表中总和为 `k` 的所有对。 （同一元素两次算作一对。）
 
 ```haskell
 findSum :: [Int] -> Int -> [(Int,Int)]
@@ -1019,7 +1017,7 @@ findSum [1,2,3,4,5] 5
   ==> [(1,4),(2,3),(3,2),(4,1)]
 ```
 
-最后一个更复杂的例子。我们使用列表 monad 从字符串中查找所有回文，然后找到最长的一个。
+最后一个更复杂的示例。我们使用列表 monad 从字符串中查找所有回文，然后找到最长的一个。
 
 ```haskell
 import Data.List (sortBy)
@@ -1048,11 +1046,11 @@ longestPalindrome "aabbacddcaca"
 
 ```haskell
 instance Monad [] where
-  return x = [x]                  -- an operation that produces one value
-  lis >>= f = concat (map f lis)  -- compute f for all values, combine the results
+  return x = [x]                  -- 产生一个值的操作
+  lis >>= f = concat (map f lis)  -- 对所有值计算 f，并合并结果
 ```
 
-实际上，我们之前已经以列表推导的形式见过列表 Monad。将 `findSum` 的重新实现与使用 `do` 表示法的早期实现进行比较。
+实际上，我们之前已经以列表推导的形式见过列表 Monad。把下面这个 `findSum` 的重写版本，和前面使用 `do` 语法的版本比较一下。
 
 ```haskell
 findSum :: [Int] -> Int -> [(Int,Int)]
@@ -1066,7 +1064,7 @@ findSum xs k = [(a,b) | a <- xs, b <- xs, a+b==k ]
 
 然而，真正的副作用符合 monad 模式，就像 `State` 和 `Maybe` 一样。就像其他 monad 一样，我们将“操作的纯定义”与“运行操作”的过程分开。作为奖励，你可以将所有通用 monad 操作（`mapM` 等）与 IO 一起使用。
 
-下面是一些使用 monad 操作编写 IO 的例子。
+下面是一些使用 monad 操作编写 IO 的示例。
 
 ```haskell
 printTwoThings :: IO ()
@@ -1117,18 +1115,18 @@ True
 
 ## 13.13 其他语言中的 Monad
 
-一旦你熟悉了 monad 的概念，你也会开始在其他语言中看到类似 monad 的东西。最著名的例子是 *Option types*、*Java Streams* 和 *JavaScript Promise* 。如果你以前了解这些语言或概念，你可能会发现本节很有启发性。如果你对这些内容不熟悉，可以跳过本节。
+一旦熟悉了 monad 的概念，你也会开始在其他语言中看到类似 monad 的东西。最著名的示例包括 *Option types*、*Java Streams* 和 *JavaScript Promise*。如果你以前了解这些语言或概念，可能会觉得本节很有启发。如果你对这些内容不熟悉，可以跳过本节。
 
 ### 13.13.1 Option
 
-许多语言都有[选项类型](https://en.wikipedia.org/wiki/Option_type)。该类型在Java中称为`Optional<T>`，在C++中称为`std::optional<T>`，在C#中称为`Nullable<T>`，等等。这些类型通常具有类似于 Haskell `Maybe` monad 的行为，例如：
+许多语言都有[选项类型](https://en.wikipedia.org/wiki/Option_type)。这种类型在 Java 中称为 `Optional<T>`，在 C++ 中称为 `std::optional<T>`，在 C# 中称为 `Nullable<T>`，等等。这些类型通常具有类似于 Haskell `Maybe` monad 的行为，例如：
 
 - 在 Java 中，[`Optional.flatMap`](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/Optional.html#flatMap(java.util.function.Function)) 对应于 `>>=`：它允许你将 `Function<T,<Optional<U>>` 应用于 `Optional<T>` 并获得 `Optional<U>`。
 - 在 C# 中，二进制运算自动[提升](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types#lifted-operators) 为 `Nullable` 类型。例如，`a + null` 变为 `null`。
 
 ### 13.13.2 Stream
 
-[Java Streams](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/stream/Stream.html) 也有一个类似 monad 的 API。流是关于增量地产生许多值。就像Optional一样，方法`Stream.flatMap`让我们获取`Stream<T>`，将其与`Function<T,Stream<U>>`组合并得到`Stream<U>`。
+[Java Streams](https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/util/stream/Stream.html) 也有一个类似 monad 的 API。流用于逐步产生许多值。就像 `Optional` 一样，方法 `Stream.flatMap` 让我们取得 `Stream<T>`，将它与 `Function<T,Stream<U>>` 组合，并得到 `Stream<U>`。
 
 例如，如果 `lines` 是 `Stream<String>`，`words` 接受 `String` 并返回 `Stream<String>`，`readInt` 接受 `String` 并返回 `Integer`，我们可以编写：
 
@@ -1176,7 +1174,7 @@ Prelude> concatMonadic (Just "abc") (Just "def")
 Just "abcdef"
 ```
 
-接下来，让我们考虑一下 async/await 和 do-notation 之间的相似之处。两者都是使用原始 `Promise.then` 或 `>>=` 机制的更好语法。我们使用 async/await 重新实现 `concatPromises`，使用 do-notation 重新实现 `concatMonadic`。他们的行为保持不变。
+接下来，让我们考虑 async/await 和 `do` 语法之间的相似之处。两者都是对原始 `Promise.then` 或 `>>=` 机制的更好写法。我们用 async/await 重新实现 `concatPromises`，再用 `do` 语法重新实现 `concatMonadic`。它们的行为保持不变。
 
 ``` javascript
 async function concatPromises(promise1, promise2) {
@@ -1197,16 +1195,16 @@ concatMonadic op1 op2 = do
 
 ## 13.14 Monad：总结
 
-- `Monad` 类型类是一种表示*执行配方*的不同方式的方法
+- `Monad` 类型类是一种统一表示不同*执行配方*的方法
   - 失败（`Maybe`）
   - 日志记录
   - 状态
   - 不确定性（列表 Monad）
   - IO
 - 你可以用两种等效的方式编写 monad 代码：
-  - 直接使用`Monad`类操作（`>>=`、`>>`）
-  - 使用 `do` 表示法
-- 当`M`是一个monad时，`M a`类型的值是*产生`a`类型结果的操作*
+  - 直接使用 `Monad` 类操作（`>>=`、`>>`）
+  - 使用 `do` 语法
+- 当 `M` 是一个 monad 时，`M a` 类型的值是*产生 `a` 类型结果的操作*
 - Monad 是一个*设计模式*和一个*库*（`mapM` 等）
   - 使用通用抽象使代码更容易理解
   - 读取 `State` 操作比破译带有状态的复杂递归更容易
@@ -1220,7 +1218,7 @@ concatMonadic op1 op2 = do
 
 ## 13.15 附注：标准 Haskell
 
-本讲座和上一讲座涵盖了 Haskell 的 GHC 版本与标准 Haskell 2010 不同的许多部分。以下是 GHC 所做更改的简短列表，仅供你了解：
+本讲和上一讲涵盖了 GHC 版 Haskell 与标准 Haskell 2010 不同的许多部分。下面是 GHC 所做更改的简短列表，仅供你了解：
 
 - `length`、`sum`、`foldr` 等普遍适用于 `Foldable` 而不仅仅是列表
 - `Functor` 和 `Applicative` 是 `Monad` 的超类
@@ -1241,21 +1239,21 @@ do y <- z
 2.`z >>= \y -> s y >> return (f y)`
 3.`z >> \y -> s y >>= return (f y)`
 
-`\x xs -> return (x : xs)`是什么类型？
+`\x xs -> return (x : xs)` 是什么类型？
 
 1.`Monad m => a -> [a] -> m [a]`
 2.`Monad m => a -> [m a] -> [m a]`
 3.`a -> [a] -> Monad [a]`
 4.以上都不是
 
-`\x xs -> return x : xs`是什么类型？
+`\x xs -> return x : xs` 是什么类型？
 
 1.`Monad m => a -> [a] -> m [a]`
 2.`Monad m => a -> [m a] -> [m a]`
 3.`a -> [a] -> Monad [a]`
 4.以上都不是
 
-`(\x xs -> return x) : xs`是什么类型？
+`(\x xs -> return x) : xs` 是什么类型？
 
 1.`Monad m => a -> [a] -> m [a]`
 2.`Monad m => a -> [m a] -> [m a]`

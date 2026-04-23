@@ -1,4 +1,4 @@
-# 第 16 讲：杂项内容
+# 第 16 讲：零碎内容
 
 最后一讲讨论一些其他地方不适合的小主题。你已经学完了课程的所有难点部分。现在可以坐下来，放松一下，享受一些很酷的 Haskell！
 
@@ -7,7 +7,7 @@
 
 纯函数的好处之一是容易测试：不需要设置全局状态，只需传入参数检查结果即可。本节快速浏览*基于属性的测试*库 QuickCheck，它也用于检查你对本课程练习的答案。
 
-让我们看一个 `reverse` 的（错误）实现的测试。你可以在文件 [`exercises/Examples/QuickCheck.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/QuickCheck.hs) 中找到此例子和以下例子。
+让我们看一个针对 `reverse`（错误实现）的测试。你可以在文件 [`exercises/Examples/QuickCheck.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/QuickCheck.hs) 中找到这个示例和后面的示例。
 
 ```haskell
 rev :: [a] -> [a]
@@ -57,7 +57,7 @@ Passed:
 Passed:
 [-2,1,-1]
 [-2,1,-1] == [-2,1,-1]
--- lots of output
+-- 大量输出
 +++ OK, passed 100 tests.
 *Examples.QuickCheck> quickCheck (propRevTwice [1,2,3])
 +++ OK, passed 1 test.
@@ -88,7 +88,7 @@ propRevTwo xs ys = rev (xs ++ ys) === rev ys ++ rev xs
 [0,1,0] /= [1,0,0]
 ```
 
-接下来，“经过5次测试和3次收缩”是什么意思？ QuickCheck 的一个很酷的函数是，当它发现故障时，它会尝试一些相关值，以便找到更好、更小的故障。我们可以通过 `verboseShrinking` 看到这一点，它打印出 QuickCheck 经历的所有失败：
+接下来，“经过 5 次测试和 3 次收缩”是什么意思？QuickCheck 一个很有用的能力是：当它发现失败时，会尝试一些相关值，以便找到更好、更小的反例。我们可以通过 `verboseShrinking` 看到这一点，它会打印出 QuickCheck 经历的所有失败：
 
 ```haskell
 *Examples.QuickCheck> quickCheck (verboseShrinking propRevTwo)
@@ -133,7 +133,7 @@ Failed:
 [0,1,0] /= [1,0,0]
 ```
 
-QuickCheck 从 `[4,1,-1,4,4]` 的反例一直下降到 `[1,0,0]`。相当甜蜜！
+QuickCheck 从 `[4,1,-1,4,4]` 这个反例一路缩小到 `[1,0,0]`。相当不错！
 
 ### 16.1.1 修饰符
 
@@ -150,7 +150,7 @@ propLast xs = last xs === head (reverse xs)
 []
 ```
 
-在这种情况下，我们只需切换到另一种输入类型即可修复测试。 QuickCheck 定义了 `NonEmptyList` 类型（不要与 `Data.List.NonEmpty` 混淆！），它只是普通列表的包装。但是，当生成 `NonEmptyList` 的值时，QuickCheck 不会生成空列表。
+在这种情况下，我们只需切换到另一种输入类型即可修复测试。QuickCheck 定义了 `NonEmptyList` 类型（不要与 `Data.List.NonEmpty` 混淆！），它只是普通列表的包装。不过，当生成 `NonEmptyList` 的值时，QuickCheck 不会生成空列表。
 
 ```haskell
 newtype NonEmptyList a = NonEmpty [a]
@@ -166,7 +166,7 @@ propLastFixed (NonEmpty xs) = last xs === head (reverse xs)
 +++ OK, passed 100 tests.
 ```
 
-还有像这样的[其他修饰符](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:16)，例如 `Positive` 表示正数，`NonNegative` 表示非负数，或 `SortedList` 表示排序列表。这是一个更复杂测试的例子。我们检查 `cycle xs` 的第 n 个元素是否正确。这两个修饰符都是必需的，因为 `!!` 不适用于负输入，并且 `cycle []` 是一个错误。
+还有像这样的[其他修饰符](https://hackage.haskell.org/package/QuickCheck-2.14.3/docs/Test-QuickCheck.html#g:16)，例如 `Positive` 表示正数，`NonNegative` 表示非负数，`SortedList` 表示排序列表。下面是一个更复杂的测试：检查 `cycle xs` 的第 n 个元素是否正确。这两个修饰符都是必需的，因为 `!!` 不适用于负输入，而 `cycle []` 是一个错误。
 
 ```haskell
 propCycle :: NonEmptyList Int -> NonNegative Int -> Property
@@ -176,7 +176,7 @@ propCycle (NonEmpty xs) (NonNegative n) =
 
 ### 16.1.2 生成器与 `forAll`
 
-有时我们需要进一步限制测试的输入范围。作为一个简单的例子，下面是一个 `Data.Char.toUpper` 更改传递给它的字符的测试：
+有时我们需要进一步限制测试的输入范围。下面是一个简单示例：测试 `Data.Char.toUpper` 是否会改变传给它的字符：
 
 ```haskell
 propToUpperChanges :: Char -> Property
@@ -206,7 +206,7 @@ Passed:
 Passed:
 'z'
 'Z' /= 'z'
--- lots of output omitted
+-- 省略大量输出
 +++ OK, passed 100 tests.
 ```
 
@@ -219,7 +219,7 @@ forAll :: (Show a, Testable prop) => Gen a -> (a -> prop) -> Property
 forAll (elements ['a'..'z']) :: Testable prop => (Char -> prop) -> Property
 ```
 
-这里有一些新类型。 `Gen a` 类型的值是 `a` 类型值的生成器。我们将在下一节中详细讨论 `Gen`，但在本节中，你将看到几个返回 `Gen` 的函数，以便我们可以将它们与 `forAll` 一起使用。正如你可能已经猜到的那样，`elements` 函数是一个生成器，它随机返回给定列表的元素之一。
+这里出现了一些新类型。`Gen a` 类型的值是 `a` 类型值的生成器。我们会在下一节中更详细地讨论 `Gen`，但在本节中，你会看到几个返回 `Gen` 的函数，这样我们就能把它们和 `forAll` 搭配使用。正如你可能已经猜到的，`elements` 函数是一个生成器，它会随机返回给定列表中的某个元素。
 
 `Testable` 类型类与 `quickCheck` 函数使用的类型类相同。它的存在使得 `quickCheck` 除了简单的 `Property` 值之外还可以测试 `[Int] -> Bool -> Property` 等类型。
 
@@ -242,7 +242,7 @@ listHasZero xs = elem 0 xs
 []
 ```
 
-回到`forAll`，我们可以使用`forAll`来编写更复杂的测试。这是一个测试，检查 `sort xs` 是否具有与 `xs` 相同的元素。请注意我们如何使用 `NonEmptyList` 来保证 `forAll` 有一些元素可供选择。
+回到 `forAll`，我们可以用它来编写更复杂的测试。下面这个测试检查 `sort xs` 是否具有与 `xs` 相同的元素。请注意，我们使用 `NonEmptyList` 来保证 `forAll` 有元素可供选择。
 
 ```haskell
 propSort :: NonEmptyList Int -> Property
@@ -252,7 +252,7 @@ propSort (NonEmpty xs) =
 
 ### 16.1.3 进一步使用 QuickCheck
 
-我们仅仅触及了 QuickCheck 的皮毛。当你开始编写较大的 QuickCheck 测试时，以下是一些你会发现有用的内容的提示。
+我们这里只是初步接触了 QuickCheck。当你开始编写更大的 QuickCheck 测试时，下面这些内容会很有用。
 
 有时 QuickCheck 的输出不够详细。你可以使用 `counterexample` 组合器将自己的行添加到输出：
 
@@ -260,7 +260,7 @@ propSort (NonEmpty xs) =
 counterexample :: Testable prop => String -> prop -> Property
 ```
 
-作为例子，我们将 `rev` 的输入日志记录添加到 `propRevTwo`：
+例如，我们给 `propRevTwo` 添加一条关于 `rev` 输入的诊断信息：
 
 ```haskell
 propRevTwo' :: [Int] -> [Int] -> Property
@@ -349,11 +349,11 @@ instance Arbitrary Switch where
 
 ## 16.2 幻影类型
 
-嘘！类型系统里有鬼！让我们看看“幻影类型”可以为你做什么。
+嘘！类型系统里有“幻影”！让我们看看“幻影类型”可以为你做什么。
 
-幻影类型是不带任何值的类型。它们与新类型（参见第 10 讲）相关，因为两者都是添加额外类型检查而不影响程序评估的一种方法。
+幻影类型指的是带有某些类型参数，但这些类型参数不会出现在运行时值中的类型。它们和 newtype（参见第 10 讲）有相似之处：两者都能增加额外的类型检查，而不影响程序求值。
 
-让我们使用幻影类型来跟踪一笔钱所用的货币。我们定义幻影类型 `EUR` 和 `USD` （注意它们没有任何构造函数！），以及不使用类型参数 `a` 的参数化类型 `Money a` 。然后我们可以定义两个常量，一个以欧元为单位，另一个以美元为单位。你可以在文件 [`exercises/Examples/Phantom.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phantom.hs) 中找到本节的所有代码。
+让我们使用幻影类型来跟踪一笔钱所使用的货币。我们定义幻影类型 `EUR` 和 `USD`（注意它们没有任何构造函数！），以及一个不在构造函数字段中使用类型参数 `a` 的参数化类型 `Money a`。然后我们可以定义两个常量，一个以欧元计价，另一个以美元计价。你可以在文件 [`exercises/Examples/Phantom.hs`](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phantom.hs) 中找到本节的所有代码。
 
 ```haskell
 data EUR
@@ -424,7 +424,7 @@ addMoneyUnsafe (Money a) (Money b) = Money (a+b)
 Money 3.0
 ```
 
-我们可以继续采用这种方法，并定义货币换算。我们定义了类型 `Rate`，它使用幻影类型来跟踪其之间转换的货币。 `convert` 和 `invert` 的类型被限制为具有我们想要的属性。还有一个无限制版本的转换函数可让你比较类型。
+我们可以继续采用这种方法，并定义货币换算。类型 `Rate` 使用幻影类型来跟踪它在两种货币之间的转换方向。`convert` 和 `invert` 的类型被限制为具有我们想要的性质。这里还给出一个不受限制的转换函数，方便你比较类型差异。
 
 ```haskell
 data Rate from to = Rate Double
@@ -460,13 +460,13 @@ Money 0.819672131147541
 Money 1.22
 ```
 
-注意！前面例子中的单词 `currency`、`from`、`to` 等“只是类型变量”。它们没有什么特别的事情发生。我们也可以给 `invert` 像 `Rate a b -> Rate b a` 这样的类型，而不需要对类型安全进行任何更改。
+注意！前面示例中的 `currency`、`from`、`to` 等名字“只是类型变量”。它们本身没有任何特殊机制。我们也可以把 `invert` 的类型写成 `Rate a b -> Rate b a`，类型安全性不会有任何变化。
 
-这种使用幻影类型的方法有明显的好处：为我们提供无效代码的类型错误。此外，与定义大量具体类型（如 `data MoneyEur = MoneyEur Double`）相比，使用幻影类型，我们只需实现 `scaleMoney` 和 `addMoney` 等函数一次。此外，我们还能够定义多态和可重用的概念，例如 `Rate`。你可以将此方法与第 7 讲的拳击部分进行对比。
+这种使用幻影类型的方法有明显的好处：它会让无效代码产生类型错误。此外，与定义大量具体类型（如 `data MoneyEur = MoneyEur Double`）相比，使用幻影类型时，我们只需实现一次 `scaleMoney` 和 `addMoney` 等函数。我们还能定义多态且可复用的概念，例如 `Rate`。你可以把这种方法和第 7 讲的装箱部分做对比。
 
-然而，幻影类型也有缺点。如果没有高级技巧，我们就无法真正处理在运行时定义的货币（例如：从用户那里读取金额）。你也很容易开始需要语言扩展，例如 [*广义代数数据类型*](https://wiki.haskell.org/GADTs_for_dummies)、[*类型族*](https://wiki.haskell.org/GHC/Type_families) 和其他[*类型级编程*](https://aphyr.com/posts/342-typing-the-technical-interview) 构造。最终你就进入了[*依赖打字*](https://mitpress.mit.edu/books/little-typer)的世界。
+然而，幻影类型也有缺点。如果没有更高级的技巧，我们无法真正处理运行时才确定的货币（例如从用户那里读取金额）。你也很容易开始需要语言扩展，例如 [*广义代数数据类型*](https://wiki.haskell.org/GADTs_for_dummies)、[*类型族*](https://wiki.haskell.org/GHC/Type_families) 和其他[*类型级编程*](https://aphyr.com/posts/342-typing-the-technical-interview) 构造。再往前走，最终就会进入[*依赖类型*](https://mitpress.mit.edu/books/little-typer)的世界。
 
-那么幻影类型有哪些好的应用呢？当你需要跟踪一些简单但重要的信息时，这些信息在编译时就已知。比货币更好的一个例子是跟踪用户的输入是否经过清理，以防止 [SQL 注入](https://en.wikipedia.org/wiki/SQL_injection) 或 [跨站点脚本](https://en.wikipedia.org/wiki/Cross-site_scripting) 等攻击。
+那么幻影类型有哪些好的应用呢？当你需要跟踪一些简单但重要的信息时，这些信息在编译时就已知。比货币更好的一个示例是跟踪用户的输入是否经过清理，以防止 [SQL 注入](https://en.wikipedia.org/wiki/SQL_injection) 或 [跨站点脚本](https://en.wikipedia.org/wiki/Cross-site_scripting) 等攻击。
 
 我们可以使用类型 `Input Safe` 和 `Input Unsafe` 来跟踪字符串是否可以安全地传递到数据库中。如果我们的模块仅导出 `makeInput` 函数，而不导出 `Input` 构造函数，则类型系统确保任何输入在进入 `addForumComment` 等数据库函数之前必须在某个时刻通过 `escapeInput` 函数。
 
@@ -476,20 +476,20 @@ data Unsafe
 
 data Input a = Input String
 
--- Public constructor function for Input, only allows constructing
--- Unsafe Inputs from Strings.
+-- Input 的公开构造函数，只允许从 String 构造
+-- Unsafe Input。
 makeInput :: String -> Input Unsafe
 makeInput xs = Input xs
 
--- Adds comment to the database.
+-- 向数据库添加评论。
 addForumComment :: Input Safe -> IO Result
 addForumComment = ...
 
--- We can combine inputs, but that won't change their safety
+-- 可以组合输入，但不会改变它们的安全性
 concatInputs :: Input a -> Input a -> Input a
 concatInputs (Input xs) (Input ys) = Input (xs++ys)
 
--- Strip bad characters to turn an unsafe input safe
+-- 去除有害字符，将不安全输入变为安全输入
 escapeInput :: Input Unsafe -> Input Safe
 escapeInput (Input xs) = Input (filter (\c -> isAlpha c || isSpace c) xs)
 ```
@@ -513,7 +513,7 @@ Prelude> map fib [29,29,29,29,29]
 (7.54 secs, 2,440,860,632 bytes)
 ```
 
-现在让我们引入模块 [Control.Parallel.Strategies](https://hackage.haskell.org/package/parallel-3.2.2.0/docs/Control-Parallel-Strategies.html)，它定义了并行计算值的方法。我们将使用 `parList rseq` 策略*并行*将列表中的所有元素评估为 WHNF。
+现在让我们引入模块 [Control.Parallel.Strategies](https://hackage.haskell.org/package/parallel-3.2.2.0/docs/Control-Parallel-Strategies.html)，它定义了并行计算值的方法。我们将使用 `parList rseq` 策略，把列表中的所有元素*并行*求值到 WHNF。
 
 ```haskell
 Prelude> import Control.Parallel.Strategies
@@ -522,13 +522,13 @@ Prelude Control.Parallel.Strategies> withStrategy (parList rseq) (map fib [29,29
 (4.80 secs, 488,531,384 bytes)
 ```
 
-在运行本例子的 2 核机器上，速度几乎是原来的 2 倍。相当不错。这里最酷的事情是我们能够完全独立于*评估策略*（`parList rseq`）来定义*计算*（`map fib ...`），将*计算什么*与*如何计算*分开。
+在运行本示例的 2 核机器上，速度几乎提升到了原来的 2 倍。相当不错。这里最酷的地方是，我们能够把*计算*（`map fib ...`）和*求值策略*（`parList rseq`）分开定义，也就是将*计算什么*与*如何计算*分开。
 
 ### 16.3.2 并发
 
 计算机科学区分了并行和“并发”计算。并行计算是那些仅并行运行单独的独立计算的计算（换句话说，并行性是“纯的”）。并发计算是指存在多个交互计算线程的计算。并发通常涉及线程、锁、消息和死锁。
 
-除了出色的并行工具之外，Haskell 还通过“线程”提供了出色的并发工具。由于并发性与副作用有关，因此并发计算发生在 `IO` Monad 中。线程的经典例子是两个线程，一个打印 As 流，另一个打印 Bs 流。这是 Haskell 中的：
+除了出色的并行工具之外，Haskell 还通过“线程”提供了出色的并发工具。由于并发与副作用有关，因此并发计算发生在 `IO` Monad 中。线程的经典示例是两个线程：一个打印 A 的流，另一个打印 B 的流。下面是 Haskell 版本：
 
 ```haskell
 printA :: IO ()
@@ -547,11 +547,11 @@ concurrency = do
     Prelude Control.Concurrent> concurrency
     AABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABB
 
-操作 `forkIO :: IO () -> IO ThreadId` 接受 IO 操作并开始在后台运行它。它产生 `ThreadId`，可用于例如 终止线程。
+操作 `forkIO :: IO () -> IO ThreadId` 接受一个 IO 操作，并开始在后台运行它。它会生成一个 `ThreadId`，例如可用于终止线程。
 
 如果我们想在线程之间添加实际通信，我们可以使用 [`MVar`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Concurrent-MVar.html) （可变线程安全变量）或 [`Chan`](https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Concurrent-Chan.html) （队列）等抽象。
 
-这是一个简单的例子，其中一个线程向 `MVar` 写入一个值，另一个线程等待它们并打印它们。 `MVar` 的工作方式类似于邮箱：它要么是空的，要么是满的。在空盒子上调用 `takeMVar` 等待盒子被填充（使用 `putMVar`）。对称地，尝试将 `putMVar` 放入已满的盒子中会等到盒子为空。
+下面是一个简单示例：一个线程向 `MVar` 写入值，另一个线程等待这些值并打印它们。`MVar` 的工作方式类似邮箱：它要么是空的，要么是满的。对空的 `MVar` 调用 `takeMVar` 会等待它被填充（通过 `putMVar`）。相应地，尝试对已满的 `MVar` 调用 `putMVar`，会一直等到它变为空。
 
 ```haskell
 takeMVar :: MVar a -> IO a
@@ -566,7 +566,7 @@ send values var = mapM_ (putMVar var) values
 receive :: MVar String -> IO ()
 receive var = do val <- takeMVar var
                  print val
-                 -- loop unless at last value
+                 -- 如果不是最后一个值，就继续循环
                  when (val/="end") (receive var)
 
 concurrency2 :: IO ()
@@ -589,21 +589,21 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 
 ## 16.4 练习
 
-- [Set16a](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16a.hs)：快速检查
+- [Set16a](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16a.hs): QuickCheck
 - [Set16b](https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set16b.hs): 幻影类型
 - 没有并行或并发 Haskell 练习，抱歉！
 
 
 ## 16.5 接下来学什么？
 
-恭喜！你已经完成了关于 Haskell 函数式编程的两部分课程的结尾。接下来怎么办？你绝对了解足够的 Haskell 来继续自学。 Haskell 在线社区非常友好，有大量博客文章和其他内容解释高级技术和函数。你可以通过以下例子找到很多有趣的东西：
+恭喜！你已经完成了这门 Haskell 函数式编程两部分课程的全部内容。接下来怎么办？你已经了解了足够多的 Haskell，可以继续自学。Haskell 在线社区非常友好，也有大量博客文章和其他材料解释高级技术和函数。你可以从下面这些地方开始探索：
 
 - Reddit 上的 [/r/haskell](https://www.reddit.com/r/haskell/)
 - [libera.chat](https://libera.chat) 上的 `#haskell`
-- [Haskell周刊](https://haskellweekly.news/)
-- 堆栈溢出
+- [Haskell 周刊](https://haskellweekly.news/)
+- Stack Overflow
 
-只要继续写Haskell，当你遇到东西（比如库和工具）时就研究它们，慢慢积累经验。你通过 Haskell 学到的很多东西都可以转移到其他语言，例如 [TypeScript](https://www.typescriptlang.org/)、[Elm](https://elm-lang.org/)、[Rust](https://www.rust-lang.org/) 或 [F#](https://fsharp.org/)。
+只要继续写 Haskell，并在遇到新东西（比如库和工具）时研究它们，就能慢慢积累经验。你通过 Haskell 学到的很多东西都可以迁移到其他语言，例如 [TypeScript](https://www.typescriptlang.org/)、[Elm](https://elm-lang.org/)、[Rust](https://www.rust-lang.org/) 或 [F#](https://fsharp.org/)。
 
 最后，这里列出了本课程中未提及但值得研究的内容的不完整列表：
 
@@ -611,7 +611,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
   - [模块](https://en.wikibooks.org/wiki/Haskell/Modules)
   - 惰性模式（`~` 模式）和 `@` 模式。参见例如 [Haskell 简介](https://www.haskell.org/tutorial/patterns.html)。
   - 语言扩展，如 `MultiParamTypeClasses`、`ViewPatterns` 等。 [这是一本很好的指南](https://limperg.de/ghc-extensions/)
-  - `fix`函数
+  - `fix` 函数
   - 用于从 Haskell 调用 C 代码的外部函数接口
 - 抽象
   - Monad 变换器：[RWH](https://book.realworldhaskell.org/read/monad-transformers.html)、[Wikibook](https://en.wikibooks.org/wiki/Haskell/Monad_transformers)
@@ -619,13 +619,13 @@ Prelude Control.Concurrent Control.Monad> concurrency2
   - 镜头（高级主题）：[教程](https://hackage.haskell.org/package/lens-tutorial-1.0.4/docs/Control-Lens-Tutorial.html) [玻璃](https://oleg.fi/gists/posts/2017-04-18-glassery.html)
   - [Bartosz Milewski](https://bartoszmilewski.com/) 在他的博客上涵盖了许多中级和高级主题
 - 工装
-  - 使用[Cabal](https://www.haskell.org/cabal/)和[Stack](https://www.haskellstack.org)构建自己的项目
+  - 使用 [Cabal](https://www.haskell.org/cabal/) 和 [Stack](https://www.haskellstack.org) 构建自己的项目
   - 分析：[RWH](https://book.realworldhaskell.org/read/profiling-and-optimization.html)、[GHC](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html)
   - [Hlint](https://github.com/ndmitchell/hlint#readme)
 - 库
-  - 秒差距（解析）：[RWH](https://book.realworldhaskell.org/read/using-parsec.html)
-  - Scotty（简单的网络框架），Aeson（json）：[博客]（https://seanhess.github.io/2015/08/19/practical-haskell-json-api.html）
-  - [Servant](https://haskell-servant.github.io/)（带有幻影类型的精美网络框架）
+  - Parsec（解析）：[RWH](https://book.realworldhaskell.org/read/using-parsec.html)
+  - Scotty（简单的网络框架），Aeson（JSON）：[博客](https://seanhess.github.io/2015/08/19/practical-haskell-json-api.html)
+  - [Servant](https://haskell-servant.github.io/)（带有幻影类型的精巧网络框架）
 - 范畴论
   - 许多 Haskell 抽象都是基于范畴论
   - 范畴论可以成为编程新思想的宝贵来源
@@ -636,7 +636,7 @@ Prelude Control.Concurrent Control.Monad> concurrency2
 
 ## 16.6 致谢
 
-本课程是由 [Nitor](https://nitor.com/en) 完成的，他为这个项目捐赠了 Joel 的大量工作时间。谢谢你！
+本课程由 [Nitor](https://nitor.com/en) 支持完成，他们为这个项目捐赠了 Joel 的大量工作时间。谢谢！
 
 感谢整个 Haskell Mooc 团队，特别是
 

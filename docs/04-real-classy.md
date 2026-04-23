@@ -7,7 +7,7 @@
 
 ## 4.1 附注：元组
 
-在深入了解类型类之前，让我们先介绍 Haskell 中最后一个内置数据类型：元组。*元组*或*对*（或三元组、四元组等）是将几个不同类型的值捆绑在一起的方式。你可以把元组看作固定长度的列表（就像 Python 的元组一样）。与列表不同，元组中的每个元素可以有不同的类型。元素的类型反映在元组的类型中。下面是元组类型和值的一些例子：
+在深入了解类型类之前，让我们先介绍 Haskell 中最后一个内置数据类型：元组。*元组*或*对*（或三元组、四元组等）是将几个不同类型的值捆绑在一起的方式。你可以把元组看作固定长度的列表（就像 Python 的元组一样）。与列表不同，元组中的每个元素可以有不同的类型。元素的类型反映在元组的类型中。下面是元组类型和值的一些示例：
 
 | 类型 | 示例值 |
 |:------------------|:---------------------|
@@ -24,12 +24,12 @@ snd :: (a, b) -> b
 
 你还可以对元组进行模式匹配。这通常是最方便的方法，也适用于较大的元组。`fst` 和 `snd` 函数只对二元组有效。
 
-元组与列表结合起来很有用。下面是使用 `Data.List` 模块中的 `zip`、`unzip` 和 `partition` 函数的一些例子。
+元组与列表结合起来很有用。下面是使用 `Data.List` 模块中的 `zip`、`unzip` 和 `partition` 函数的一些示例。
 
 ```haskell
-zip :: [a] -> [b] -> [(a, b)]    -- two lists to list of pairs
-unzip :: [(a, b)] -> ([a], [b])  -- list of pairs to pair of lists
-partition :: (a -> Bool) -> [a] -> ([a], [a])    -- elements that satisfy and don't satisfy a predicate
+zip :: [a] -> [b] -> [(a, b)]    -- 两个列表转为由配对组成的列表
+unzip :: [(a, b)] -> ([a], [b])  -- 由配对组成的列表转为一对列表
+partition :: (a -> Bool) -> [a] -> ([a], [a])    -- 满足和不满足谓词的元素
 ```
 
 ```haskell
@@ -51,7 +51,7 @@ swap (x,y) = (y,x)
 下面是同时对元组和列表进行模式匹配的例子：
 
 ```haskell
--- sum all numbers that are paired with True
+-- 对所有与 True 配对的数字求和
 sumIf :: [(Bool,Int)] -> Int
 sumIf [] = 0
 sumIf ((True,x):xs) = x + sumIf xs
@@ -150,7 +150,7 @@ map g xs = foldr helper [] xs
 
 ## 4.3 类型类
 
-Haskell 的 `+` 如何在 `Int` 和 `Double` 上工作？为什么我可以用 `==` 比较各种东西？我们之前简要提到过约束类型。让我们看看它们的真正含义是什么。我们来看看 `==` 和 `+` 的类型。
+Haskell 的 `+` 为什么既能用于 `Int` 又能用于 `Double`？为什么我可以用 `==` 比较各种值？我们之前简要提到过约束类型。现在来看它们真正的含义。先看 `==` 和 `+` 的类型。
 
 ```haskell
 (==) :: (Eq a) => a -> a -> Bool
@@ -166,9 +166,9 @@ Haskell 的 `+` 如何在 `Int` 和 `Double` 上工作？为什么我可以用 `
 
 `Num` 和 `Eq` 是类型类。*类型类*是一种将支持类似操作的类型分组在一起的方法。
 
-**注意！** 类型类是类型的集合。它与面向对象编程的类没有太大关系！在某些情况下，类型类可以像面向对象编程中的“接口”一样。不幸的是，类型类中的函数通常被称为“方法”，这增加了混乱。
+**注意！** 类型类是类型的集合。它与面向对象编程中的类没有太大关系！在某些情况下，类型类可以类比为面向对象编程中的“接口”。不幸的是，类型类中的函数通常也被称为“方法”，这会增加一些混淆。
 
-附言。还记得使用类型变量实现多态性如何称为“参数多态性”吗？描述类型类实现的功能的花哨词是“特设多态”。不同之处在于，对于参数多态性，函数（例如 `head`）对所有类型都有相同的实现，而对于特设多态，则有多种实现（考虑数字和字符串上的 `==`）。
+附言。还记得使用类型变量实现多态性如何称为“参数多态性”吗？描述类型类所实现的这种多态的术语是“特设多态”。不同之处在于，对于参数多态性，函数（例如 `head`）对所有类型都有相同的实现，而对于特设多态，则有多种实现（考虑数字和字符串上的 `==`）。
 
 
 ## 4.4 类型约束
@@ -323,20 +323,20 @@ Prelude Data.List> sort "black sphinx of quartz, judge my vow!"     -- remember,
 作为最后一个例子，让我们根据长度对列表列表进行排序。我们需要两个辅助函数：
 
 ```haskell
--- from the module Data.Ord
--- compares two values "through" the function f
+-- 来自 Data.Ord 模块
+-- 通过函数 f 比较两个值
 comparing :: (Ord a) => (b -> a) -> b -> b -> Ordering
 comparing f x y = compare (f x) (f y)
 
--- from the module Data.List
--- sorts a list using the given comparison function
+-- 来自 Data.List 模块
+-- 使用给定的比较函数对列表排序
 sortBy :: (a -> a -> Ordering) -> [a] -> [a]
 ```
 
 现在 `sortByLength` 的实现很简单：
 
 ```haskell
--- sorts lists by their length
+-- 按长度对列表排序
 sortByLength :: [[a]] -> [[a]]
 sortByLength = sortBy (comparing length)
 ```
@@ -354,7 +354,7 @@ sortByLength [[1,2,3],[4,5],[4,5,6,7]]   ==>  [[4,5],[1,2,3],[4,5,6,7]]
 (-) :: Num a => a -> a -> a
 (*) :: Num a => a -> a -> a
 negate :: Num a => a -> a    -- 0-x
-abs :: Num a => a -> a       -- absolute value
+abs :: Num a => a -> a       -- 绝对值
 signum :: Num a => a -> a    -- -1 for negative values, 0 for 0, +1 for positive values
 fromInteger :: Num a => Integer -> a
 ```
@@ -366,7 +366,7 @@ Prelude> :t 12
 12 :: Num p => p
 ```
 
-这表示像 `12` 这样的字面量可以解释为实现 `Num` 的任何类型的成员。当 GHC 读取 `12` 之类的数字字面量时，它会生成对应于 `fromIntegral 12` 的代码。
+这意味着像 `12` 这样的字面量可以解释为实现 `Num` 的任何类型的成员。当 GHC 读取 `12` 之类的数字字面量时，它会生成对应于 `fromIntegral 12` 的代码。
 
 ```haskell
 Prelude> 1 :: Int
@@ -463,23 +463,23 @@ import qualified Data.Map as Map
 现在我们可以将映射类型称为 `Map.Map`，以及各种映射函数，比如 `Map.insert`。下面是映射最重要的函数：
 
 ```haskell
--- Create a Map from a list of key-value pairs
+-- 从键值对列表创建 Map
 Map.fromList :: Ord k => [(k, a)] -> Map.Map k a
 
--- Insert a value into a map. Overrides any previous value with the same key.
--- Returns a new map. Does not mutate the given map.
+-- 向 Map 插入一个值。会覆盖相同键上的旧值。
+-- 返回一个新的 Map。不会修改给定的 Map。
 Map.insert :: Ord k => k -> a -> Map.Map k a -> Map.Map k a
 
--- Get a value from a map using a key. Returns Nothing if the key was not present in the map.
+-- 使用键从 Map 中获取值。如果键不存在，则返回 Nothing。
 Map.lookup :: Ord k => k -> Map.Map k a -> Maybe a
 
--- An empty map
+-- 空 Map
 Map.empty :: Map.Map k a
 ```
 
 需要映射键类型的 `Ord` 约束，因为映射被实现为*有序二叉树*。
 
-请注意，与所有 Haskell 值一样，映射是“不可变的”，这表示一旦定义映射就无法更改它。然而，像 `insert` 这样的映射操作会生成一个“新”映射。要执行多个映射操作，你需要重用返回值。这是在映射上进行操作的 GHCi 会话。
+请注意，与所有 Haskell 值一样，映射是“不可变的”，这意味着一旦定义映射就无法更改它。然而，像 `insert` 这样的映射操作会生成一个“新”映射。要执行多个映射操作，你需要重用返回值。下面是在映射上进行操作的 GHCi 会话。
 
 ```haskell
 Prelude> import qualified Data.Map as Map
@@ -497,13 +497,13 @@ fromList [("w",4),("x",1),("y",2),("z",3)]
 Prelude Map>
 ```
 
-下面是将银行表示为 `Map String Int`（从帐户名称映射到帐户余额）并从帐户中提取一些钱的例子：
+下面的示例把银行表示为 `Map String Int`（从账户名称映射到账户余额），并从账户中取出一些钱：
 
 ```haskell
 withdraw :: String -> Int -> Map.Map String Int -> Map.Map String Int
 withdraw account amount bank =
   case Map.lookup account bank of
-    Nothing  -> bank                                   -- account not found, no change
+    Nothing  -> bank                                   -- 找不到账户，不做更改
     Just sum -> Map.insert account (sum-amount) bank   -- set new balance
 ```
 
@@ -530,7 +530,7 @@ withdraw account amount bank = Map.adjust (\x -> x-amount) account bank
 
 ### 4.6.2 `Data.Array`
 
-另一种工作方式类似于列表但对于某些操作更有效的类型是数组。数组在许多其他编程语言中都很常见，但 Haskell 数组有点不同。
+另一种行为类似列表、但在某些操作上更高效的类型是数组。数组在许多其他编程语言中都很常见，但 Haskell 数组有点不同。
 
 与 `Data.Map` 模块不同，`Data.Array` 可以正常导入：
 
@@ -538,24 +538,24 @@ withdraw account amount bank = Map.adjust (\x -> x-amount) account bank
 import Data.Array
 ```
 
-现在我们可以看看构造数组的 `array` 函数的类型。
+现在来看用于构造数组的 `array` 函数的类型。
 
 ```haskell
 array :: Ix i => (i, i) -> [(i, e)] -> Array i e
 ```
 
-这里有几件事需要注意。首先， `Array` 类型由“两种”类型参数化：索引类型和元素类型。大多数其他编程语言仅使用元素类型参数化数组，但索引类型始终为 `int`。例如，在 Haskell 中，我们可以有一个 `Array Char Int`：一个由字符索引的数组，或者 `Array Bool String`，一个由布尔索引的数组，甚至 `Array (Int,Int) Int`，一个二维整数数组。
+这里有几件事需要注意。首先，`Array` 类型由两种类型参数化：索引类型和元素类型。大多数其他编程语言中的数组通常只用元素类型参数化，索引类型则固定为 `int`。但在 Haskell 中，我们可以有一个 `Array Char Int`：一个由字符索引的数组；也可以有 `Array Bool String`，也就是由布尔值索引的数组；甚至可以有 `Array (Int,Int) Int`，也就是二维整数数组。
 
 并非所有类型都可以是索引类型。只有类似于整数的类型才适合。这就是 `Ix i` 类约束的原因。`Ix` 类收集所有可用作数组索引的类型。
 
-其次，`array` 函数需要一个额外的 `(i,i)` 参数。这些是数组的最小和最大索引。与其他一些语言不同，数组总是从索引 0 或 1 开始，在 Haskell 中，你可以定义一个从 7 开始到 11 的数组。所以这个数组是这样的：
+其次，`array` 函数需要一个额外的 `(i,i)` 参数，表示数组的最小索引和最大索引。在其他一些语言中，数组总是从索引 0 或 1 开始；而在 Haskell 中，你可以定义一个从 7 开始到 11 的数组。这个数组可以这样写：
 
 ```haskell
 myArray :: Array Int String
 myArray = array (7,11) [(7,"seven"), (8,"eight"), (9,"nine"), (10,"ten"), (11,"ELEVEN")]
 ```
 
-按顺序列出所有索引和元素可能有点麻烦，因此还有 `listArray` 构造函数，它只按顺序获取元素列表：
+按顺序列出所有索引和元素可能有点麻烦，因此还有 `listArray` 构造函数，它只需要按顺序给出元素列表：
 
 ```haskell
 listArray :: Ix i => (i, i) -> [e] -> Array i e
@@ -569,9 +569,9 @@ myArray = listArray (7,11) ["seven", "eight", "nine", "ten", "ELEVEN"]
 数组与两个新运算符一起使用：
 
 ```haskell
--- Array lookup
+-- 数组查找
 (!) :: Ix i => Array i e -> i -> e
--- Array update
+-- 数组更新
 (//) :: Ix i => Array i e -> [(i, e)] -> Array i e
 ```
 
@@ -606,11 +606,11 @@ foldr (+) 0 (Map.fromList [("banana",3),("egg",7)])
 
 ## 4.7 阅读文档
 
-Haskell 库往往有非常好的文档。我们之前已经通过 Hackage (<https://hackage.haskell.org>) 链接到了文档，但知道如何自己查找文档也很重要。用于生成 Haskell 文档的工具称为 *Haddock*，因此有时 Haskell 文档被称为 *haddocks*。
+Haskell 库通常有很好的文档。我们之前已经通过 Hackage (<https://hackage.haskell.org>) 链接到了一些文档，但知道如何自己查找文档也很重要。用于生成 Haskell 文档的工具称为 *Haddock*，因此 Haskell 文档有时也被称为 *haddocks*。
 
-Hackage 是 Haskell 包存储库（就像 Python 的 [PyPI](https://pypi.org/)、Java 的 Maven Central 或 JavaScript 的 [NPM](https://npmjs.com)）。除了实际的包之外，它还托管它们的文档。我们在本课程中使用的大多数模块都位于名为 `base` 的包中。你可以在 <https://hackage.haskell.org/package/base-4.16.4.0/> 浏览基础包的文档。
+Hackage 是 Haskell 包仓库（就像 Python 的 [PyPI](https://pypi.org/)、Java 的 Maven Central 或 JavaScript 的 [NPM](https://npmjs.com)）。除了实际的包之外，它还托管它们的文档。我们在本课程中使用的大多数模块都位于名为 `base` 的包中。你可以在 <https://hackage.haskell.org/package/base-4.16.4.0/> 浏览 `base` 包的文档。
 
-当你不太确定要查找的功能在哪里时，Hoogle (<https://hoogle.haskell.org/>) 可以提供帮助。Hoogle 是 Haskell 文档的搜索引擎。当你需要检查 `foldr` 的类型或哪些包包含名为 `reverse` 的函数时，这是一个很好的资源。
+当你不太确定要找的函数在哪里时，Hoogle (<https://hoogle.haskell.org/>) 可以提供帮助。Hoogle 是 Haskell 文档的搜索引擎。当你需要检查 `foldr` 的类型或哪些包包含名为 `reverse` 的函数时，这是一个很好的资源。
 
 最后，由于本课程使用 `stack` 工具，你还可以使用以下命令浏览已为你安装的库的文档
 

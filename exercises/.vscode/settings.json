@@ -1,0 +1,6 @@
+{
+    "haskell.serverExecutablePath": "/home/elaine/.ghcup/bin/haskell-language-server-9.6.6",
+    "haskell.serverEnvironment": {
+        "PATH": "/home/elaine/.ghcup/bin:/home/elaine/.cabal/bin:/usr/local/bin:/usr/bin:/bin"
+    }
+}

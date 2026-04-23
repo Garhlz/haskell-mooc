@@ -1,7 +1,9 @@
 <section class="course-hero" markdown>
-# Haskell 慕课（中文翻译）
+# Haskell MOOC 中文版
 
 从表达式、类型和递归开始，用 Haskell 系统学习函数式编程。本站是 Haskell MOOC 课程材料的中文整理版，保留原课程的章节顺序、代码示例和练习入口。
+
+翻译版仓库：[Garhlz/haskell-mooc](https://github.com/Garhlz/haskell-mooc)
 </section>
 
 ## 从这里开始
@@ -16,7 +18,7 @@
 
     先建立 Haskell 的基本读写能力：表达式、类型、列表、递归、高阶函数、代数数据类型和类型类。第 1 部分坚持纯函数式编程，暂不引入 IO。
 
-    - [第 1 讲：……就这样开始](01-and-so-it-begins.md)
+    - [第 1 讲：故事就这样开始](01-and-so-it-begins.md)
     - [第 2 讲：要么成为英雄，要么……](02-either-you-die-a-hero.md)
     - [第 3 讲：折叠与高阶函数](03-catamorphic.md)
     - [第 4 讲：类型类进阶](04-real-classy.md)
@@ -34,9 +36,9 @@
     - [第 11 讲：`RealWorld -> (a,RealWorld)`](11-realworld-to-a-realworld.md)
     - [第 12 讲：fmap fmap fmap](12-fmap-fmap-fmap.md)
     - [第 13 讲：问题范畴中的幺半群](13-a-monoid-in-the-category-of-problems.md)
-    - [第 14 讲：使用一些库](14-lets-use-some-libraries.md)
+    - [第 14 讲：开始使用库](14-lets-use-some-libraries.md)
     - [第 15 讲：没有 Monad 也能做验证](15-youre-valid-even-without-monads.md)
-    - [第 16 讲：杂项内容](16-odds-and-ends.md)
+    - [第 16 讲：零碎内容](16-odds-and-ends.md)
 
 ## 你会学到什么
 

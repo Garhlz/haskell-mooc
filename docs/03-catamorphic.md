@@ -112,7 +112,7 @@ Prelude> :t mapBooleans not
 mapBooleans not :: [Bool]
 ```
 
-还有一件事：还记得构造函数只是函数吗？这表示你可以将它们作为参数传递给其他函数！
+还有一件事：还记得构造函数只是函数吗？这意味着你可以将它们作为参数传递给其他函数！
 
 ```haskell
 wrapJust xs = map Just xs
@@ -130,11 +130,11 @@ Prelude> wrapJust [1,2,3]
 `1` 和 `n` 之间有多少个“回文数”？
 
 ```haskell
--- a predicate that checks if a string is a palindrome
+-- 检查字符串是否为回文的谓词
 palindrome :: String -> Bool
 palindrome str = str == reverse str
 
--- palindromes n takes all numbers from 1 to n, converts them to strings using show, and keeps only palindromes
+-- palindromes n 取 1 到 n 的所有数字，用 show 转换为字符串，并只保留回文
 palindromes :: Int -> [String]
 palindromes n = filter palindrome (map show [1..n])
 ```
@@ -148,7 +148,7 @@ palindromes 150 ==>
 length (palindromes 9999) ==> 198
 ```
 
-字符串中有多少个以“a”开头的单词？这使用模块 `Data.List` 中的函数 `words` 将字符串拆分为单词。
+一个字符串中有多少个以“a”开头的单词？这使用模块 `Data.List` 中的函数 `words` 将字符串拆分为单词。
 
 ```haskell
 countAWords :: String -> Int
@@ -168,7 +168,7 @@ tails "echo"
   ==> ["echo","cho","ho","o",""]
 ```
 
-这是一个示例，我们可以查找字符串中给定字符之后的字符。首先，我们使用 `tails`、`map` 和 `take` 来获取一定长度的所有子串：
+在下面这个示例中，我们会查找字符串中给定字符之后的字符。首先，我们使用 `tails`、`map` 和 `take` 来获取一定长度的所有子串：
 
 ```haskell
 substringsOfLength :: Int -> String -> [String]
@@ -181,7 +181,7 @@ substringsOfLength 3 "hello"
   ==> ["hel","ell","llo","lo","o",""]
 ```
 
-最后还剩下一些较短的子字符串（你能明白为什么吗？），但它们现在就可以满足我们的目的。现在我们有了 `substringsOfLength`，我们可以实现函数 `whatFollows c k s` 来查找字符串 `s` 中出现的所有字符 `c`，并输出这些出现之后的 `k` 字母。
+最后还会剩下一些较短的子串（你能明白为什么吗？），但它们已经足够满足这里的需求。现在有了 `substringsOfLength`，我们可以实现函数 `whatFollows c k s`：它会查找字符串 `s` 中所有出现字符 `c` 的位置，并输出这些位置之后的 `k` 个字母。
 
 ```haskell
 whatFollows :: Char -> Int -> String -> [String]
@@ -196,7 +196,7 @@ whatFollows 'a' 2 "abracadabra"
 
 ## 3.2 偏应用
 
-使用高阶函数时，你会发现自己定义了许多小辅助函数，例如前面示例中的 `addThree` 或 `shorten`。从长远来看，这有点麻烦，但幸运的是 Haskell 的函数表现得有点奇怪……
+使用高阶函数时，你会发现自己经常定义许多小辅助函数，例如前面示例中的 `addThree` 或 `shorten`。长期这样写会有点麻烦，不过 Haskell 的函数有一个很方便的特性……
 
 让我们从 GHCi 开始：
 
@@ -209,7 +209,7 @@ Prelude> addThree 2
 5
 ```
 
-因此，我们定义了 `add`，一个有两个参数的函数，并且只给它一个参数。结果不是类型错误而是新函数。新函数只是存储（或记住）给定的参数，等待另一个参数，然后将两者都提供给 `add`。
+这里我们定义了 `add`，它是一个有两个参数的函数，但我们只给了它一个参数。结果不是类型错误，而是得到一个新函数。这个新函数会保存（或者说记住）已经给定的参数，等待另一个参数，然后把两个参数一起交给 `add`。
 
 ```haskell
 Prelude> map addThree [1,2,3]
@@ -218,7 +218,7 @@ Prelude> map (add 3) [1,2,3]
 [4,5,6]
 ```
 
-在这里我们可以看到，我们甚至不需要为 `add 3` 返回的函数命名。我们可以在任何需要一个参数的函数的地方使用它。
+这里可以看到，我们甚至不需要为 `add 3` 返回的函数命名。我们可以在任何需要一个参数的函数的地方使用它。
 
 这称为“偏应用”。Haskell 中的所有函数都是这样的。让我们仔细看看。这是一个带有多个参数的函数。
 
@@ -267,7 +267,7 @@ map (drop 1) ["Hello","World!"]
   ==> ["ello","orld!"]
 ```
 
-除了普通函数外，运算符也可以偏应用。使用运算符时，你可以选择固定左参数还是右参数。（偏应用的运算符也称为 *section* 或*运算符 section*。）一些例子：
+除了普通函数外，运算符也可以偏应用。使用运算符时，你可以选择固定左参数还是右参数。（偏应用的运算符也称为 *section* 或*运算符 section*。）一些示例：
 
 ```haskell
 Prelude> map (*2) [1,2,3]
@@ -384,7 +384,7 @@ double x = 2*x
 quadruple = double . double  -- computes 2*(2*x) == 4*x
 f = quadruple . (+1)         -- computes 4*(x+1)
 g = (+1) . quadruple         -- computes 4*x+1
-third = head . tail . tail   -- fetches the third element of a list
+third = head . tail . tail   -- 获取列表的第三个元素
 ```
 
 我们还可以使用 `(.)` 重新实现 `doTwice`。请注意我们如何使用 `doTwice` 既可以仅应用于函数，也可以应用于函数和值。
@@ -417,13 +417,13 @@ filter (not . null) [[1,2,3],[],[4]]
   ==> [[1,2,3],[4]]
 ```
 
-另一个运算符 `$` 更加微妙。我们来看看它的类型。
+另一个运算符 `$` 更加微妙。我们来看它的类型。
 
 ```haskell
 ($) :: (a -> b) -> a -> b
 ```
 
-它采用 `a -> b` 类型的函数和 `a` 类型的值，并返回 `b` 类型的值。换句话说，它是一个函数应用运算符。表达式 `f $ x` 与 `f x` 相同。这看起来没什么用，但这表示 `$` 运算符可以用来消除括号！这些表达式是相同的：
+它采用 `a -> b` 类型的函数和 `a` 类型的值，并返回 `b` 类型的值。换句话说，它是一个函数应用运算符。表达式 `f $ x` 与 `f x` 相同。这看起来没什么用，但这意味着 `$` 运算符可以用来消除括号！这些表达式是相同的：
 
 ```haskell
 head (reverse "abcd")
@@ -531,8 +531,8 @@ whatFollows c k = map tail . filter ((==[c]) . take 1) . map (take (k+1)) . tail
 以下是一些使用列表进行函数式编程的更多示例。让我们首先介绍几个新的列表函数：
 
 ```haskell
-takeWhile :: (a -> Bool) -> [a] -> [a]   -- take elements from a list as long as they satisfy a predicate
-dropWhile :: (a -> Bool) -> [a] -> [a]   -- drop elements from a list as long as they satisfy a predicate
+takeWhile :: (a -> Bool) -> [a] -> [a]   -- 从列表中取出元素，直到元素不再满足谓词
+dropWhile :: (a -> Bool) -> [a] -> [a]   -- 从列表中丢弃元素，直到元素不再满足谓词
 ```
 
 ```haskell
@@ -618,9 +618,9 @@ Prelude> :t (:)
 (:) :: a -> [a] -> [a]
 ```
 
-`:` 运算符根据头部和尾部构建一个列表。换句话说， `x : xs` 与 `[x] ++ xs` 相同。为什么我们需要一个操作员来做到这一点？
+`:` 运算符会根据头部和尾部构建一个列表。换句话说，`x : xs` 与 `[x] ++ xs` 的结果相同。为什么我们需要一个专门的运算符来做这件事？
 
-实际上， `:` 是列表的*构造函数*：它返回一个新的链表节点。另一个列表构造函数是 `[]`，即空列表。所有列表均使用 `:` 和 `[]` 构建。熟悉的 `[x,y,z]` 语法实际上只是一种更好的编写 `x:y:z:[]` 的方法，或者更明确地编写 `x:(y:(z:[]))`。事实上， `(++)` 是根据标准库中的 `:` 和递归来定义的。
+实际上，`:` 是列表的*构造函数*：它返回一个新的链表节点。另一个列表构造函数是 `[]`，即空列表。所有列表都由 `:` 和 `[]` 构建。熟悉的 `[x,y,z]` 语法其实只是 `x:y:z:[]` 的更友好写法，更明确地写就是 `x:(y:(z:[]))`。事实上，标准库中的 `(++)` 就是用 `:` 和递归定义的。
 
 下面是 `[1,2,3]` 在内存中的结构图：
 
@@ -670,7 +670,7 @@ split 'x' "fooxxbarxquux"   ==>   ["foo","","bar","quu"]
 
 ### 3.8.2 列表的模式匹配
 
-上一讲，有人说构造函数是可以进行模式匹配的东西。上面透露了列表类型的构造函数是 `:` 和 `[]`。我们可以将一加一放在一起，猜测我们可以在 `:` 和 `[]` 上进行模式匹配。这是真实的！以下是如何使用模式匹配定义自己的 `head` 和 `tail` 版本：
+上一讲说过，构造函数是可以进行模式匹配的东西。上面又说明了列表类型的构造函数是 `:` 和 `[]`。把这两点放在一起，我们自然会猜到：可以对 `:` 和 `[]` 做模式匹配。确实如此！下面展示如何用模式匹配定义自己的 `head` 和 `tail` 版本：
 
 ```haskell
 myhead :: [Int] -> Int
@@ -686,9 +686,9 @@ mytail (first:rest) = rest
 
 ```haskell
 sumFirstTwo :: [Integer] -> Integer
--- this equation gets used for lists of length at least two
+-- 这个等式用于长度至少为 2 的列表
 sumFirstTwo (a:b:_) = a+b
--- this equation gets used for all other lists (i.e. lists of length 0 or 1)
+-- 这个等式用于其他所有列表（即长度为 0 或 1 的列表）
 sumFirstTwo _       = 0
 ```
 
@@ -815,7 +815,7 @@ filter pred (x:xs)
 当递归函数的计算结果是对具有不同参数的同一函数的新调用时，它被称为“尾递归”。 （递归调用被称为位于*尾部位置*。）这是与命令式循环相对应的递归类型。我们已经看到了许多尾递归函数的示例，但我们还没有真正比较编写同一函数的两种方法。这是本讲座前面的 `sumNumbers`：
 
 ```haskell
--- Not tail recursive!
+-- 不是尾递归！
 sumNumbers :: [Int] -> Int
 sumNumbers [] = 0
 sumNumbers (x:xs) = x + sumNumbers xs
@@ -824,7 +824,7 @@ sumNumbers (x:xs) = x + sumNumbers xs
 在第二个方程中，函数 `+` 位于顶层，即位于尾部位置。对 `sumNumbers` 的递归调用是 `+` 的参数。这是使用尾递归辅助函数编写的 `sumNumbers`：
 
 ```haskell
--- Tail recursive version
+-- 尾递归版本
 sumNumbers :: [Int] -> Int
 sumNumbers xs = go 0 xs
   where go sum [] = sum
@@ -838,14 +838,14 @@ sumNumbers xs = go 0 xs
 但是，当你返回列表时，这两种形式之间存在很大差异。考虑之前的函数 `doubleList`。又是这样，首先直接实现，然后通过尾递归辅助函数实现。
 
 ```haskell
--- Not tail recursive!
+-- 不是尾递归！
 doubleList :: [Int] -> [Int]
 doubleList [] = []
 doubleList (x:xs) = 2*x : doubleList xs
 ```
 
 ```haskell
--- Tail recursive version
+-- 尾递归版本
 doubleList :: [Int] -> [Int]
 doubleList xs = go [] xs
     where go result [] = result
@@ -860,7 +860,7 @@ doubleList xs = go [] xs
 
 ## 3.9 趣味内容：列表推导式
 
-Haskell 有*列表推导式*，这是一种很好的列表定义语法，结合了 `map` 和 `filter` 的功能。你可能已经熟悉 Python 的列表推导式。Haskell 的工作方式几乎相同，但语法略有不同。
+Haskell 有*列表推导式*，这是一种很好的列表定义语法，结合了 `map` 和 `filter` 的能力。你可能已经熟悉 Python 的列表推导式。Haskell 的工作方式几乎相同，但语法略有不同。
 
 映射：
 
@@ -924,7 +924,7 @@ a +++ b = a ++ " " ++ b
 
 ## 3.11 实用内容：类型孔
 
-有时，在编写 Haskell 时，找到具有正确类型的表达式可能很棘手。幸运的是，编译器可以帮忙。名为“Typed Holes”的功能允许你在代码中留下一个孔，编译器会告诉你这个位置需要什么类型的表达式。
+有时，在编写 Haskell 时，找到具有正确类型的表达式可能很棘手。幸运的是，编译器可以帮忙。名为“Typed Holes”的特性允许你在代码中留下一个孔，编译器会告诉你这个位置需要什么类型的表达式。
 
 类型孔可以写成 `_` 或 `_name`。它们可能与“匹配任意值”的模式 `_` 混淆，但区别在于：孔出现在 `=` 的“右侧”，而模式出现在 `=` 的“左侧”。
 
@@ -950,7 +950,7 @@ Prelude> filter _hole [True,False]
           (imported from ‘Prelude’ (and originally defined in ‘GHC.Base’))
 ```
 
-此消息的重要部分是第一行。这告诉你 Haskell 期望的洞是什么类型。
+这条消息的重要部分是第一行。它告诉你 Haskell 期望这个孔具有什么类型。
 
 ```text
 <interactive>: error:
