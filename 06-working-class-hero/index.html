@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 6 讲：类型类英雄 - Haskell 慕课（中文翻译）</title>
+        <title>第 6 讲：类型类英雄 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -448,7 +448,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -689,7 +689,7 @@
   <a href="#632-ghci" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.3.2 向 GHCi 询问类的信息
+        6.3.2 向 GHCi 询问类型类的信息
       
     </span>
   </a>
@@ -1058,7 +1058,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1210,7 +1210,7 @@
   <a href="#632-ghci" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.3.2 向 GHCi 询问类的信息
+        6.3.2 向 GHCi 询问类型类的信息
       
     </span>
   </a>
@@ -1352,8 +1352,8 @@
 
 
 <h1 id="6">第 6 讲：类型类英雄<a class="headerlink" href="#6" title="Permanent link">&para;</a></h1>
-<p>我们已经在类型中看到了像 <code>Eq a =&gt;</code> 这样的类约束。我们知道如何将现有类与现有类型一起使用。但我们如何将现有的类与我们自己的类型一起使用呢？我们如何定义自己的类？</p>
-<p>下面是如何使你自己的类型成为 <code>Eq</code> 类的成员：</p>
+<p>我们已经在类型中见过像 <code>Eq a =&gt;</code> 这样的类型类约束。我们知道如何把现有类型类用于现有类型。但如何把现有类型类用于我们自己的类型？又如何定义自己的类型类？</p>
+<p>下面展示如何让你自己的类型成为 <code>Eq</code> 类型类的实例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Color</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Black</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">White</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="kt">Color</span><span class="w"> </span><span class="kr">where</span>
@@ -1361,20 +1361,20 @@
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="kt">White</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">White</span><span class="w">  </span><span class="ow">=</span><span class="w"> </span><span class="kt">True</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="kr">_</span><span class="w">     </span><span class="o">==</span><span class="w"> </span><span class="kr">_</span><span class="w">      </span><span class="ow">=</span><span class="w"> </span><span class="kt">False</span>
 </code></pre></div>
-<p>类实例是一个 <code>instance</code> 块，其中包含该类中函数的定义。这里我们定义了 <code>==</code> 如何在 <code>Color</code> 上工作。</p>
+<p>类型类实例是一个 <code>instance</code> 块，其中包含该类型类中函数的定义。这里我们定义了 <code>==</code> 在 <code>Color</code> 上如何工作。</p>
 <h2 id="61">6.1 类和实例的语法<a class="headerlink" href="#61" title="Permanent link">&para;</a></h2>
-<p>类型类使用 <code>class</code> 语法定义。类中的函数被赋予了相应的类型签名。这是一个包含一个函数 <code>size</code> 的类 <code>Size</code>：</p>
+<p>类型类使用 <code>class</code> 语法定义。类型类中的函数会给出相应的类型签名。下面是一个包含函数 <code>size</code> 的类型类 <code>Size</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Size</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="n">size</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 </code></pre></div>
-<p>类的实例是用我们刚刚看到的 <code>instance</code> 语法定义的。下面是我们如何使 <code>Int</code> 和 <code>[a]</code> 成为 <code>Size</code> 类的成员：</p>
+<p>类型类的实例使用刚才看到的 <code>instance</code> 语法定义。下面展示如何让 <code>Int</code> 和 <code>[a]</code> 成为 <code>Size</code> 类型类的实例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Size</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="n">size</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">abs</span><span class="w"> </span><span class="n">x</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Size</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="n">size</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
-<p>我们的类 <code>Size</code> 的行为就像现有的类型类一样。我们可以在任何可以使用函数的地方使用 <code>size</code>，并且 Haskell 可以为我们推断具有 <code>Size</code> 约束的类型：</p>
+<p>我们的类型类 <code>Size</code> 的行为就像现有的类型类一样。我们可以在任何可以使用函数的地方使用 <code>size</code>，并且 Haskell 可以为我们推断具有 <code>Size</code> 约束的类型：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">size</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">size</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Size</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="p">[</span><span class="kt">True</span><span class="p">,</span><span class="kt">False</span><span class="p">]</span>
@@ -1383,7 +1383,7 @@
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">sizeBoth</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nf">sizeBoth</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Size</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="kt">Size</span><span class="w"> </span><span class="n">a2</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a2</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
 </code></pre></div>
-<p>一个类可以包含多个函数，甚至常量。这里我们定义了新版本的 <code>Size</code> 类，内容更多。</p>
+<p>一个类型类可以包含多个函数，甚至可以包含常量。这里我们定义一个内容更多的新版 <code>Size</code> 类型类。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Size</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">empty</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="n">size</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
@@ -1403,11 +1403,11 @@
 <a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span><span class="n">sameSize</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="n">y</span>
 </code></pre></div>
 <h2 id="62">6.2 默认实现<a class="headerlink" href="#62" title="Permanent link">&para;</a></h2>
-<p>你是否注意到在前面的例子中我们如何在两个实例中为 <code>sameSize</code> 提供相同的定义？这是很常见的情况，这就是 Haskell 类可以有<em>默认实现</em>的原因。作为第一个例子，这里有一个 <code>Example</code> 类型类，用于给出类型的示例值。</p>
+<p>你是否注意到，在前面的示例中，我们在两个实例里为 <code>sameSize</code> 提供了相同的定义？这很常见，因此 Haskell 类型类可以有<em>默认实现</em>。先看一个 <code>Example</code> 类型类，它用于给出某个类型的示例值。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Example</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">example</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w">           </span><span class="c1">-- the main example for the type `a`</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">examples</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">        </span><span class="c1">-- a short list of examples</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">examples</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="n">example</span><span class="p">]</span><span class="w">   </span><span class="c1">-- ...defaulting to just the main example</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="n">example</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w">           </span><span class="c1">-- 类型 `a` 的主要示例</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">examples</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">        </span><span class="c1">-- 一个简短的示例列表</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">examples</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="n">example</span><span class="p">]</span><span class="w">   </span><span class="c1">-- ... 默认只包含主要示例</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Example</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="n">example</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span>
@@ -1426,7 +1426,7 @@
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">examples</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 </code></pre></div>
-<p>标准类型类使用大量默认实现来简化类的实现。下面是 <code>Eq</code> 的标准定义（为了便于阅读而格式化）。</p>
+<p>标准类型类大量使用默认实现来简化实例定义。下面是 <code>Eq</code> 的标准定义（为了便于阅读而格式化）。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="p">(</span><span class="o">==</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="w">  </span><span class="ow">=</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
@@ -1434,9 +1434,9 @@
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="p">(</span><span class="o">/=</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">y</span><span class="w">  </span><span class="ow">=</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
 </code></pre></div>
-<p>请注意这两个操作如何具有彼此的默认实现。这意味着我们可以定义一个完全没有内容的 <code>Eq</code> 实例，但生成的函数将永远递归。在实践中，我们希望至少定义 <code>==</code> 和 <code>/=</code> 之一。</p>
-<p>当有很多默认实现时，可能很难知道你需要自己实现哪些函数。因此，类文档通常会提到“最小完整定义”。对于 <code>Eq</code>，<a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Prelude.html#t:Eq">文档说</a> “最小完整定义：== 或 /=。”</p>
-<p>接下来我们看 <code>Ord</code>。  <code>Ord</code> 有 7 个操作，彼此之间都有默认实现。顺便说一下，请注意一次定义多个类型签名的奇怪方式。没关系，这是 Haskell 的一个特性，这就是 <code>Ord</code> 在 <a href="https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1270006.3">标准中</a> 中的定义。 （我们很快就会回到 <code>(Eq a) =&gt;</code> 部分的含义。）</p>
+<p>请注意这两个操作如何互相作为默认实现。这意味着我们可以定义一个完全没有内容的 <code>Eq</code> 实例，但生成的函数将永远递归。在实践中，我们希望至少定义 <code>==</code> 和 <code>/=</code> 之一。</p>
+<p>当有很多默认实现时，可能很难知道你需要自己实现哪些函数。因此，类型类文档通常会提到“最小完整定义”。对于 <code>Eq</code>，<a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Prelude.html#t:Eq">文档说</a> “最小完整定义：== 或 /=。”</p>
+<p>接下来看看 <code>Ord</code>。<code>Ord</code> 有 7 个操作，它们彼此之间都有默认实现。顺便说一下，请注意这种一次性定义多个类型签名的写法。没关系，这是 Haskell 的一个特性，<code>Ord</code> 在<a href="https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1270006.3">标准</a>中就是这样定义的。（我们很快就会回到 <code>(Eq a) =&gt;</code> 这部分的含义。）</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">class</span><span class="w">  </span><span class="p">(</span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Ord</span><span class="w"> </span><span class="n">a</span><span class="w">  </span><span class="kr">where</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">compare</span><span class="w">              </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Ordering</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="p">(</span><span class="o">&lt;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;=</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;=</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
@@ -1470,7 +1470,7 @@
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nf">combine3</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Combine</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nf">combine3</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">combine</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="n">combine</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span><span class="p">)</span>
 </code></pre></div>
-<p>作为例子，下面是简单对类型的 <code>Eq</code> 和 <code>Ord</code> 实例。请注意该定义如何通过仅定义 <code>==</code> 和 <code>&lt;=</code> 来使用最小完整定义规则。</p>
+<p>作为示例，下面是简单 pair 类型的 <code>Eq</code> 和 <code>Ord</code> 实例。请注意该定义如何通过仅定义 <code>==</code> 和 <code>&lt;=</code> 来使用最小完整定义规则。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">IntPair</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">IntPair</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -1494,8 +1494,8 @@
 </code></pre></div>
 <h2 id="63">6.3 实用技巧<a class="headerlink" href="#63" title="Permanent link">&para;</a></h2>
 <h3 id="631">6.3.1 推导<a class="headerlink" href="#631" title="Permanent link">&para;</a></h3>
-<p>正如我们已经多次看到的，<code>deriving</code> 是一种获取自动生成的类实例的方法。 <code>Read</code> 和 <code>Show</code> 类几乎总是应该推导以获得标准行为。 <code>Eq</code> 的推导实例通常就是你想要的。它需要构造函数和字段匹配。</p>
-<p>推导的 <code>Ord</code> 实例可能不是你想要的。它从左到右对构造函数进行排序，然后从左到右比较构造函数内的字段。一个例子：</p>
+<p>正如我们已经多次看到的，<code>deriving</code> 是一种获得自动生成类型类实例的方法。<code>Read</code> 和 <code>Show</code> 类型类几乎总是值得推导，以获得标准行为。<code>Eq</code> 的推导实例通常也正是你想要的：它要求构造函数和字段都匹配。</p>
+<p>推导的 <code>Ord</code> 实例可能不是你想要的。它从左到右对构造函数进行排序，然后从左到右比较构造函数内的字段。一个示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Person</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Dead</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span><span class="w"> </span><span class="kt">Eq</span><span class="p">,</span><span class="w"> </span><span class="kt">Ord</span><span class="p">)</span>
 </code></pre></div>
@@ -1503,11 +1503,11 @@
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kt">True</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="s">&quot;Barbara&quot;</span><span class="w"> </span><span class="mi">35</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="s">&quot;Clive&quot;</span><span class="w"> </span><span class="mi">17</span><span class="w">   </span><span class="c1">-- names are compared before ages</span>
 <a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="kt">True</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="s">&quot;Clive&quot;</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="s">&quot;Clive&quot;</span><span class="w"> </span><span class="mi">30</span><span class="w">     </span><span class="c1">-- finally, ages are compared if names match</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="s">&quot;Clive&quot;</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="kt">Alive</span><span class="w"> </span><span class="s">&quot;Clive&quot;</span><span class="w"> </span><span class="mi">30</span><span class="w">     </span><span class="c1">-- 最后，如果姓名相同，则比较年龄</span>
 <a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="kt">True</span>
 </code></pre></div>
-<h3 id="632-ghci">6.3.2 向 GHCi 询问类的信息<a class="headerlink" href="#632-ghci" title="Permanent link">&para;</a></h3>
-<p>你可以在 GHCi 中使用 <code>:info</code> 命令来获取类的内容和实例。如今，该信息甚至包括最小完整定义（请参阅 MINIMAL pragma）。例如：</p>
+<h3 id="632-ghci">6.3.2 向 GHCi 询问类型类的信息<a class="headerlink" href="#632-ghci" title="Permanent link">&para;</a></h3>
+<p>你可以在 GHCi 中使用 <code>:info</code> 命令来获取类型类的内容和实例。如今，该信息甚至包括最小完整定义（请参阅 MINIMAL pragma）。例如：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">info</span><span class="w"> </span><span class="kt">Num</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="p">(</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
@@ -1518,12 +1518,12 @@
 <a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">  </span><span class="n">signum</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">  </span><span class="n">fromInteger</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">  </span><span class="cm">{-# MINIMAL (+), (*), abs, signum, fromInteger, (negate | (-)) #-}</span>
-<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="c1">-- Defined in ‘GHC.Num’</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Word</span><span class="w"> </span><span class="c1">-- Defined in ‘GHC.Num’</span>
-<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="c1">-- Defined in ‘GHC.Num’</span>
-<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="c1">-- Defined in ‘GHC.Num’</span>
-<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Float</span><span class="w"> </span><span class="c1">-- Defined in ‘GHC.Float’</span>
-<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="c1">-- Defined in ‘GHC.Float’</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="c1">-- 定义于 ‘GHC.Num’</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Word</span><span class="w"> </span><span class="c1">-- 定义于 ‘GHC.Num’</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="c1">-- 定义于 ‘GHC.Num’</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="c1">-- 定义于 ‘GHC.Num’</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Float</span><span class="w"> </span><span class="c1">-- 定义于 ‘GHC.Float’</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="c1">-- 定义于 ‘GHC.Float’</span>
 </code></pre></div>
 <h2 id="64">6.4 类型类层级<a class="headerlink" href="#64" title="Permanent link">&para;</a></h2>
 <p>类和实例都可以形成<em>层次结构</em>。这意味着一个类或实例依赖于另一个类或实例。</p>
@@ -1547,7 +1547,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="p">(</span><span class="kt">Pair</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="p">(</span><span class="kt">MakePair</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="kt">MakePair</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">   </span><span class="ow">=</span><span class="w">   </span><span class="n">x</span><span class="o">==</span><span class="n">a</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="o">==</span><span class="n">b</span>
 </code></pre></div>
-<p>现在我们可以比较对，只要元素类型是可比较的。但是，我们无法比较函数对，因为函数没有 Eq 实例。</p>
+<p>现在，只要元素类型可比较，我们就可以比较 pair。不过，我们无法比较函数 pair，因为函数没有 <code>Eq</code> 实例。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">MakePair</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">MakePair</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">1</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kt">True</span>
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">MakePair</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">MakePair</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">reverse</span>
@@ -1560,7 +1560,7 @@
 <a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">      </span><span class="kt">In</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">equation</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="err">‘</span><span class="n">it</span><span class="err">’</span><span class="kt">:</span>
 <a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">          </span><span class="n">it</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">MakePair</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">MakePair</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">reverse</span>
 </code></pre></div>
-<p>我们继续看另一个例子。这是一个简单的类型类和一个实例：</p>
+<p>我们继续看另一个示例。这是一个简单的类型类和一个实例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Check</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="n">check</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
@@ -1604,7 +1604,7 @@
 <a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">  </span><span class="n">sizeBoth</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">  </span><span class="n">sizeBoth</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="n">y</span>
 </code></pre></div>
-<p>在这种情况下，我们说 <code>SizeBoth</code> 是 <code>Size</code> 的<em>子类</em>。注意，这里同样容易与面向对象编程中的概念混淆。标准库中的子类例子包括：</p>
+<p>在这种情况下，我们说 <code>SizeBoth</code> 是 <code>Size</code> 的<em>子类</em>。注意，这里同样容易与面向对象编程中的概念混淆。标准库中的子类示例包括：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Ord</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="o">...</span>
 <a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Fractional</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
@@ -1741,7 +1741,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Haskell logo">
+  <circle cx="64" cy="64" r="58" fill="#5E5086"/>
+  <path fill="#FFFFFF" d="M20 28h17l27 36-27 36H20l27-36z"/>
+  <path fill="#FFFFFF" d="M45 28h17l27 36-27 36H45l27-36z"/>
+  <path fill="#FFFFFF" d="M79 73h31v13H70z"/>
+  <path fill="#FFFFFF" d="M70 42h40v13H79z"/>
+</svg>

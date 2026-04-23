@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 3 讲：折叠与高阶函数 - Haskell 慕课（中文翻译）</title>
+        <title>第 3 讲：折叠与高阶函数 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -448,7 +448,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -1185,7 +1185,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1241,7 +1241,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1676,7 +1676,7 @@
 <a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">mapBooleans</span><span class="w"> </span><span class="n">not</span>
 <a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nf">mapBooleans</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Bool</span><span class="p">]</span>
 </code></pre></div>
-<p>还有一件事：还记得构造函数只是函数吗？这表示你可以将它们作为参数传递给其他函数！</p>
+<p>还有一件事：还记得构造函数只是函数吗？这意味着你可以将它们作为参数传递给其他函数！</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nf">wrapJust</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">wrapJust</span>
@@ -1686,11 +1686,11 @@
 </code></pre></div>
 <h3 id="312">3.1.2 列表处理示例<a class="headerlink" href="#312" title="Permanent link">&para;</a></h3>
 <p><code>1</code> 和 <code>n</code> 之间有多少个“回文数”？</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">-- a predicate that checks if a string is a palindrome</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">-- 检查字符串是否为回文的谓词</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nf">palindrome</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nf">palindrome</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">str</span>
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1">-- palindromes n takes all numbers from 1 to n, converts them to strings using show, and keeps only palindromes</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1">-- palindromes n 取 1 到 n 的所有数字，用 show 转换为字符串，并只保留回文</span>
 <a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nf">palindromes</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nf">palindromes</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="n">palindrome</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">])</span>
 </code></pre></div>
@@ -1701,7 +1701,7 @@
 <a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">   </span><span class="s">&quot;101&quot;</span><span class="p">,</span><span class="s">&quot;111&quot;</span><span class="p">,</span><span class="s">&quot;121&quot;</span><span class="p">,</span><span class="s">&quot;131&quot;</span><span class="p">,</span><span class="s">&quot;141&quot;</span><span class="p">]</span>
 <a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="nf">length</span><span class="w"> </span><span class="p">(</span><span class="n">palindromes</span><span class="w"> </span><span class="mi">9999</span><span class="p">)</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="mi">198</span>
 </code></pre></div>
-<p>字符串中有多少个以“a”开头的单词？这使用模块 <code>Data.List</code> 中的函数 <code>words</code> 将字符串拆分为单词。</p>
+<p>一个字符串中有多少个以“a”开头的单词？这使用模块 <code>Data.List</code> 中的函数 <code>words</code> 将字符串拆分为单词。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nf">countAWords</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nf">countAWords</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">filter</span><span class="w"> </span><span class="n">startsWithA</span><span class="w"> </span><span class="p">(</span><span class="n">words</span><span class="w"> </span><span class="n">string</span><span class="p">))</span>
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">startsWithA</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;a&#39;</span>
@@ -1713,7 +1713,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nf">tails</span><span class="w"> </span><span class="s">&quot;echo&quot;</span>
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;echo&quot;</span><span class="p">,</span><span class="s">&quot;cho&quot;</span><span class="p">,</span><span class="s">&quot;ho&quot;</span><span class="p">,</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>这是一个示例，我们可以查找字符串中给定字符之后的字符。首先，我们使用 <code>tails</code>、<code>map</code> 和 <code>take</code> 来获取一定长度的所有子串：</p>
+<p>在下面这个示例中，我们会查找字符串中给定字符之后的字符。首先，我们使用 <code>tails</code>、<code>map</code> 和 <code>take</code> 来获取一定长度的所有子串：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nf">substringsOfLength</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nf">substringsOfLength</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="n">shorten</span><span class="w"> </span><span class="p">(</span><span class="n">tails</span><span class="w"> </span><span class="n">string</span><span class="p">)</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">shorten</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">s</span>
@@ -1721,7 +1721,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nf">substringsOfLength</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="s">&quot;hello&quot;</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;hel&quot;</span><span class="p">,</span><span class="s">&quot;ell&quot;</span><span class="p">,</span><span class="s">&quot;llo&quot;</span><span class="p">,</span><span class="s">&quot;lo&quot;</span><span class="p">,</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>最后还剩下一些较短的子字符串（你能明白为什么吗？），但它们现在就可以满足我们的目的。现在我们有了 <code>substringsOfLength</code>，我们可以实现函数 <code>whatFollows c k s</code> 来查找字符串 <code>s</code> 中出现的所有字符 <code>c</code>，并输出这些出现之后的 <code>k</code> 字母。</p>
+<p>最后还会剩下一些较短的子串（你能明白为什么吗？），但它们已经足够满足这里的需求。现在有了 <code>substringsOfLength</code>，我们可以实现函数 <code>whatFollows c k s</code>：它会查找字符串 <code>s</code> 中所有出现字符 <code>c</code> 的位置，并输出这些位置之后的 <code>k</code> 个字母。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nf">whatFollows</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Char</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nf">whatFollows</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="p">(</span><span class="n">filter</span><span class="w"> </span><span class="n">match</span><span class="w"> </span><span class="p">(</span><span class="n">substringsOfLength</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">string</span><span class="p">))</span>
 <a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">match</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
@@ -1730,7 +1730,7 @@
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;br&quot;</span><span class="p">,</span><span class="s">&quot;ca&quot;</span><span class="p">,</span><span class="s">&quot;da&quot;</span><span class="p">,</span><span class="s">&quot;br&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">]</span>
 </code></pre></div>
 <h2 id="32">3.2 偏应用<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
-<p>使用高阶函数时，你会发现自己定义了许多小辅助函数，例如前面示例中的 <code>addThree</code> 或 <code>shorten</code>。从长远来看，这有点麻烦，但幸运的是 Haskell 的函数表现得有点奇怪……</p>
+<p>使用高阶函数时，你会发现自己经常定义许多小辅助函数，例如前面示例中的 <code>addThree</code> 或 <code>shorten</code>。长期这样写会有点麻烦，不过 Haskell 的函数有一个很方便的特性……</p>
 <p>让我们从 GHCi 开始：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">5</span>
@@ -1739,13 +1739,13 @@
 <a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">addThree</span><span class="w"> </span><span class="mi">2</span>
 <a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="mi">5</span>
 </code></pre></div>
-<p>因此，我们定义了 <code>add</code>，一个有两个参数的函数，并且只给它一个参数。结果不是类型错误而是新函数。新函数只是存储（或记住）给定的参数，等待另一个参数，然后将两者都提供给 <code>add</code>。</p>
+<p>这里我们定义了 <code>add</code>，它是一个有两个参数的函数，但我们只给了它一个参数。结果不是类型错误，而是得到一个新函数。这个新函数会保存（或者说记住）已经给定的参数，等待另一个参数，然后把两个参数一起交给 <code>add</code>。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="n">addThree</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
 <a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="p">(</span><span class="n">add</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
 </code></pre></div>
-<p>在这里我们可以看到，我们甚至不需要为 <code>add 3</code> 返回的函数命名。我们可以在任何需要一个参数的函数的地方使用它。</p>
+<p>这里可以看到，我们甚至不需要为 <code>add 3</code> 返回的函数命名。我们可以在任何需要一个参数的函数的地方使用它。</p>
 <p>这称为“偏应用”。Haskell 中的所有函数都是这样的。让我们仔细看看。这是一个带有多个参数的函数。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nf">between</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nf">between</span><span class="w"> </span><span class="n">lo</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">lo</span>
@@ -1778,7 +1778,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nf">map</span><span class="w"> </span><span class="p">(</span><span class="n">drop</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span><span class="s">&quot;World!&quot;</span><span class="p">]</span>
 <a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;ello&quot;</span><span class="p">,</span><span class="s">&quot;orld!&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>除了普通函数外，运算符也可以偏应用。使用运算符时，你可以选择固定左参数还是右参数。（偏应用的运算符也称为 <em>section</em> 或<em>运算符 section</em>。）一些例子：</p>
+<p>除了普通函数外，运算符也可以偏应用。使用运算符时，你可以选择固定左参数还是右参数。（偏应用的运算符也称为 <em>section</em> 或<em>运算符 section</em>。）一些示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
@@ -1852,7 +1852,7 @@
 <a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="nf">quadruple</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">double</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">double</span><span class="w">  </span><span class="c1">-- computes 2*(2*x) == 4*x</span>
 <a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="nf">f</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">quadruple</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w">         </span><span class="c1">-- computes 4*(x+1)</span>
 <a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="nf">g</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">quadruple</span><span class="w">         </span><span class="c1">-- computes 4*x+1</span>
-<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="nf">third</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="w">   </span><span class="c1">-- fetches the third element of a list</span>
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="nf">third</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="w">   </span><span class="c1">-- 获取列表的第三个元素</span>
 </code></pre></div>
 <p>我们还可以使用 <code>(.)</code> 重新实现 <code>doTwice</code>。请注意我们如何使用 <code>doTwice</code> 既可以仅应用于函数，也可以应用于函数和值。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nf">doTwice</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
@@ -1874,10 +1874,10 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nf">filter</span><span class="w"> </span><span class="p">(</span><span class="n">not</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">null</span><span class="p">)</span><span class="w"> </span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="kt">[]</span><span class="p">,[</span><span class="mi">4</span><span class="p">]]</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">]]</span>
 </code></pre></div>
-<p>另一个运算符 <code>$</code> 更加微妙。我们来看看它的类型。</p>
+<p>另一个运算符 <code>$</code> 更加微妙。我们来看它的类型。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="p">(</span><span class="o">$</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
-<p>它采用 <code>a -&gt; b</code> 类型的函数和 <code>a</code> 类型的值，并返回 <code>b</code> 类型的值。换句话说，它是一个函数应用运算符。表达式 <code>f $ x</code> 与 <code>f x</code> 相同。这看起来没什么用，但这表示 <code>$</code> 运算符可以用来消除括号！这些表达式是相同的：</p>
+<p>它采用 <code>a -&gt; b</code> 类型的函数和 <code>a</code> 类型的值，并返回 <code>b</code> 类型的值。换句话说，它是一个函数应用运算符。表达式 <code>f $ x</code> 与 <code>f x</code> 相同。这看起来没什么用，但这意味着 <code>$</code> 运算符可以用来消除括号！这些表达式是相同的：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nf">head</span><span class="w"> </span><span class="p">(</span><span class="n">reverse</span><span class="w"> </span><span class="s">&quot;abcd&quot;</span><span class="p">)</span>
 <a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="nf">head</span><span class="w"> </span><span class="o">$</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="s">&quot;abcd&quot;</span>
 </code></pre></div>
@@ -1940,8 +1940,8 @@
 <p>这是该函数的一个有点极端的版本，但是当适度使用时，此处显示的技术可以使代码更易于阅读。</p>
 <h2 id="37">3.7 更多函数式列表处理示例<a class="headerlink" href="#37" title="Permanent link">&para;</a></h2>
 <p>以下是一些使用列表进行函数式编程的更多示例。让我们首先介绍几个新的列表函数：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="nf">takeWhile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- take elements from a list as long as they satisfy a predicate</span>
-<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="nf">dropWhile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- drop elements from a list as long as they satisfy a predicate</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="nf">takeWhile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 从列表中取出元素，直到元素不再满足谓词</span>
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="nf">dropWhile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 从列表中丢弃元素，直到元素不再满足谓词</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="nf">takeWhile</span><span class="w"> </span><span class="n">even</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w">   </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="nf">dropWhile</span><span class="w"> </span><span class="n">even</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w">   </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
@@ -1995,8 +1995,8 @@
 <a id="__codelineno-73-9" name="__codelineno-73-9" href="#__codelineno-73-9"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="p">(</span><span class="kt">:</span><span class="p">)</span>
 <a id="__codelineno-73-10" name="__codelineno-73-10" href="#__codelineno-73-10"></a><span class="p">(</span><span class="kt">:</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
 </code></pre></div>
-<p><code>:</code> 运算符根据头部和尾部构建一个列表。换句话说， <code>x : xs</code> 与 <code>[x] ++ xs</code> 相同。为什么我们需要一个操作员来做到这一点？</p>
-<p>实际上， <code>:</code> 是列表的<em>构造函数</em>：它返回一个新的链表节点。另一个列表构造函数是 <code>[]</code>，即空列表。所有列表均使用 <code>:</code> 和 <code>[]</code> 构建。熟悉的 <code>[x,y,z]</code> 语法实际上只是一种更好的编写 <code>x:y:z:[]</code> 的方法，或者更明确地编写 <code>x:(y:(z:[]))</code>。事实上， <code>(++)</code> 是根据标准库中的 <code>:</code> 和递归来定义的。</p>
+<p><code>:</code> 运算符会根据头部和尾部构建一个列表。换句话说，<code>x : xs</code> 与 <code>[x] ++ xs</code> 的结果相同。为什么我们需要一个专门的运算符来做这件事？</p>
+<p>实际上，<code>:</code> 是列表的<em>构造函数</em>：它返回一个新的链表节点。另一个列表构造函数是 <code>[]</code>，即空列表。所有列表都由 <code>:</code> 和 <code>[]</code> 构建。熟悉的 <code>[x,y,z]</code> 语法其实只是 <code>x:y:z:[]</code> 的更友好写法，更明确地写就是 <code>x:(y:(z:[]))</code>。事实上，标准库中的 <code>(++)</code> 就是用 <code>:</code> 和递归定义的。</p>
 <p>下面是 <code>[1,2,3]</code> 在内存中的结构图：</p>
 <p><img alt="" src="../img/list123.svg" /></p>
 <h3 id="381">3.8.1 构建列表<a class="headerlink" href="#381" title="Permanent link">&para;</a></h3>
@@ -2026,7 +2026,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="nf">split</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="w"> </span><span class="s">&quot;fooxxbarxquux&quot;</span><span class="w">   </span><span class="o">==&gt;</span><span class="w">   </span><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="s">&quot;bar&quot;</span><span class="p">,</span><span class="s">&quot;quu&quot;</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="382">3.8.2 列表的模式匹配<a class="headerlink" href="#382" title="Permanent link">&para;</a></h3>
-<p>上一讲，有人说构造函数是可以进行模式匹配的东西。上面透露了列表类型的构造函数是 <code>:</code> 和 <code>[]</code>。我们可以将一加一放在一起，猜测我们可以在 <code>:</code> 和 <code>[]</code> 上进行模式匹配。这是真实的！以下是如何使用模式匹配定义自己的 <code>head</code> 和 <code>tail</code> 版本：</p>
+<p>上一讲说过，构造函数是可以进行模式匹配的东西。上面又说明了列表类型的构造函数是 <code>:</code> 和 <code>[]</code>。把这两点放在一起，我们自然会猜到：可以对 <code>:</code> 和 <code>[]</code> 做模式匹配。确实如此！下面展示如何用模式匹配定义自己的 <code>head</code> 和 <code>tail</code> 版本：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="nf">myhead</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a><span class="nf">myhead</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
 <a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a><span class="nf">myhead</span><span class="w"> </span><span class="p">(</span><span class="n">first</span><span class="kt">:</span><span class="n">rest</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">first</span>
@@ -2037,9 +2037,9 @@
 </code></pre></div>
 <p>你可以<em>嵌套</em>模式。也就是说，你可以从列表开头开始对多个元素进行模式匹配。在此示例中，我们使用与 <code>(a:(b:_))</code> 相同的模式 <code>(a:b:_)</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a><span class="nf">sumFirstTwo</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Integer</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Integer</span>
-<a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a><span class="c1">-- this equation gets used for lists of length at least two</span>
+<a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a><span class="c1">-- 这个等式用于长度至少为 2 的列表</span>
 <a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a><span class="nf">sumFirstTwo</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="kt">:</span><span class="n">b</span><span class="kt">:</span><span class="kr">_</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
-<a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a><span class="c1">-- this equation gets used for all other lists (i.e. lists of length 0 or 1)</span>
+<a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a><span class="c1">-- 这个等式用于其他所有列表（即长度为 0 或 1 的列表）</span>
 <a id="__codelineno-81-5" name="__codelineno-81-5" href="#__codelineno-81-5"></a><span class="nf">sumFirstTwo</span><span class="w"> </span><span class="kr">_</span><span class="w">       </span><span class="ow">=</span><span class="w"> </span><span class="mi">0</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="nf">sumFirstTwo</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w">      </span><span class="o">==&gt;</span><span class="w"> </span><span class="mi">0</span>
@@ -2122,13 +2122,13 @@
 <p>（<strong>注意！</strong> 将参数命名为 <code>_pred</code> 是一种告诉代码读者该参数未使用的方法。也可以只是 <code>_</code>。）</p>
 <h3 id="385">3.8.5 尾递归和列表<a class="headerlink" href="#385" title="Permanent link">&para;</a></h3>
 <p>当递归函数的计算结果是对具有不同参数的同一函数的新调用时，它被称为“尾递归”。 （递归调用被称为位于<em>尾部位置</em>。）这是与命令式循环相对应的递归类型。我们已经看到了许多尾递归函数的示例，但我们还没有真正比较编写同一函数的两种方法。这是本讲座前面的 <code>sumNumbers</code>：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a><span class="c1">-- Not tail recursive!</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a><span class="c1">-- 不是尾递归！</span>
 <a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a><span class="nf">sumNumbers</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a><span class="nf">sumNumbers</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">0</span>
 <a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a><span class="nf">sumNumbers</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sumNumbers</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
 <p>在第二个方程中，函数 <code>+</code> 位于顶层，即位于尾部位置。对 <code>sumNumbers</code> 的递归调用是 <code>+</code> 的参数。这是使用尾递归辅助函数编写的 <code>sumNumbers</code>：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a><span class="c1">-- Tail recursive version</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a><span class="c1">-- 尾递归版本</span>
 <a id="__codelineno-96-2" name="__codelineno-96-2" href="#__codelineno-96-2"></a><span class="nf">sumNumbers</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-96-3" name="__codelineno-96-3" href="#__codelineno-96-3"></a><span class="nf">sumNumbers</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">xs</span>
 <a id="__codelineno-96-4" name="__codelineno-96-4" href="#__codelineno-96-4"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">sum</span>
@@ -2137,12 +2137,12 @@
 <p>请注意 <code>go</code> 的第二个方程：它在顶层（即尾部位置）递归调用 <code>go</code>。<code>+</code> 现在处于 <code>go</code> 的争论中。</p>
 <p>对于像 <code>sumNumbers</code> 这样产生单个值（数字）的函数，选择哪种形式的递归并不重要。非尾递归函数更容易阅读，而尾递归函数更容易想出。你可以尝试用两种方式编写函数。尾递归形式可能更有效，但这取决于许多细节。我们将在本课程的第二部分中更多地讨论 Haskell 性能。</p>
 <p>但是，当你返回列表时，这两种形式之间存在很大差异。考虑之前的函数 <code>doubleList</code>。又是这样，首先直接实现，然后通过尾递归辅助函数实现。</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a><span class="c1">-- Not tail recursive!</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a><span class="c1">-- 不是尾递归！</span>
 <a id="__codelineno-97-2" name="__codelineno-97-2" href="#__codelineno-97-2"></a><span class="nf">doubleList</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
 <a id="__codelineno-97-3" name="__codelineno-97-3" href="#__codelineno-97-3"></a><span class="nf">doubleList</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">[]</span>
 <a id="__codelineno-97-4" name="__codelineno-97-4" href="#__codelineno-97-4"></a><span class="nf">doubleList</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">doubleList</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a><span class="c1">-- Tail recursive version</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a><span class="c1">-- 尾递归版本</span>
 <a id="__codelineno-98-2" name="__codelineno-98-2" href="#__codelineno-98-2"></a><span class="nf">doubleList</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
 <a id="__codelineno-98-3" name="__codelineno-98-3" href="#__codelineno-98-3"></a><span class="nf">doubleList</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="n">xs</span>
 <a id="__codelineno-98-4" name="__codelineno-98-4" href="#__codelineno-98-4"></a><span class="w">    </span><span class="kr">where</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">result</span>
@@ -2152,7 +2152,7 @@
 <p>人们可能会想通过在尾递归版本中使用 <code>(:)</code> 来解决此问题，但随后列表将以相反的顺序生成。这可以通过应用 <code>reverse</code> 来解决，但这会使生成的函数变得相当复杂。</p>
 <p>更喜欢直接版本还有另一个原因：懒惰。我们将在课程的第 2 部分中回到惰性，但现在你知道<strong>生成列表的直接方法更简单、更高效且更惯用</strong>就足够了。你应该尝试在练习中练习它。查看上面 <code>map</code> 和 <code>filter</code> 的标准库实现，即使它们直接生成列表而没有尾递归！</p>
 <h2 id="39">3.9 趣味内容：列表推导式<a class="headerlink" href="#39" title="Permanent link">&para;</a></h2>
-<p>Haskell 有<em>列表推导式</em>，这是一种很好的列表定义语法，结合了 <code>map</code> 和 <code>filter</code> 的功能。你可能已经熟悉 Python 的列表推导式。Haskell 的工作方式几乎相同，但语法略有不同。</p>
+<p>Haskell 有<em>列表推导式</em>，这是一种很好的列表定义语法，结合了 <code>map</code> 和 <code>filter</code> 的能力。你可能已经熟悉 Python 的列表推导式。Haskell 的工作方式几乎相同，但语法略有不同。</p>
 <p>映射：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">i</span><span class="ow">&lt;-</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]]</span>
 <a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
@@ -2188,7 +2188,7 @@
 <a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a><span class="nf">a</span><span class="w"> </span><span class="o">+++</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
 <h2 id="311_1">3.11 实用内容：类型孔<a class="headerlink" href="#311_1" title="Permanent link">&para;</a></h2>
-<p>有时，在编写 Haskell 时，找到具有正确类型的表达式可能很棘手。幸运的是，编译器可以帮忙。名为“Typed Holes”的功能允许你在代码中留下一个孔，编译器会告诉你这个位置需要什么类型的表达式。</p>
+<p>有时，在编写 Haskell 时，找到具有正确类型的表达式可能很棘手。幸运的是，编译器可以帮忙。名为“Typed Holes”的特性允许你在代码中留下一个孔，编译器会告诉你这个位置需要什么类型的表达式。</p>
 <p>类型孔可以写成 <code>_</code> 或 <code>_name</code>。它们可能与“匹配任意值”的模式 <code>_</code> 混淆，但区别在于：孔出现在 <code>=</code> 的“右侧”，而模式出现在 <code>=</code> 的“左侧”。</p>
 <p>让我们从 GHCi 中的一个简单示例开始：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="n">_hole</span><span class="w"> </span><span class="p">[</span><span class="kt">True</span><span class="p">,</span><span class="kt">False</span><span class="p">]</span>
@@ -2209,7 +2209,7 @@
 <a id="__codelineno-108-16" name="__codelineno-108-16" href="#__codelineno-108-16"></a><span class="w">          </span><span class="n">with</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">@</span><span class="kt">Bool</span>
 <a id="__codelineno-108-17" name="__codelineno-108-17" href="#__codelineno-108-17"></a><span class="w">          </span><span class="p">(</span><span class="n">imported</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="err">‘</span><span class="kt">Prelude</span><span class="err">’</span><span class="w"> </span><span class="p">(</span><span class="n">and</span><span class="w"> </span><span class="n">originally</span><span class="w"> </span><span class="n">defined</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="err">‘</span><span class="kt">GHC</span><span class="o">.</span><span class="kt">Base</span><span class="err">’</span><span class="p">))</span>
 </code></pre></div>
-<p>此消息的重要部分是第一行。这告诉你 Haskell 期望的洞是什么类型。</p>
+<p>这条消息的重要部分是第一行。它告诉你 Haskell 期望这个孔具有什么类型。</p>
 <div class="language-text highlight"><pre><span></span><code><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>&lt;interactive&gt;: error:
 <a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>    • Found hole: _hole :: Bool -&gt; Bool
 </code></pre></div>
@@ -2417,7 +2417,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

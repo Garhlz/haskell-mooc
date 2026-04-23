@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 7 讲：新的星座 - Haskell 慕课（中文翻译）</title>
+        <title>第 7 讲：新的星座 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -448,7 +448,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -1063,7 +1063,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1119,7 +1119,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1362,20 +1362,20 @@
 
 
 <h1 id="7">第 7 讲：新的星座<a class="headerlink" href="#7" title="Permanent link">&para;</a></h1>
-<p>本讲座介绍了“类型化函数式编程”的“设计模式”。这些模式在编写 Haskell 程序时都很有用，并且为练习之前讲座中的技能提供了一个很好的舞台。</p>
+<p>本讲介绍“类型化函数式编程”中的一些“设计模式”。这些模式在编写 Haskell 程序时都很有用，也能很好地练习前几讲学到的技能。</p>
 <h2 id="71">7.1 用盒子建模<a class="headerlink" href="#71" title="Permanent link">&para;</a></h2>
-<p>有时你不需要新类型，而只需重用标准类型即可。例如，用 <code>String</code> 表示汽车牌照号。但如果代码中充满了 <code>String</code>，就很容易意外混淆，比如汽车的型号和 <code>registerCar :: String -&gt; String -&gt; CarRegistry -&gt; CarRegistry</code> 等函数中的注册。</p>
-<p>对于这种情况，通常创建一个仅包含 <code>String</code> （“盒装”字符串）的新类型：</p>
+<p>有时你需要的不是全新的数据结构，而只是给标准类型一个更明确的含义。例如，可以用 <code>String</code> 表示车牌号。但如果代码里到处都是 <code>String</code>，就很容易把不同含义的字符串混在一起，比如汽车型号和 <code>registerCar :: String -&gt; String -&gt; CarRegistry -&gt; CarRegistry</code> 这样的函数参数。</p>
+<p>对于这种情况，通常会创建一个只包含 <code>String</code> 的新类型，也就是把字符串“装进盒子”：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Plate</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Plate</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span><span class="w"> </span><span class="kt">Eq</span><span class="p">)</span>
 </code></pre></div>
-<p>我们现在可以给 <code>registerCar</code> 一个稍微好一点的类型， <code>String -&gt; Plate -&gt; CarRegistry -&gt; CarRegistry</code>。此外，我们可以将 <code>Plate</code> 的可能操作限制为字符串操作的子集。例如，无需合并两辆汽车的车牌号码。因此我们不需要提供函数 <code>concatPlates :: Plate -&gt; Plate -&gt; Plate</code>。我们还可以为 <code>Plate</code> 定义一个“智能构造函数”，用于检查寄存器编号的格式是否正确：</p>
+<p>现在我们可以给 <code>registerCar</code> 一个稍微更好的类型：<code>String -&gt; Plate -&gt; CarRegistry -&gt; CarRegistry</code>。此外，我们可以把 <code>Plate</code> 支持的操作限制为字符串操作的一个子集。例如，没有必要合并两辆车的车牌号，因此也不需要提供 <code>concatPlates :: Plate -&gt; Plate -&gt; Plate</code> 这样的函数。我们还可以为 <code>Plate</code> 定义一个“智能构造函数”，用于检查车牌号格式是否正确：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">parsePlate</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Plate</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nf">parsePlate</span><span class="w"> </span><span class="n">string</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">correctPlateNumber</span><span class="w"> </span><span class="n">string</span><span class="w">  </span><span class="ow">=</span><span class="w">  </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="kt">Plate</span><span class="w"> </span><span class="n">string</span><span class="p">)</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">otherwise</span><span class="w">                  </span><span class="ow">=</span><span class="w">  </span><span class="kt">Nothing</span>
 </code></pre></div>
-<p>这是另一个例子：表示金钱。如果只是用 <code>Int</code> 存储，编译器无法保护我们免受诸如两个金额相乘这样的错误。如果实现自己的 <code>Money</code> 类型来包装 <code>Int</code>，就能获得类型安全。此外，我们可以概括这样一个事实：货币表示为整数美分。</p>
+<p>再看一个示例：表示金额。如果只是用 <code>Int</code> 存储，编译器无法防止我们犯下“把两个金额相乘”这样的错误。如果实现自己的 <code>Money</code> 类型来包装 <code>Int</code>，就能获得类型安全。此外，我们还可以把“金额以整数美分表示”这个事实封装起来。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Money</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -1402,8 +1402,8 @@
 </code></pre></div>
 <p><strong>注意！</strong> 如果你熟悉面向对象编程，这有点像封装。</p>
 <h2 id="72">7.2 用不同分支建模<a class="headerlink" href="#72" title="Permanent link">&para;</a></h2>
-<p>Haskell 的代数数据类型在基于<em>不同情况</em>建模方面非常强大。将类型视为定义可能情况的集合以及“处理”这些情况的函数（通常通过模式匹配）通常很有用。让我们看两个例子。</p>
-<p>在 Haskell 中定义自定义类型很容易，所以使用更具描述性的类型而不是布尔值或字符串更方便。考虑一个人员名单。在其他语言中，如果你想按姓名升序对人员进行排序，你可以使用类似 <code>sortPersons(persons, "name", true)</code> 的调用。在 Haskell 中你可以这样做：</p>
+<p>Haskell 的代数数据类型非常适合按<em>不同情况</em>建模。通常可以把类型看成一组可能情况，再用函数（通常通过模式匹配）“处理”这些情况。下面看两个示例。</p>
+<p>在 Haskell 中定义自定义类型很容易，所以相比布尔值或字符串，使用更具描述性的类型往往更方便。考虑一个人员名单。在其他语言中，如果你想按姓名升序排序，可能会调用类似 <code>sortPersons(persons, "name", true)</code> 的函数。在 Haskell 中可以这样做：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Person</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="p">}</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
@@ -1425,17 +1425,17 @@
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nf">sortPersons</span><span class="w"> </span><span class="kt">Age</span><span class="w"> </span><span class="kt">Descending</span><span class="w"> </span><span class="n">persons</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Fridolf&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">73</span><span class="p">},</span><span class="kt">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Hans&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">65</span><span class="p">},</span><span class="kt">Person</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Greta&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">60</span><span class="p">}]</span>
 </code></pre></div>
-<p>请注意，你如何不会意外地拼写字段名称（与字符串不同），以及你如何不需要记住 <code>true</code> 是指升序还是降序。</p>
-<p>让我们继续看下一个例子。许多 Haskell 函数不适用于空列表（考虑 <code>head []</code>）。如果你正在编写需要跟踪列表是否可能为空或保证不为空的代码，则可以使用 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Data-List-NonEmpty.html">Data.List.NonEmpty</a> 模块中的 <code>NonEmpty</code> 类型。</p>
+<p>请注意，和字符串不同，你不会意外拼错字段名；你也不需要记住 <code>true</code> 到底表示升序还是降序。</p>
+<p>继续看下一个示例。许多 Haskell 函数不适用于空列表（想想 <code>head []</code>）。如果你写的代码需要跟踪列表是否可能为空，或者需要保证列表非空，可以使用 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Data-List-NonEmpty.html">Data.List.NonEmpty</a> 模块中的 <code>NonEmpty</code> 类型。</p>
 <p>考虑 <code>NonEmpty</code> 的定义：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">NonEmpty</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kt">:|</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
 </code></pre></div>
-<p>这个类型表示“没有空列表”这种情况。类型 <code>NonEmpty a</code> 将始终由类型为 <code>a</code> 的值以及其他一些 <code>a</code> 组成，这些值收集在列表中。以下是 <code>NonEmpty Int</code> 的一些例子值：</p>
+<p>这个类型表示“非空列表”。<code>NonEmpty a</code> 的值总是由一个 <code>a</code> 类型的值，加上一个包含其他 <code>a</code> 值的列表组成。以下是一些 <code>NonEmpty Int</code> 示例值：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="mi">1</span><span class="w"> </span><span class="kt">:|</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="mi">1</span><span class="w"> </span><span class="kt">:|</span><span class="w"> </span><span class="kt">[]</span>
 </code></pre></div>
-<p>顺便说一句，这也是<em>中缀构造函数</em>的例子。我们之前已经遇到过另一个中缀构造函数，即列表构造函数 <code>(:)</code>。任何以冒号（<code>:</code> 字符）开头的运算符都可以用作中缀构造函数。我们可以在 <code>(:|)</code> 上进行模式匹配，就像在 <code>(:)</code> 上一样，正如你将在下面的例子中看到的那样。</p>
-<p>以下是在普通列表和非空列表之间进行转换的函数。请注意，我们不能使用函数 <code>[a] -&gt; NonEmpty a</code>，而必须使用 <code>Maybe</code> 来表示列表确实为空的可能性。另请注意 <code>toList</code> 只有一个方程，由于 <code>NonEmpty</code> 类型，我们不能出现 <code>toList []</code> 情况。</p>
+<p>顺便说一句，这也是<em>中缀构造函数</em>的示例。我们之前已经遇到过另一个中缀构造函数，也就是列表构造函数 <code>(:)</code>。任何以冒号（<code>:</code> 字符）开头的运算符都可以用作中缀构造函数。我们可以对 <code>(:|)</code> 做模式匹配，就像对 <code>(:)</code> 一样，下面的示例会展示这一点。</p>
+<p>下面是在普通列表和非空列表之间转换的函数。请注意，我们不能直接写 <code>[a] -&gt; NonEmpty a</code>，而必须使用 <code>Maybe</code> 来表示列表确实可能为空。还要注意，<code>toList</code> 只有一个方程；由于输入类型是 <code>NonEmpty</code>，根本不会出现 <code>toList []</code> 的情况。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">nonEmpty</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="p">(</span><span class="kt">NonEmpty</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nf">nonEmpty</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nf">nonEmpty</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="kt">:|</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
@@ -1461,16 +1461,16 @@
 <h2 id="73">7.3 幺半群<a class="headerlink" href="#73" title="Permanent link">&para;</a></h2>
 <p>在函数式编程中经常出现的一种模式是 <em>monoid</em>（不要与 <em>monad</em> 混淆！）。对幺半群的解释通常非常数学化，但其思想很简单：将事物组合起来。</p>
 <h3 id="731">7.3.1 关联运算<a class="headerlink" href="#731" title="Permanent link">&para;</a></h3>
-<p>我们使用的许多函数和运算符都是<em>关联的</em>。这只是一种表达不需要括号的奇特方式。例如，所有这些表达式的值都是 16，因为加法是结合的：</p>
+<p>我们使用的许多函数和运算符都是<em>结合的</em>。这只是说“括号怎么加都不影响结果”的一种方式。例如，下面这些表达式的值都是 16，因为加法满足结合律：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w">  </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">7</span><span class="p">))</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w">  </span><span class="o">+</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">7</span>
 </code></pre></div>
-<p>在 Haskell 中很容易找到关联运算的例子。例如，用于连接列表的 <code>++</code> 运算符是关联的：无论你是执行 <code>([1] ++ [2,3]) ++ [4]</code> 还是 <code>[1] ++ ([2,3] ++ [4])</code> - 结果都是 <code>[1,2,3,4]</code>。</p>
-<p>另一个很好的例子是函数组合运算符。 <code>(head . tail) . tail</code> 和 <code>head . (tail . tail)</code> 都计算列表的第三个元素。</p>
-<p>然而，并非所有运算符都是结合运算符。最熟悉的例子是减法和求幂。  <code>(1-2)-3</code> 是 <code>-4</code> 但 <code>1-(2-3)</code> 是 <code>2</code>。类似地，<code>(2^3)^2</code> 是 <code>64</code>，而 <code>2^(3^2)</code> 是 512。在使用非结合运算符时需要小心括号。</p>
-<p>另一个不具有关联性的运算符是列表构造函数 <code>(:)</code>。这次的原因更加根本：虽然 <code>True:(False:[])</code> 没问题，但 <code>(True:False):[]</code> 甚至没有打字！为了使操作具有关联性，它需要采用两个相同类型的参数。</p>
-<p>除了运算符之外，函数也可以是关联的。语法看起来有点不同，但如果它们相同，则函数 <code>f</code> 是关联的：</p>
+<p>在 Haskell 中很容易找到满足结合律的运算。例如，用于连接列表的 <code>++</code> 运算符满足结合律：无论你写 <code>([1] ++ [2,3]) ++ [4]</code> 还是 <code>[1] ++ ([2,3] ++ [4])</code>，结果都是 <code>[1,2,3,4]</code>。</p>
+<p>另一个很好的示例是函数组合运算符。 <code>(head . tail) . tail</code> 和 <code>head . (tail . tail)</code> 都计算列表的第三个元素。</p>
+<p>然而，并非所有运算符都满足结合律。最熟悉的示例是减法和求幂。<code>(1-2)-3</code> 是 <code>-4</code>，但 <code>1-(2-3)</code> 是 <code>2</code>。类似地，<code>(2^3)^2</code> 是 <code>64</code>，而 <code>2^(3^2)</code> 是 512。使用不满足结合律的运算符时，需要小心括号。</p>
+<p>另一个不满足结合律的运算符是列表构造函数 <code>(:)</code>。这次原因更加根本：虽然 <code>True:(False:[])</code> 没问题，但 <code>(True:False):[]</code> 甚至无法通过类型检查！一个运算要满足结合律，首先需要接受两个相同类型的参数。</p>
+<p>除了运算符之外，函数也可以满足结合律。语法看起来有点不同：如果下面两个表达式总是相等，那么函数 <code>f</code> 就满足结合律：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nf">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span><span class="p">)</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nf">f</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="n">z</span>
 </code></pre></div>
@@ -1482,15 +1482,15 @@
 <a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="nf">max</span><span class="w"> </span><span class="p">(</span><span class="n">max</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="mi">3</span>
 </code></pre></div>
 <h3 id="732">7.3.2 半群<a class="headerlink" href="#732" title="Permanent link">&para;</a></h3>
-<p>从数学上来说，关联函数（或运算符）形成<em>半群</em>。 Haskell 有一个类型类 <code>Semigroup</code> （在模块 <code>Data.Semigroup</code> 中定义），当类型具有明确的关联操作时可以使用该类型类。</p>
+<p>从数学上来说，满足结合律的函数（或运算符）形成<em>半群</em>。Haskell 有一个类型类 <code>Semigroup</code>（定义在模块 <code>Data.Semigroup</code> 中），当某个类型有明确的结合操作时，就可以使用这个类型类。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="c1">-- An associative operation.</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="c1">-- 结合运算。</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
 <p>列表是 <code>Semigroup</code> 的实例，其中 <code>(++)</code> 为 <code>(&lt;&gt;)</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 </code></pre></div>
-<p>具有多个不同关联运算符的类型通常不会成为 Semigroup 的实例。一个例子是 <code>Int</code>，它具有许多关联函数，例如 <code>+</code>、 <code>*</code> 和 <code>max</code>。相反，Haskell 标准库使用装箱（请参阅本讲座前面的部分）。以下是 <code>Sum</code> 和 <code>Product</code> 的定义：</p>
+<p>具有多个不同关联运算符的类型通常不会成为 Semigroup 的实例。一个示例是 <code>Int</code>，它具有许多关联函数，例如 <code>+</code>、 <code>*</code> 和 <code>max</code>。相反，Haskell 标准库使用装箱（请参阅本讲座前面的部分）。以下是 <code>Sum</code> 和 <code>Product</code> 的定义：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Sum</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Sum</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="p">(</span><span class="kt">Sum</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="kt">Sum</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kt">Sum</span><span class="w"> </span><span class="n">b</span><span class="w">  </span><span class="ow">=</span><span class="w">  </span><span class="kt">Sum</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
@@ -1499,7 +1499,7 @@
 <a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="p">(</span><span class="kt">Product</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">  </span><span class="kt">Product</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="kt">Product</span><span class="w"> </span><span class="n">b</span><span class="w">   </span><span class="ow">=</span><span class="w">  </span><span class="kt">Product</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
 </code></pre></div>
-<p>顺便说一句，这是装箱的另一个好处：能够声明不同类型的类实例！</p>
+<p>顺便说一句，这就是装箱的另一个好处：能够声明不同类型类实例！</p>
 <p>请注意 <code>Num a</code> 约束如何让我们在包含的类型 <code>a</code> 上使用 <code>Num</code> 操作，例如 <code>+</code> 和 <code>*</code>。我们可以有像 <code>Sum "abc" :: Sum String</code> 这样的值，但它们不会有 <code>Semigroup</code> 实例！</p>
 <p>同样，我们有盒子类型 <code>Min</code> 和 <code>Max</code>。让我们在 GHCi 中玩一下：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="nn">Data.Semigroup</span>
@@ -1515,25 +1515,25 @@
 <a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="kt">Max</span><span class="w"> </span><span class="p">{</span><span class="n">getMax</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">5</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="733">7.3.3 终于，幺半群<a class="headerlink" href="#733" title="Permanent link">&para;</a></h3>
-<p>如果我们再听听数学家的说法，<em>幺半群</em> 是一个带有<em>中性元素</em>的半群。中性元素是零：与其他元素组合时不执行任何操作的元素。以下是一些例子：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">-- 0 is the neutral element of (+)</span>
+<p>如果我们再听听数学家的说法，<em>幺半群</em> 是一个带有<em>单位元</em>的半群。单位元是零：与其他元素组合时不执行任何操作的元素。以下是一些示例：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">-- 0 是 (+) 的单位元</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="w">        </span><span class="o">==&gt;</span><span class="w">  </span><span class="mi">3</span>
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="o">==&gt;</span><span class="w">  </span><span class="mi">3</span>
 <a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1">-- 1 is the neutral element of (*)</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1">-- 1 是 (*) 的单位元</span>
 <a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="w">        </span><span class="o">==&gt;</span><span class="w">  </span><span class="mi">5</span>
 <a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1</span><span class="w">        </span><span class="o">==&gt;</span><span class="w">  </span><span class="mi">5</span>
 <a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
-<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1">-- [] is the neutral element of (++)</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1">-- [] 是 (++) 的单位元</span>
 <a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="kt">[]</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 <a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="kt">[]</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 </code></pre></div>
 <p>Haskell 类型类 <code>Monoid</code> （来自模块 <code>Data.Monoid</code>）表示幺半群。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="c1">-- The neutral element</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="c1">-- 单位元</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="n">mempty</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
-<p>以下是与我们的三个中性元素例子相对应的 <code>Monoid</code> 实例：</p>
+<p>以下是与前面三个单位元示例相对应的 <code>Monoid</code> 实例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Num</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="p">(</span><span class="kt">Sum</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="n">mempty</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Sum</span><span class="w"> </span><span class="mi">0</span>
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
@@ -1545,27 +1545,27 @@
 </code></pre></div>
 <p>那么，对于程序员来说什么是幺半群呢？如果有一种方法可以将类型的两个元素组合在一起，使得括号无关紧要，并且还有一个“空元素”可以与事物组合而不改变它们，那么该类型就形成了幺半群。当这样想时，幺半群在编程中经常出现！</p>
 <h3 id="734">7.3.4 为什么需要它？<a class="headerlink" href="#734" title="Permanent link">&para;</a></h3>
-<p>这个<code>Monoid</code>类有什么用呢？我们不能只写 <code>1 + 2</code> 而不是 <code>Sum 1 &lt;&gt; Sum 2</code> 吗？是的，我们可以，但某些库函数适用于所有 <code>Monoid</code> 类型。</p>
-<p>我们同时需要一个中性元素和一个关联二元运算符的原因是，为了将多个元素<em>减少</em>或<em>折叠</em>为一个值，这正是我们所需要的两件事。这是以下人员的工作：</p>
+<p>这个 <code>Monoid</code> 类有什么用呢？我们不能只写 <code>1 + 2</code> 而不是 <code>Sum 1 &lt;&gt; Sum 2</code> 吗？是的，我们可以，但某些库函数适用于所有 <code>Monoid</code> 类型。</p>
+<p>我们同时需要一个单位元和一个满足结合律的二元运算符，是因为把多个元素<em>归约</em>或<em>折叠</em>成一个值时，正好需要这两件东西。这正是下面这个函数的工作：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nf">mconcat</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
-<p>附注：定义 <code>mconcat</code> 的一种方法是 <code>foldr (&lt;&gt;) mempty</code>。你还记得<code>foldr</code>吗？</p>
+<p>附注：定义 <code>mconcat</code> 的一种方法是 <code>foldr (&lt;&gt;) mempty</code>。你还记得 <code>foldr</code> 吗？</p>
 <p>让我们看看为什么我们需要 <code>Monoid</code> 的属性来实现 <code>mconcat</code>。首先，我们需要 <code>mempty</code> 来处理空列表：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nf">mconcat</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Sum</span><span class="w"> </span><span class="kt">Int</span><span class="w">          </span><span class="o">==&gt;</span><span class="w">  </span><span class="kt">Sum</span><span class="w"> </span><span class="mi">0</span>
 </code></pre></div>
-<p>其次，我们需要关联性才能将列表 <code>[x,y,z]</code> 减少为唯一值。如果 <code>&lt;&gt;</code> 不具有关联性，则 <code>mconcat [x,y,z]</code> 可能有两个可能的值，即 <code>(x&lt;&gt;y)&lt;&gt;z</code> 和 <code>x&lt;&gt;(y&lt;&gt;z)</code>。</p>
+<p>其次，我们需要结合律，才能把列表 <code>[x,y,z]</code> 归约为唯一的值。如果 <code>&lt;&gt;</code> 不满足结合律，那么 <code>mconcat [x,y,z]</code> 可能有两个结果：<code>(x&lt;&gt;y)&lt;&gt;z</code> 和 <code>x&lt;&gt;(y&lt;&gt;z)</code>。</p>
 <p>最有用的 <code>Monoid</code> 函数是 <code>foldMap</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nf">foldMap</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Foldable</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span>
 </code></pre></div>
-<p>这种类型签名看起来很可怕，但具体情况更简单：</p>
+<p>这个类型签名看起来很吓人，但具体示例更简单：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nf">foldMap</span><span class="w"> </span><span class="kt">Max</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="ow">::</span><span class="kt">Int</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="kt">Max</span><span class="w"> </span><span class="mi">4</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nf">foldMap</span><span class="w"> </span><span class="kt">Product</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="ow">::</span><span class="kt">Int</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="kt">Product</span><span class="w"> </span><span class="mi">8</span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="c1">-- We need the ::Int to avoid an &quot;Ambiguous type variable&quot; error when printing the result</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="c1">-- 这里需要 ::Int，以避免打印结果时出现“Ambiguous type variable”错误</span>
 </code></pre></div>
-<p>让我们来分解一下这种类型。我们知道 <code>Foldable t =&gt; t a</code> 类型的一个例子是 <code>[a]</code>，因此我们可以将该类型重写为</p>
+<p>让我们来分解一下这种类型。我们知道 <code>Foldable t =&gt; t a</code> 类型的一个示例是 <code>[a]</code>，因此我们可以将该类型重写为</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nf">foldMap&#39;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span>
 </code></pre></div>
-<p>我们可以用我们已知的函数构建这个函数：</p>
+<p>我们可以用已知的函数构造出这个函数：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nf">foldMap&#39;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mconcat</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
 </code></pre></div>
 <p>哦，顺便说一句，多亏了 <code>(Monoid a, Monoid b) =&gt; Monoid (a,b)</code> 实例，我们甚至可以一次计算最大值和乘积：</p>
@@ -1581,16 +1581,16 @@
 </code></pre></div>
 <p>尽管你大多可以假装它们是。实际的定义是：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="c1">-- | An associative operation.</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="c1">-- | 结合运算。</span>
 <a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>
-<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">  </span><span class="c1">-- Combine elements of a nonempty list with &lt;&gt;</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">  </span><span class="c1">-- 使用 &lt;&gt; 组合非空列表中的元素</span>
 <a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">  </span><span class="n">sconcat</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">NonEmpty</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
-<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">  </span><span class="n">sconcat</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">-- default implementation omitted</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">  </span><span class="n">sconcat</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">-- 省略默认实现</span>
 <a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
-<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="w">  </span><span class="c1">-- Combine a value with itself using &lt;&gt;, n times</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="w">  </span><span class="c1">-- 使用 &lt;&gt; 将一个值与自身组合 n 次</span>
 <a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="w">  </span><span class="n">stimes</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Integral</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
-<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="w">  </span><span class="n">stimes</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">-- default implementation omitted</span>
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="w">  </span><span class="n">stimes</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">-- 省略默认实现</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span><span class="n">mempty</span><span class="w">  </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span>
@@ -1598,9 +1598,9 @@
 <a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">  </span><span class="n">mappend</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">  </span><span class="n">mappend</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">(</span><span class="o">&lt;&gt;</span><span class="p">)</span>
 <a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
-<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">  </span><span class="c1">-- Combine elements of a list with &lt;&gt;</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">  </span><span class="c1">-- 使用 &lt;&gt; 组合列表中的元素</span>
 <a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">  </span><span class="n">mconcat</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
-<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="w">  </span><span class="n">mconcat</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">-- default implementation omitted</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="w">  </span><span class="n">mconcat</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">-- 省略默认实现</span>
 </code></pre></div>
 <p>如你所见，除了 <code>&lt;&gt;</code> 和 <code>mempty</code> 之外的所有操作都有默认定义，因此正常的 <code>Monoid</code> 实例声明如下所示：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Semigroup</span><span class="w"> </span><span class="kt">MyType</span><span class="w"> </span><span class="kr">where</span>
@@ -1611,14 +1611,14 @@
 </code></pre></div>
 <h2 id="74">7.4 开放和封闭抽象<a class="headerlink" href="#74" title="Permanent link">&para;</a></h2>
 <p>新手 Haskell 程序员经常问（或者至少应该问！）的一个问题是：我什么时候应该使用类型类？本节提供了一个答案。</p>
-<p>让我们看一个具体的例子。交通工具可以是汽车或飞机。我们可以使用代数数据类型（正如我们在本章前面所看到的）来建模，也可以使用类型类来建模。这是数据类型版本：</p>
+<p>来看一个具体示例。交通工具可以是汽车或飞机。我们可以使用代数数据类型建模（正如本章前面看到的那样），也可以使用类型类建模。下面是数据类型版本：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Vehicle</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Car</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Airplane</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="nf">sound</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Vehicle</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nf">sound</span><span class="w"> </span><span class="p">(</span><span class="kt">Car</span><span class="w"> </span><span class="kr">_</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;brum brum&quot;</span>
 <a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="nf">sound</span><span class="w"> </span><span class="p">(</span><span class="kt">Airplane</span><span class="w"> </span><span class="kr">_</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;zooooom&quot;</span>
 </code></pre></div>
-<p>这是类型类版本。请注意每种情况如何获取自己的数据类型，这些数据类型被收集在一个类型类中。</p>
+<p>下面是类型类版本。请注意，每种情况都有自己的数据类型，然后这些数据类型通过一个类型类收集在一起。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Car</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Car</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Airplane</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Airplane</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
@@ -1631,7 +1631,7 @@
 <a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">VehicleClass</span><span class="w"> </span><span class="kt">Airplane</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="w">  </span><span class="n">sound</span><span class="w"> </span><span class="p">(</span><span class="kt">Airplane</span><span class="w"> </span><span class="kr">_</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;zooooom&quot;</span>
 </code></pre></div>
-<p>这些解决方案有什么区别？基于数据的解决方案是“封闭的”，这意味着一组情况是固定的，我们可以在一个地方处理所有情况。基于类的解决方案是<em>开放的</em>，这意味着我们可以添加新情况，甚至在其他模块中也是如此。</p>
+<p>这些方案有什么区别？基于数据的方案是“封闭的”：一组情况是固定的，我们可以在一个地方处理所有情况。基于类型类的方案是<em>开放的</em>：我们可以继续添加新情况，甚至可以在其他模块中添加。</p>
 <p>当我们需要可扩展性时，开放抽象是很好的选择。在基于类的解决方案中，另一个模块可以定义自行车：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Bike</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Bike</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>
@@ -1644,10 +1644,10 @@
 <a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="nf">canCollide</span><span class="w"> </span><span class="p">(</span><span class="kt">Airplane</span><span class="w"> </span><span class="kr">_</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Airplane</span><span class="w"> </span><span class="kr">_</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">True</span>
 <a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="nf">canCollide</span><span class="w"> </span><span class="kr">_</span><span class="w">            </span><span class="kr">_</span><span class="w">            </span><span class="ow">=</span><span class="w"> </span><span class="kt">False</span>
 </code></pre></div>
-<p>这在基于类的解决方案中很难可靠地实现。例如，考虑如何处理 <code>Bike</code> 和 <code>Car</code> 之间的冲突检查。</p>
+<p>这在基于类型类的方案中很难可靠实现。例如，想想该如何处理 <code>Bike</code> 和 <code>Car</code> 之间的碰撞检查。</p>
 <h2 id="75">7.5 用语言建模<a class="headerlink" href="#75" title="Permanent link">&para;</a></h2>
-<p>有时，实现一种迷你编程语言来描述软件的各个部分是很有用的。这些的奇特术语是“嵌入式领域特定语言（EDSL）”。 Haskell 非常适合建模和解释语言。该语言的表达式使用（通常是递归的）代数数据类型来表示。该语言可以由递归函数“解释”（即求值或运行）。</p>
-<p>以下是用于描述网上商店中产品价格计算的语言例子。</p>
+<p>有时，实现一种迷你编程语言来描述软件的某些部分会很有用。它们被称为“嵌入式领域特定语言（EDSL）”。Haskell 非常适合建模和解释语言。语言中的表达式可以用（通常是递归的）代数数据类型来表示，然后用递归函数“解释”（即求值或运行）。</p>
+<p>下面是一个用于描述网店产品价格计算的语言示例。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Discount</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">DiscountPercent</span><span class="w"> </span><span class="kt">Int</span><span class="w">         </span><span class="c1">-- A percentage discount</span>
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="kt">DiscountConstant</span><span class="w"> </span><span class="kt">Int</span><span class="w">        </span><span class="c1">-- A constant discount</span>
 <a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="kt">MinimumPrice</span><span class="w"> </span><span class="kt">Int</span><span class="w">            </span><span class="c1">-- Set a minimum price</span>
@@ -1682,7 +1682,7 @@
 <a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="nf">applyDiscount</span><span class="w"> </span><span class="s">&quot;Ssarah&quot;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="p">(</span><span class="kt">Many</span><span class="w"> </span><span class="p">[</span><span class="kt">ForCustomer</span><span class="w"> </span><span class="s">&quot;Yvonne&quot;</span><span class="w"> </span><span class="p">(</span><span class="kt">DiscountConstant</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="kt">ForCustomer</span><span class="w"> </span><span class="s">&quot;Ssarah&quot;</span><span class="w"> </span><span class="p">(</span><span class="kt">DiscountConstant</span><span class="w"> </span><span class="mi">20</span><span class="p">)])</span>
 <a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="mi">80</span>
 </code></pre></div>
-<p>正如你所看到的，即使是简单的 <code>Discount</code> 类型也可以生成复杂的行为，因为它是自引用（递归）的。使用 <code>Discount</code>，我们能够将网上商店的折扣逻辑表示为<em>数据</em>，而不是编写代码。</p>
+<p>正如你所看到的，即使是简单的 <code>Discount</code> 类型也可以生成复杂的行为，因为它是自引用的（递归的）。使用 <code>Discount</code>，我们能够将网上商店的折扣逻辑表示为<em>数据</em>，而不是编写代码。</p>
 <p>将逻辑表示为数据而不是代码有多种原因。与代码不同，数据可以轻松存储在文件或数据库中，甚至可以通过网络传输。我们还可以将相同的数据用于多种目的，例如，我们可以在管理用户界面中可视化折扣规则。</p>
 <h2 id="76">7.6 练习<a class="headerlink" href="#76" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1763,7 +1763,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

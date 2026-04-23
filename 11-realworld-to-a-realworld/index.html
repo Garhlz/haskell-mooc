@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 11 讲：`RealWorld -> (a,RealWorld)` - Haskell 慕课（中文翻译）</title>
+        <title>第 11 讲：`RealWorld -> (a,RealWorld)` - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -443,7 +443,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -952,10 +952,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#118" class="md-nav__link">
+  <a href="#118-io" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11.8 这些意味着什么？
+        11.8 IO 操作意味着什么？
       
     </span>
   </a>
@@ -1085,7 +1085,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1141,7 +1141,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1283,10 +1283,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#118" class="md-nav__link">
+  <a href="#118-io" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11.8 这些意味着什么？
+        11.8 IO 操作意味着什么？
       
     </span>
   </a>
@@ -1446,7 +1446,7 @@ word: ever
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nf">getLine</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
 </code></pre></div>
-<p><code>IO a</code> 类型的值是一个“操作”，它“生成”<code>a</code> 类型的值。所以 <code>getLine</code>是一个产生字符串的IO 操作。 <code>()</code> 类型就是所谓的<em>单元类型</em>，它的唯一值是<code>()</code>。它主要用于 IO 操作不返回任何内容（而只是有副作用）的情况。</p>
+<p><code>IO a</code> 类型的值是一个“操作”，它会“生成”<code>a</code> 类型的值。所以 <code>getLine</code> 是一个生成字符串的 IO 操作。<code>()</code> 类型就是所谓的<em>单元类型</em>，它唯一的值是 <code>()</code>。它主要用于 IO 操作不返回有意义的内容，而只是产生副作用的情况。</p>
 <p>与 Java（方法）类型的比较可能会有所帮助：</p>
 <table>
 <thead>
@@ -1482,27 +1482,27 @@ word: ever
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">   </span><span class="n">operationThatProducesTheResult</span><span class="w"> </span><span class="n">var2</span>
 </code></pre></div>
 <h3 id="1121">11.2.1 示例<a class="headerlink" href="#1121" title="Permanent link">&para;</a></h3>
-<p>你可以在标准库模块 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Prelude.html">Prelude</a> 和 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/System-IO.html">System.IO</a> 中找到有用的 IO 操作</p>
+<p>你可以在标准库模块 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Prelude.html">Prelude</a> 和 <a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/System-IO.html">System.IO</a> 中找到有用的 IO 操作。</p>
 <p>这是一个 IO 操作，要求用户输入一个字符串，并打印出该字符串的长度。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">query</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nf">query</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;Write something!&quot;</span><span class="w">                    </span><span class="c1">-- run an operation, ignore produced value</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span><span class="w">                                   </span><span class="c1">-- run an operation, capture produced value</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="kr">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="n">s</span><span class="w">                               </span><span class="c1">-- run a pure function</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;You wrote &quot;</span><span class="o">++</span><span class="n">show</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="s">&quot; characters&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">-- run an operation, passing on the produced value</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;Write something!&quot;</span><span class="w">                    </span><span class="c1">-- 运行一个操作，忽略产生的值</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span><span class="w">                                   </span><span class="c1">-- 运行一个操作，捕获产生的值</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="kr">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="n">s</span><span class="w">                               </span><span class="c1">-- 运行纯函数</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;You wrote &quot;</span><span class="o">++</span><span class="n">show</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="s">&quot; characters&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">-- 运行一个操作，并传递产生的值</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kt">Write</span><span class="w"> </span><span class="n">something</span><span class="o">!</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nf">lorem</span><span class="w"> </span><span class="n">ipsum</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kt">You</span><span class="w"> </span><span class="n">wrote</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">characters</span>
 </code></pre></div>
-<p><code>do</code> 块的最后一行产生的值是整个块产生的值。注意 <code>askForALine</code> 与 <code>getLine</code>、<code>IO String</code> 具有相同的类型：</p>
+<p><code>do</code> 块最后一行生成的值，就是整个块生成的值。注意，<code>askForALine</code> 和 <code>getLine</code> 一样，类型都是 <code>IO String</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nf">askForALine</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">askForALine</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;Please give me a line&quot;</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="n">getLine</span>
 </code></pre></div>
-<p>除了 <code>query</code> 等 IO 操作之外，你还可以在 GHCi 中运行产生值的 IO 操作，如 <code>askForALine</code>。如果需要，你可以使用 <code>&lt;-</code> 将操作结果捕获到变量中。</p>
+<p>除了 <code>query</code> 等 IO 操作之外，你还可以在 GHCi 中运行生成值的 IO 操作，如 <code>askForALine</code>。如果需要，你可以使用 <code>&lt;-</code> 将操作结果捕获到变量中。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">askForALine</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kt">Please</span><span class="w"> </span><span class="n">give</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">line</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nf">this</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">line</span>
@@ -1515,7 +1515,7 @@ word: ever
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">line</span>
 <a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="s">&quot;this is a line&quot;</span>
 </code></pre></div>
-<p>如果你需要提供操作参数，你可以创建<em>一个返回操作的函数</em>。请注意 <code>ask</code> 如何具有带有 <code>-&gt;</code> 的函数类型，就像普通函数一样。我们还使用正常的函数定义语法将参数命名为 <code>question</code>。</p>
+<p>如果你需要给操作提供参数，可以创建<em>一个返回操作的函数</em>。请注意，<code>ask</code> 的类型里有 <code>-&gt;</code>，就像普通函数一样。我们也使用普通的函数定义语法，把参数命名为 <code>question</code>。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nf">ask</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">ask</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">question</span>
@@ -1538,7 +1538,7 @@ word: ever
 <a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="nf">ask</span><span class="w"> </span><span class="s">&quot;Who are you?&quot;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
 </code></pre></div>
 <h2 id="113-return">11.3 容易误解的 <code>return</code><a class="headerlink" href="#113-return" title="Permanent link">&para;</a></h2>
-<p>Haskell 函数 <code>return</code> 的命名有点误导。在其他语言中 <code>return</code> 是一个内置关键字，但在 Haskell 中它只是一个函数。 <code>return :: a -&gt; IO a</code> 函数获取一个值并将其转换为一个<em>操作，从而产生该值</em>。</p>
+<p>Haskell 函数 <code>return</code> 的名字有点误导。在其他语言中，<code>return</code> 是内置关键字，但在 Haskell 中它只是一个函数。<code>return :: a -&gt; IO a</code> 接受一个值，并把它转换成一个<em>会生成该值的操作</em>。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nf">produceThree</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nf">produceThree</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="mi">3</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -1547,7 +1547,7 @@ word: ever
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="n">three</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">produceThree</span>
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">(</span><span class="n">show</span><span class="w"> </span><span class="n">three</span><span class="p">)</span>
 </code></pre></div>
-<p>这听起来不太有用，不是吗？与 do 符号结合起来就是这样。这里我们根据用户回答的是<code>Y</code>还是<code>N</code>返回一个布尔值：</p>
+<p>这听起来不太有用，不是吗？但和 <code>do</code> 语法结合起来就有用了。这里我们根据用户回答的是 <code>Y</code> 还是 <code>N</code> 返回一个布尔值：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nf">yesNoQuestion</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nf">yesNoQuestion</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">question</span>
@@ -1566,7 +1566,7 @@ word: ever
 <a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">answer</span>
 <a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="kt">False</span>
 </code></pre></div>
-<p><strong>注意！</strong> 这意味着 return *不会停止操作的执行（与 Java 或 C 中的 return 不同）。请记住，在 do 块中，最后一行决定生成哪个值。这意味着该操作产生 <code>2</code>：</p>
+<p><strong>注意！</strong> 这意味着 <code>return</code> <em>不会停止操作的执行</em>（这和 Java 或 C 中的 <code>return</code> 不同）。请记住，在 <code>do</code> 块中，最后一行决定生成哪个值。因此，下面这个操作生成 <code>2</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nf">produceTwo</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nf">produceTwo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="mi">1</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">                </span><span class="n">return</span><span class="w"> </span><span class="mi">2</span>
@@ -1574,7 +1574,7 @@ word: ever
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">produceTwo</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="mi">2</span>
 </code></pre></div>
-<p>让我们换个角度来看这个问题。 <code>do</code> 表示法允许我们引起一系列副作用，并最终产生一个值。</p>
+<p>让我们换个角度来看这个问题。<code>do</code> 语法允许我们产生一系列副作用，并最终生成一个值。</p>
 <div class="language-text highlight"><pre><span></span><code>produceThree = do putStrLn &quot;1&quot;   -- side effect, produces (), which is ignored
                   return    2    -- no side effect, produces 2, which is ignored
                   getLine        -- side effect, produces a String, which is ignored
@@ -1596,46 +1596,46 @@ Prelude&gt; final
 </code></pre></div>
 <p>由于 <code>return</code> 是一个函数，因此你应该记住将任何复杂表达式括起来：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nf">return</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1">-- alternatively:</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1">-- 或者：</span>
 <a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nf">return</span><span class="w"> </span><span class="o">$</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
 <h2 id="114-do">11.4 <code>do</code> 和类型<a class="headerlink" href="#114-do" title="Permanent link">&para;</a></h2>
-<p>让我们更详细地看看 do 表示法的输入。 do-block 构建一个 <code>IO &lt;something&gt;</code> 类型的值。例如在</p>
+<p>让我们更详细地看看 <code>do</code> 语法的类型。<code>do</code> 块会构建一个 <code>IO &lt;something&gt;</code> 类型的值。例如：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nf">foo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="o">...</span>
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="n">lastOp</span>
 </code></pre></div>
-<p><code>lastOp</code> 的类型必须是 <code>IO X</code>（对于某些 <code>X</code>）。 <code>foo</code> 的类型也将为 <code>IO X</code>。接下来我们看一个带参数的例子：</p>
+<p><code>lastOp</code> 的类型必须是 <code>IO X</code>（对于某些 <code>X</code>）。 <code>foo</code> 的类型也将为 <code>IO X</code>。接下来我们看一个带参数的示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nf">bar</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="o">...</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="n">lastOp</span><span class="w"> </span><span class="n">arg</span>
 </code></pre></div>
-<p><code>lastOp</code> 的类型必须为 <code>Y -&gt; IO X</code>（以便 <code>lastOp arg</code> 的类型为 <code>IO X</code>）。 <code>bar</code> 的类型将为 <code>A -&gt; B -&gt; IO X</code>（在 <code>bar</code> 内部我们将有 <code>x :: A</code> 和 <code>y :: B</code>）。</p>
+<p><code>lastOp</code> 的类型必须为 <code>Y -&gt; IO X</code>，这样 <code>lastOp arg</code> 的类型才是 <code>IO X</code>。<code>bar</code> 的类型将为 <code>A -&gt; B -&gt; IO X</code>（在 <code>bar</code> 内部，我们有 <code>x :: A</code> 和 <code>y :: B</code>）。</p>
 <p>如果我们使用 <code>return</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nf">quux</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="o">...</span>
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="n">value</span>
 </code></pre></div>
 <p>函数 <code>quux</code> 的类型为 <code>A -&gt; IO B</code>，其中 <code>x :: A</code> 和 <code>value :: B</code>。</p>
-<p>接下来我们看一下<code>&lt;-</code>的打字。如果 <code>op :: IO X</code> 并且你有 <code>var &lt;- op</code>，则 <code>var</code> 将具有 <code>X</code> 类型。我们在许多 GHCi 例子中都看到了这一点。</p>
-<p><code>do</code> 的最后一行不能是 <code>foo &lt;- bar</code>。也不可能是<code>let foo = bar</code>。最后一行确定整个操作生成的内容，因此它必须是一个操作（例如，<code>return something</code>）。</p>
-<p>这是一个有效的例子：</p>
+<p>接下来看看 <code>&lt;-</code> 的类型。如果 <code>op :: IO X</code>，并且你写了 <code>var &lt;- op</code>，那么 <code>var</code> 将具有 <code>X</code> 类型。我们在许多 GHCi 示例中都看到了这一点。</p>
+<p><code>do</code> 的最后一行不能是 <code>foo &lt;- bar</code>，也不能是 <code>let foo = bar</code>。最后一行决定整个操作生成什么，因此它本身必须是一个操作（例如 <code>return something</code>）。</p>
+<p>这是一个有效的示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nf">alwaysFine</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nf">alwaysFine</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;What?&quot;</span><span class="w"> </span><span class="c1">-- :: IO ()</span>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="mi">2</span><span class="w">         </span><span class="c1">-- :: IO Int, produced value is discarded</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="mi">2</span><span class="w">         </span><span class="c1">-- :: IO Int，产生的值会被丢弃</span>
 <a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span><span class="w">     </span><span class="c1">-- getLine :: IO String, thus s :: String</span>
 <a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">s</span><span class="w">       </span><span class="c1">-- putStrLn :: String -&gt; IO (), thus putStrLn s :: IO ()</span>
 <a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">  </span><span class="kr">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">True</span><span class="w">     </span><span class="c1">-- b :: Bool</span>
 <a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="n">b</span><span class="w">         </span><span class="c1">-- :: IO Bool</span>
-<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">                   </span><span class="c1">-- Thus, alwaysFine :: IO Bool</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">                   </span><span class="c1">-- 因此，alwaysFine :: IO Bool</span>
 </code></pre></div>
-<p>类型规则保证你无法“逃脱”<code>IO</code>。即使 <code>&lt;-</code> 从 <code>IO X</code> 为你提供 <code>X</code>，你也只能在 <code>do</code> 中使用 <code>&lt;-</code>。然而，<code>do</code> 始终表示 <code>IO Y</code> 类型的值。换句话说：你可以暂时打开<code>IO</code>盒子，但你必须返回其中。 <em>“IO 中发生的事情，留在 IO 中。”</em></p>
+<p>类型规则保证你无法“逃脱”<code>IO</code>。即使 <code>&lt;-</code> 从 <code>IO X</code> 中取出了一个 <code>X</code>，你也只能在 <code>do</code> 中使用 <code>&lt;-</code>。而 <code>do</code> 始终表示某个 <code>IO Y</code> 类型的值。换句话说：你可以暂时打开 <code>IO</code> 盒子，但最后必须回到盒子里。<em>“IO 中发生的事情，留在 IO 中。”</em></p>
 <p>稍后我们将详细讨论这意味着什么。现在，只要知道如果你有一个非 IO 类型的函数（例如 <code>myFunction :: Int -&gt; [String] -&gt; String</code>），该函数内部就不能发生 IO。它是一个纯函数。</p>
 <h2 id="115">11.5 控制结构<a class="headerlink" href="#115" title="Permanent link">&para;</a></h2>
-<p>对于以下例子，我们需要两个新操作。</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nf">print</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Show</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">   </span><span class="c1">-- print a value using the show function</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nf">readLn</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Read</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w">        </span><span class="c1">-- get a line and convert it to a value using the read function</span>
+<p>对于以下示例，我们需要两个新操作。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nf">print</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Show</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">   </span><span class="c1">-- 使用 show 函数打印值</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nf">readLn</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Read</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w">        </span><span class="c1">-- 读取一行，并使用 read 函数转换为值</span>
 </code></pre></div>
 <p>递归、守卫和 if-then-else 等常用工具也适用于 <code>IO</code> 世界。这是使用守卫定义的 IO 操作：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nf">printDescription</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
@@ -1662,13 +1662,13 @@ Prelude&gt; final
 <a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="mi">2</span>
 <a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="mi">3</span>
 </code></pre></div>
-<p>下面是两个稍微复杂一点的递归 IO 操作的例子。他们使用递归调用产生的值。操作 <code>readAndSum n</code> 从用户读取 <code>n</code> 数字并打印它们的总和。操作<code>ask questions</code>向用户显示<code>questions</code>中的每个字符串，读取响应，并返回所有响应的列表。</p>
+<p>下面是两个稍微复杂一点的递归 IO 操作的示例。它们使用递归调用生成的值。操作 <code>readAndSum n</code> 从用户读取 <code>n</code> 数字并打印它们的总和。操作 <code>ask questions</code> 向用户显示 <code>questions</code> 中的每个字符串，读取响应，并返回所有响应的列表。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nf">readAndSum</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nf">readAndSum</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="mi">0</span>
 <a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="nf">readAndSum</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">readLn</span><span class="w">            </span><span class="c1">-- read one number</span>
-<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">readAndSum</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">-- recursion: read and sum rest of numbers</span>
-<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">s</span><span class="p">)</span><span class="w">           </span><span class="c1">-- produce result</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">readAndSum</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">-- 递归：读取剩余数字并求和</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">s</span><span class="p">)</span><span class="w">           </span><span class="c1">-- 产生结果</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">readAndSum</span><span class="w"> </span><span class="mi">3</span>
 <a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="mi">2</span>
@@ -1683,8 +1683,8 @@ Prelude&gt; final
 <a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">  </span><span class="n">putStr</span><span class="w"> </span><span class="n">question</span>
 <a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;?&quot;</span>
 <a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">  </span><span class="n">answer</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span><span class="w">         </span><span class="c1">-- get one answer</span>
-<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">  </span><span class="n">answers</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">questions</span><span class="w">  </span><span class="c1">-- recursion: get rest of answers</span>
-<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">answer</span><span class="kt">:</span><span class="n">answers</span><span class="p">)</span><span class="w">   </span><span class="c1">-- produce result</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">  </span><span class="n">answers</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">questions</span><span class="w">  </span><span class="c1">-- 递归：获取剩余答案</span>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">answer</span><span class="kt">:</span><span class="n">answers</span><span class="p">)</span><span class="w">   </span><span class="c1">-- 产生结果</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">replies</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;What is your name&quot;</span><span class="p">,</span><span class="s">&quot;How old are you&quot;</span><span class="p">]</span>
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="kt">What</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">name</span><span class="o">?</span>
@@ -1695,23 +1695,23 @@ Prelude&gt; final
 <a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="p">[</span><span class="s">&quot;Yog-Sothoth&quot;</span><span class="p">,</span><span class="s">&quot;The question is meaningless&quot;</span><span class="p">]</span>
 </code></pre></div>
 <p>此外，我们还有一些 <code>IO</code> 特定的控制结构，或者更确切地说，函数。这些来自模块 <code>Control.Monad</code>。</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1">-- when b op performs op if b is true</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1">-- when b op 在 b 为 true 时执行 op</span>
 <a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nf">when</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="c1">-- unless b op performs op if b is false</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="c1">-- unless b op 在 b 为 false 时执行 op</span>
 <a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="nf">unless</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="c1">-- do something many times, collect results</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="c1">-- 做某事多次，并收集结果</span>
 <a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="nf">replicateM</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
-<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="c1">-- do something many times, throw away the results</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="c1">-- 做某事多次，并丢弃结果</span>
 <a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="nf">replicateM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="c1">-- do something for every list element</span>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="c1">-- 对每个列表元素做某事</span>
 <a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="nf">mapM</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
-<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="c1">-- do something for every list element, throw away the results</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="c1">-- 对每个列表元素做某事，并丢弃结果</span>
 <a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="nf">mapM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="c1">-- the same, but arguments flipped</span>
+<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="c1">-- 同样的操作，但参数顺序相反</span>
 <a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="nf">forM</span><span class="w">  </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
 <a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="nf">forM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 </code></pre></div>
-<p>使用这些，我们可以重写之前的例子：</p>
+<p>使用这些，我们可以重写之前的示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nf">printList</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nf">printList</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mapM_</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
@@ -1730,46 +1730,46 @@ Prelude&gt; final
 <a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="w">  </span><span class="n">getLine</span>
 </code></pre></div>
 <h2 id="116-do">11.6 关于 <code>do</code> 和缩进<a class="headerlink" href="#116-do" title="Permanent link">&para;</a></h2>
-<p>使用 do 表示法时很容易遇到奇怪的缩进问题。这里有一些经验法则可以帮助你正确行事。</p>
+<p>使用 do 语法时很容易遇到奇怪的缩进问题。这里有一些经验法则可以帮助你正确行事。</p>
 <p>do 和缩进最重要的规则是<em>do 块中的所有操作必须在同一列中开始</em>。</p>
-<p>此规则的一些例子：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1">-- This is not OK, putStrLn is way too left</span>
+<p>此规则的一些示例：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1">-- 这样不行，putStrLn 太靠左了</span>
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="nf">foo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">   </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">y</span>
 <a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>
-<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="c1">-- This is not OK either</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="c1">-- 这样也不行</span>
 <a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="nf">foo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">           </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">y</span>
 <a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>
-<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="c1">-- This is OK</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="c1">-- 这样可以</span>
 <a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="nf">foo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a><span class="w">         </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">y</span>
 <a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>
-<a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a><span class="c1">-- This is also OK: putting a line break after do</span>
+<a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a><span class="c1">-- 这样也可以：在 do 后换行</span>
 <a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a><span class="nf">foo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">y</span>
 </code></pre></div>
 <p>一个相关的规则是<em>当一个操作跨越多行时，缩进后续行</em>。如果不缩进，它看起来就像是一个新操作！</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1">-- This is not OK, the string starts a new operation</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1">-- 这样不行，字符串开始了一个新的操作</span>
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nf">quux</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">putStrLn</span>
 <a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="w">          </span><span class="s">&quot;this long string&quot;</span>
 <a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="w">          </span><span class="n">print</span><span class="w"> </span><span class="mi">1</span>
 <a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>
-<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="c1">-- This is OK</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="c1">-- 这样可以</span>
 <a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="nf">quux</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">putStrLn</span>
 <a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a><span class="w">            </span><span class="s">&quot;this long string&quot;</span>
 <a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="w">          </span><span class="n">print</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
-<p>这是另一个例子，其中包含嵌套的 do 块和两个不同的有效缩进。</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1">-- This is OK</span>
+<p>这是另一个示例，其中包含嵌套的 do 块和两个不同的有效缩进。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1">-- 这样可以</span>
 <a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="nf">foo</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">quux</span>
 <a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">           </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">blorg</span>
 <a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">           </span><span class="n">when</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">(</span><span class="kr">do</span><span class="w"> </span><span class="n">thing</span>
 <a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">                      </span><span class="n">otherThing</span><span class="p">)</span>
 <a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">           </span><span class="n">return</span><span class="w"> </span><span class="mi">3</span>
 <a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>
-<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="c1">-- This is also OK: starting putting a line break after do, using $</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="c1">-- 这样也可以：在 do 后换行，并使用 $</span>
 <a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="nf">foo</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="w">  </span><span class="n">quux</span>
 <a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">blorg</span>
@@ -1779,20 +1779,20 @@ Prelude&gt; final
 <a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="w">  </span><span class="n">return</span><span class="w"> </span><span class="mi">3</span>
 </code></pre></div>
 <h2 id="117">11.7 编写一个程序<a class="headerlink" href="#117" title="Permanent link">&para;</a></h2>
-<p>在所有这些简短的一次性例子之后，让我们转向更长一些的例子。让我们编写一个程序来从所有 <code>.hs</code> 文件中获取所有类型注释。我们使用 <code>readFile</code> 和 <code>listDirectory</code> 等 IO 操作来读取和查找文件，也使用 <code>map</code> 和 <code>filter</code> 等纯代码来进行实际处理。首先，回顾一下我们正在使用的库操作：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1">-- split string into lines</span>
+<p>在所有这些简短的一次性示例之后，让我们转向更长一些的示例。让我们编写一个程序来从所有 <code>.hs</code> 文件中获取所有类型注释。我们使用 <code>readFile</code> 和 <code>listDirectory</code> 等 IO 操作来读取和查找文件，也使用 <code>map</code> 和 <code>filter</code> 等纯代码来进行实际处理。首先，回顾一下我们正在使用的库操作：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1">-- 将字符串拆成多行</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nf">lines</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
-<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="c1">-- `isSuffixOf suf list` is true if list ends in suf</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="c1">-- 如果 list 以 suf 结尾，则 `isSuffixOf suf list` 为 true</span>
 <a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="kt">Data</span><span class="o">.</span><span class="kt">List</span><span class="o">.</span><span class="n">isSuffixOf</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
-<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="c1">-- `isInfixOf inf list` is true if inf occurs inside list</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="c1">-- 如果 inf 出现在 list 内部，则 `isInfixOf inf list` 为 true</span>
 <a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="kt">Data</span><span class="o">.</span><span class="kt">List</span><span class="o">.</span><span class="n">isInfixOf</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Eq</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
-<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="c1">-- FilePath is just an alias for String</span>
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="c1">-- FilePath 只是 String 的别名</span>
 <a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="kr">type</span><span class="w"> </span><span class="kt">FilePath</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">String</span>
-<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="c1">-- get entire contents of file</span>
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="c1">-- 获取文件的全部内容</span>
 <a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="nf">readFile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">FilePath</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
-<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="c1">-- list files in directory</span>
+<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="c1">-- 列出目录中的文件</span>
 <a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="kt">System</span><span class="o">.</span><span class="kt">Directory</span><span class="o">.</span><span class="n">listDirectory</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">FilePath</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="kt">FilePath</span><span class="p">]</span>
-<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="c1">-- is the given file a directory?</span>
+<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="c1">-- 给定文件是否为目录？</span>
 <a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a><span class="kt">System</span><span class="o">.</span><span class="kt">Directory</span><span class="o">.</span><span class="n">doesDirectoryExist</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">FilePath</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Bool</span>
 </code></pre></div>
 <p>这是程序本身。你还可以在课程仓库中找到它，名称为 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/ReadTypes.hs"><code>exercises/Examples/ReadTypes.hs</code></a>。</p>
@@ -1802,11 +1802,11 @@ Prelude&gt; final
 <a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="kr">import</span><span class="w"> </span><span class="nn">Data.List</span><span class="w"> </span><span class="p">(</span><span class="nf">isInfixOf</span><span class="p">,</span><span class="w"> </span><span class="nf">isSuffixOf</span><span class="p">)</span>
 <a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="kr">import</span><span class="w"> </span><span class="nn">System.Directory</span><span class="w"> </span><span class="p">(</span><span class="nf">listDirectory</span><span class="p">,</span><span class="w"> </span><span class="nf">doesDirectoryExist</span><span class="p">)</span>
 <a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
-<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="c1">-- a line is a type signature if it contains :: but does not contain =</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="c1">-- 如果一行包含 :: 且不包含 =，则它是类型签名</span>
 <a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="nf">isTypeSignature</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="nf">isTypeSignature</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="p">(</span><span class="n">isInfixOf</span><span class="w"> </span><span class="s">&quot;=&quot;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">isInfixOf</span><span class="w"> </span><span class="s">&quot;::&quot;</span><span class="w"> </span><span class="n">s</span>
 <a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>
-<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="c1">-- return list of types for a .hs file</span>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="c1">-- 返回 .hs 文件中的类型签名列表</span>
 <a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="nf">readTypesFile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">FilePath</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="nf">readTypesFile</span><span class="w"> </span><span class="n">file</span>
 <a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">isSuffixOf</span><span class="w"> </span><span class="s">&quot;.hs&quot;</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">readFile</span><span class="w"> </span><span class="n">file</span>
@@ -1814,25 +1814,25 @@ Prelude&gt; final
 <a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="w">                               </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">filter</span><span class="w"> </span><span class="n">isTypeSignature</span><span class="w"> </span><span class="n">ls</span><span class="p">)</span>
 <a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">otherwise</span><span class="w">             </span><span class="ow">=</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="kt">[]</span>
 <a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>
-<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="c1">-- list children of directory, prepend directory name</span>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="c1">-- 列出目录子项，并在前面加上目录名</span>
 <a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="nf">qualifiedChildren</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="nf">qualifiedChildren</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">childs</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">listDirectory</span><span class="w"> </span><span class="n">path</span>
 <a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="w">                            </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">name</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">path</span><span class="o">++</span><span class="s">&quot;/&quot;</span><span class="o">++</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="n">childs</span><span class="p">)</span>
 <a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a>
-<a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="c1">-- get type signatures for all entries in given directory</span>
-<a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="c1">-- note mutual recursion with readTypes</span>
+<a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="c1">-- 获取给定目录中所有条目的类型签名</span>
+<a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="c1">-- 注意这里与 readTypes 相互递归</span>
 <a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="nf">readTypesDir</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="nf">readTypesDir</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">childs</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">qualifiedChildren</span><span class="w"> </span><span class="n">path</span>
 <a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a><span class="w">                       </span><span class="n">typess</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">forM</span><span class="w"> </span><span class="n">childs</span><span class="w"> </span><span class="n">readTypes</span>
 <a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a><span class="w">                       </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">concat</span><span class="w"> </span><span class="n">typess</span><span class="p">)</span>
 <a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a>
-<a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="c1">-- recursively read types contained in a file or directory</span>
-<a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a><span class="c1">-- note mutual recursion with readTypesDir</span>
+<a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="c1">-- 递归读取文件或目录中包含的类型签名</span>
+<a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a><span class="c1">-- 注意这里与 readTypes 相互递归Dir</span>
 <a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a><span class="nf">readTypes</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a><span class="nf">readTypes</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">isDir</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">doesDirectoryExist</span><span class="w"> </span><span class="n">path</span>
 <a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a><span class="w">                    </span><span class="kr">if</span><span class="w"> </span><span class="n">isDir</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="n">readTypesDir</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="n">readTypesFile</span><span class="w"> </span><span class="n">path</span>
 <a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a>
-<a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a><span class="c1">-- main is the IO action that gets run when you run the program</span>
+<a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a><span class="c1">-- main 是运行程序时执行的 IO 操作</span>
 <a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a><span class="nf">main</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a><span class="nf">main</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">ts</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">readTypes</span><span class="w"> </span><span class="s">&quot;.&quot;</span>
 <a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a><span class="w">          </span><span class="n">mapM_</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">ts</span>
@@ -1845,11 +1845,11 @@ Prelude&gt; final
 <a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="o">...</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">on</span>
 </code></pre></div>
 <p>当然，确切的输出会根据目录的内容而有所不同。</p>
-<h2 id="118">11.8 这些意味着什么？<a class="headerlink" href="#118" title="Permanent link">&para;</a></h2>
-<p>让我们回到函数世界。我们如何协调 IO 操作与 Haskell 作为一种“纯”和“惰性”语言的关系？像 <code>putStrLn :: String -&gt; IO ()</code> 这样的东西是一个返回操作的<em>纯</em>函数。怎样才算纯呢？当 <code>x</code> 相同时，<code>putStrLn x</code>也相同。换句话说：操作是一系列副作用的“纯描述”。只有<em>执行</em>该操作才会导致这些副作用。当 Haskell 程序运行时，只执行一个操作 - 它称为 <code>main :: IO ()</code>。其他操作只需链接到<code>main</code>即可运行。</p>
+<h2 id="118-io">11.8 IO 操作意味着什么？<a class="headerlink" href="#118-io" title="Permanent link">&para;</a></h2>
+<p>回到函数的世界。IO 操作如何与 Haskell 的“纯”和“惰性”相容？像 <code>putStrLn :: String -&gt; IO ()</code> 这样的东西，是一个返回操作的<em>纯</em>函数。为什么它是纯的？因为当 <code>x</code> 相同时，<code>putStrLn x</code> 也相同。换句话说：操作是一系列副作用的“纯描述”。只有<em>执行</em>该操作才会真正产生副作用。当 Haskell 程序运行时，只执行一个操作，它叫做 <code>main :: IO ()</code>。其他操作只有连接到 <code>main</code>，才会运行。</p>
 <p>在 GHCi 中，如果你输入的表达式计算结果为某个操作，GHCi 会为你运行该操作。这是 <code>print</code> 纯性的演示：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">-- creates operation, doesn&#39;t run it</span>
-<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w">             </span><span class="c1">-- runs the operation</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">-- 创建操作，但不运行它</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w">             </span><span class="c1">-- 运行该操作</span>
 <a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="mi">1</span>
 <a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w">             </span><span class="c1">-- runs it again!</span>
 <a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="mi">1</span>
@@ -1870,11 +1870,11 @@ Prelude&gt; final
 <a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="nf">a</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">b</span><span class="o">?</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="kt">A</span><span class="o">!!!!</span>
 </code></pre></div>
-<p>使用指定为参数的操作可以让我们编写像我们之前遇到的 <code>mapM_</code> 这样的函数。实现是一个递归 IO 操作，将另一个IO 操作作为参数。概念上很复杂，但是当你阅读代码时就很简单：</p>
+<p>把操作作为参数传入，可以让我们编写像之前见过的 <code>mapM_</code> 这样的函数。它的实现是一个递归 IO 操作，并且把另一个 IO 操作作为参数。概念上有点绕，但代码读起来很直接：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nf">mapM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
-<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="nf">mapM_</span><span class="w"> </span><span class="n">op</span><span class="w">     </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="nb">()</span><span class="w">       </span><span class="c1">-- do nothing for an empty list</span>
-<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="nf">mapM_</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="n">x</span><span class="w">         </span><span class="c1">-- run operation on first element</span>
-<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="w">                     </span><span class="n">mapM_</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="n">xs</span><span class="w">  </span><span class="c1">-- run operation on rest of list, recursively</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="nf">mapM_</span><span class="w"> </span><span class="n">op</span><span class="w">     </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="nb">()</span><span class="w">       </span><span class="c1">-- 对空列表什么也不做</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="nf">mapM_</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="n">x</span><span class="w">         </span><span class="c1">-- 对第一个元素运行操作</span>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="w">                     </span><span class="n">mapM_</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="n">xs</span><span class="w">  </span><span class="c1">-- 递归地对列表剩余部分运行操作</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mapM_</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="mi">1</span>
@@ -1882,14 +1882,14 @@ Prelude&gt; final
 <a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="mi">3</span>
 </code></pre></div>
 <h2 id="119-ioref">11.9 还有一件事：IORef<a class="headerlink" href="#119-ioref" title="Permanent link">&para;</a></h2>
-<p>到目前为止，我们能够在 IO 中产生的唯一副作用是终端（<code>getLine</code>、<code>print</code>）和文件（<code>readFile</code>、<code>listDirectory</code>）IO。用 Java、Python 或 C 编写的命令式程序也有其他类型的副作用，我们无法用纯 Haskell 来表达。其中之一是<em>可变（即可变）状态</em>。纯函数无法读取可变状态，因为否则同一函数的两次调用可能不会返回相同的值。</p>
+<p>到目前为止，我们在 IO 中产生的副作用只有终端 IO（<code>getLine</code>、<code>print</code>）和文件 IO（<code>readFile</code>、<code>listDirectory</code>）。用 Java、Python 或 C 编写的命令式程序还有其他类型的副作用，其中之一是<em>可变状态</em>。纯函数无法读取可变状态，否则同一函数的两次调用可能不会返回相同的值。</p>
 <p>模块 <code>Data.IORef</code> 中的 Haskell 类型 <code>IORef a</code> 是对 <code>a</code> 类型值的可变引用</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nf">newIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">(</span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w">                </span><span class="c1">-- create a new IORef containing a value</span>
-<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nf">readIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w">                 </span><span class="c1">-- produce value contained in IORef</span>
-<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="nf">writeIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">          </span><span class="c1">-- set value in IORef</span>
-<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="nf">modifyIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">  </span><span class="c1">-- modify value contained in IORef with a pure function</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nf">newIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">(</span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w">                </span><span class="c1">-- 创建一个包含值的新 IORef</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nf">readIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w">                 </span><span class="c1">-- 产生 IORef 中包含的值</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="nf">writeIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">          </span><span class="c1">-- 设置 IORef 中的值</span>
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="nf">modifyIORef</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IORef</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">  </span><span class="c1">-- 使用纯函数修改 IORef 中包含的值</span>
 </code></pre></div>
-<p>以下是在 GHCi 中使用 IORef 的一些例子：</p>
+<p>以下是在 GHCi 中使用 IORef 的一些示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="kt">Data</span><span class="o">.</span><span class="kt">IORef</span>
 <a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">IORef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">myRef</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">newIORef</span><span class="w"> </span><span class="s">&quot;banana&quot;</span>
 <a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">IORef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">readIORef</span><span class="w"> </span><span class="n">myRef</span>
@@ -1901,47 +1901,47 @@ Prelude&gt; final
 <a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">IORef</span><span class="o">&gt;</span><span class="w"> </span><span class="n">readIORef</span><span class="w"> </span><span class="n">myRef</span>
 <a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="s">&quot;elppa&quot;</span>
 </code></pre></div>
-<p>下面是使用 <code>IORef</code> 对列表中的值求和的例子。请注意与命令式循环的相似之处。</p>
+<p>下面是使用 <code>IORef</code> 对列表中的值求和的示例。请注意与命令式循环的相似之处。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nf">sumList</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="nf">sumList</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">newIORef</span><span class="w"> </span><span class="mi">0</span><span class="w">                       </span><span class="c1">-- initialize r to 0</span>
 <a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">                </span><span class="n">forM_</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">modifyIORef</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="p">))</span><span class="w">   </span><span class="c1">-- for every xs, add it to r</span>
-<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">                </span><span class="n">readIORef</span><span class="w"> </span><span class="n">r</span><span class="w">                           </span><span class="c1">-- get last value of r</span>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">                </span><span class="n">readIORef</span><span class="w"> </span><span class="n">r</span><span class="w">                           </span><span class="c1">-- 获取 r 的最后一个值</span>
 </code></pre></div>
-<p>大多数时候不需要使用 <code>IORef</code>。 Haskell 风格更喜欢递归、参数和返回值。然而，现实世界的程序有时可能需要一两个 IORef。</p>
+<p>大多数时候不需要使用 <code>IORef</code>。Haskell 风格更偏好递归、参数和返回值。不过，实际程序有时确实可能需要一两个 <code>IORef</code>。</p>
 <h2 id="1110-io">11.10 IO 总结<a class="headerlink" href="#1110-io" title="Permanent link">&para;</a></h2>
 <p><code>IO X</code> 类型的值是<em>IO 操作</em>，在运行时<strong>生成</strong> X 类型的值。操作是纯值。只有“运行”该操作才会产生副作用。</p>
-<p>IO 操作可以使用 <code>do</code> 表示法组合在一起：</p>
+<p>IO 操作可以使用 <code>do</code> 语法组合在一起：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nf">op</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">X</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Y</span>
-<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nf">op</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">operation</span><span class="w">                 </span><span class="c1">-- run operation</span>
-<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">            </span><span class="n">operation2</span><span class="w"> </span><span class="n">arg</span><span class="w">            </span><span class="c1">-- run operation with argument</span>
-<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">operation3</span><span class="w"> </span><span class="n">arg</span><span class="w">  </span><span class="c1">-- run operation with argument, store result</span>
-<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="w">            </span><span class="kr">let</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">result</span><span class="w">  </span><span class="c1">-- run a pure function f, store result</span>
-<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="w">            </span><span class="n">finalOperation</span><span class="w">            </span><span class="c1">-- last operation produces the the return value</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nf">op</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">operation</span><span class="w">                 </span><span class="c1">-- 运行操作</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">            </span><span class="n">operation2</span><span class="w"> </span><span class="n">arg</span><span class="w">            </span><span class="c1">-- 使用参数运行操作</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">operation3</span><span class="w"> </span><span class="n">arg</span><span class="w">  </span><span class="c1">-- 使用参数运行操作，并存储结果</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="w">            </span><span class="kr">let</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">result</span><span class="w">  </span><span class="c1">-- 运行纯函数 f，并存储结果</span>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="w">            </span><span class="n">finalOperation</span><span class="w">            </span><span class="c1">-- 最后一个操作产生返回值</span>
 </code></pre></div>
-<p><code>return x</code> 是一个总是产生值 <code>x</code> 的操作。当<code>x :: a</code>、<code>return x :: IO a</code>时。</p>
+<p><code>return x</code> 是一个总是生成值 <code>x</code> 的操作。当 <code>x :: a</code> 时，<code>return x :: IO a</code>。</p>
 <p>有用的 IO 操作：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1">-- printing &amp; reading</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1">-- 打印与读取</span>
 <a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="nf">putStr</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="nf">putStrLn</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="nf">print</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Show</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="nf">getLine</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="nf">readLn</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Read</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>
-<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="c1">-- control structures from Control.Monad</span>
-<a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a><span class="nf">when</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">   </span><span class="c1">-- when b op performs op if b is true</span>
-<a id="__codelineno-51-10" name="__codelineno-51-10" href="#__codelineno-51-10"></a><span class="nf">unless</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="c1">-- unless b op performs op if b is false</span>
-<a id="__codelineno-51-11" name="__codelineno-51-11" href="#__codelineno-51-11"></a><span class="nf">replicateM</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- do something many times, collect results</span>
-<a id="__codelineno-51-12" name="__codelineno-51-12" href="#__codelineno-51-12"></a><span class="nf">replicateM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">   </span><span class="c1">-- do something many times, throw away the results</span>
-<a id="__codelineno-51-13" name="__codelineno-51-13" href="#__codelineno-51-13"></a><span class="nf">mapM</span><span class="w"> </span><span class="ow">::</span><span class="w">  </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="c1">-- do something for every list element</span>
-<a id="__codelineno-51-14" name="__codelineno-51-14" href="#__codelineno-51-14"></a><span class="nf">mapM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">  </span><span class="c1">-- do something for every list element, throw away the results</span>
-<a id="__codelineno-51-15" name="__codelineno-51-15" href="#__codelineno-51-15"></a><span class="nf">forM</span><span class="w"> </span><span class="ow">::</span><span class="w">  </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="c1">-- the same, but arguments flipped</span>
+<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="c1">-- 来自 Control.Monad 的控制结构</span>
+<a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a><span class="nf">when</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">   </span><span class="c1">-- when b op 在 b 为 true 时执行 op</span>
+<a id="__codelineno-51-10" name="__codelineno-51-10" href="#__codelineno-51-10"></a><span class="nf">unless</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w"> </span><span class="c1">-- unless b op 在 b 为 false 时执行 op</span>
+<a id="__codelineno-51-11" name="__codelineno-51-11" href="#__codelineno-51-11"></a><span class="nf">replicateM</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 做某事多次，并收集结果</span>
+<a id="__codelineno-51-12" name="__codelineno-51-12" href="#__codelineno-51-12"></a><span class="nf">replicateM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">   </span><span class="c1">-- 做某事多次，并丢弃结果</span>
+<a id="__codelineno-51-13" name="__codelineno-51-13" href="#__codelineno-51-13"></a><span class="nf">mapM</span><span class="w"> </span><span class="ow">::</span><span class="w">  </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="c1">-- 对每个列表元素做某事</span>
+<a id="__codelineno-51-14" name="__codelineno-51-14" href="#__codelineno-51-14"></a><span class="nf">mapM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span><span class="w">  </span><span class="c1">-- 对每个列表元素做某事，并丢弃结果</span>
+<a id="__codelineno-51-15" name="__codelineno-51-15" href="#__codelineno-51-15"></a><span class="nf">forM</span><span class="w"> </span><span class="ow">::</span><span class="w">  </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="c1">-- 同样的操作，但参数顺序相反</span>
 <a id="__codelineno-51-16" name="__codelineno-51-16" href="#__codelineno-51-16"></a><span class="nf">forM_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-51-17" name="__codelineno-51-17" href="#__codelineno-51-17"></a>
-<a id="__codelineno-51-18" name="__codelineno-51-18" href="#__codelineno-51-18"></a><span class="c1">-- files</span>
+<a id="__codelineno-51-18" name="__codelineno-51-18" href="#__codelineno-51-18"></a><span class="c1">-- 文件</span>
 <a id="__codelineno-51-19" name="__codelineno-51-19" href="#__codelineno-51-19"></a><span class="nf">readFile</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">FilePath</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
 </code></pre></div>
 <h2 id="1111">11.11 测验<a class="headerlink" href="#1111" title="Permanent link">&para;</a></h2>
-<p>这个IO 操作的类型是什么？</p>
+<p>这个 IO 操作的类型是什么？</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nf">foo</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="n">x</span>
 <a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="w">           </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="w">           </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
@@ -1975,19 +1975,19 @@ Prelude&gt; final
 <ol>
 <li>无法定义该类型的函数。</li>
 <li>返回一个常量值。</li>
-<li>运行给定的IO 操作并返回其值。</li>
+<li>运行给定的 IO 操作并返回其值。</li>
 <li>向用户查询数字并返回。</li>
 </ol>
 <p><code>IO Int -&gt; Int</code> 类型的函数可以执行以下哪些操作？</p>
 <ol>
 <li>无法定义该类型的函数。</li>
 <li>返回一个常量值。</li>
-<li>运行给定的IO 操作并返回其值。</li>
+<li>运行给定的 IO 操作并返回其值。</li>
 <li>向用户查询数字并返回。</li>
 </ol>
 <h2 id="1112">11.12 练习<a class="headerlink" href="#1112" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set11a.hs">Set11a</a> - 基本IO练习</li>
+<li><a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set11a.hs">Set11a</a> - 基本 IO 练习</li>
 <li><a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set11b.hs">Set11b</a> - 高级 IO 练习</li>
 </ul>
 
@@ -2065,7 +2065,7 @@ Prelude&gt; final
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

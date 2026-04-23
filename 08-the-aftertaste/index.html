@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 8 讲：余韵 - Haskell 慕课（中文翻译）</title>
+        <title>第 8 讲：余韵 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -448,7 +448,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -1019,7 +1019,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1075,7 +1075,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1275,12 +1275,12 @@
 
 <h1 id="8">第 8 讲：余韵<a class="headerlink" href="#8" title="Permanent link">&para;</a></h1>
 <h2 id="81-io">8.1 IO 初体验<a class="headerlink" href="#81-io" title="Permanent link">&para;</a></h2>
-<p>本章以纯函数式编程为中心。我们已经做了很多算术、反转列表、使用二叉树，但到目前为止我们还无法影响 GHCi 之外的世界。</p>
-<p>读取输入、写入文件或通过网络通信之类的事情都是“副作用”。副作用无法用纯函数式代码表示。像这样的函数</p>
+<p>本课程到目前为止一直围绕纯函数式编程展开。我们已经做了很多算术、反转列表、使用二叉树，但还无法影响 GHCi 之外的世界。</p>
+<p>读取输入、写入文件或通过网络通信之类的事情都是“副作用”。副作用无法直接用纯函数式代码表示。像这样的函数</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">readInputFromTheUser</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span>
 </code></pre></div>
-<p>不可能是纯的，因为如果是纯的，<code>readInputFromUser "What is your name?"</code> 将始终返回相同的结果。然而，用纯语言表示副作用和非纯性是可能的。有很多方法可以做到这一点，Haskell 方法是使用 <em>Monad</em>。</p>
-<p>据说单子（Monad）很难理解，可能是因为太抽象了。最好先从具体的例子入手。这里先让你体验一下 <code>IO</code> Monad，你可以用它来处理 Haskell 中的各种副作用。</p>
+<p>不可能是纯的，因为如果它是纯函数，<code>readInputFromUser "What is your name?"</code> 就必须始终返回相同结果。然而，在纯语言中表示副作用和非纯性是可能的。实现方式有很多种，Haskell 的方式是使用 <em>Monad</em>。</p>
+<p>Monad 常被说成很难理解，可能是因为它太抽象。最好先从具体示例入手。这里先让你体验一下 <code>IO</code> Monad，它可以用来处理 Haskell 中的各种副作用。</p>
 <p>让我们开始吧！</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">getLine</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nf">getLine</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">String</span>
@@ -1300,7 +1300,7 @@
 <p>执行 IO 操作 <code>getLine</code>，把结果命名为 <code>line</code>。</p>
 </blockquote>
 <p>收到 <code>line</code> 后，它是一个纯的 <code>String</code> 值，可以正常使用。</p>
-<p>一些 IO 操作带有参数。例如，<code>putStrLn :: String -&gt; IO ()</code> 采用 <code>String</code> 并返回打印该字符串的 <code>IO</code> 操作。 <code>()</code> 类型是一种特殊类型，只有一个值 <code>()</code>。在这种情况下， <code>IO ()</code> 意味着该 IO 始终产生相同的空值 <code>()</code>。可以通过以下方式运行 IO 操作</p>
+<p>有些 IO 操作带有参数。例如，<code>putStrLn :: String -&gt; IO ()</code> 接受一个 <code>String</code>，并返回一个打印该字符串的 <code>IO</code> 操作。<code>()</code> 类型是一种特殊类型，只有一个值 <code>()</code>。在这种情况下，<code>IO ()</code> 意味着这个 IO 操作始终产生同一个空值 <code>()</code>。可以通过以下方式运行 IO 操作：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">putStrLn</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">putStrLn</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;hello&quot;</span>
@@ -1314,7 +1314,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;hello&quot;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nf">hello</span>
 </code></pre></div>
-<p>你可以通过将其他操作与 <em>do-notation</em> 相结合来构建自己的 IO 操作。 <code>do</code> 块列出了按顺序执行的 IO 操作。</p>
+<p>你可以通过把多个操作放进 <em>do-notation</em> 来构建自己的 IO 操作。<code>do</code> 块会列出按顺序执行的 IO 操作。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">printTwoThings</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nf">printTwoThings</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="n">putStrLn</span><span class="w"> </span><span class="s">&quot;Hello!&quot;</span>
@@ -1335,7 +1335,7 @@
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="kt">Hello</span><span class="p">,</span><span class="w"> </span><span class="kt">Seraphim</span>
 </code></pre></div>
 <h3 id="811">8.1.1 纯性如何处理？<a class="headerlink" href="#811" title="Permanent link">&para;</a></h3>
-<p>感觉好像我们可以通过这些 IO 操作在任何我们想要的地方产生副作用。然而，重要的是要记住“定义”IO 操作和“执行”它之间的区别。</p>
+<p>看起来好像我们可以通过这些 IO 操作在任何地方产生副作用。然而，重要的是要记住“定义”IO 操作和“执行”IO 操作之间的区别。</p>
 <p>让我们尝试在映射列表时进行打印</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nf">printAndIncrement</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">printAndIncrement</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">x</span><span class="o">+</span><span class="mi">1</span>
@@ -1354,20 +1354,20 @@
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;string1&quot;</span><span class="p">,</span><span class="s">&quot;string2&quot;</span><span class="p">])</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nf">length</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;string1&quot;</span><span class="p">,</span><span class="s">&quot;string2&quot;</span><span class="p">])</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span>
 </code></pre></div>
-<p>我们生成了 IO 操作列表并计算了列表的长度。定义 IO 操作是纯的，“运行”它们会导致副作用。由于我们的表达式的类型是 <code>Int</code>，因此任何 <code>IO</code> 操作都无法登陆 GHCi 并被执行。</p>
+<p>我们生成了一个 IO 操作列表，然后计算了这个列表的长度。定义 IO 操作是纯的，“运行”它们才会导致副作用。由于这个表达式的类型是 <code>Int</code>，没有任何 <code>IO</code> 操作会交给 GHCi 执行。</p>
 <p>如果我们返回一个 IO 操作，它就会运行：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;string1&quot;</span><span class="p">,</span><span class="s">&quot;string2&quot;</span><span class="p">])</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nf">head</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;string1&quot;</span><span class="p">,</span><span class="s">&quot;string2&quot;</span><span class="p">])</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="n">map</span><span class="w"> </span><span class="n">putStrLn</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;string1&quot;</span><span class="p">,</span><span class="s">&quot;string2&quot;</span><span class="p">])</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nf">string1</span>
 </code></pre></div>
-<p>这里，生成操作 <code>putStrLn "string1"</code> 的代码也是纯的，只有在 GHCi 执行 IO 操作之后我们才能看到打印的字符串。正如你所看到的，另一个 IO 操作 <code>putStrLn "string2"</code> 从未运行。</p>
+<p>这里，生成操作 <code>putStrLn "string1"</code> 的代码也是纯的。只有当 GHCi 执行这个 IO 操作后，我们才会看到打印出来的字符串。正如你所看到的，另一个 IO 操作 <code>putStrLn "string2"</code> 从未运行。</p>
 <p>如果这感觉很复杂，请不要担心。我们将在课程的第二部分中再次讨论这一点。</p>
 <h3 id="812-haskell">8.1.2 Haskell 程序如何运行？<a class="headerlink" href="#812-haskell" title="Permanent link">&para;</a></h3>
-<p>我们知道 GHCi 可以运行 IO 操作。实际的 Haskell 程序怎么样？ Haskell 程序的工作方式是在程序运行时执行名为 <code>main</code> 的 IO 操作。回想一下第 1 讲中的例子程序。</p>
+<p>我们知道 GHCi 可以运行 IO 操作。实际的 Haskell 程序又是怎样运行的？Haskell 程序的运行方式是：程序启动时执行名为 <code>main</code> 的 IO 操作。回想一下第 1 讲中的示例程序。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">module</span><span class="w"> </span><span class="nn">Gold</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">-- The golden ratio</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">-- 黄金比例</span>
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nf">phi</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Double</span>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nf">phi</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">(</span><span class="n">sqrt</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span>
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
@@ -1380,7 +1380,7 @@
 <a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">  </span><span class="n">print</span><span class="w"> </span><span class="p">(</span><span class="n">polynomial</span><span class="w"> </span><span class="n">phi</span><span class="p">)</span>
 <a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">  </span><span class="n">print</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">phi</span><span class="p">)</span>
 </code></pre></div>
-<p>这里我们看到一些纯代码和一个 <code>main</code> IO 操作，它打印两件事（ <code>print</code> 只是 <code>putStrLn</code> 与 <code>show</code> 的组合）。</p>
+<p>这里可以看到一些纯代码，以及一个会打印两项内容的 <code>main</code> IO 操作（<code>print</code> 只是 <code>putStrLn</code> 与 <code>show</code> 的组合）。</p>
 <p>我们可以将此代码放在名为 <code>Gold.hs</code> 的文件中，将其编译为可执行文件，然后运行它：</p>
 <div class="language-sh highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>ghc<span class="w"> </span>-main-is<span class="w"> </span>Gold<span class="w"> </span>Gold.hs
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="o">[</span><span class="m">1</span><span class="w"> </span>of<span class="w"> </span><span class="m">1</span><span class="o">]</span><span class="w"> </span>Compiling<span class="w"> </span>Gold<span class="w">             </span><span class="o">(</span><span class="w"> </span>Gold.hs,<span class="w"> </span>Gold.o<span class="w"> </span><span class="o">)</span>
@@ -1394,7 +1394,7 @@
 <p>我们还看到了一些面向类型的编程，甚至体验了 Haskell 中的 I/O。</p>
 <p>现在你已经知道如何用 Haskell 编写真正的计算机程序，但仍有很多东西需要学习。</p>
 <h2 id="83">8.3 接下来做什么？<a class="headerlink" href="#83" title="Permanent link">&para;</a></h2>
-<p><a href="https://haskell.mooc.fi/part2">课程第 2 部分</a> 现已推出！第 2 部分将涵盖 Monad、IO 以及 Haskell 幕后工作原理等主题。我们还将使用网络和数据库进行一些现实世界的编程。哦，还涵盖了 Haskell 中的测试。</p>
+<p><a href="https://haskell.mooc.fi/part2">课程第 2 部分</a> 现已推出！第 2 部分将涵盖 Monad、IO 以及 Haskell 的底层工作原理等主题。我们还会使用网络和数据库进行一些更贴近实际场景的编程。对了，还会介绍 Haskell 中的测试。</p>
 <p>如果你现在不想跳入第 2 部分，那么你现在应该可以关注以下一些其他 Haskell 资源：</p>
 <ul>
 <li><a href="https://book.realworldhaskell.org/read/">Real World Haskell</a> - 有关高级主题的免费电子书</li>
@@ -1414,7 +1414,7 @@
 <h2 id="84">8.4 最终项目：图形<a class="headerlink" href="#84" title="Permanent link">&para;</a></h2>
 <p>打开练习文件 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set8.hs"><code>Set8.hs</code></a> 并按照其中的说明进行操作。玩得开心！</p>
 <h2 id="85">8.5 致谢<a class="headerlink" href="#85" title="Permanent link">&para;</a></h2>
-<p>这门课程是由 <a href="https://nitor.com/en">Nitor</a> 完成的，他为这个项目捐赠了 Joel 的大量工作时间。谢谢你！如果你有兴趣在重视持续学习的地方工作，请查看我们的 <a href="https://www.nitor.com/en/jobs">open positions</a>。</p>
+<p>这门课程由 <a href="https://nitor.com/en">Nitor</a> 支持完成，Nitor 为这个项目投入了 Joel 的大量工作时间。谢谢你！如果你有兴趣在重视持续学习的地方工作，请查看我们的 <a href="https://www.nitor.com/en/jobs">open positions</a>。</p>
 <p>感谢整个 Haskell Mooc 团队，特别是</p>
 <ul>
 <li>John Lång 帮助完善课程材料</li>
@@ -1495,7 +1495,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

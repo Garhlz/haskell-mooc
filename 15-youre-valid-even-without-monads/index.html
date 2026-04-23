@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 15 讲：没有 Monad 也能做验证 - Haskell 慕课（中文翻译）</title>
+        <title>第 15 讲：没有 Monad 也能做验证 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -443,7 +443,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -889,7 +889,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1141,7 +1141,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1407,7 +1407,7 @@
 
 <h1 id="15-monad">第 15 讲：没有 Monad 也能做验证<a class="headerlink" href="#15-monad" title="Permanent link">&para;</a></h1>
 <h2 id="151-applicative">15.1 Applicative 简介<a class="headerlink" href="#151-applicative" title="Permanent link">&para;</a></h2>
-<p><code>Applicative</code> 是 <code>Functor</code>（能做的事较少）和 <code>Monad</code>（能做任意程序）之间的中间立场。选择 <code>Applicative</code> 而不是 <code>Monad</code> 的原因包括：</p>
+<p><code>Applicative</code> 位于 <code>Functor</code>（能做的事较少）和 <code>Monad</code>（能表达依赖前一步结果的程序）之间。选择 <code>Applicative</code> 而不是 <code>Monad</code> 的原因包括：</p>
 <ul>
 <li>性能：因为 <code>Applicative</code> 允许的操作较少，可以比 <code>Monad</code> 优化得更好。</li>
 <li>简单性：<code>Applicative</code> 接口更容易理解。</li>
@@ -1417,9 +1417,9 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="n">pure</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="n">liftA2</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">c</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="c1">-- other operations omitted for now</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="c1">-- 暂时省略其他操作</span>
 </code></pre></div>
-<p>所以 <code>Applicative</code> 是 <code>Functor</code>，允许我们通过 <code>pure</code> 构建单值，并用 <code>liftA2</code> 将两个值合并为一个。相比普通 Functor，这增加了很多功能。Functor 的计算必然是线性的：<code>fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code> 接收一个 Functor 值，输出另一个。相比之下，<code>pure</code> 不接收 Functor 值而输出 1 个，<code>liftA2</code> 接收 2 个并返回 1 个。</p>
+<p>所以 <code>Applicative</code> 是一种 <code>Functor</code>，它允许我们用 <code>pure</code> 构造只包含一个值的上下文，并用 <code>liftA2</code> 将两个带上下文的值合并成一个。相比普通 Functor，这增加了不少能力。Functor 的计算必然是线性的：<code>fmap :: (a -&gt; b) -&gt; f a -&gt; f b</code> 接收一个 Functor 值，输出另一个。相比之下，<code>pure</code> 不接收 Functor 值而输出 1 个，<code>liftA2</code> 接收 2 个并返回 1 个。</p>
 <p>附注：Applicative 术语来自 <a href="https://en.wikipedia.org/wiki/Applicative_functor">Applicative Functor</a>，听起来像范畴论，但实际上来自编程论文。</p>
 <p>现在理论已经够多了。让我们看看用 <code>Applicative</code> 运算（和 <code>fmap</code>）能表达什么样的计算。我们从 <code>Maybe</code> Applicative 开始。这是简化的定义：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kr">where</span>
@@ -1463,7 +1463,7 @@
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">             </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">parseMoney</span><span class="w"> </span><span class="s">&quot;45&quot;</span><span class="w"> </span><span class="s">&quot;$&quot;</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">             </span><span class="n">sumMoney</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span>
 </code></pre></div>
-<p>如果我们尝试使用 <code>liftA2</code>，我们就会陷入 <code>Maybe (Maybe Money)</code> 类型。此外，我们现在可以获得两种不同类型的故障：<code>Nothing</code> 和 <code>Just Nothing</code>，具体取决于错误发生的级别。这是切换到 <code>Monad</code> 实例的明显情况。</p>
+<p>如果尝试使用 <code>liftA2</code>，就会得到 <code>Maybe (Maybe Money)</code> 类型。此外，根据错误发生的层级不同，现在会出现两种不同形式的失败：<code>Nothing</code> 和 <code>Just Nothing</code>。这就是明显应该切换到 <code>Monad</code> 实例的情况。</p>
 <div class="language-text highlight"><pre><span></span><code>liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;45&quot; &quot;€&quot;)
   ==&gt; Just (Just (Money 168 EUR))
 liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;45&quot; &quot;$&quot;)
@@ -1473,12 +1473,12 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 </code></pre></div>
 <p>附注：<code>liftA2</code> 这个名字听起来有点麻烦，但它与 monad 的 <code>liftM</code>、<code>liftM2</code> 等函数进行类比。回想一下，<code>liftM</code> 只是 <code>fmap</code>，所以也许 <code>liftA2</code> 应该被称为 <code>fmap2</code>。</p>
 <h2 id="152-applicative">15.2 列表 Applicative<a class="headerlink" href="#152-applicative" title="Permanent link">&para;</a></h2>
-<p>让我们看看我们见过的另一个 <code>Functor</code> 的应用实例。列表 Functor 的 <code>Applicative</code> 实例会遍历所有可能的值组合（就像列表 monad 一样）。这是例子：</p>
+<p>让我们看看已经见过的另一个 <code>Functor</code> 的 Applicative 实例。列表 Functor 的 <code>Applicative</code> 实例会遍历所有可能的值组合（就像列表 monad 一样）。示例如下：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="n">pure</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="n">liftA2</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="n">ys</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">xs</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">ys</span><span class="p">]</span>
 </code></pre></div>
-<p>这是一个例子：生成一些短语。</p>
+<p>这是一个示例：生成一些短语。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nf">things</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">things</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;tangerine&quot;</span><span class="p">,</span><span class="s">&quot;bandit&quot;</span><span class="p">,</span><span class="s">&quot;diamond&quot;</span><span class="p">]</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
@@ -1504,7 +1504,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">             </span><span class="s">&quot;apple apple apple&quot;</span><span class="p">,</span><span class="s">&quot;tangerine tangerine tangerine&quot;</span><span class="p">]</span>
 </code></pre></div>
 <h2 id="153">15.3 新运算符<a class="headerlink" href="#153" title="Permanent link">&para;</a></h2>
-<p>有一些非常方便的Applicative 运算符。它们是 <code>&lt;$&gt;</code>、<code>&lt;*&gt;</code>、<code>&lt;*</code> 和 <code>*&gt;</code>。</p>
+<p>有一些非常方便的 Applicative 运算符：<code>&lt;$&gt;</code>、<code>&lt;*&gt;</code>、<code>&lt;*</code> 和 <code>*&gt;</code>。</p>
 <p>让我们从 <code>&lt;$&gt;</code> 开始，它只是 <code>fmap</code> 的中缀版本：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">(</span><span class="o">&lt;$&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">f</span><span class="w"> </span><span class="o">&lt;$&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span>
@@ -1516,13 +1516,13 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <p>这本身就很好，但是当与这个 Applicative 运算符结合使用时，它真的会大放异彩：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">(</span><span class="o">&lt;*&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
-<p>该类型告诉你 <code>&lt;*&gt;</code> 的作用：它的函数Applicative“提升”为Applicative。以下是一些独立的例子：</p>
+<p>这个类型告诉你 <code>&lt;*&gt;</code> 的作用：它把 Applicative 里的函数应用到 Applicative 里的值上。下面是一些单独使用 <code>&lt;*&gt;</code> 的示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">Just</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span><span class="w">    </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">False</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kt">Nothing</span><span class="w">  </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span><span class="w">    </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kt">Just</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Nothing</span><span class="w">      </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">[(</span><span class="o">+</span><span class="mi">1</span><span class="p">),(</span><span class="o">*</span><span class="mi">2</span><span class="p">)]</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">]</span><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">200</span><span class="p">]</span>
 </code></pre></div>
-<p>当我们将 <code>&lt;$&gt;</code> 和 <code>&lt;*&gt;</code> 结合起来时，真正的魔力发生了：然后我们可以将任意多个参数的函数提升为 Applicative！</p>
+<p>当我们将 <code>&lt;$&gt;</code> 和 <code>&lt;*&gt;</code> 结合起来时，真正关键的地方就出现了：我们可以把任意多参数的函数提升到 Applicative 中使用！</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nf">say</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nf">say</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot; has &quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">y</span>
 </code></pre></div>
@@ -1540,7 +1540,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">       </span><span class="s">&quot;jake has 3 bananas&quot;</span><span class="p">,</span>
 <a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">       </span><span class="s">&quot;jake has 3 cars&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>这是怎么回事？让我们逐步进行评估。关键是每个 <code>&lt;*&gt;</code> 部分地向函数应用一个以上的参数。</p>
+<p>这是怎么回事？让我们逐步求值。关键是每个 <code>&lt;*&gt;</code> 都会给函数部分应用一个参数。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">    </span><span class="n">say</span><span class="w"> </span><span class="o">&lt;$&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;haskell&quot;</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="mi">99</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;operators&quot;</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="o">===</span><span class="w"> </span><span class="p">((</span><span class="n">say</span><span class="w"> </span><span class="o">&lt;$&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;haskell&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="mi">99</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;operators&quot;</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="o">===</span><span class="w"> </span><span class="p">(</span><span class="n">fmap</span><span class="w"> </span><span class="n">say</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;haskell&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="mi">99</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;operators&quot;</span>
@@ -1578,7 +1578,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nf">small</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
 <a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="nf">decreaseSmall</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Int</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="c1">-- do what decrease does, but fail if small fails</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="c1">-- 执行 decrease 的行为，但如果 small 失败则失败</span>
 <a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="nf">decreaseSmall</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;*</span><span class="w"> </span><span class="n">small</span><span class="w"> </span><span class="n">i</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nf">decreaseSmall</span><span class="w"> </span><span class="mi">4</span><span class="w">   </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="mi">3</span>
@@ -1593,7 +1593,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="p">(</span><span class="o">*&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span>
 <a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="p">(</span><span class="o">&lt;*</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
-<h2 id="154-validation-applicative">15.4 Validation Applicative<a class="headerlink" href="#154-validation-applicative" title="Permanent link">&para;</a></h2>
+<h2 id="154-validation-applicative">15.4 <code>Validation</code> Applicative<a class="headerlink" href="#154-validation-applicative" title="Permanent link">&para;</a></h2>
 <p>让我们看一个比 Maybe 或列表更有趣的 Applicative。在编程中，我们通常需要“验证”用户的一些输入。在这些情况下，将输入可能存在的所有错误收集在一起很有用。文件 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Validation.hs"><code>exercises/Examples/Validation.hs</code></a> 实现 <code>Validation</code> 数据类型：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Validation</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Ok</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span><span class="kt">Eq</span><span class="p">)</span>
@@ -1604,8 +1604,8 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nf">liftA2</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;oh no&quot;</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;boom&quot;</span><span class="p">])</span>
 <a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;oh no&quot;</span><span class="p">,</span><span class="s">&quot;boom&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>请注意，与 <code>Maybe</code> Applicative相比，我们有许多不同类型的故障。</p>
-<p>这是一个有效的例子，介绍了一些助手，然后使用它们来祝贺某人的生日：</p>
+<p>请注意，和 <code>Maybe</code> Applicative 相比，这里可以保留许多不同的失败信息。</p>
+<p>下面是一个完整示例：先介绍几个辅助函数，然后用它们来祝贺某人的生日：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nf">invalid</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Validation</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nf">invalid</span><span class="w"> </span><span class="n">err</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="n">err</span><span class="p">]</span>
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
@@ -1639,9 +1639,9 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">  </span><span class="n">liftA2</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="kt">Ok</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w">      </span><span class="p">(</span><span class="kt">Errors</span><span class="w"> </span><span class="n">e2</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="n">e2</span>
 <a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">  </span><span class="n">liftA2</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="kt">Errors</span><span class="w"> </span><span class="n">e1</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Errors</span><span class="w"> </span><span class="n">e2</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="o">++</span><span class="n">e2</span><span class="p">)</span>
 </code></pre></div>
-<p><code>Validation</code> 的 <code>liftA2</code> 的定义表明错误是从左到右收集在一起的。这可以在上面的例子中看到，其中表达式 <code>liftA2 congratulate checkedName checkedAge</code> 首先输出来自 <code>checkedName</code> 的错误 (<code>"Name too long"</code>)，最后输出来自 <code>checkedAge</code> 的错误 (<code>"Too old"</code>)。</p>
+<p><code>Validation</code> 的 <code>liftA2</code> 定义表明，错误会从左到右收集起来。上面的示例也能看出这一点：表达式 <code>liftA2 congratulate checkedName checkedAge</code> 会先输出来自 <code>checkedName</code> 的错误（<code>"Name too long"</code>），再输出来自 <code>checkedAge</code> 的错误（<code>"Too old"</code>）。</p>
 <h2 id="155-traverse">15.5 验证列表：<code>traverse</code><a class="headerlink" href="#155-traverse" title="Permanent link">&para;</a></h2>
-<p>到目前为止，我们已经处理了固定大小的事物和Applicative：我们已经将两个或三个参数的函数应用于某些事物。如果我们有任意数量的输入怎么办？如果我们需要验证列表怎么办？</p>
+<p>到目前为止，我们已经处理了固定大小的事物和 Applicative：我们已经将两个或三个参数的函数应用于某些事物。如果我们有任意数量的输入怎么办？如果我们需要验证列表怎么办？</p>
 <p>让我们看一下实现这样的函数的一些方法：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nf">allPositive</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Ok</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
@@ -1657,7 +1657,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">checkThis</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Not positive: &quot;</span><span class="o">++</span><span class="n">show</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span>
 <a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">        </span><span class="n">checkRest</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">allPositive</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
-<p>总是拼写出这样的递归有点麻烦。如果我们在 <code>Monad</code> 中工作，我们可以使用像 <code>mapM</code> 这样的助手：</p>
+<p>每次都手写这样的递归有点麻烦。如果我们在 <code>Monad</code> 中工作，可以使用 <code>mapM</code> 这样的辅助函数：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nf">mapM</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">Nothing</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="nf">mapM</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">x</span><span class="o">&gt;=</span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">Nothing</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
@@ -1666,7 +1666,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <p><code>Applicative</code> 的 <code>mapM</code> 等效项称为 <code>traverse</code>。它是类型类 <code>Traversable</code> 的成员：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nf">traverse</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Traversable</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
 </code></pre></div>
-<p>这是一个很糟糕的类型签名，所以让我们稍微简化一下。列表是 <code>Traversable</code>，所以我们可以将这种类型专门化为：</p>
+<p>这个类型签名看起来很吓人，所以让我们稍微简化一下。列表是 <code>Traversable</code>，所以可以把这个类型具体化为：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nf">traverse</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
 </code></pre></div>
 <p>这看起来正是我们所需要的！对于同样是 Monad 的 Applicatives，<code>traverse</code> 只是 <code>mapM</code> 的另一个名称：</p>
@@ -1688,27 +1688,27 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Not positive: -2&quot;</span><span class="p">,</span><span class="s">&quot;Not positive: -4&quot;</span><span class="p">]</span>
 </code></pre></div>
 <p>请注意 <code>Validation</code> 的 <code>traverse</code> 如何按照原始列表中出现的顺序将所有错误收集在一起。</p>
-<p>P.S. 事实上，<code>Validation</code> 是 <code>Applicative</code> 不可能是 <code>Monad</code> 的少数例子之一。你能弄清楚为什么吗？</p>
+<p>P.S. 事实上，<code>Validation</code> 是 <code>Applicative</code> 不可能是 <code>Monad</code> 的少数示例之一。你能弄清楚为什么吗？</p>
 <h2 id="156-traversable">15.6 附注：<code>Traversable</code><a class="headerlink" href="#156-traversable" title="Permanent link">&para;</a></h2>
-<p>那么<code>Traversable</code>是什么东西呢？很多熟悉的结构。以下是一些例子：</p>
+<p>那么 <code>Traversable</code> 到底是什么？很多熟悉的结构都是 <code>Traversable</code>。下面是一些示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nf">decrease</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="nf">decrease</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">Nothing</span>
 </code></pre></div>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1">-- Lists are Traversable</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1">-- 列表是 Traversable</span>
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
 <a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>
-<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="c1">-- Arrays are Traversable</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="c1">-- 数组是 Traversable</span>
 <a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">(</span><span class="n">array</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">11</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)])</span>
 <a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="w">         </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="n">array</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">)])</span>
 <a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>
-<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="c1">-- Maps are Traversable</span>
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="c1">-- Map 是 Traversable</span>
 <a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">(</span><span class="kt">M</span><span class="o">.</span><span class="n">fromList</span><span class="w"> </span><span class="p">[(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
 <a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="w">         </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="kt">M</span><span class="o">.</span><span class="n">fromList</span><span class="w"> </span><span class="p">[(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">)])</span>
 <a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">(</span><span class="kt">M</span><span class="o">.</span><span class="n">fromList</span><span class="w"> </span><span class="p">[(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
 <a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a><span class="w">         </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>
-<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a><span class="c1">-- Either is Traversable</span>
+<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a><span class="c1">-- Either 是 Traversable</span>
 <a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">(</span><span class="kt">Left</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="kt">Left</span><span class="w"> </span><span class="s">&quot;abc&quot;</span><span class="p">)</span>
 <a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">(</span><span class="kt">Right</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w">    </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="kt">Right</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
 <a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a><span class="nf">traverse</span><span class="w"> </span><span class="n">decrease</span><span class="w"> </span><span class="p">(</span><span class="kt">Right</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">    </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Nothing</span>
@@ -1718,13 +1718,13 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">  </span><span class="n">traverse</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
 <a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">  </span><span class="n">mapM</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Monad</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
 </code></pre></div>
-<p>在这里很难保持类型的正确性。我们回到<code>traverse</code>的类型：</p>
+<p>这里很容易被类型绕晕。我们回到 <code>traverse</code> 的类型：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nf">traverse</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Traversable</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
 </code></pre></div>
 <p>这里我们有两个 Functor：<code>t</code> 和 <code>f</code>。 <code>t</code> Functor 也是 <code>Foldable</code> 和 <code>Traversable</code>，<code>f</code> Functor 也是 <code>Applicative</code>。 <code>traverse</code> 函数允许我们在 <code>t</code> 容器内运行 <code>f</code> 操作。</p>
 <p>如果这感觉很抽象，请不要担心。实际上，你几乎总是在列表上使用 <code>traverse</code>。</p>
 <h2 id="157-alternative">15.7 处理失败：<code>Alternative</code><a class="headerlink" href="#157-alternative" title="Permanent link">&para;</a></h2>
-<p>如果你稍微尝试一下Applicative，你就会开始注意到它们的函数有一些限制。例如，当像我们在 <code>parseMoney</code> 例子中那样编写解析器时，如果能够尝试几个不同的解析器并获取任何非失败结果，那就太好了。对于像 <code>Maybe</code> 这样的具体Applicative来说，这很容易编写，如下所示。</p>
+<p>如果你稍微尝试一下 Applicative，就会开始注意到它们的能力有一些限制。例如，当我们像 <code>parseMoney</code> 示例那样编写解析器时，如果能够尝试几个不同的解析器，并获得任意一个成功结果，那就太好了。对于像 <code>Maybe</code> 这样的具体 Applicative 来说，这很容易手写，如下所示。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Answer</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Yes</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">No</span>
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="p">,</span><span class="w"> </span><span class="kt">Eq</span><span class="p">)</span>
 <a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
@@ -1745,7 +1745,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a><span class="nf">eitherOf</span><span class="w"> </span><span class="kt">Nothing</span><span class="w">  </span><span class="n">mx</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">mx</span>
 <a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a>
 <a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="nf">parseAnswer</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Answer</span>
-<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="c1">-- prefer positive answers!</span>
+<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="c1">-- 优先选择肯定回答！</span>
 <a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="nf">parseAnswer</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">eitherOf</span><span class="w"> </span><span class="p">(</span><span class="n">parseYes</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">parseNo</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nf">parseAnswer</span><span class="w"> </span><span class="s">&quot;yes&quot;</span><span class="w">    </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">Yes</span>
@@ -1755,11 +1755,11 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="nf">parseAnswer</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="w">      </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Nothing</span>
 </code></pre></div>
 <p>我们如何概括 <code>eitherOf</code>？我们不能给它类型 <code>Applicative f =&gt; f x -&gt; f x -&gt; f x</code>，因为这样实现就需要有效地类似于 <code>eitherOf a b = liftA2 something a b</code>，但是 <code>eitherOf Nothing (Just x)</code> 将是 <code>Nothing</code>（因为这就是 Applicative 实例的工作方式）！</p>
-<p>事实证明我们需要一个新的类型类：<code>Alternative</code>。 Alternative 在 Applicative 中添加了两个操作：<code>empty</code> 表示没有结果，<code>&lt;|&gt;</code> 表示合并结果。</p>
+<p>事实证明，我们需要一个新的类型类：<code>Alternative</code>。<code>Alternative</code> 在 Applicative 的基础上增加了两个操作：<code>empty</code> 表示没有结果，<code>&lt;|&gt;</code> 表示合并结果。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Applicative</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Alternative</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">  </span><span class="n">empty</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">  </span><span class="p">(</span><span class="o">&lt;|&gt;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span>
-<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">  </span><span class="c1">-- some other operations omitted</span>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">  </span><span class="c1">-- 省略一些其他操作</span>
 </code></pre></div>
 <p>现在我们可以使用通用操作重写我们的解析代码：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Answer</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Yes</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">No</span>
@@ -1807,7 +1807,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="w">  </span><span class="kt">Errors</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">&lt;|&gt;</span><span class="w"> </span><span class="kt">Ok</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Ok</span><span class="w"> </span><span class="n">y</span>
 <a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="w">  </span><span class="kt">Errors</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">&lt;|&gt;</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="n">e2</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="o">++</span><span class="n">e2</span><span class="p">)</span>
 </code></pre></div>
-<p>这是最后一个例子：验证联系信息，可以是电话数字或电子邮件地址。</p>
+<p>这是最后一个示例：验证联系信息，可以是电话数字或电子邮件地址。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">ContactInfo</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Email</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Phone</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>
@@ -1840,17 +1840,17 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="kt">Errors</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Not an email: should contain a @&quot;</span><span class="p">,</span>
 <a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="w">              </span><span class="s">&quot;Not a phone number: should be all numbers&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>请注意，与前面的例子一样，错误是从左到右收集的：来自 <code>validateEmail</code> 的错误出现在来自 <code>validatePhone</code> 的错误之前。来自 <code>checkDigits</code> 的错误先于来自 <code>checkLength</code> 的错误。</p>
+<p>请注意，与前面的示例一样，错误是从左到右收集的：来自 <code>validateEmail</code> 的错误出现在来自 <code>validatePhone</code> 的错误之前。来自 <code>checkDigits</code> 的错误先于来自 <code>checkLength</code> 的错误。</p>
 <h2 id="158-applicative">15.8 附注：上下文中的 Applicative<a class="headerlink" href="#158-applicative" title="Permanent link">&para;</a></h2>
 <h3 id="1581-applicative">15.8.1 为什么是 Applicative？<a class="headerlink" href="#1581-applicative" title="Permanent link">&para;</a></h3>
-<p>学习 Applicative 的原因有多种，即使它们不提供任何比 Monad 更强大的功能。首先，正如第 13 讲中所讨论的，GHC 标准库现在要求所有 Monad 必须有 Applicative 实例。因此，一个 Haskell 程序员必然会看到很多 Applicative 实例。</p>
-<p>其次，即使在 Monadic 代码中，你也会经常遇到 Applicative 运算符。像 <code>f &lt;$&gt; x &lt;*&gt; y &lt;*&gt; z</code> 这样的表达式在许多 Monadic 上下文中都很有用。此外，由于 <code>Traversable</code> 类型类是根据 <code>Applicative</code> 构建的，因此你经常会对其使用应用操作。</p>
-<p>第三，Applicative 是理解函数设计模式的绝佳练习。它们将 Functor 模式与幺半群模式相结合，而 Alternative 则带来了另一个类似幺半群的维度。能够有效地使用 Applicative 将使使用 <em>monad 变换器</em> 或 <em>lenses</em> 等进一步的抽象变得更容易。</p>
-<p>最后，有几种类型是 Applicative 但不是 Monad。 <code>Validation</code> 就是一个例子，而且是一个非常实用的例子。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是<a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList"><code>ZipList</code></a>。</p>
+<p>学习 Applicative 有多种原因，即使它并不提供比 Monad 更强大的能力。首先，正如第 13 讲中所讨论的，GHC 标准库现在要求所有 Monad 必须有 Applicative 实例。因此，Haskell 程序员必然会看到很多 Applicative 实例。</p>
+<p>其次，即使在 monadic 代码中，你也会经常遇到 Applicative 运算符。像 <code>f &lt;$&gt; x &lt;*&gt; y &lt;*&gt; z</code> 这样的表达式在许多 monadic 上下文中都很有用。此外，由于 <code>Traversable</code> 类型类建立在 <code>Applicative</code> 之上，你也会经常通过它使用 Applicative 操作。</p>
+<p>第三，Applicative 是理解函数式设计模式的绝佳练习。它把 Functor 模式和幺半群模式结合在一起，而 Alternative 又带来了另一个类似幺半群的维度。能够有效使用 Applicative，会让你更容易理解 <em>monad 变换器</em> 或 <em>lenses</em> 等更进一步的抽象。</p>
+<p>最后，有几种类型是 Applicative 但不是 Monad。 <code>Validation</code> 就是一个示例，而且是一个非常实用的示例。如果不了解 Applicative，我们就无法识别和概括此类类型的操作。另一种这样的类型是<a href="https://hackage.haskell.org/package/base-4.16.4.0/docs/Control-Applicative.html#t:ZipList"><code>ZipList</code></a>。</p>
 <h3 id="1582">15.8.2 实际应用<a class="headerlink" href="#1582" title="Permanent link">&para;</a></h3>
-<p>尽管我们在本次讲座中只介绍了一些非常简单且具体的 Applicative，但仍有大量 Haskell 库使用 Applicative 来完成重要任务。以下是一些例子。</p>
-<p>与我们的 <code>Validation</code> Applicative 相同的想法已在<a href="https://hackage.haskell.org/package/validation">验证</a> 和<a href="https://hackage.haskell.org/package/either">任一</a> 库中实现。</p>
-<p>有多个使用 Applicative 的解析器库。例如，<a href="https://hackage.haskell.org/package/regex-applicative">regex-applicative</a>、<a href="https://hackage.haskell.org/package/optparse-applicative">optparse-applicative</a>、<a href="https://cs-syd.eu/posts/2020-06-28-yamlparse-applicative">yamlparse-applicative</a>、<a href="https://hackage.haskell.org/package/json-stream">json-stream</a> 等。</p>
+<p>尽管本讲只介绍了一些非常简单且具体的 Applicative，但仍有大量 Haskell 库使用 Applicative 来完成重要任务。下面是一些示例。</p>
+<p>和我们的 <code>Validation</code> Applicative 相同的想法，已经在 <a href="https://hackage.haskell.org/package/validation">validation</a> 和 <a href="https://hackage.haskell.org/package/either">either</a> 库中实现。</p>
+<p>有多个使用 Applicative 的解析器库。例如，<a href="https://hackage.haskell.org/package/regex-applicative">regex-applicative</a>、<a href="https://hackage.haskell.org/package/optparse-applicative">optparse-applicative</a>、<a href="https://cs-syd.eu/posts/2020-06-28-yamlparse-applicative">yamlparse-applicative</a>、<a href="https://hackage.haskell.org/package/JSON-stream">JSON-stream</a> 等。</p>
 <h3 id="1583-monad-applicative">15.8.3 Monad 和 Applicative<a class="headerlink" href="#1583-monad-applicative" title="Permanent link">&para;</a></h3>
 <p>那么 Monad 和 Applicative 之间有什么关系呢？如果 Applicative 也是 Monad，则以下定律成立：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nf">pure</span><span class="w">             </span><span class="o">===</span><span class="w"> </span><span class="n">return</span>
@@ -1872,7 +1872,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
 <a id="__codelineno-49-17" name="__codelineno-49-17" href="#__codelineno-49-17"></a><span class="w">                        </span><span class="n">x</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">op2</span>
 <a id="__codelineno-49-18" name="__codelineno-49-18" href="#__codelineno-49-18"></a><span class="w">                        </span><span class="n">return</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
-<p>在 <code>Monad</code> 中工作时，你可以将 <code>Applicative</code> 和 <code>Functor</code> 与 <code>Monad</code> 操作自由混合。作为一个例子，让我们重写 <code>mapM</code> 直到它只使用应用操作，从而得到 <code>traverse</code> 的实现。这是我们的出发点：</p>
+<p>在 <code>Monad</code> 中工作时，你可以将 <code>Applicative</code> 和 <code>Functor</code> 与 <code>Monad</code> 操作自由混合。作为一个示例，让我们重写 <code>mapM</code> 直到它只使用Applicative 操作，从而得到 <code>traverse</code> 的实现。这是我们的出发点：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nf">myMapM</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">return</span><span class="w"> </span><span class="kt">[]</span>
 <a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nf">myMapM</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="n">x</span>
 <a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">                      </span><span class="n">ys</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">myMapM</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="n">xs</span>
@@ -1952,7 +1952,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../14-lets-use-some-libraries/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 14 讲：使用一些库">
+          <a href="../14-lets-use-some-libraries/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 14 讲：开始使用库">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1962,20 +1962,20 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
                 上一页
               </span>
               <div class="md-ellipsis">
-                第 14 讲：使用一些库
+                第 14 讲：开始使用库
               </div>
             </div>
           </a>
         
         
           
-          <a href="../16-odds-and-ends/" class="md-footer__link md-footer__link--next" aria-label="下一页: 第 16 讲：杂项内容">
+          <a href="../16-odds-and-ends/" class="md-footer__link md-footer__link--next" aria-label="下一页: 第 16 讲：零碎内容">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 下一页
               </span>
               <div class="md-ellipsis">
-                第 16 讲：杂项内容
+                第 16 讲：零碎内容
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1992,7 +1992,7 @@ liftA2 sumMoney (parseMoney &quot;123&quot; &quot;e&quot;) (parseMoney &quot;xxx
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

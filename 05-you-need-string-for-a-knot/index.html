@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 5 讲：用类型打结 - Haskell 慕课（中文翻译）</title>
+        <title>第 5 讲：用类型打结 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -448,7 +448,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -1141,7 +1141,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1197,7 +1197,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1523,15 +1523,15 @@
 <li>定义自定义类型</li>
 </ul>
 <h2 id="51">5.1 代数数据类型<a class="headerlink" href="#51" title="Permanent link">&para;</a></h2>
-<p>Haskell 有一个称为“代数数据类型”的系统，用于定义新类型。这听起来很花哨，但相当简单。让我们深入研究一些熟悉类型的标准库定义：</p>
+<p>Haskell 使用“代数数据类型”来定义新类型。这个名字听起来很高级，但概念本身相当简单。先来看一些熟悉类型在标准库中的定义：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">True</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">False</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Ordering</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">LT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">EQ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">GT</span>
 </code></pre></div>
-<p>使用此语法，你也可以定义类型：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- definition of a type with three values</span>
+<p>你也可以用这种语法定义自己的类型：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- 定义一个有三个值的类型</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Color</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Red</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Green</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Blue</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">-- a function that uses pattern matching on our new type</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1">-- 一个对新类型使用模式匹配的函数</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nf">rgb</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Color</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Double</span><span class="p">]</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nf">rgb</span><span class="w"> </span><span class="kt">Red</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nf">rgb</span><span class="w"> </span><span class="kt">Green</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
@@ -1545,10 +1545,10 @@
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="511">5.1.1 字段<a class="headerlink" href="#511" title="Permanent link">&para;</a></h3>
-<p>像 <code>Bool</code>、<code>Ordering</code> 和 <code>Color</code> 这样只列出一堆常量的类型在 Haskell 和其他语言中被称为<em>枚举</em>。枚举很有用，但你还需要其他类型。这里我们定义一个包含 ID 号、标题和正文的报告类型：</p>
+<p>像 <code>Bool</code>、<code>Ordering</code> 和 <code>Color</code> 这样只列出一组常量的类型，在 Haskell 和其他语言中都称为<em>枚举</em>。枚举很有用，但我们还需要能携带数据的类型。这里定义一个报告类型，它包含 ID、标题和正文：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Report</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">ConstructReport</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="kt">String</span>
 </code></pre></div>
-<p>这是创建报告的方法：</p>
+<p>可以这样创建报告：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="kt">ConstructReport</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">&quot;Title&quot;</span><span class="w"> </span><span class="s">&quot;This is the body.&quot;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kt">ConstructReport</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="s">&quot;Title&quot;</span><span class="w"> </span><span class="s">&quot;This is the body.&quot;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Report</span>
 </code></pre></div>
@@ -1559,8 +1559,8 @@
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nf">setReportContents</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="p">(</span><span class="kt">ConstructReport</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="n">_contents</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">ConstructReport</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="n">contents</span>
 </code></pre></div>
 <h3 id="512">5.1.2 构造函数<a class="headerlink" href="#512" title="Permanent link">&para;</a></h3>
-<p><code>data</code> 声明右侧的内容称为<em>构造函数</em>。<code>True</code>、<code>False</code>、<code>Red</code> 和 <code>ConstructReport</code> 都是构造函数的例子。一个类型可以有多个构造函数，一个构造函数可以有零个或多个字段。</p>
-<p>这是标准扑克牌的数据类型。它有 5 个构造函数，其中 <code>Joker</code> 有 0 个字段，其他有 1 个字段。</p>
+<p><code>data</code> 声明右侧的内容称为<em>构造函数</em>。<code>True</code>、<code>False</code>、<code>Red</code> 和 <code>ConstructReport</code> 都是构造函数的示例。一个类型可以有多个构造函数，一个构造函数可以有零个或多个字段。</p>
+<p>下面是标准扑克牌的数据类型。它有 5 个构造函数，其中 <code>Joker</code> 有 0 个字段，其他构造函数各有 1 个字段。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Card</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Joker</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Heart</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Club</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Spade</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Diamond</span><span class="w"> </span><span class="kt">Int</span>
 </code></pre></div>
 <p>带有字段的构造函数具有函数类型，并且可以在任何函数可以使用的地方使用：</p>
@@ -1586,20 +1586,20 @@
 <a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="kt">Possible</span><span class="w"> </span><span class="n">fix</span><span class="kt">:</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="kr">instance</span><span class="w"> </span><span class="n">declaration</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="p">(</span><span class="kt">Show</span><span class="w"> </span><span class="kt">Card</span><span class="p">)</span>
 <a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="kt">In</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">stmt</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">&#39;do&#39;</span><span class="w"> </span><span class="n">expression</span><span class="kt">:</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="n">it</span>
 </code></pre></div>
-<p>问题是 Haskell 不知道如何打印我们定义的类型。正如错误所述，它们不属于 <code>Show</code> 类。简单的解决方案是在类型定义后添加 <code>deriving Show</code>：</p>
+<p>问题是 Haskell 不知道如何打印我们自己定义的类型。正如错误所说，这个类型还不是 <code>Show</code> 类型类的实例。简单的解决方案是在类型定义后添加 <code>deriving Show</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Card</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Joker</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Heart</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Club</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Spade</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Diamond</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Joker</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kt">Joker</span>
 </code></pre></div>
-<p><code>deriving</code> 语法是一种自动让你的类型成为某些基本类型类的实例的方法，最值得注意的是 <code>Read</code>、<code>Show</code> 和 <code>Eq</code>。稍后我们将详细讨论这意味着什么。</p>
+<p><code>deriving</code> 语法可以自动让你的类型成为某些基本类型类的实例，最值得注意的是 <code>Read</code>、<code>Show</code> 和 <code>Eq</code>。稍后我们将详细讨论这意味着什么。</p>
 <h3 id="514">5.1.4 代数？<a class="headerlink" href="#514" title="Permanent link">&para;</a></h3>
 <p>那么为什么这些数据类型被称为代数呢？这是因为，从理论上讲，每个数据类型都可以是构造函数的“和”，而每个构造函数都是字段的“乘积”。将它们视为和与积是有意义的，原因有很多，其中之一是我们可以通过这种方式计算每种类型的可能值：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">True</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">False</span><span class="w">            </span><span class="c1">-- corresponds to 1+1. Has 2 possible values.</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">TwoBools</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">TwoBools</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="kt">Bool</span><span class="w">  </span><span class="c1">-- corresponds to Bool*Bool, i.e. 2*2. Has 4 possible values.</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Complex</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Two</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">One</span><span class="w"> </span><span class="kt">Bool</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">None</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">                                    </span><span class="c1">-- corresponds to Bool*Bool+Bool+1 = 2*2+2+1 = 7. Has 7 possible values.</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">                                    </span><span class="c1">-- 对应 Bool*Bool+Bool+1 = 2*2+2+1 = 7。有 7 个可能的值。</span>
 </code></pre></div>
 <p>代数数据类型有丰富的理论。如果你有兴趣，可以在 <a href="https://codewords.recurse.com/issues/three/algebra-and-calculus-of-algebraic-data-types">这里</a> 或 <a href="https://www.cis.upenn.edu/~sweirich/papers/yorgey-thesis.pdf">这里</a> 找到更多信息。</p>
 <h2 id="52">5.2 类型参数<a class="headerlink" href="#52" title="Permanent link">&para;</a></h2>
@@ -1644,7 +1644,7 @@
 <li>类型变量以及函数和值的名称以小写开头（例如 <code>a</code>、 <code>map</code>、 <code>xs</code>）</li>
 <li>类型名称和构造函数名称以大写开头（例如 <code>Maybe</code>、 <code>Just</code>、 <code>Card</code>、 <code>Heart</code>）</li>
 </ul>
-<p>请注意，类型及其构造函数可以具有相同的名称。对于只有一个构造函数的类型，这在 Haskell 代码中很常见。在本材料中，我们尽量避免使用它以避免混淆。下面是一些例子：</p>
+<p>请注意，类型及其构造函数可以具有相同的名称。对于只有一个构造函数的类型，这在 Haskell 代码中很常见。在本材料中，我们尽量避免使用它以避免混淆。下面是一些示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Report</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Report</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="kt">String</span>
 </code></pre></div>
@@ -1652,11 +1652,11 @@
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kt">Pair</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
 <p>注意不要混淆类型和构造函数。幸运的是，类型和构造函数永远不会出现在同一上下文中，因此你会得到很好的错误提示：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w">                              </span><span class="c1">-- trying to use a type name as a value</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w">                              </span><span class="c1">-- 试图把类型名当作值使用</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="o">&lt;</span><span class="n">interactive</span><span class="o">&gt;:</span><span class="mi">1</span><span class="kt">:</span><span class="mi">1</span><span class="kt">:</span><span class="w"> </span><span class="ne">error</span><span class="kt">:</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">Data</span><span class="w"> </span><span class="n">constructor</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">scope</span><span class="kt">:</span><span class="w"> </span><span class="kt">Maybe</span>
 <a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">undefined</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Nothing</span><span class="w">               </span><span class="c1">-- trying to use a constructor as a type</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">undefined</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Nothing</span><span class="w">               </span><span class="c1">-- 试图把构造函数当作类型使用</span>
 <a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="o">&lt;</span><span class="n">interactive</span><span class="o">&gt;:</span><span class="mi">2</span><span class="kt">:</span><span class="mi">14</span><span class="kt">:</span><span class="w"> </span><span class="ne">error</span><span class="kt">:</span>
 <a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">    </span><span class="kt">Not</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">scope</span><span class="kt">:</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="n">constructor</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="kr">class</span><span class="w"> </span><span class="err">‘</span><span class="kt">Nothing</span><span class="err">’</span>
 </code></pre></div>
@@ -1665,8 +1665,8 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Either</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Left</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Right</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
 <h2 id="53">5.3 递归类型<a class="headerlink" href="#53" title="Permanent link">&para;</a></h2>
-<p>到目前为止，我们定义的所有类型的大小都是固定的。我们可以代表一份报告或一种颜色，但我们如何才能代表一组事物呢？我们当然可以使用列表，但是我们可以自己定义列表类型吗？</p>
-<p>就像 Haskell 函数一样，Haskell 数据类型可以是“递归”的。这并不比 Java 或 Python 中对象引用同一类的另一个对象更奇怪。这是定义整数列表的方法：</p>
+<p>到目前为止，我们定义的所有类型大小都是固定的。我们可以表示一份报告或一种颜色，但如何表示一组事物呢？当然可以使用列表，不过我们能不能自己定义列表类型？</p>
+<p>就像 Haskell 函数一样，Haskell 数据类型也可以是“递归”的。这并不比 Java 或 Python 中一个对象引用同一类的另一个对象更奇怪。下面是整数列表的定义方式：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">IntList</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Empty</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Node</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kt">IntList</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
@@ -1808,7 +1808,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Person</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">MkPerson</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span><span class="w"> </span><span class="n">town</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">profession</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="p">}</span>
 <a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 </code></pre></div>
-<p>我们仍然可以正常定义 <code>Person</code> 的值，但 <code>Show</code> 实例会为我们打印字段名称：</p>
+<p>我们仍然可以正常定义 <code>Person</code> 的值，但 <code>Show</code> 实例会为我们打印字段名：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">MkPerson</span><span class="w"> </span><span class="s">&quot;Jane Doe&quot;</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="s">&quot;Houston&quot;</span><span class="w"> </span><span class="s">&quot;Texas&quot;</span><span class="w"> </span><span class="s">&quot;Engineer&quot;</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="kt">MkPerson</span><span class="w"> </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Jane Doe&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="n">town</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Houston&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Texas&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">profession</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Engineer&quot;</span><span class="p">}</span>
 </code></pre></div>
@@ -1863,17 +1863,17 @@
 </ul>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">TypeName</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Constructor</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">field1</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Field1Type</span><span class="p">,</span><span class="w"> </span><span class="n">field2</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Field2Type</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p>这为你免费提供了 <code>field1 :: TypeName -&gt; Field1Type</code> 等访问器函数。</p>
+<p>这样会自动为你生成 <code>field1 :: TypeName -&gt; Field1Type</code> 这样的访问器函数。</p>
 <h2 id="56">5.6 附注：定义类型的其他方式<a class="headerlink" href="#56" title="Permanent link">&para;</a></h2>
 <p>除了 <code>data</code> 关键字之外，Haskell 中还有两种定义类型的方法。</p>
-<p><code>newtype</code> 关键字的工作方式类似于 <code>data</code>，但只能有一个带有单个字段的构造函数。有时出于性能原因使用 <code>newtype</code> 是明智的，但我们将在第 2 部分中回顾这些内容。</p>
+<p><code>newtype</code> 关键字的工作方式类似于 <code>data</code>，但它只能有一个构造函数，并且这个构造函数只能有一个字段。有时出于性能原因使用 <code>newtype</code> 是合理的，不过我们会在第 2 部分再回到这些内容。</p>
 <p><code>type</code> 关键字引入了<em>类型别名</em>。类型别名不会影响类型检查，它们只是提供编写类型的简写。例如，熟悉的 <code>String</code> 类型是 <code>[Char]</code> 的别名：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kr">type</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="kt">Char</span><span class="p">]</span>
 </code></pre></div>
 <p>这意味着每当编译器读取 <code>String</code> 时，它都会立即将其替换为 <code>[Char]</code>。类型别名看起来很有用，但它们很容易使读取类型错误变得更加困难。</p>
 <h2 id="57">5.7 代数数据类型如何工作？<a class="headerlink" href="#57" title="Permanent link">&para;</a></h2>
 <p>还记得列表在内存中是如何表示为链表的吗？让我们更详细地了解代数数据类型在内存中的样子。</p>
-<p>Haskell 数据在内存中形成“有向图”。每个构造函数都是一个节点，每个字段都是一条边。 （变量的）名称是指向该图的指针。不同的名称可以<em>共享</em>部分结构。这是一个带有列表的示例。请注意 <code>x</code> 的最后两个元素如何与 <code>y</code> 和 <code>z</code> 共享。</p>
+<p>Haskell 数据在内存中形成“有向图”。每个构造函数都是一个节点，每个字段都是一条边。（变量的）名称是指向该图的指针。不同的名称可以<em>共享</em>部分结构。下面是一个列表示例。请注意，<code>x</code> 的最后两个元素如何与 <code>y</code> 和 <code>z</code> 共享。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="kr">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">drop</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">x</span>
 <a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">5</span><span class="kt">:</span><span class="n">y</span>
@@ -2004,7 +2004,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

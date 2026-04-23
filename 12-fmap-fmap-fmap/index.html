@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 12 讲：fmap fmap fmap - Haskell 慕课（中文翻译）</title>
+        <title>第 12 讲：fmap fmap fmap - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -443,7 +443,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -950,7 +950,7 @@
   <a href="#124-kind" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.4 附注：Kind
+        12.4 附注：种类（Kind）
       
     </span>
   </a>
@@ -1052,7 +1052,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1108,7 +1108,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1220,7 +1220,7 @@
   <a href="#124-kind" class="md-nav__link">
     <span class="md-ellipsis">
       
-        12.4 附注：Kind
+        12.4 附注：种类（Kind）
       
     </span>
   </a>
@@ -1351,7 +1351,7 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nf">map</span><span class="w"> </span><span class="kr">_</span><span class="w"> </span><span class="kt">[]</span><span class="w">     </span><span class="ow">=</span><span class="w"> </span><span class="kt">[]</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nf">map</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">xs</span>
 </code></pre></div>
-<p>它将函数 <code>g :: a -&gt; b</code> 应用到 <code>[a]</code> 类型列表的每个元素，返回 <code>[b]</code> 类型的列表。<code>map</code> 的类型也可以写成 <code>(a -&gt; b) -&gt; ([a] -&gt; [b])</code>。这和之前的类型是一样的，因为 <code>-&gt;</code> 是右结合的。括号强调了 <code>map</code> 将函数 <code>g :: a -&gt; b</code> 转换成函数 <code>map g :: [a] -&gt; [b]</code> 的事实。这意味着<code>map</code>是一个将函数转换为函数的“高阶函数”。</p>
+<p>它将函数 <code>g :: a -&gt; b</code> 应用到 <code>[a]</code> 类型列表的每个元素，返回 <code>[b]</code> 类型的列表。<code>map</code> 的类型也可以写成 <code>(a -&gt; b) -&gt; ([a] -&gt; [b])</code>。这和之前的类型是一样的，因为 <code>-&gt;</code> 是右结合的。括号强调了这样一个事实：<code>map</code> 会把函数 <code>g :: a -&gt; b</code> 转换成函数 <code>map g :: [a] -&gt; [b]</code>。这意味着 <code>map</code> 是一个把函数转换成函数的“高阶函数”。</p>
 <p>因为 <code>map</code> 是参数多态的，所以它的定义不依赖于列表中存储的值的类型。因此每个 <code>a -&gt; b</code> 类型的函数都用完全相同的逻辑转换为 <code>[a] -&gt; [b]</code> 类型的函数。使用上面的定义，我们可以看到：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">map</span><span class="w"> </span><span class="p">(</span><span class="o">||</span><span class="w"> </span><span class="kt">True</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="kt">True</span><span class="p">,</span><span class="w"> </span><span class="kt">True</span><span class="p">,</span><span class="w"> </span><span class="kt">False</span><span class="p">]</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">True</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="kt">True</span><span class="p">,</span><span class="w"> </span><span class="kt">True</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="kt">True</span><span class="p">,</span><span class="w"> </span><span class="kt">False</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="kt">True</span><span class="p">]</span>
@@ -1373,8 +1373,8 @@
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nf">mapMaybe</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kt">Nothing</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nf">mapMaybe</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
-<p>这里值的结构也被保留。<code>Nothing</code> 变为 <code>Nothing</code>，<code>Just</code> 变为 <code>Just</code>。在这里，我们也可以将类型视为 <code>(a -&gt; b) -&gt; (Maybe a -&gt; Maybe b)</code>，将普通函数转换（或“提升”）为可在 Maybes 上运行的函数。</p>
-<p>还有一个例子：考虑二叉树。</p>
+<p>这里值的结构也被保留。<code>Nothing</code> 仍然是 <code>Nothing</code>，<code>Just</code> 仍然是 <code>Just</code>。我们也可以把这个类型看成 <code>(a -&gt; b) -&gt; (Maybe a -&gt; Maybe b)</code>：它把普通函数转换（或“提升”）成可以在 <code>Maybe</code> 上运行的函数。</p>
+<p>还有一个示例：考虑二叉树。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Leaf</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Node</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">(</span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nf">mapTree</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Tree</span><span class="w"> </span><span class="n">b</span>
@@ -1401,38 +1401,38 @@
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="n">mapThing</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="n">c</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="n">mapThing</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="o">...</span>
 </code></pre></div>
-<p>幸运的是，Haskell 类型类有一个我们以前没有介绍过的函数。除了类型之外，你还可以为“类型构造函数”编写类。这意味着什么？让我们看一下标准类型类 <code>Functor</code>，它执行我们尝试对 <code>Mappable</code> 执行的操作。</p>
+<p>幸运的是，Haskell 类型类还有一个我们以前没有介绍过的能力。除了普通类型之外，你还可以为“类型构造函数”编写类型类。这是什么意思？来看标准类型类 <code>Functor</code>，它正好表达了我们试图用 <code>Mappable</code> 表达的东西。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
 <p>请注意类型参数 <code>f</code> 是如何成为类型构造函数的：它在 <code>fmap</code> 类型的不同部分中传递 <code>a</code> 和 <code>b</code> 参数。现在让我们看看 <code>Maybe</code> 的实例。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="c1">-- In this instance, the type of fmap is:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="c1">-- 在这个实例中，fmap 的类型是：</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="c1">-- fmap :: (a -&gt; b) -&gt; Maybe a -&gt; Maybe b</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kt">Nothing</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
-<p>现在 <code>fmap</code> 有了正确的类型，我们可以像 <code>mapMaybe</code> 一样实现它！请注意我们如何声明 <code>instance Functor Maybe</code> 而不是 <code>instance Functor (Maybe a)</code>。类型 <code>Maybe a</code> 不是Functor，类型构造函数 <code>Maybe</code> 才是。</p>
-<p>列表的类型构造函数写作<code>[]</code>。它是特殊的语法，就像其他列表语法一样。但是，如果类型 <code>[a]</code> 写为 <code>List a</code>，则类型构造函数 <code>[]</code> 将表示 <code>List</code>。</p>
+<p>现在 <code>fmap</code> 有了正确的类型，我们可以像 <code>mapMaybe</code> 一样实现它！请注意，我们声明的是 <code>instance Functor Maybe</code>，而不是 <code>instance Functor (Maybe a)</code>。类型 <code>Maybe a</code> 不是 Functor，类型构造函数 <code>Maybe</code> 才是。</p>
+<p>列表的类型构造函数写作 <code>[]</code>。它是特殊语法，就像其他列表语法一样。不过，如果类型 <code>[a]</code> 写成 <code>List a</code>，那么类型构造函数 <code>[]</code> 就相当于 <code>List</code>。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">map</span>
 </code></pre></div>
-<p>这是我们的最后一个例子，作为 <code>Functor</code> 实例。</p>
+<p>这是我们的最后一个示例，作为 <code>Functor</code> 实例。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Leaf</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Node</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">(</span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Tree</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="kt">Tree</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="kr">_</span><span class="w"> </span><span class="kt">Leaf</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Leaf</span>
 <a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="kt">Node</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Node</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">right</span><span class="p">)</span>
 </code></pre></div>
-<p>附注：Functor 一词最初来自数学的一个分支，称为<a href="https://en.wikipedia.org/wiki/Category_theory">范畴论</a>。然而，要使用 Haskell，你不需要了解任何范畴论。随着你学习 Haskell 的进展，你可能会对范畴论感兴趣，它可能是编程新思想的宝贵来源。范畴论可能会让人感到害怕，所以很高兴知道没有它你也能过得很好。现在，当你看到Functor时，你可以只想“我可以映射的东西”，或者也许是“一个容器”。</p>
-<p>让我们缩小一点。当我们有一个实例 <code>Functor MyFun</code> 时，我们知道我们可以将类型 <code>X</code> 映射到新类型 <code>MyFun X</code> （因为 <code>MyFun</code> 是类型构造函数），而且我们可以将采用 <code>X</code> 参数的函数 <code>f</code> 提升到采用 <code>MyFun X</code> 参数的函数 <code>fmap f</code> ！所以你可以说我们在类型级别和值级别上进行映射。</p>
-<p>哦，对了，还有一件事。一旦掌握了 <code>fmap</code> 的窍门，你可能会发现自己经常使用它。对于大量使用 <code>fmap</code> 的代码，最好使用其中缀别名 <code>&lt;$&gt;</code>。考虑这些例子中 <code>$</code> 和 <code>&lt;$&gt;</code> 之间的对称性：</p>
+<p>附注：Functor 一词最初来自数学的一个分支，称为<a href="https://en.wikipedia.org/wiki/Category_theory">范畴论</a>。不过，要使用 Haskell，你不需要了解任何范畴论。随着你继续学习 Haskell，你可能会对范畴论感兴趣，它也可能成为编程新思想的宝贵来源。范畴论可能让人望而生畏，所以知道没有它也能写好 Haskell 是件好事。现在，当你看到 Functor 时，可以先把它理解成“可以映射的东西”，或者“一个容器”。</p>
+<p>换个角度看。当我们有一个实例 <code>Functor MyFun</code> 时，我们知道可以把类型 <code>X</code> 映射到新类型 <code>MyFun X</code>（因为 <code>MyFun</code> 是类型构造函数），也可以把接受 <code>X</code> 参数的函数 <code>f</code> 提升为接受 <code>MyFun X</code> 参数的函数 <code>fmap f</code>。所以可以说，我们既在类型层面做映射，也在值层面做映射。</p>
+<p>哦，对了，还有一件事。一旦掌握了 <code>fmap</code> 的窍门，你可能会发现自己经常使用它。对于大量使用 <code>fmap</code> 的代码，最好使用其中缀别名 <code>&lt;$&gt;</code>。考虑这些示例中 <code>$</code> 和 <code>&lt;$&gt;</code> 之间的对称性：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">(</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;$&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w">    </span><span class="o">==&gt;</span><span class="w">  </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">not</span><span class="w"> </span><span class="o">&lt;$&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">False</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nf">reverse</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="w">  </span><span class="o">$</span><span class="w">       </span><span class="s">&quot;hello&quot;</span><span class="w">       </span><span class="o">==&gt;</span><span class="w">  </span><span class="s">&quot;olle&quot;</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nf">reverse</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="w"> </span><span class="o">&lt;$&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="w">       </span><span class="o">==&gt;</span><span class="w">  </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;olle&quot;</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">-- which is the same as</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">-- 这等同于</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nf">fmap</span><span class="w"> </span><span class="p">(</span><span class="n">reverse</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">tail</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">)</span><span class="w">  </span><span class="o">==&gt;</span><span class="w">  </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;olle&quot;</span>
 </code></pre></div>
 <h2 id="123">12.3 符合法则的实例<a class="headerlink" href="#123" title="Permanent link">&para;</a></h2>
@@ -1453,7 +1453,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nf">id</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 </code></pre></div>
 <p>因此，<code>fmap id [1,2,3]</code> 的结果与 <code>id [1,2,3]</code> 的结果相同，因此第一条 Functor 定律在这种情况下成立。不难证明第一条 Functor 定律适用于任何列表。</p>
-<p>如果你仔细想想，第一条 Functor 定律确实是一个非常简单的命题。它只是说，如果我们将 <code>fmap</code> 应用于不改变任何内容的函数 (<code>id</code>)，则结果函数 (<code>fmap id</code>) 再次不改变任何内容。因此，应用 <code>fmap</code> 的行为本身保留了Functor的结构。</p>
+<p>如果你仔细想想，第一条 Functor 定律确实是一个非常简单的命题。它只是说，如果我们将 <code>fmap</code> 应用于不改变任何内容的函数 (<code>id</code>)，则结果函数 (<code>fmap id</code>) 再次不改变任何内容。因此，应用 <code>fmap</code> 的行为本身保留了Functor 的结构。</p>
 <p>第二条 Functor 定律怎么样？对于列表，考虑如果我们 <code>fmap</code> 函数 <code>negate.(*2)</code> （记住，<code>negate</code> 将 <code>x</code> 映射到 <code>-x</code> 并且 <code>(*2)</code> 将其参数乘以 <code>2</code>）会发生什么：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nf">fmap</span><span class="w"> </span><span class="p">(</span><span class="n">negate</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="p">(</span><span class="n">negate</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">                           </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">negate</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="p">(</span><span class="n">negate</span><span class="o">.</span><span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
@@ -1473,7 +1473,7 @@
 </code></pre></div>
 <p>第二条 Functor 定律在这个特殊情况下成立。事实上，它适用于所有情况（练习！）。</p>
 <p>一般来说，第二条 Functor 定律表示，首先组合两个函数然后应用 <code>fmap</code> 必须产生与对这些函数执行 <code>fmap</code> 然后组合结果函数相同的结果。换句话说，应用 <code>fmap</code> 和组合的顺序并不重要。 （这两个操作被称为“通勤”。）</p>
-<p>还有一些高阶函数无法满足Functor定律。考虑函数 <code>badMap</code>：</p>
+<p>还有一些高阶函数无法满足 Functor 定律。考虑函数 <code>badMap</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nf">badMap</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nf">badMap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">[]</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nf">badMap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">y</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">badMap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">xs</span>
@@ -1489,8 +1489,8 @@
 <a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">                  </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
 </code></pre></div>
 <p>将 <code>badMap id</code> 应用于列表 <code>[1,2,3]</code> 会更改列表，因为元素 <code>2</code> 被删除。</p>
-<p>如前所述，Haskell 编译器无法检测Functor是否遵守其法则。 Haskell 编译器很乐意接受使用 <code>badMap</code> 而不是 <code>map</code> 作为 <code>fmap</code> 实现的实例 <code>Functor []</code>。这是 Haskell 类型系统的限制。有些技术（例如 LiquidHaskell）或依赖类型语言（例如 Agda、Idris、Coq 或 Lean）实际上可以强制执行Functor 法则，以便非法 Functor 实例无法编译。然而，这些技术超出了本课程的范围。</p>
-<h2 id="124-kind">12.4 附注：Kind<a class="headerlink" href="#124-kind" title="Permanent link">&para;</a></h2>
+<p>如前所述，Haskell 编译器无法检测 Functor 是否遵守其法则。Haskell 编译器会接受使用 <code>badMap</code> 而不是 <code>map</code> 作为 <code>fmap</code> 实现的 <code>Functor []</code> 实例。这是 Haskell 类型系统的限制。有些技术（例如 LiquidHaskell）或依赖类型语言（例如 Agda、Idris、Coq 或 Lean）确实可以强制执行 Functor 法则，让非法 Functor 实例无法编译。然而，这些技术超出了本课程的范围。</p>
+<h2 id="124-kind">12.4 附注：种类（Kind）<a class="headerlink" href="#124-kind" title="Permanent link">&para;</a></h2>
 <p>请记住，<code>Functor</code> 是类型构造函数的类。如果我们尝试为类型定义 <code>Functor</code> 的实例，我们会收到错误：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">instance</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
@@ -1499,7 +1499,7 @@
 <a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="err">‘</span><span class="kt">Functor</span><span class="err">’</span><span class="p">,</span><span class="w"> </span><span class="n">namely</span><span class="w"> </span><span class="err">‘</span><span class="kt">Int</span><span class="err">’</span>
 <a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">      </span><span class="kt">In</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="kr">instance</span><span class="w"> </span><span class="n">declaration</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="err">‘</span><span class="kt">Functor</span><span class="w"> </span><span class="kt">Int</span><span class="err">’</span>
 </code></pre></div>
-<p>错误消息谈论<em>种类</em>。种类是<em>类型的类型</em>。像 <code>Int</code>、<code>Bool</code> 或 <code>Maybe Int</code> 这样可以包含值的类型具有 <code>*</code> 类型。类型构造函数具有看起来像函数的类型，例如，<code>Maybe</code> 具有 <code>* -&gt; *</code> 类型。这意味着 <code>Maybe</code> 类型构造函数必须应用于 <code>*</code> 类型，才能获得 <code>*</code> 类型。</p>
+<p>错误消息谈到了<em>种类</em>。种类是<em>类型的类型</em>。像 <code>Int</code>、<code>Bool</code> 或 <code>Maybe Int</code> 这样可以包含值的类型，其种类是 <code>*</code>。类型构造函数的种类看起来像函数，例如 <code>Maybe</code> 的种类是 <code>* -&gt; *</code>。这意味着必须把 <code>Maybe</code> 类型构造函数应用到一个种类为 <code>*</code> 的类型上，才能得到一个种类为 <code>*</code> 的类型。</p>
 <p>我们可以向 GHCi 询问类型的种类：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">kind</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kt">Int</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="o">*</span>
@@ -1514,14 +1514,14 @@
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">b</span>
 <a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="o">...</span>
 </code></pre></div>
-<p>以下是一些更复杂类型的例子。</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1">-- multiple type parameters</span>
+<p>以下是一些更复杂类型的示例。</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1">-- 多个类型参数</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">kind</span><span class="w"> </span><span class="kt">Either</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="kt">Either</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span>
 <a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">data</span><span class="w"> </span><span class="kt">Either3</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Left</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Middle</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">Right</span><span class="w"> </span><span class="n">c</span>
 <a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">kind</span><span class="w"> </span><span class="kt">Either3</span>
 <a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="kt">Either3</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span>
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1">-- a type parameter of kind *-&gt;*</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1">-- 种类为 *-&gt;* 的类型参数</span>
 <a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">data</span><span class="w"> </span><span class="kt">IntInside</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">IntInside</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span>
 <a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">kind</span><span class="w"> </span><span class="kt">IntInside</span>
 <a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="kt">IntInside</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="o">*</span>
@@ -1534,25 +1534,25 @@
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nf">minimum</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Foldable</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">Ord</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nf">foldMap</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Foldable</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">Monoid</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">m</span>
 </code></pre></div>
-<p>从这些类型签名中我们可以看到，<code>Foldable</code>，就像<code>Functor</code>一样，是一个类型构造函数的类（类似<code>* -&gt; *</code>的东西）。 <code>Foldable</code> 的本质是成为一个“可以折叠的东西”的类。类的定义可以很简单</p>
+<p>从这些类型签名中可以看到，<code>Foldable</code> 和 <code>Functor</code> 一样，是类型构造函数的类型类（也就是类似 <code>* -&gt; *</code> 的东西）。<code>Foldable</code> 的本质是“可以折叠的东西”的类型类。它的定义可以很简单：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kr">class</span><span class="w"> </span><span class="kt">Foldable</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="o">*-&gt;*</span><span class="p">)</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="n">foldr</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
-<p>然而，出于性能原因，该类包含许多方法（你可以通过在 GHCi 中检查 <code>:info Foldable</code> 来亲自查看它们！），但是当我们为 <code>Foldable</code> 定义实例时，仅定义 <code>foldr</code> 就足够了。</p>
-<p><code>Foldable</code> 类的另一种思考方式是<em>从左到右</em>处理元素，换句话说，如果 <code>Functor</code> 是容器的类，那么 <code>Foldable</code> 就是<em>有序容器</em>的类。</p>
-<p>作为例子，让我们为我们自己的配对类型实现 <code>Functor</code> 和 <code>Foldable</code> 。</p>
+<p>不过，出于性能原因，真实的类型类包含许多方法（你可以在 GHCi 中用 <code>:info Foldable</code> 亲自查看！）。但当我们为 <code>Foldable</code> 定义实例时，只定义 <code>foldr</code> 就足够了。</p>
+<p>理解 <code>Foldable</code> 的另一种方式是：它表示可以<em>从左到右</em>处理元素的结构。换句话说，如果 <code>Functor</code> 是容器的类型类，那么 <code>Foldable</code> 就是<em>有顺序的容器</em>的类型类。</p>
+<p>作为示例，让我们为我们自己的配对类型实现 <code>Functor</code> 和 <code>Foldable</code> 。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kr">data</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="kr">deriving</span><span class="w"> </span><span class="kt">Show</span>
 <a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
 <a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Functor</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="c1">-- fmap f applies f to all values</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="c1">-- fmap f 将 f 应用于所有值</span>
 <a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span><span class="n">fmap</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">(</span><span class="kt">Pair</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
 <a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
 <a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">Foldable</span><span class="w"> </span><span class="kt">Pair</span><span class="w"> </span><span class="kr">where</span>
-<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">  </span><span class="c1">-- just like applying foldr over a list of length 2</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">  </span><span class="c1">-- 就像对长度为 2 的列表应用 foldr</span>
 <a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">  </span><span class="n">foldr</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">initialValue</span><span class="w"> </span><span class="p">(</span><span class="kt">Pair</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">initialValue</span><span class="p">)</span>
 <a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>
-<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="c1">-- an example function that uses both instances</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="c1">-- 一个同时使用两个实例的示例函数</span>
 <a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="nf">doubleAndCount</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Functor</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="kt">Foldable</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="nf">doubleAndCount</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="n">fmap</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
 </code></pre></div>
@@ -1574,9 +1574,9 @@
 </code></pre></div>
 <p>我们遇到的其他类型 <code>Foldable</code> 包括 <code>Data.Map</code> 和 <code>Data.Array</code>。</p>
 <h2 id="126">12.6 回顾<a class="headerlink" href="#126" title="Permanent link">&para;</a></h2>
-<p>因此，总而言之，Functor 是类型构造函数 <code>f</code> 和相应的 <code>Functor f</code> 实例，使得 <code>fmap</code> 满足两个Functor定律。这些定律断言 <code>fmap</code> 必须保留恒等函数并分布于函数组合上。更通俗地说，<code>fmap</code> 将基于值操作的函数 <code>g :: a -&gt; b</code> 提升为基于容器操作的函数：<code>fmap g :: f a -&gt; f b</code>。基本上 Haskell 中所有表现良好的数据结构都是Functor。</p>
+<p>因此，总而言之，Functor 是类型构造函数 <code>f</code> 和相应的 <code>Functor f</code> 实例，使得 <code>fmap</code> 满足两个 Functor 定律。这些定律断言 <code>fmap</code> 必须保留恒等函数并分布于函数组合上。更通俗地说，<code>fmap</code> 将基于值操作的函数 <code>g :: a -&gt; b</code> 提升为基于容器操作的函数：<code>fmap g :: f a -&gt; f b</code>。基本上 Haskell 中所有表现良好的数据结构都是 Functor。</p>
 <h2 id="127">12.7 测验<a class="headerlink" href="#127" title="Permanent link">&para;</a></h2>
-<p><code>fmap</code>是什么类型的？</p>
+<p><code>fmap</code> 是什么类型的？</p>
 <p>1.<code>a -&gt; b -&gt; f a -&gt; f b</code>
 2.<code>(a -&gt; b) -&gt; f a -&gt; f b</code>
 3.<code>Functor f =&gt; a -&gt; b -&gt; f a -&gt; f b</code>
@@ -1701,7 +1701,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

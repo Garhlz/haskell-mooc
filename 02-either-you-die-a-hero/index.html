@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 2 讲：要么成为英雄，要么…… - Haskell 慕课（中文翻译）</title>
+        <title>第 2 讲：要么成为英雄，要么…… - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -448,7 +448,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -1158,7 +1158,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1214,7 +1214,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1551,7 +1551,7 @@
   
 
 
-<h1 id="2">第 2 讲：要么作为英雄而死……<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
+<h1 id="2">第 2 讲：要么成为英雄，要么……<a class="headerlink" href="#2" title="Permanent link">&para;</a></h1>
 <ul>
 <li>有关递归的更多信息</li>
 <li>守卫</li>
@@ -1622,7 +1622,7 @@
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="k">return</span> <span class="n">b</span>
 </code></pre></div>
 <p>Haskell：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- fibonacci numbers, fast version</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- 斐波那契数列，快速版本</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">fibonacci</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Integer</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Integer</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nf">fibonacci</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">fibonacci&#39;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">n</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
@@ -1632,11 +1632,11 @@
 </code></pre></div>
 <p>花一些时间研究这些例子，注意 Haskell 中的递归如何对应循环的结构。</p>
 <p>附注：Haskell 程序经常使用撇号来命名辅助函数和函数的替代版本。因此，上面的辅助函数名为 <code>fibonacci'</code>。像 <code>foo'</code> 这样的名字通常读作 <em>foo prime</em>（就像数学中一样）。</p>
-<p>我之前说过这个版本的斐波那契更有效。你能明白为什么吗？答案是递归调用更少。表达式 <code>fibonacci' _ _ n</code> 调用 <code>fibonacci' _ _ (n-1)</code> 一次，这表示我们可以在 <code>n</code> 步中计算 <code>fibonacci' _ _ n</code>。</p>
+<p>我之前说过这个版本的斐波那契更有效。你能明白为什么吗？答案是递归调用更少。表达式 <code>fibonacci' _ _ n</code> 调用 <code>fibonacci' _ _ (n-1)</code> 一次，这意味着我们可以在 <code>n</code> 步中计算 <code>fibonacci' _ _ n</code>。</p>
 <p>这种函数直接使用不同参数调用自身的递归类型称为“尾递归”。正如你在上面看到的，尾递归对应于循环。这就是尾递归通常很快的原因：编译器在看到尾递归时可以在机器代码中生成循环。</p>
 <h2 id="22">2.2 守卫<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
 <p>在我们继续讨论新类型之前，让我们再回顾一下 Haskell 语法。</p>
-<p><code>if then else</code> 通常有点麻烦，尤其是当你有多种情况时。一个更简单的替代方案是 Haskell 的“条件定义”或“守卫”。这有点像模式匹配，因为你有多个方程，但你可以使用任意代码来决定使用哪个方程。带守卫的定义如下所示：</p>
+<p><code>if then else</code> 通常有点笨重，尤其是当你需要处理多种情况时。一个更简洁的替代方案是 Haskell 的“条件定义”或“守卫”。它有点像模式匹配，因为你仍然写多个方程，但可以用任意代码来决定选择哪个方程。带守卫的定义如下所示：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="n">z</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">condition1</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">something</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">condition2</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">other</span>
@@ -1644,7 +1644,7 @@
 </code></pre></div>
 <p>条件可以是 <code>Bool</code> 类型的任何表达式。选择计算结果为 <code>True</code> 的第一个条件。单词 <code>otherwise</code> 只是 <code>True</code> 的别名。它用于标记默认情况。</p>
 <h3 id="221">2.2.1 示例<a class="headerlink" href="#221" title="Permanent link">&para;</a></h3>
-<p>以下是使用守卫的一些示例。首先，我们有一个描述给定数字的函数。请注意， <code>"Two"</code> 案例位于 <code>"Even"</code> 案例之前是多么重要。</p>
+<p>以下是使用守卫的一些示例。首先是一个描述给定数字的函数。请注意，<code>"Two"</code> 分支必须放在 <code>"Even"</code> 分支之前。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nf">describe</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">describe</span><span class="w"> </span><span class="n">n</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">n</span><span class="o">==</span><span class="mi">2</span><span class="w">      </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;Two&quot;</span>
@@ -1683,7 +1683,7 @@
 <a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="s">&quot;Too low!&quot;</span>
 </code></pre></div>
 <h2 id="23">2.3 列表<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
-<p>到目前为止，我们一直使用数字或布尔值等单一值。字符串包含多个字符，但在某种意义上字符串仍然只是一条信息。为了能够进行实际编程，我们需要处理可变数量的项目。为此，我们需要<em>数据结构</em>。</p>
+<p>到目前为止，我们一直使用数字或布尔值等单一值。字符串包含多个字符，但在某种意义上字符串仍然只是一条信息。要写出实际可用的程序，我们需要处理数量可变的元素。为此，我们需要<em>数据结构</em>。</p>
 <p>Haskell 中的基本数据结构是列表。列表用于存储相同类型的多个值（换句话说，Haskell 列表是同质的）。这是列表文字的样子：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
 </code></pre></div>
@@ -1691,23 +1691,23 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">[</span><span class="kt">True</span><span class="p">,</span><span class="kt">True</span><span class="p">,</span><span class="kt">False</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Bool</span><span class="p">]</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">[</span><span class="s">&quot;Moi&quot;</span><span class="p">,</span><span class="s">&quot;Hei&quot;</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kt">[]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">                   </span><span class="c1">-- more about this later</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[[</span><span class="kt">Int</span><span class="p">]]</span><span class="w">    </span><span class="c1">-- a list of lists</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w">             </span><span class="c1">-- range syntax, value [1,2,3,4,5,6,7]</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[[</span><span class="kt">Int</span><span class="p">]]</span><span class="w">    </span><span class="c1">-- 列表的列表</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Int</span><span class="p">]</span><span class="w">             </span><span class="c1">-- 区间语法，值为 [1,2,3,4,5,6,7]</span>
 </code></pre></div>
 <p>Haskell 列表被实现为单链表。我们稍后再讨论这一点。</p>
 <h3 id="231">2.3.1 列表操作<a class="headerlink" href="#231" title="Permanent link">&para;</a></h3>
 <p>Haskell 标准库附带了许多对列表进行操作的函数。以下是一些最重要的及其类型。我们稍后会回到 <code>[a]</code> 的实际含义，但现在你可以想象它的意思是“任何列表”。</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nf">head</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w">            </span><span class="c1">-- returns the first element</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nf">last</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w">            </span><span class="c1">-- returns the last element</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nf">tail</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">          </span><span class="c1">-- returns everything except the first element</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nf">init</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">          </span><span class="c1">-- returns everything except the last element</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nf">take</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- returns the n first elements</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nf">drop</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- returns everything except the n first elements</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">(</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- lists are catenated with the ++ operator</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">(</span><span class="o">!!</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w">     </span><span class="c1">-- lists are indexed with the !! operator</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="nf">reverse</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">       </span><span class="c1">-- reverse a list</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="nf">null</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span><span class="w">         </span><span class="c1">-- is this list empty?</span>
-<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nf">length</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w">        </span><span class="c1">-- the length of a list</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nf">head</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w">            </span><span class="c1">-- 返回第一个元素</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nf">last</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w">            </span><span class="c1">-- 返回最后一个元素</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nf">tail</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">          </span><span class="c1">-- 返回除第一个元素外的所有元素</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nf">init</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">          </span><span class="c1">-- 返回除最后一个元素外的所有元素</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nf">take</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 返回前 n 个元素</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nf">drop</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 返回除前 n 个元素外的所有元素</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="p">(</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 列表使用 ++ 运算符连接</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">(</span><span class="o">!!</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w">     </span><span class="c1">-- 列表使用 !! 运算符索引</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="nf">reverse</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w">       </span><span class="c1">-- 反转列表</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="nf">null</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Bool</span><span class="w">         </span><span class="c1">-- 这个列表是否为空？</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nf">length</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span><span class="w">        </span><span class="c1">-- 列表长度</span>
 </code></pre></div>
 <p>附注：最后两个操作（<code>null</code> 和 <code>length</code>）实际上有更通用的类型，但这里先把它们当作只能用于列表的函数。</p>
 <p>列表可以与熟悉的 <code>==</code> 运算符进行比较。</p>
@@ -1715,7 +1715,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="s">&quot;asdf&quot;</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="s">&quot;asdf&quot;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Char</span><span class="p">]</span>
 </code></pre></div>
-<p>这表示 <code>String</code> 只是 <code>[Char]</code> 的别名，也就是说字符串是字符列表。因此，你可以对字符串使用所有列表操作！</p>
+<p>这意味着 <code>String</code> 只是 <code>[Char]</code> 的别名，也就是说字符串是字符列表。因此，你可以对字符串使用所有列表操作！</p>
 <p>一些列表操作来自模块 <code>Data.List</code>。你可以使用 <code>import Data.List</code> 语法在代码或 GHCi 中导入模块。一个例子是 <code>sort</code> 函数，它对列表进行排序：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="nn">Data.List</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">List</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
@@ -1744,7 +1744,7 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nf">reverse</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">==&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </code></pre></div>
 <h2 id="24">2.4 关于不变性<a class="headerlink" href="#24" title="Permanent link">&para;</a></h2>
-<p>因为 Haskell 是纯的，这也意味着函数不能<em>修改</em>（改变）它们的输入。变更是一种副作用，Haskell 函数只允许通过其返回值进行输出。这表示 Haskell 列表函数总是返回一个新列表。在实践中：</p>
+<p>因为 Haskell 是纯的，这也意味着函数不能<em>修改</em>（改变）它们的输入。修改是一种副作用，Haskell 函数只允许通过其返回值进行输出。这意味着 Haskell 列表函数总是返回一个新列表。在实践中：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">reverse</span><span class="w"> </span><span class="n">list</span>
 <a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
@@ -1757,9 +1757,9 @@
 </code></pre></div>
 <p>这可能看起来效率很低，但事实证明它既高性能又非常有用。我们将在后面的讲座中回顾 Haskell 数据结构的工作原理。</p>
 <h2 id="25">2.5 关于类型推断和多态性<a class="headerlink" href="#25" title="Permanent link">&para;</a></h2>
-<p>那么像 <code>head :: [a] -&gt; a</code> 这样的类型是什么意思呢？这表示给定一个包含任何类型 <code>a</code> 元素的列表，返回值将具有相同类型 <code>a</code>。</p>
-<p>在这种类型中， <code>a</code> 是一个<em>类型变量</em>。类型变量是以小写字母开头的类型，例如 <code>a</code>、<code>b</code>、<code>thisIsATypeVariable</code>。类型变量意味着未知的类型，或者换句话说，可以是任何类型的类型。类型变量可以通过<em>类型推断</em>（也称为<em>统一</em>）过程变成<em>具体类型</em>（例如 <code>Bool</code>）。</p>
-<p>让我们看一些例子。如果我们将 <code>head</code> 应用于布尔值列表，类型推断会将头部参数的类型 <code>[a]</code> 与实际参数的类型 <code>[Bool]</code> 进行比较，并推断出 <code>a</code> 必须是 <code>Bool</code>。这表示在这种情况下 <code>head</code> 的返回类型也将是 <code>Bool</code>。</p>
+<p>那么像 <code>head :: [a] -&gt; a</code> 这样的类型是什么意思呢？这意味着给定一个包含任何类型 <code>a</code> 元素的列表，返回值将具有相同类型 <code>a</code>。</p>
+<p>在这种类型中，<code>a</code> 是一个<em>类型变量</em>。类型变量以小写字母开头，例如 <code>a</code>、<code>b</code>、<code>thisIsATypeVariable</code>。类型变量表示一个尚未确定的类型，换句话说，它可以是任意类型。类型变量可以通过<em>类型推断</em>（也称为<em>统一</em>）过程变成<em>具体类型</em>（例如 <code>Bool</code>）。</p>
+<p>让我们看一些示例。如果我们将 <code>head</code> 应用于布尔值列表，类型推断会将头部参数的类型 <code>[a]</code> 与实际参数的类型 <code>[Bool]</code> 进行比较，并推断出 <code>a</code> 必须是 <code>Bool</code>。这意味着在这种情况下 <code>head</code> 的返回类型也将是 <code>Bool</code>。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nf">head</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nf">head</span><span class="w"> </span><span class="p">[</span><span class="kt">True</span><span class="p">,</span><span class="kt">False</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Bool</span>
 </code></pre></div>
@@ -1781,11 +1781,11 @@
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nf">f</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="n">ys</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="n">head</span><span class="w"> </span><span class="n">xs</span><span class="p">,</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="n">ys</span><span class="p">]</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nf">g</span><span class="w"> </span><span class="n">zs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="s">&quot;Moi&quot;</span><span class="w"> </span><span class="n">zs</span>
 </code></pre></div>
-<p>我们可以向 GHCi 询问它们的类型，我们将看到类型推断已经发现 <code>f</code> 的两个参数必须具有相同的类型，因为它们的头被放入同一个列表中。</p>
+<p>我们可以向 GHCi 询问它们的类型。你会看到，类型推断已经发现 <code>f</code> 的两个参数必须具有相同的类型，因为它们的头部元素被放进了同一个列表。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">f</span>
 <a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="nf">f</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
 </code></pre></div>
-<p>函数 <code>g</code> 将 <code>f</code> 的参数之一固定为字符串（即 <code>[Char]</code>），该函数获得更窄的类型。类型推断决定 <code>g</code> 的参数 <code>zs</code> 也必须具有类型 <code>[Char]</code>，否则 <code>f</code> 的类型将与对 <code>f</code> 的调用不匹配。</p>
+<p>函数 <code>g</code> 将 <code>f</code> 的参数之一固定为字符串（即 <code>[Char]</code>），该函数获得更具体的类型。类型推断决定 <code>g</code> 的参数 <code>zs</code> 也必须具有类型 <code>[Char]</code>，否则 <code>f</code> 的类型将与对 <code>f</code> 的调用不匹配。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">g</span>
 <a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nf">g</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Char</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Char</span><span class="p">]</span>
 </code></pre></div>
@@ -1797,13 +1797,13 @@
 <ol>
 <li>它们充当文档</li>
 <li>它们充当编译器检查的断言：帮助你发现错误</li>
-<li>你可以使用类型标注为函数提供比 Haskell 推断更窄的类型</li>
+<li>你可以使用类型标注为函数提供比 Haskell 推断更具体的类型</li>
 </ol>
 <p>一个好的经验法则是给出顶级定义类型标注。</p>
 <h2 id="26-maybe">2.6 <code>Maybe</code> 类型<a class="headerlink" href="#26-maybe" title="Permanent link">&para;</a></h2>
 <p>除了列表类型之外，Haskell 还有其他参数化类型。让我们看一个非常常见且有用的类型：<code>Maybe</code> 类型。</p>
 <p>有时，操作没有有效的返回值（例如除以零）。在这种情况下，我们有几个选择：可以使用错误值，比如 <code>-1</code>，但这不太优雅，而且不总是可行；也可以抛出异常，但这不是纯函数；有些语言会返回一个几乎存在于所有类型中的特殊空值。然而，Haskell 没有 null。</p>
-<p>Haskell 为我们提供的解决方案是将返回类型更改为 <code>Maybe</code> 类型。这是纯净、安全、整洁的。类型 <code>Maybe a</code> 有两个<em>构造函数</em>：<code>Nothing</code> 和 <code>Just</code>。<code>Nothing</code> 只是一个常量，但 <code>Just</code> 带有一个参数。更具体地说：</p>
+<p>Haskell 为我们提供的解决方案是将返回类型更改为 <code>Maybe</code> 类型。这是纯粹、安全而清晰的。类型 <code>Maybe a</code> 有两个<em>构造函数</em>：<code>Nothing</code> 和 <code>Just</code>。<code>Nothing</code> 只是一个常量，但 <code>Just</code> 带有一个参数。更具体地说：</p>
 <table>
 <thead>
 <tr>
@@ -1833,23 +1833,23 @@
 <a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;a camel&quot;</span>
 <a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;a camel&quot;</span>
 <a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;a camel&quot;</span>
-<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;a camel&quot;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="p">[</span><span class="kt">Char</span><span class="p">]</span><span class="w">   </span><span class="c1">-- the same as Maybe String</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;a camel&quot;</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="p">[</span><span class="kt">Char</span><span class="p">]</span><span class="w">   </span><span class="c1">-- 等同于 Maybe String</span>
 <a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span>
 <a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span>
 <a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span>
 <a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="kt">Just</span><span class="w"> </span><span class="kt">True</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Bool</span>
 </code></pre></div>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1">-- given a password, return (Just username) if login succeeds, Nothing otherwise</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1">-- 给定密码，登录成功时返回 (Just username)，否则返回 Nothing</span>
 <a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nf">login</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="nf">login</span><span class="w"> </span><span class="s">&quot;f4bulous!&quot;</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;unicorn73&quot;</span>
 <a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="nf">login</span><span class="w"> </span><span class="s">&quot;swordfish&quot;</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;megahacker&quot;</span>
 <a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="nf">login</span><span class="w"> </span><span class="kr">_</span><span class="w">           </span><span class="ow">=</span><span class="w"> </span><span class="kt">Nothing</span>
 </code></pre></div>
-<p>你可以通过模式匹配来使用 <code>Maybe</code> 值。通常需要为 <code>Nothing</code> 和 <code>Just something</code> 两种情况定义模式。下面是一些例子：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1">-- Multiply an Int with a Maybe Int. Nothing is treated as no multiplication at all.</span>
+<p>你可以通过模式匹配来使用 <code>Maybe</code> 值。通常需要为 <code>Nothing</code> 和 <code>Just something</code> 两种情况定义模式。下面是一些示例：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1">-- 将 Int 与 Maybe Int 相乘。Nothing 被视为不进行任何乘法。</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nf">perhapsMultiply</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="nf">perhapsMultiply</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="kt">Nothing</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">i</span>
-<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nf">perhapsMultiply</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="w">   </span><span class="c1">-- Note how j denotes the value inside the Just</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nf">perhapsMultiply</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="n">j</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="w">   </span><span class="c1">-- 注意 j 表示 Just 内部的值</span>
 </code></pre></div>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="n">perhapsMultiply</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="kt">Nothing</span>
 <a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="mi">3</span>
@@ -1877,7 +1877,7 @@
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="kt">Just</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="n">a</span>
 </code></pre></div>
 <h2 id="28-either">2.8 <code>Either</code> 类型<a class="headerlink" href="#28-either" title="Permanent link">&para;</a></h2>
-<p>有时，如果能给 <code>Nothing</code> 附加错误消息或其他信息，会更有帮助。这就是 <code>Either</code> 类型存在的原因。<code>Either</code> 类型有两个类型参数。类型 <code>Either a b</code> 有两个构造函数：<code>Left</code> 和 <code>Right</code>。两者都带有一个参数，<code>Left</code> 包含类型 <code>a</code> 的值，<code>Right</code> 包含类型 <code>b</code> 的值。</p>
+<p>有时，如果能给 <code>Nothing</code> 附加错误消息或其他信息，会更有用。这就是 <code>Either</code> 类型存在的原因。<code>Either</code> 类型有两个类型参数。类型 <code>Either a b</code> 有两个构造函数：<code>Left</code> 和 <code>Right</code>。两者都带有一个参数，<code>Left</code> 包含类型 <code>a</code> 的值，<code>Right</code> 包含类型 <code>b</code> 的值。</p>
 <table>
 <thead>
 <tr>
@@ -1912,7 +1912,7 @@
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nf">iWantAString</span><span class="w"> </span><span class="p">(</span><span class="kt">Right</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w">   </span><span class="ow">=</span><span class="w"> </span><span class="n">str</span>
 <a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="nf">iWantAString</span><span class="w"> </span><span class="p">(</span><span class="kt">Left</span><span class="w"> </span><span class="n">number</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="n">number</span>
 </code></pre></div>
-<p>你还记得，Haskell 列表只能包含相同类型的元素。你不能拥有像 <code>[1,"foo",2]</code> 这样的值。但是，你可以使用 <code>Either</code> 之类的类型来表示可以包含两种不同类型值的列表。例如，我们可以跟踪讲座的人数，如果缺少值，则可以添加解释：</p>
+<p>你还记得，Haskell 列表只能包含相同类型的元素。你不能拥有像 <code>[1,"foo",2]</code> 这样的值。但是，你可以使用 <code>Either</code> 之类的类型来表示可以包含两种不同类型值的列表。例如，我们可以跟踪讲座参与人数，如果缺少值，则可以添加解释：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nf">lectureParticipants</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">[</span><span class="kt">Either</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="kt">Int</span><span class="p">]</span>
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nf">lectureParticipants</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">[</span><span class="kt">Right</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="kt">Right</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="kt">Left</span><span class="w"> </span><span class="s">&quot;easter vacation&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">Right</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="kt">Left</span><span class="w"> </span><span class="s">&quot;lecturer was sick&quot;</span><span class="p">,</span><span class="w"> </span><span class="kt">Right</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span>
 </code></pre></div>
@@ -1935,7 +1935,7 @@
 <a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="w">                       </span><span class="n">n</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="s">&quot;the number &quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">show</span><span class="w"> </span><span class="n">n</span>
 </code></pre></div>
 <p>一个更有趣的例子是，当我们进行模式匹配的值不是函数参数时。例如：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1">-- parse country code into country name, returns Nothing if code not recognized</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1">-- 将国家代码解析为国家名称，无法识别代码时返回 Nothing</span>
 <a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="nf">parseCountry</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="nf">parseCountry</span><span class="w"> </span><span class="s">&quot;FI&quot;</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;Finland&quot;</span>
 <a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="nf">parseCountry</span><span class="w"> </span><span class="s">&quot;SE&quot;</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Just</span><span class="w"> </span><span class="s">&quot;Sweden&quot;</span>
@@ -1956,15 +1956,15 @@
 <a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">handleResult</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="n">country</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;You&#39;re flying to &quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">country</span>
 <a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="w">        </span><span class="n">handleResult</span><span class="w"> </span><span class="kt">Nothing</span><span class="w">        </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;You&#39;re not flying anywhere&quot;</span>
 </code></pre></div>
-<p>事实上，case-of 表达式总是可以用辅助函数替换。这是另外一个例子，用两种方式编写：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1">-- given a sentence, decide whether it is a statement, question or exclamation</span>
+<p>事实上，case-of 表达式总是可以用辅助函数替换。这是另一个示例，用两种方式编写：</p>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1">-- 给定一个句子，判断它是陈述句、疑问句还是感叹句</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nf">sentenceType</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">String</span>
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="nf">sentenceType</span><span class="w"> </span><span class="n">sentence</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">case</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="n">sentence</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="sc">&#39;.&#39;</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="s">&quot;statement&quot;</span>
 <a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">                                              </span><span class="sc">&#39;?&#39;</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="s">&quot;question&quot;</span>
 <a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="w">                                              </span><span class="sc">&#39;!&#39;</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="s">&quot;exclamation&quot;</span>
 <a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">                                              </span><span class="kr">_</span><span class="w">   </span><span class="ow">-&gt;</span><span class="w"> </span><span class="s">&quot;not a sentence&quot;</span>
 </code></pre></div>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1">-- same function, helper function instead of case-of</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1">-- 同一个函数，但用辅助函数替代 case-of</span>
 <a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nf">sentenceType</span><span class="w"> </span><span class="n">sentence</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">classify</span><span class="w"> </span><span class="p">(</span><span class="n">last</span><span class="w"> </span><span class="n">sentence</span><span class="p">)</span>
 <a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">classify</span><span class="w"> </span><span class="sc">&#39;.&#39;</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;statement&quot;</span>
 <a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="w">        </span><span class="n">classify</span><span class="w"> </span><span class="sc">&#39;?&#39;</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;question&quot;</span>
@@ -2012,7 +2012,7 @@
 <a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="nf">area</span><span class="w"> </span><span class="s">&quot;circle&quot;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">square</span><span class="w"> </span><span class="n">x</span>
 <a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="w">  </span><span class="kr">where</span><span class="w"> </span><span class="n">square</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span>
 </code></pre></div>
-<p>这不会编译，因为 <code>where</code> 子句仅附加到 <code>"circle"</code> 情况，因此 <code>square</code> 辅助函数在 <code>"square"</code> 情况下不可用。另一方面，我们可以写</p>
+<p>这不会编译，因为 <code>where</code> 子句只附着在 <code>"circle"</code> 分支上，所以 <code>square</code> 辅助函数在 <code>"square"</code> 分支中不可用。另一方面，我们可以写成：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="nf">area</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Double</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Double</span>
 <a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="nf">area</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">case</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="kr">of</span>
 <a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="w">  </span><span class="s">&quot;square&quot;</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">square</span><span class="w"> </span><span class="n">x</span>
@@ -2029,7 +2029,7 @@
 <a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a><span class="nf">distanceToSunday</span><span class="w"> </span><span class="s">&quot;Saturday&quot;</span><span class="w">  </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span>
 <a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a><span class="nf">distanceToSunday</span><span class="w"> </span><span class="s">&quot;Sunday&quot;</span><span class="w">    </span><span class="ow">=</span><span class="w"> </span><span class="mi">0</span>
 </code></pre></div>
-<p>使用 <code>case</code> 表达式可以实现更简洁的实现：</p>
+<p>使用 <code>case</code> 表达式可以写出更简洁的实现：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="nf">distanceToSunday</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="nf">distanceToSunday</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">case</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="kr">of</span>
 <a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="w">  </span><span class="s">&quot;Monday&quot;</span><span class="w">    </span><span class="ow">-&gt;</span><span class="w"> </span><span class="mi">6</span>
@@ -2040,8 +2040,8 @@
 <a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a><span class="w">  </span><span class="s">&quot;Saturday&quot;</span><span class="w">  </span><span class="ow">-&gt;</span><span class="w"> </span><span class="mi">1</span>
 <a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a><span class="w">  </span><span class="s">&quot;Sunday&quot;</span><span class="w">    </span><span class="ow">-&gt;</span><span class="w"> </span><span class="mi">0</span>
 </code></pre></div>
-<p>这三个优点使 <code>case</code> 表达式成为 Haskell 程序员工具箱中的多功能工具。记住 <code>case</code> 的工作原理很值得。</p>
-<p>（用字符串表示工作日可能可行，但不是完美的解决方案。如果我们把 <code>motivate</code> 应用于 <code>"monday"</code>（全小写）或 <code>"keskiviikko"</code> 会怎么样？在第 5 讲中，我们将学习一种更好的方法来表示工作日这类数据。）</p>
+<p>这三个优点使 <code>case</code> 表达式成为 Haskell 程序员工具箱中的多用途工具。记住 <code>case</code> 的工作原理很值得。</p>
+<p>（用字符串表示工作日可能可行，但不是完美的解决方案。如果我们把 <code>motivate</code> 应用于 <code>"monday"</code>（全小写）或 <code>"keskiviikko"</code> 会怎么样？在第 5 讲中，我们将学习一种更好的方法来表示星期几这类数据。）</p>
 <h2 id="210">2.10 回顾：模式匹配<a class="headerlink" href="#210" title="Permanent link">&para;</a></h2>
 <p>可以用作模式的东西：</p>
 <ul>
@@ -2073,7 +2073,7 @@
 <a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="w">               </span><span class="kr">_</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="s">&quot;not zero or one&quot;</span>
 </code></pre></div>
 <p>你真正“需要”模式匹配的唯一事情是在 <code>Just</code>、<code>Left</code> 或 <code>Right</code> 构造函数中“获取值”。这里还有两个例子：</p>
-<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="c1">-- getElement (Just i) gets the ith element (counting from zero) of a list, getElement Nothing gets the last element</span>
+<div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="c1">-- getElement (Just i) 获取列表的第 i 个元素（从 0 开始计数），getElement Nothing 获取最后一个元素</span>
 <a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="nf">getElement</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Maybe</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">a</span>
 <a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="nf">getElement</span><span class="w"> </span><span class="p">(</span><span class="kt">Just</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">!!</span><span class="w"> </span><span class="n">i</span>
 <a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="nf">getElement</span><span class="w"> </span><span class="kt">Nothing</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="n">xs</span>
@@ -2165,7 +2165,7 @@
       <nav class="md-footer__inner md-grid" aria-label="页脚" >
         
           
-          <a href="../01-and-so-it-begins/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 1 讲：……就这样开始">
+          <a href="../01-and-so-it-begins/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第 1 讲：故事就这样开始">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2175,7 +2175,7 @@
                 上一页
               </span>
               <div class="md-ellipsis">
-                第 1 讲：……就这样开始
+                第 1 讲：故事就这样开始
               </div>
             </div>
           </a>
@@ -2205,7 +2205,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   

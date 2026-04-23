@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="一门使用 Haskell 编程语言学习函数式编程的在线课程 - 中文翻译版本">
+        <meta name="description" content="使用 Haskell 学习函数式编程的在线课程中文翻译">
       
       
         <meta name="author" content="Haskell MOOC 中文翻译项目">
@@ -24,12 +24,12 @@
         
       
       
-      <link rel="icon" href="../img/haskell-mooc-logo.svg">
+      <link rel="icon" href="../img/haskell-logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>第 14 讲：使用一些库 - Haskell 慕课（中文翻译）</title>
+        <title>第 14 讲：开始使用库 - Haskell MOOC 中文版</title>
       
     
     
@@ -92,9 +92,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-header__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-header__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -105,13 +105,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Haskell 慕课（中文翻译）
+            Haskell MOOC 中文版
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              第 14 讲：使用一些库
+              第 14 讲：开始使用库
             
           </span>
         </div>
@@ -310,12 +310,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Haskell 慕课（中文翻译）" class="md-nav__button md-logo" aria-label="Haskell 慕课（中文翻译）" data-md-component="logo">
+    <a href=".." title="Haskell MOOC 中文版" class="md-nav__button md-logo" aria-label="Haskell MOOC 中文版" data-md-component="logo">
       
-  <img src="../img/haskell-mooc-logo.svg" alt="logo">
+  <img src="../img/haskell-logo.svg" alt="logo">
 
     </a>
-    Haskell 慕课（中文翻译）
+    Haskell MOOC 中文版
   </label>
   
     <div class="md-nav__source">
@@ -443,7 +443,7 @@
   <span class="md-ellipsis">
     
   
-    第 1 讲：……就这样开始
+    第 1 讲：故事就这样开始
   
 
     
@@ -898,7 +898,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -916,7 +916,7 @@
   <span class="md-ellipsis">
     
   
-    第 14 讲：使用一些库
+    第 14 讲：开始使用库
   
 
     
@@ -1086,7 +1086,7 @@
   <span class="md-ellipsis">
     
   
-    第 16 讲：杂项内容
+    第 16 讲：零碎内容
   
 
     
@@ -1295,8 +1295,8 @@
   
 
 
-<h1 id="14">第 14 讲：使用一些库<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
-<p>现在你了解了 Monad，你几乎了解了 Haskell 的所有核心内容，可以开始编写使用库的实际程序。本讲座将介绍此类实际程序中常用的一些库的例子。使用这些库也是练习 Monad、阅读文档和理解类型错误的好机会。</p>
+<h1 id="14">第 14 讲：开始使用库<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
+<p>现在你已经了解了 Monad，也就差不多掌握了 Haskell 的核心内容，可以开始编写使用库的实际程序。本讲将介绍这类实际程序中常用的一些库。使用这些库也是练习 Monad、阅读文档和理解类型错误的好机会。</p>
 <p><strong>注意！</strong> 在阅读库的文档时，请记住注意库的版本。你可以在<a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/tests.cabal"><code>tests.cabal</code> 文件</a> 中查看课程中使用的版本。课程材料中的链接始终将你带到正确的版本，<code>stack haddock --open &lt;package&gt;</code> 命令也是如此。另请参阅<a href="https://haskell.mooc.fi/part1#reading-docs">阅读第 1 部分中的文档</a>。</p>
 <h2 id="141-text-bytestring">14.1 <code>Text</code> 和 <code>ByteString</code><a class="headerlink" href="#141-text-bytestring" title="Permanent link">&para;</a></h2>
 <p>到目前为止，我们一直用 Haskell <code>String</code> 类型处理字符串。然而，<code>String</code> 只是 <code>[Char]</code>，一个字符列表。在内存和时间方面，这都是极其低效的。一旦开始处理整个文件或网络请求，就必须使用更高效的字符串类型。</p>
@@ -1347,7 +1347,7 @@
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">T</span><span class="o">.</span><span class="n">concat</span><span class="w"> </span><span class="p">[</span><span class="n">phrase</span><span class="p">,</span><span class="n">phrase</span><span class="p">,</span><span class="n">phrase</span><span class="p">]</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="s">&quot;brevity is the soul of witbrevity is the soul of witbrevity is the soul of wit&quot;</span>
 </code></pre></div>
-<p>如果你想编写一个在 <code>Text</code> 上进行模式匹配的递归函数，就像在 <code>String</code> 上一样，你可以使用函数 <code>T.uncons :: T.Text -&gt; Maybe (Char, T.Text)</code> 将 <code>Text</code> 拆分为头部和尾部。这是一个简单的例子：</p>
+<p>如果你想编写一个在 <code>Text</code> 上进行模式匹配的递归函数，就像在 <code>String</code> 上一样，你可以使用函数 <code>T.uncons :: T.Text -&gt; Maybe (Char, T.Text)</code> 将 <code>Text</code> 拆分为头部和尾部。这是一个简单的示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nf">countLetter</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Char</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">T</span><span class="o">.</span><span class="kt">Text</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">countLetter</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="ow">=</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="kr">case</span><span class="w"> </span><span class="kt">T</span><span class="o">.</span><span class="n">uncons</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="kr">of</span>
@@ -1360,7 +1360,7 @@
 <h4 id="14111">14.1.1.1 严格与惰性<a class="headerlink" href="#14111" title="Permanent link">&para;</a></h4>
 <p>请注意，<code>Data.Text</code> 实现严格 <code>Text</code> 类型。你需要使用 <code>Data.Text.Lazy</code> 作为惰性版本。如前所述，这两种类型之间的一个区别是严格类型不适用于无限字符串：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">T</span><span class="o">.</span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="p">(</span><span class="n">repeat</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="p">))</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">-- never returns</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">-- 永不返回</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.Text.Lazy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">TL</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="kt">TL</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">TL</span><span class="o">.</span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="kt">TL</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="p">(</span><span class="n">repeat</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="p">))</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sc">&#39;x&#39;</span>
@@ -1417,7 +1417,7 @@
 </code></pre></div>
 <p>与 <code>Text</code> 相同的警告适用于严格 <code>ByteString</code> 和惰性 <code>ByteString</code> 之间的差异：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">B</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">Char</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">B</span><span class="o">.</span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="kt">B</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="p">(</span><span class="n">repeat</span><span class="w"> </span><span class="mi">99</span><span class="p">))</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1">-- never returns</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1">-- 永不返回</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">Word</span><span class="w"> </span><span class="kt">B</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.ByteString.Lazy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">BL</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">Word</span><span class="w"> </span><span class="kt">B</span><span class="w"> </span><span class="kt">BL</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">BL</span><span class="o">.</span><span class="n">head</span><span class="w"> </span><span class="p">(</span><span class="kt">BL</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="p">(</span><span class="n">repeat</span><span class="w"> </span><span class="mi">99</span><span class="p">))</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="mi">99</span>
@@ -1442,12 +1442,12 @@
 <h3 id="1413">14.1.3 附注：编码<a class="headerlink" href="#1413" title="Permanent link">&para;</a></h3>
 <p>你可能想知道为什么我们同时拥有 Text 和 ByteString。差异很微妙但又真实。当我们对 <code>Text</code> 进行操作时，我们会逐个字符地进行操作，而不管这些字符是什么以及它们是如何编码的。当我们对 <code>ByteString</code> 进行操作时，我们对字节进行操作，无论这些字节代表什么。</p>
 <p>字符、数字和数据结构是帮助我们人类处理复杂编程任务的抽象。计算机内存本质上只是一个巨大的字节序列。机器并不关心我们如何解释这些字节。 <code>Text</code> 和 <code>ByteString</code> 之间的本质区别在于字节的分组和解释方式。</p>
-<p>为了说明这种差异，我们将看看 <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8 文本编码</a>。文本编码是将<em>字符</em>表示为<em>字节</em>的方法。 UTF-8可以表示<a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a>定义的所有数百万个字符。由于字节只能存储 0 到 255 之间的值，这意味着一个字符可以编码为多个字节。 UTF-8 字符串“Ha∫keλ!”的位和字节可以有多种解释：</p>
+<p>为了说明这种差异，我们将看看 <a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8 文本编码</a>。文本编码是将<em>字符</em>表示为<em>字节</em>的方法。 UTF-8 可以表示<a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a>定义的所有数百万个字符。由于字节只能存储 0 到 255 之间的值，这意味着一个字符可以编码为多个字节。 UTF-8 字符串“Ha∫keλ!”的位和字节可以有多种解释：</p>
 <p><img alt="" src="../img/string.svg" /></p>
 <p>（如果你在图片和“Ha∫keλ！”中看到不同的字符，则意味着你的浏览器错误地解释了编码，或者你使用的字体不支持所有字符。）</p>
 <p>如果我们使用不同的编码读取相同的位流，我们会看到其他字符。例如，上面的字符串将被解释为“Haâˆ«keÎ»!”使用<a href="https://en.wikipedia.org/wiki/Latin-1">Latin-1 文本编码</a>。</p>
 <p>顺便说一句，在处理原始二进制数据时，使用十六进制数字系统通常很方便，它使用单个符号 <code>0</code>、<code>1</code>、...、<code>9</code>、<code>A</code>、<code>B</code>、...、<code>F</code> 来表示四位的所有 16 种可能的组合。在本课程中我们不需要十六进制，但如果你有兴趣了解有关十六进制的更多信息，你可以查看<a href="https://en.wikipedia.org/wiki/Hexadecimal">维基百科</a>。</p>
-<p>我们可以使用代码探索相同的例子。函数 <code>Data.Text.Encoding.encodeUtf8 :: Text -&gt; ByteString</code> 使用 UTF-8 将 Text 中的字符编码为 ByteString 中的字节。</p>
+<p>我们可以使用代码探索相同的示例。函数 <code>Data.Text.Encoding.encodeUtf8 :: Text -&gt; ByteString</code> 使用 UTF-8 将 Text 中的字符编码为 ByteString 中的字节。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">Prelude</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.Text</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.ByteString</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">B</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="kt">B</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">T</span><span class="o">.</span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;haskell&quot;</span><span class="p">)</span>
@@ -1464,7 +1464,7 @@
 <a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="kt">B</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">Text</span><span class="o">.</span><span class="kt">Encoding</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">B</span><span class="o">.</span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">encodeUtf8</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;Ha∫keλ!&quot;</span><span class="p">))</span>
 <a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="mi">10</span>
 </code></pre></div>
-<p>如果我们处理的是<a href="https://en.wikipedia.org/wiki/ASCII">ASCII文本</a>，即可以用单字节表示的字符，我们可以互换使用<code>Text</code>和<code>ByteString</code>。命名空间 <code>Data.ByteString.Char8</code> 和 <code>Data.ByteString.Lazy.Char8</code> 提供使用 <code>Char</code> 值（而不是 <code>Word8</code>）在 <code>ByteString</code> 上运行的函数。然而，必须小心确保所有字符确实都是纯 ASCII 字符，否则会发生令人惊讶的事情。</p>
+<p>如果我们处理的是 <a href="https://en.wikipedia.org/wiki/ASCII">ASCII 文本</a>，也就是可以用单字节表示的字符，那么可以在一定程度上互换使用 <code>Text</code> 和 <code>ByteString</code>。命名空间 <code>Data.ByteString.Char8</code> 和 <code>Data.ByteString.Lazy.Char8</code> 提供了在 <code>ByteString</code> 上使用 <code>Char</code> 值（而不是 <code>Word8</code>）的函数。不过必须小心，确保所有字符确实都是纯 ASCII 字符，否则会出现令人意外的结果。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="kt">B</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.ByteString.Char8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">B8</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">T</span><span class="w"> </span><span class="kt">B</span><span class="w"> </span><span class="kt">B8</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">B8</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;abc&quot;</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="s">&quot;abc&quot;</span>
@@ -1483,24 +1483,24 @@
 <p>接下来我们将研究 IO monad 内部的库。这是我们在上一课中学到的关于 monad 的简短回顾。</p>
 <ul>
 <li>当 <code>M</code> 是 monad 时，<code>M X</code> 类型的值是可以“执行”以“生成”<code>X</code> 类型的值的“操作”。</li>
-<li>Monadic 操作可以使用以下方式实现</li>
+<li>Monad 操作可以使用以下方式实现</li>
 <li><code>Monad</code> 类型类的方法（<code>return</code>、<code>&gt;&gt;=</code>、<code>&gt;&gt;</code>），</li>
 <li><code>do</code>-符号，</li>
 <li>以及 <code>mapM</code> 等库函数。</li>
 <li>与其他语言不同，<code>return</code> 不是关键字，不会导致操作停止执行。相反，<code>return x</code> <em>是始终生成 x 且不执行任何其他操作的操作</em>。</li>
-<li>这就是 <code>do</code> 表示法的样子：</li>
+<li>这就是 <code>do</code> 语法的样子：</li>
 </ul>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nf">foo</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">do</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="n">operation1</span><span class="w">         </span><span class="c1">-- run an operation</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">operation2</span><span class="w">  </span><span class="c1">-- run an operation and keep the produced value</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="n">operation3</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">y</span><span class="w">   </span><span class="c1">-- run an operation with parameters</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="n">mapM_</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">operation4</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">things</span><span class="w">  </span><span class="c1">-- use a generic monad operation and a lambda</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="n">operation5</span><span class="w"> </span><span class="n">val</span><span class="w">     </span><span class="c1">-- the final line of the do decides which value the whole block produces</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="n">operation1</span><span class="w">         </span><span class="c1">-- 运行一个操作</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">operation2</span><span class="w">  </span><span class="c1">-- 运行一个操作并保留产生的值</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="n">operation3</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">y</span><span class="w">   </span><span class="c1">-- 使用参数运行一个操作</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="n">mapM_</span><span class="w"> </span><span class="p">(</span><span class="nf">\</span><span class="n">x</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">operation4</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">things</span><span class="w">  </span><span class="c1">-- 使用通用 monad 操作和 lambda</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="n">operation5</span><span class="w"> </span><span class="n">val</span><span class="w">     </span><span class="c1">-- do 的最后一行决定整个代码块产生什么值</span>
 </code></pre></div>
 <h2 id="143-http-wai-warp">14.3 编写 HTTP 服务器：WAI 和 Warp<a class="headerlink" href="#143-http-wai-warp" title="Permanent link">&para;</a></h2>
-<p>有时感觉世界上的一切都发生在 <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> 和 <a href="https://en.wikipedia.org/wiki/Web_API">Web Apis</a> 上。你的网络浏览器、你的智能手机应用程序、<a href="https://developer.nordeaopenbanking.com/">你的银行</a>、<a href="https://tools.ietf.org/html/rfc2324">你的咖啡壶</a>、<a href="https://support.ring.com/hc/en-us/articles/205385394-The-Protocols-and-Ports-Used-by-Ring-Devices">甚至你的门铃</a>，都使用 HTTP 协议与服务器通信。</p>
-<p>让我们看看如何在 Haskell 中设置一个简单的 HTTP 服务器。为此的标准低级组件称为 <a href="https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html">WAI</a> 和 <a href="https://hackage.haskell.org/package/warp-3.3.23">Warp</a>。 WAI（Web 应用接口）为我们提供了一种定义如何处理 HTTP 请求的方法。 Warp 是一个简单的 HTTP 服务器，它运行我们使用 WAI 定义的逻辑。现在听起来可能有点抽象，但一个简单的例子会有所帮助。</p>
-<p>文件 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/HelloServer.hs"><code>exercises/Examples/HelloServer.hs</code></a> 实现了一个始终以“Hello World!”响应的 HTTP 服务器。你可以通过转到 <code>exercises/Examples</code> 目录并使用 <code>stack runhaskell HelloServer.hs</code> 运行来尝试一下。之后你可以在浏览器中访问<a href="http://localhost:3421">http://localhost:3421</a>来查看服务器的响应。</p>
+<p>有时感觉世界上的一切都发生在 <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> 和 <a href="https://en.wikipedia.org/wiki/Web_API">Web APIs</a> 上。你的网络浏览器、你的智能手机应用程序、<a href="https://developer.nordeaopenbanking.com/">你的银行</a>、<a href="https://tools.ietf.org/html/rfc2324">你的咖啡壶</a>、<a href="https://support.ring.com/hc/en-us/articles/205385394-The-Protocols-and-Ports-Used-by-Ring-Devices">甚至你的门铃</a>，都使用 HTTP 协议与服务器通信。</p>
+<p>让我们看看如何在 Haskell 中搭建一个简单的 HTTP 服务器。这里会用到两个标准的底层组件：<a href="https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html">WAI</a> 和 <a href="https://hackage.haskell.org/package/warp-3.3.23">Warp</a>。WAI（Web 应用接口）提供了一种定义 HTTP 请求处理逻辑的方式。Warp 则是一个简单的 HTTP 服务器，用来运行我们通过 WAI 定义的逻辑。现在听起来可能有点抽象，但一个简单示例会有所帮助。</p>
+<p>文件 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/HelloServer.hs"><code>exercises/Examples/HelloServer.hs</code></a> 实现了一个始终以“Hello World!”响应的 HTTP 服务器。你可以进入 <code>exercises/Examples</code> 目录，并运行 <code>stack runhaskell HelloServer.hs</code> 试一试。之后可以在浏览器中访问 <a href="http://localhost:3421">http://localhost:3421</a> 查看服务器响应。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kr">module</span><span class="w"> </span><span class="nn">Examples.HelloServer</span><span class="w"> </span><span class="kr">where</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.ByteString.Lazy.Char8</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">BL</span>
@@ -1514,23 +1514,23 @@
 <a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nf">main</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="nf">main</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="n">application</span>
 <a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
-<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="c1">-- type Application = Request -&gt; (Response -&gt; IO ResponseReceived) -&gt; IO ResponseReceived</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="c1">-- Application 的类型：Request -&gt; (Response -&gt; IO ResponseReceived) -&gt; IO ResponseReceived</span>
 <a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="nf">application</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Application</span>
 <a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="nf">application</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="n">respond</span><span class="w"> </span><span class="ow">=</span>
 <a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">  </span><span class="n">respond</span><span class="w"> </span><span class="p">(</span><span class="n">responseLBS</span><span class="w"> </span><span class="n">status200</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="p">(</span><span class="kt">BL</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;Hello World!&quot;</span><span class="p">))</span>
 </code></pre></div>
-<p>让我们看看这个例子中的类型。这里发生了很多事情。首先，<code>Application</code> 是实现 Web 服务器逻辑的事物的“类型别名”。 <a href="https://hackage.haskell.org/package/warp-3.3.23/docs/Network-Wai-Handler-Warp.html#v:run">Warp 中的 <code>run</code> 函数</a> 可以运行 <code>Application</code>：</p>
+<p>让我们看看这个示例中的类型。这里信息量不少。首先，<code>Application</code> 是表示 Web 服务器逻辑的类型别名。<a href="https://hackage.haskell.org/package/warp-3.3.23/docs/Network-Wai-Handler-Warp.html#v:run">Warp 中的 <code>run</code> 函数</a> 可以运行一个 <code>Application</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nf">run</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Port</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Application</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kr">type</span><span class="w"> </span><span class="kt">Application</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Request</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="kt">Response</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">ResponseReceived</span><span class="p">)</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">ResponseReceived</span>
 </code></pre></div>
-<p>我们很快就会讨论 <code>Request</code> 和 <code>Response</code> 是什么，但从这个类型中我们可以看到 <code>Application</code> 是一个 IO 操作，它以 <code>Request</code> 类型的请求和一个 IO 操作 <code>respond :: Response -&gt; IO ResponseReceived</code> 作为参数。像 <code>respond</code> 这样的参数在许多上下文中被称为“回调”。它们允许我们回调调用了我们 <code>Application</code> 的库。 <code>Application</code> 操作必须生成与 <code>respond</code> 相同的特殊 <code>ResponseReceived</code> 类型。你可以将此类型视为证明 <code>respond</code> 被 <code>Application</code> 调用的令牌。</p>
-<p>这可能听起来很吓人：但看看代码，事情相对简单：我们的 <code>server</code> 是一个 <code>Application</code> 并采用两个参数：<code>request</code> 和 <code>respond</code>。</p>
-<p>WAI 使用许多类型（例如 <code>Port</code>、<code>Request</code>、<code>Response</code>、<code>Status</code>）来表示 HTTP 概念。当你遇到它们时，在文档中查找它们会很有用。例如 <a href="https://hackage.haskell.org/package/warp-3.3.23/docs/Network-Wai-Handler-Warp.html#t:Port"><code>Port</code> 只是 <code>Int</code></a> 的别名。作为另一个例子，我们可以看到 <a href="https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html#v:responseLBS"><code>responseLBS</code> 函数</a> 的类型</p>
+<p>我们很快就会讨论 <code>Request</code> 和 <code>Response</code> 是什么，但从这个类型可以看出，<code>Application</code> 是一个 IO 操作，它接收一个 <code>Request</code> 类型的请求，以及一个 IO 操作 <code>respond :: Response -&gt; IO ResponseReceived</code>。像 <code>respond</code> 这样的参数在许多上下文中被称为“回调”。它让我们能够把控制权交还给调用 <code>Application</code> 的库。<code>Application</code> 操作必须产生和 <code>respond</code> 相同的特殊类型 <code>ResponseReceived</code>。你可以把这个类型看成一个令牌，证明 <code>Application</code> 已经调用过 <code>respond</code>。</p>
+<p>这可能听起来有点吓人，但看看代码，其实事情相对简单：我们的 <code>server</code> 是一个 <code>Application</code>，并接收两个参数：<code>request</code> 和 <code>respond</code>。</p>
+<p>WAI 使用许多类型（例如 <code>Port</code>、<code>Request</code>、<code>Response</code>、<code>Status</code>）来表示 HTTP 概念。当你遇到它们时，在文档中查找它们会很有用。例如 <a href="https://hackage.haskell.org/package/warp-3.3.23/docs/Network-Wai-Handler-Warp.html#t:Port"><code>Port</code> 只是 <code>Int</code></a> 的别名。作为另一个示例，我们可以看到 <a href="https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html#v:responseLBS"><code>responseLBS</code> 函数</a> 的类型</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nf">responseLBS</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Status</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">ResponseHeaders</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">ByteString</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Response</span>
 </code></pre></div>
-<p>其中 <a href="https://hackage.haskell.org/package/http-types-0.12.3/docs/Network-HTTP-Types-Status.html#t:Status"><code>Status</code> 在 <code>Network.HTTP.Types.Status</code></a> 中定义，<a href="https://hackage.haskell.org/package/http-types-0.12.3/docs/Network-HTTP-Types-Header.html#t:ResponseHeaders"><code>ResponseHeaders</code> 是来自 <code>Network.HTTP.Types.Header</code></a> 的 <code>[Header]</code> 的类型别名，<code>ByteString</code> 是惰性 <code>ByteString</code>，结果类型 <a href="https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html#t:Response"><code>Response</code> 定义为<code>Network.WAI</code></a>。</p>
+<p>其中 <a href="https://hackage.haskell.org/package/http-types-0.12.3/docs/Network-HTTP-Types-Status.html#t:Status"><code>Status</code> 在 <code>Network.HTTP.Types.Status</code></a> 中定义，<a href="https://hackage.haskell.org/package/http-types-0.12.3/docs/Network-HTTP-Types-Header.html#t:ResponseHeaders"><code>ResponseHeaders</code> 是来自 <code>Network.HTTP.Types.Header</code></a> 的 <code>[Header]</code> 类型别名，<code>ByteString</code> 是惰性 <code>ByteString</code>，结果类型 <a href="https://hackage.haskell.org/package/wai-3.2.3/docs/Network-Wai.html#t:Response"><code>Response</code> 定义在 <code>Network.WAI</code></a> 中。</p>
 <p>最后，请注意，我们采用了快捷方式，使用函数 <code>Data.ByteString.Lazy.Char8.pack</code> 将 <code>String</code> 转换为 <code>ByteString</code>。这仅适用于 ASCII 文本。</p>
-<p>总是以相同文本响应的Web 服务器并不是那么有趣。接下来我们看看如何针对不同的请求给出不同的响应。 HTTP 请求中有很多部分，但在本次讲座中，我们将重点关注<em>路径</em>。在 <code>http://example.com/abcd/ef/file</code> 这样的 URL 中，<code>/abcd/ef/file</code> 部分是路径。 WAI有函数</p>
+<p>总是以相同文本响应的 Web 服务器并不是那么有趣。接下来我们看看如何针对不同的请求给出不同的响应。 HTTP 请求中有很多部分，但在本讲中，我们将重点关注<em>路径</em>。在 <code>http://example.com/abcd/ef/file</code> 这样的 URL 中，<code>/abcd/ef/file</code> 部分是路径。 WAI 有函数</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nf">pathInfo</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Request</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="p">[</span><span class="kt">Text</span><span class="p">]</span>
 </code></pre></div>
 <p>这为我们提供了所请求 URL 的路径，以 <code>/</code> 字符分割。</p>
@@ -1543,7 +1543,7 @@
 <p>和以前一样，你可以通过进入 <code>exercises/Examples</code> 目录并运行 <code>stack runhaskell PathServer.hs</code> 来运行服务器。</p>
 <h2 id="144-sqlite-simple">14.4 使用数据库：sqlite-simple<a class="headerlink" href="#144-sqlite-simple" title="Permanent link">&para;</a></h2>
 <p>实现 HTTP 服务器之后，我们便能加入那张由应用程序相互通信织就的全球网络——也就是互联网。但如果程序记不住任何东西，通信又有什么意义呢？真正的应用程序即使在重启后也需要能够<em>持久化数据</em>。实现这一目的的常见方式是使用数据库。</p>
-<p>数据库有很多种，但可以说使用最广泛的简单数据库是<a href="https://www.sqlite.org/index.html">SQLite</a>。 SQLite 是一个库，可让你将数据存储在文件中并使用 <a href="">SQL，结构化查询语言</a> 对其进行处理。使用 SQLite，无需像 <a href="https://www.postgresql.org/">PostgreSQL</a> 或 <a href="https://www.mysql.com/">MySQL</a> 那样运行单独的数据库服务器。</p>
+<p>数据库有很多种，但可以说使用最广泛的简单数据库是 <a href="https://www.sqlite.org/index.html">SQLite</a>。SQLite 是一个库，可让你将数据存储在文件中，并使用 <a href="https://en.wikipedia.org/wiki/SQL">SQL，结构化查询语言</a> 对其进行处理。使用 SQLite 时，无需像 <a href="https://www.postgresql.org/">PostgreSQL</a> 或 <a href="https://www.mysql.com/">MySQL</a> 那样运行单独的数据库服务器。</p>
 <p>如果你不熟悉 SQL，请不要担心，你不需要在练习中编写自己的任何查询。如果你现在想学习一些 SQL，网上有很多教程。请参阅 <a href="https://www.w3schools.com/sql/">W3Schools</a>、<a href="https://sqlzoo.net/">SQL Zoo</a> 或 <a href="https://www.codecademy.com/learn/learn-sql">Codecademy</a>。</p>
 <p>Haskell 有许多用于使用 SQLite 的库，但我们在这里看一个名为 <a href="https://hackage.haskell.org/package/sqlite-simple-0.4.18.2">sqlite-simple</a> 的库。让我们稍微探索一下 GHCi 中的库。</p>
 <p>所有函数都位于 <code>Database.SQLite.Simple</code> 内部。你可以通过为 <code>open</code> 指定文件名来打开数据库，这是一个生成 <code>Connection</code> 的 IO 操作。</p>
@@ -1552,20 +1552,20 @@
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nf">open</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="kt">Connection</span>
 <a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="o">&gt;</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="s">&quot;example.sqlite&quot;</span>
 </code></pre></div>
-<p>要运行 SQL 查询，你可以使用 IO 操作 <code>query_</code>，该操作采用 <code>Connection</code> 和 <code>Query</code>，并生成结果列表。 <code>Query</code>类型只是围绕<code>Text</code>的简单<code>newtype</code>。 <code>query_</code>的结果类型是多态的：可以从数据库中读取任何满足<code>FromRow</code>类型类的类型。如果这让人感到困惑，请将其与 <code>read</code> 的类型进行比较：<code>Read a =&gt; String -&gt; a</code>。 <code>FromRow</code> 类类似于此数据库的 <code>Read</code>：它表示可以从数据库中读取的类型。无论如何，让我们从数据库中读取数字 <code>1</code>：</p>
+<p>要运行 SQL 查询，可以使用 IO 操作 <code>query_</code>。它接收一个 <code>Connection</code> 和一个 <code>Query</code>，并产生结果列表。<code>Query</code> 类型只是包裹 <code>Text</code> 的简单 <code>newtype</code>。<code>query_</code> 的结果类型是多态的：任何满足 <code>FromRow</code> 类型类的类型，都可以从数据库中读取出来。如果这让人困惑，可以把它和 <code>read</code> 的类型 <code>Read a =&gt; String -&gt; a</code> 做比较。<code>FromRow</code> 类似于这个数据库里的 <code>Read</code>：它表示可以从数据库中读取的类型。无论如何，我们先从数据库中读取数字 <code>1</code>：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">t</span><span class="w"> </span><span class="n">query_</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nf">query_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">FromRow</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Connection</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="o">&gt;</span><span class="w"> </span><span class="kt">:</span><span class="n">info</span><span class="w"> </span><span class="kt">Query</span>
 <a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="kr">newtype</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="p">{</span><span class="n">fromQuery</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Data</span><span class="o">.</span><span class="kt">Text</span><span class="o">.</span><span class="kt">Internal</span><span class="o">.</span><span class="kt">Text</span><span class="p">}</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="c1">-- Defined in ‘Database.SQLite.Simple.Types’</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="c1">-- ... rest of output omitted</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="c1">-- 定义于 ‘Database.SQLite.Simple.Types’</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">    </span><span class="c1">-- ... 省略其余输出</span>
 <a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">import</span><span class="w"> </span><span class="k">qualified</span><span class="w"> </span><span class="nn">Data.Text</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">T</span>
 <a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;SELECT 1;&quot;</span><span class="p">)</span>
 <a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">query_</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[[</span><span class="kt">Int</span><span class="p">]]</span>
 <a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span>
 <a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="p">[[</span><span class="mi">1</span><span class="p">]]</span>
 </code></pre></div>
-<p>顺便说一句，所有这些初始例子都使用仅返回常量数据的简单 <code>SELECT x, y, z;</code> 查询。稍后我们将担心数据库中的实际表。</p>
+<p>顺便说一句，前面这些初始示例都使用简单的 <code>SELECT x, y, z;</code> 查询，只返回常量数据。稍后我们再考虑数据库中的实际表。</p>
 <p>如果没有类型签名，我们会从 GHCi 收到错误，它无法决定我们要从数据库中读取哪种类型：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="ow">&lt;-</span><span class="w"> </span><span class="n">query_</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">q</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
@@ -1573,9 +1573,9 @@
 <a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="kt">Ambiguous</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="err">‘</span><span class="n">r0</span><span class="err">’</span><span class="w"> </span><span class="n">arising</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="err">‘</span><span class="n">query_</span><span class="err">’</span>
 <a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">      </span><span class="n">prevents</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">constraint</span><span class="w"> </span><span class="err">‘</span><span class="p">(</span><span class="kt">FromRow</span><span class="w"> </span><span class="n">r0</span><span class="p">)</span><span class="err">’</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">being</span><span class="w"> </span><span class="n">solved</span><span class="o">.</span>
 <a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">      </span><span class="kt">Probable</span><span class="w"> </span><span class="n">fix</span><span class="kt">:</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="n">annotation</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">specify</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="err">‘</span><span class="n">r0</span><span class="err">’</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="o">.</span>
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">      </span><span class="c1">-- rest of error omitted</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">      </span><span class="c1">-- 省略其余错误信息</span>
 </code></pre></div>
-<p>在继续之前，让我们仔细看看 <code>FromRow</code>。如果你以前接触过 SQL，你就会知道 SQL 查询返回许多<em>行</em>，每行由许多<em>值</em>（也称为<em>列</em>）组成。为了能够将 SQL 查询的结果解释为 Haskell 数据，我们需要一种方法来解释这些值和行。因此 sqlite-simple 定义了两个类，<code>FromField</code> 和 <code>FromRow</code>，以及一堆如下所示的实例。 （你可以从<a href="https://hackage.haskell.org/package/sqlite-simple-0.4.18.2/docs/Database-SQLite-Simple.html#t:FromRow">文档</a> 或通过使用 <code>:info FromRow</code> 等询问 GHCi 来找到这些实例。）</p>
+<p>在继续之前，让我们仔细看看 <code>FromRow</code>。如果你以前接触过 SQL，你就会知道 SQL 查询返回许多<em>行</em>，每行由许多<em>值</em>（也称为<em>列</em>）组成。为了能够将 SQL 查询的结果解释为 Haskell 数据，我们需要一种方法来解释这些值和行。因此 sqlite-simple 定义了两个类，<code>FromField</code> 和 <code>FromRow</code>，以及一堆如下所示的实例。（你可以从<a href="https://hackage.haskell.org/package/sqlite-simple-0.4.18.2/docs/Database-SQLite-Simple.html#t:FromRow">文档</a> 或通过使用 <code>:info FromRow</code> 等询问 GHCi 来找到这些实例。）</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">FromField</span><span class="w"> </span><span class="kt">Int</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">FromField</span><span class="w"> </span><span class="kt">Bool</span>
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">FromField</span><span class="w"> </span><span class="kt">String</span>
@@ -1584,7 +1584,7 @@
 <a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="kr">instance</span><span class="w"> </span><span class="p">(</span><span class="kt">FromField</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">FromField</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">FromRow</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
 <a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="kr">instance</span><span class="w"> </span><span class="p">(</span><span class="kt">FromField</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">FromField</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">FromField</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">FromRow</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
 </code></pre></div>
-<p>本质上，基本的 Haskell 数据类型满足 <code>FromField</code> 类，各种 Haskell 集合满足 <code>FromRow</code> 类。我们之前的例子是使用 <code>FromRow [a]</code> 和 <code>FromField Int</code> 实例从 <code>query_</code> 中获取 <code>[[Int]]</code>。这是一个使用其他一些数据类型的简单查询：</p>
+<p>大体上，基本的 Haskell 数据类型满足 <code>FromField</code> 类，各种 Haskell 集合满足 <code>FromRow</code> 类。我们之前的示例使用 <code>FromRow [a]</code> 和 <code>FromField Int</code> 实例，从 <code>query_</code> 得到了 <code>[[Int]]</code>。下面是一个使用其他数据类型的简单查询：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;SELECT 1, true, &#39;string&#39;;&quot;</span><span class="p">)</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">query_</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[(</span><span class="kt">Int</span><span class="p">,</span><span class="kt">Bool</span><span class="p">,</span><span class="kt">String</span><span class="p">)]</span>
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="kt">True</span><span class="p">,</span><span class="s">&quot;string&quot;</span><span class="p">)]</span>
@@ -1608,24 +1608,24 @@
 <a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="kr">instance</span><span class="w"> </span><span class="p">(</span><span class="kt">ToField</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">ToField</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">ToField</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">ToRow</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span>
 <a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="kr">instance</span><span class="w"> </span><span class="kt">ToField</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">ToRow</span><span class="w"> </span><span class="p">(</span><span class="kt">Only</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
 </code></pre></div>
-<p>参数化查询使用 <code>?</code> 字符来表示可以传入参数的槽。下面是一个简单的例子：</p>
+<p>参数化查询使用 <code>?</code> 字符来表示可以传入参数的槽。下面是一个简单的示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&quot;hello&quot;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span><span class="kt">String</span><span class="p">)</span>
 <a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parameterized</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;SELECT ?+1, true, ?;&quot;</span><span class="p">)</span>
 <a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">parameterized</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[(</span><span class="kt">Int</span><span class="p">,</span><span class="kt">Bool</span><span class="p">,</span><span class="kt">String</span><span class="p">)]</span>
 <a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="kt">True</span><span class="p">,</span><span class="s">&quot;hello&quot;</span><span class="p">)]</span>
 </code></pre></div>
-<p><strong>注意！</strong> 当仅使用一个参数执行查询时，你可以使用两个 <code>ToRow</code> 实例：<code>ToField a =&gt; ToRow [a]</code> 和 <code>ToField a =&gt; Only a</code>。 <code>Only</code> 数据类型在 <code>Data.Tuple.Only</code> 中定义，是 Haskell 没有单元素元组这一事实的一种解决方法。或者，大小为 1 的列表也可以。这同样适用于仅返回只有一列的行的查询：你可以使用 <code>[[X]]</code> 或 <code>[Only X]</code> 作为返回类型。这是一个例子：</p>
+<p><strong>注意！</strong> 当查询只有一个参数时，你可以使用两个 <code>ToRow</code> 实例：<code>ToField a =&gt; ToRow [a]</code> 和 <code>ToField a =&gt; Only a</code>。<code>Only</code> 数据类型定义在 <code>Data.Tuple.Only</code> 中，是对 Haskell 没有单元素元组这一事实的变通方案。或者，长度为 1 的列表也可以。同样，如果查询返回的每一行只有一列，你可以使用 <code>[[X]]</code> 或 <code>[Only X]</code> 作为返回类型。下面是一个示例：</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">pack</span><span class="w"> </span><span class="s">&quot;SELECT lower(?);&quot;</span><span class="p">)</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">(</span><span class="kt">Only</span><span class="w"> </span><span class="s">&quot;HELLO&quot;</span><span class="p">)</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[</span><span class="kt">Only</span><span class="w"> </span><span class="kt">String</span><span class="p">]</span>
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">[</span><span class="kt">Only</span><span class="w"> </span><span class="p">{</span><span class="n">fromOnly</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">}]</span>
 <a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="kt">Prelude</span><span class="w"> </span><span class="kt">Database</span><span class="o">.</span><span class="kt">SQLite</span><span class="o">.</span><span class="kt">Simple</span><span class="w"> </span><span class="kt">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;HELLO&quot;</span><span class="p">]</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="p">[[</span><span class="kt">String</span><span class="p">]]</span>
 <a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="p">[[</span><span class="s">&quot;hello&quot;</span><span class="p">]]</span>
 </code></pre></div>
-<p>这几乎就是你需要了解的有关 sqlite-simple 的全部信息：<code>open</code>、<code>query_</code>、<code>query</code>、<code>FromRow</code>、<code>ToRow</code>。哦，对了，还有一件事。如果不需要查询结果，可以使用<code>execute</code>和<code>execute_</code>函数。例如，它们对于将内容插入数据库很有用。</p>
+<p>这几乎就是你需要了解的 sqlite-simple 内容：<code>open</code>、<code>query_</code>、<code>query</code>、<code>FromRow</code>、<code>ToRow</code>。哦，对了，还有一件事。如果不需要查询结果，可以使用 <code>execute</code> 和 <code>execute_</code> 函数。例如，它们在向数据库插入内容时很有用。</p>
 <div class="language-haskell highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nf">execute_</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">Connection</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="nf">execute</span><span class="w"> </span><span class="ow">::</span><span class="w"> </span><span class="kt">ToRow</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">=&gt;</span><span class="w"> </span><span class="kt">Connection</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">Query</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="ow">-&gt;</span><span class="w"> </span><span class="kt">IO</span><span class="w"> </span><span class="nb">()</span>
 </code></pre></div>
-<p>你将在 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phonebook.hs"><code>exercises/Examples/Phonebook.hs</code></a> 下找到一个使用 sqlite-simple 维护电话簿的例子程序。该程序将电话簿保存在名为 <code>phonebook.db</code> 的文件中，其工作方式如下（从课程仓库中的 <code>exercises/Examples</code> 目录运行）：</p>
+<p>你将在 <a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Examples/Phonebook.hs"><code>exercises/Examples/Phonebook.hs</code></a> 下找到一个使用 sqlite-simple 维护电话簿的示例程序。该程序将电话簿保存在名为 <code>phonebook.db</code> 的文件中，其工作方式如下（从课程仓库中的 <code>exercises/Examples</code> 目录运行）：</p>
 <div class="language-text highlight"><pre><span></span><code>$ stack runhaskell Phonebook.hs
 (a)dd or (q)uery?
 a
@@ -1656,7 +1656,7 @@ bob
 [&quot;1234&quot;]
 [&quot;5678&quot;]
 </code></pre></div>
-<p>P.S. 如果你因缺乏 SQL 查询的编译时类型检查而感到沮丧，你可以看看 Haskell 的一些更高级的 SQL 库，例如 <a href="https://haskell-beam.github.io/beam/">Beam</a> 或 <a href="https://hackage.haskell.org/package/opaleye">Opaleye</a>。本课程使用 sqlite-simple 是为了简单起见，并避免过多地关注 SQL 的细节。</p>
+<p>附注：如果你因为 SQL 查询缺乏编译期类型检查而感到不满，可以看看 Haskell 中一些更高级的 SQL 库，例如 <a href="https://haskell-beam.github.io/beam/">Beam</a> 或 <a href="https://hackage.haskell.org/package/opaleye">Opaleye</a>。本课程使用 sqlite-simple 是为了保持简单，并避免过多关注 SQL 细节。</p>
 <h2 id="145">14.5 练习<a class="headerlink" href="#145" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://github.com/moocfi/haskell-mooc/blob/master/exercises/Set14a.hs">Set14a</a>: Text 和 ByteString</li>
@@ -1737,7 +1737,7 @@ bob
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright &copy; 2024 - Haskell MOOC 中文翻译
+      Copyright &copy; 2024 - Haskell MOOC 中文版
     </div>
   
   
