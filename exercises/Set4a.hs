@@ -20,7 +20,6 @@ import Data.Array
 import Data.List
 import qualified Data.Map as Map
 import Data.Ord
-import GHC.Arr (badSafeIndex)
 import Mooc.Todo
 
 ------------------------------------------------------------------------------
@@ -37,13 +36,11 @@ import Mooc.Todo
 
 allEqual :: (Eq a) => [a] -> Bool
 allEqual [] = True
-allEqual whole@(x : xs) = go x whole
-  where
-    go _ [] = True
-    go x (y : ys)
-      | x == y = go y ys
-      | otherwise = False
+allEqual [_] = True
+allEqual (x : y : xs) = x == y && allEqual (y : xs)
 
+-- allEqual [] = True
+-- allEqual (x:xs) = all (== x) xs
 ------------------------------------------------------------------------------
 -- Ex 2: implement the function distinct which returns True if all
 -- values in a list are different.
@@ -62,6 +59,9 @@ distinct (x : xs)
   | x `elem` xs = False
   | otherwise = distinct xs -- 这样明确递归比较函数式一些
 
+-- distinct [] = True
+-- distinct (x:xs) = x `notElem` xs && distinct xs
+
 ------------------------------------------------------------------------------
 -- Ex 3: implement the function middle that returns the middle value
 -- (not the smallest or the largest) out of its three arguments.
@@ -74,7 +74,8 @@ distinct (x : xs)
 --   middle 1 7 3        ==> 3
 
 middle :: (Ord a) => a -> a -> a -> a
-middle a b c = (sort [a, b, c]) !! 1 -- 肯定不是最优解法
+middle a b c = sort [a, b, c] !! 1 -- 肯定不是最优解法
+-- 这里如果用max min 的话反而比较麻烦
 
 ------------------------------------------------------------------------------
 -- Ex 4: return the range of an input list, that is, the difference
@@ -108,8 +109,12 @@ rangeOf xs = maximum xs - minimum xs -- 比大小需要Ord, 运算需要Num
 --   longest [[1,2,3],[4,5],[6]] ==> [1,2,3]
 --   longest ["bcd","def","ab"] ==> "bcd"
 
-longest :: [[a]] -> [a]
-longest xs = maximumBy (comparing length) xs
+longest :: (Ord a) => [[a]] -> [a]
+longest xs = maximumBy go xs
+  where
+    go a b = case compare (length a) (length b) of
+      EQ -> compare (head b) (head a)
+      ord -> ord
 
 ------------------------------------------------------------------------------
 -- Ex 6: Implement the function incrementKey, that takes a list of
@@ -126,7 +131,11 @@ longest xs = maximumBy (comparing length) xs
 --   incrementKey 'a' [('a',3.4)] ==> [('a',4.4)]
 
 incrementKey :: (Eq k, Num v) => k -> [(k, v)] -> [(k, v)]
-incrementKey x ss = map (\(k, v) -> if x == k then (k, v + 1) else (k, v)) ss
+incrementKey x ss = map inc ss
+  where
+    inc (k, v)
+      | x == k = (k, v + 1)
+      | otherwise = (k, v)
 
 ------------------------------------------------------------------------------
 -- Ex 7: compute the average of a list of values of the Fractional
@@ -180,7 +189,11 @@ winner scores player1 player2
 --     ==> Map.fromList [(False,3),(True,1)]
 
 freqs :: (Eq a, Ord a) => [a] -> Map.Map a Int
-freqs xs = todo
+freqs xs = foldr go Map.empty xs -- 函数、初始acc、fold的容器
+  where
+    go k acc = Map.alter upd k acc -- 这里alter的是acc这个map，将其中的键值对用upd函数修改，k表示当前取到的key（也就是迭代取到的变量）
+    upd Nothing = Just 1
+    upd (Just oldValue) = Just (oldValue + 1)
 
 ------------------------------------------------------------------------------
 -- Ex 10: recall the withdraw example from the course material. Write a
@@ -215,7 +228,7 @@ freqs xs = todo
 transfer :: String -> String -> Int -> Map.Map String Int -> Map.Map String Int
 transfer from to amount bank
   | amount < 0 = bank
-  | not (Map.member from bank) || not (Map.member to bank) = bank
+  | Map.notMember from bank || Map.notMember to bank = bank
   | v1 < amount = bank
   | otherwise =
       let tmp1 = Map.insert from (v1 - amount) bank
@@ -232,7 +245,10 @@ transfer from to amount bank
 --         ==> array (1,4) [(1,"one"),(2,"three"),(3,"two"),(4,"four")]
 
 swap :: (Ix i) => i -> i -> Array i a -> Array i a
-swap i j arr = todo
+swap i j arr = arr // [(i, b), (j, a)]
+  where
+    a = arr ! i
+    b = arr ! j
 
 ------------------------------------------------------------------------------
 -- Ex 12: given an Array, find the index of the largest element. You
@@ -241,6 +257,6 @@ swap i j arr = todo
 -- You may assume that the largest element is unique.
 --
 -- Hint: check out Data.Array.indices or Data.Array.assocs
-
+-- assocs表示将array转换成关联的[(i, a)], 然后用maximumBy取出其中value最大的元组，然后用fst返回其下标
 maxIndex :: (Ix i, Ord a) => Array i a -> i
-maxIndex = todo
+maxIndex arr = fst . maximumBy (comparing snd) . assocs $ arr
